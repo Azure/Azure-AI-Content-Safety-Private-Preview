@@ -6,8 +6,12 @@ The Content Moderator service is an API that is powered by artificial intelligen
 This documentation contains the following article types:
 
 - **How the content moderator works** contain instructions for using the service in more general ways.
+
 - **Concepts** provide in-depth explanations of the service functionality and features.
+
 - **QuickStart** are getting-started instructions to guide you through making requests to the service.
+
+  
 
 # 📈How Content Moderator works
 
@@ -257,7 +261,7 @@ The confidence scores for each model head sum to 1.
 | **Model output detail** | Risk level                                                   |
 | **Start_char_index**    | First character processed.                                   |
 | **End_char_index**      | Last character processed.                                    |
-| **Diagnose**            | You'll see that the email, IP address, phone, and address values are under a JSON array value of PII. You will see these values in diagnosis. |
+| **Diagnosis Detail**    | You'll see that the email, IP address, phone, and address values are under a JSON array value of PII. You will see these values in diagnosis. |
 
 ## 5. Error Codes
 
@@ -279,6 +283,3 @@ The confidence scores for each model head sum to 1.
 If you get stuck, [shoot us an email](mailto:acm-team@microsoft.com) or use the feedback widget on the upper right of any page.
 
 We're excited you're here! ![:blue-heart:](https://content-moderator.readme.io/img/emojis/blue-heart.png)
-=======
-
->>>>>>> 7fe17fec8bb222320e4f88adf370ecbf68e6216a
