@@ -65,7 +65,7 @@ This feature of the API provide scores for several different categories. Here ar
 
 
 
-# 📝QuickStart - Test text moderation by using the API 
+# 📝QuickStart - Text moderation by using the API 
 
 Before you can begin to test content moderation or integrate it into your custom applications, you need to create and subscribe to a Content Moderator resource and get the subscription key for accessing the resource.
 
