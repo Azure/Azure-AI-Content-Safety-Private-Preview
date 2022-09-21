@@ -83,35 +83,36 @@ Before you can begin to test content moderation or integrate it into your custom
 
 The resource will take a few minutes to deploy. After it does, go to the new resource.
 
-## 2. Copy the subscription key
-
 To access your Content Moderator resource, you'll need a subscription key:
 
 1. In the left pane, under **Resource Management**, select **Keys and Endpoints**.
 2. Copy one of the subscription key values for later use.
 
-## 3. Sample Requests
+## 2. Sample Requests
 
-Now that you have a resource available in Azure for content moderation, and you have a subscription key for that resource, let's run some tests by using the API web-based testing console.
+Now that you have a resource available in Azure for content moderation, and you have a subscription key for that resource, let's run some tests by using the API.
+
+You can test the API with cURL:
+
+```json
+curl -X POST "https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/Text/Detect?api-version=2022-09-30-preview"
+-H "Ocp-Apim-Subscription-Key: {subscription key}"
+-H "Content-Type: application/json" 
+-d "{ "text": "Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052" }"
+```
 
 1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
+2. Change the body of the request to whatever string of text you'd like to analyze.
 
-   ```json
-   {
-       "text":"Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052",
-       "categories": []
-   
-   ```
+> ### 🚧NOTE:
+>
+> The default maximum length for text submissions is 10K characters. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
 
-   > ### 🚧NOTE:
-   >
-   > The default maximum length for text submissions is 10K characters. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
 
-2. Leave the sample text in place. For the first test run, classify option is also set to optional and then select **Send**.
 
 ## 4. Evaluate the response
 
-This is an example of the returned API response.
+You should see the text moderation results displayed as JSON data. For example:
 
 ```json
 {
@@ -283,3 +284,4 @@ The confidence scores for each model head sum to 1.
 If you get stuck, [shoot us an email](mailto:acm-team@microsoft.com) or use the feedback widget on the upper right of any page.
 
 We're excited you're here! ![:blue-heart:](https://content-moderator.readme.io/img/emojis/blue-heart.png)
+
