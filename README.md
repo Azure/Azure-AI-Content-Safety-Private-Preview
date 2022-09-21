@@ -1,5 +1,5 @@
-#  Content Moderator Documentation
-Welcome to Azure Content Moderator service!
+#  Content Moderator Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
+Welcome to Azure Content Moderator service! 
 
 The Content Moderator service is an API that is powered by artificial intelligence and runs on Azure. The service can scan text and images for potentially risky, offensive, or undesirable aspects. Having a large amount of content to moderate can be time consuming. Using a service, such as Azure Content Moderator, you can automate much of this process and set up the need for human review as appropriate.
 
