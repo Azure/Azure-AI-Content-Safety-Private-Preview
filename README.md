@@ -1,7 +1,9 @@
-# Content Moderator Documentation
+#  Content Moderator Documentation
+Welcome to Azure Content Moderator service!
+
 The Content Moderator service is an API that is powered by artificial intelligence and runs on Azure. The service can scan text and images for potentially risky, offensive, or undesirable aspects. Having a large amount of content to moderate can be time consuming. Using a service, such as Azure Content Moderator, you can automate much of this process and set up the need for human review as appropriate.
 
-## Overview 
+##  📒 Overview 
 
 This documentation contains the following article types:
 
@@ -13,13 +15,13 @@ This documentation contains the following article types:
 
   
 
-# 📈How Content Moderator works
+##  🔎How Content Moderator works
 
 Using the Content Moderator service requires an Azure subscription and a Content Moderator resource. 
 
 Microsoft provides a free pricing tier that you can use to test the service. Using the free tier, you can determine if the Content Moderator service is the right choice for your organization. The Content Moderator service can be accessed through REST. 
 
-## The APIs
+- ### The APIs
 
 There are different types of APIs available in Content Moderator. The following table describes the current available API.
 
@@ -27,15 +29,15 @@ There are different types of APIs available in Content Moderator. The following 
 | :-------------- | :----------------------------------------------------------- |
 | Text Moderation | Scans text for sexual, violence, profanity, hate speech, self harm and personal data aspect |
 
-## Language availability
+- ### Language availability
 
 The API is available to use in English. The team is constantly developing models to support new languages.
 
 
 
-# 🚦Concepts
+##  🗃Concepts
 
-## Text category
+### Text category
 
 This feature of the API provide scores for several different categories. Here are some of the categories our API can provide scores for:
 
@@ -62,14 +64,14 @@ This feature of the API provide scores for several different categories. Here ar
   - UK phone numbers
 
   - Social Security numbers
+  
+    
 
-
-
-# 📝QuickStart - Text moderation by using the API 
+## 💡 QuickStart - Test text moderation by using the API 
 
 Before you can begin to test content moderation or integrate it into your custom applications, you need to create and subscribe to a Content Moderator resource and get the subscription key for accessing the resource.
 
-## 1. Create and subscribe to a Content Moderator resource
+### 1. Create and subscribe to a Content Moderator resource
 
 1. Sign in to the [Azure portal](https://portal.azure.com/).
 2. In the left pane, select **Create a resource**.
@@ -88,7 +90,7 @@ To access your Content Moderator resource, you'll need a subscription key:
 1. In the left pane, under **Resource Management**, select **Keys and Endpoints**.
 2. Copy one of the subscription key values for later use.
 
-## 2. Sample Requests
+### 2. Sample Requests
 
 Now that you have a resource available in Azure for content moderation, and you have a subscription key for that resource, let's run some tests by using the API.
 
@@ -108,9 +110,7 @@ curl -X POST "https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/conte
 >
 > The default maximum length for text submissions is 10K characters. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
 
-
-
-## 4. Evaluate the response
+### 3. Evaluate the response
 
 You should see the text moderation results displayed as JSON data. For example:
 
@@ -264,7 +264,7 @@ The confidence scores for each model head sum to 1.
 | **End_char_index**      | Last character processed.                                    |
 | **Diagnosis Detail**    | You'll see that the email, IP address, phone, and address values are under a JSON array value of PII. You will see these values in diagnosis. |
 
-## 5. Error Codes
+### 4. Error Codes
 
 | HTML Status | Meaning                                                      |
 | :---------- | :----------------------------------------------------------- |
@@ -279,7 +279,7 @@ The confidence scores for each model head sum to 1.
 
 
 
-#  💬 We're here to help!
+##  💬 We're here to help!
 
 If you get stuck, [shoot us an email](mailto:acm-team@microsoft.com) or use the feedback widget on the upper right of any page.
 
