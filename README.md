@@ -279,3 +279,6 @@ The confidence scores for each model head sum to 1.
 If you get stuck, [shoot us an email](mailto:acm-team@microsoft.com) or use the feedback widget on the upper right of any page.
 
 We're excited you're here! ![:blue-heart:](https://content-moderator.readme.io/img/emojis/blue-heart.png)
+=======
+
+>>>>>>> 7fe17fec8bb222320e4f88adf370ecbf68e6216a
