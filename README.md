@@ -1,4 +1,7 @@
+
+
 #  Content Moderator Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
+
 Welcome to Azure Content Moderator service! 
 
 The Content Moderator service is powered by Microsoft artificial intelligence and runs on Azure. The service can scan text and images for potentially risky, offensive, or undesirable aspects. Having a large amount of content to moderate can be time consuming. Using a service, such as Azure Content Moderator, you can automate much of this process and set up the need for human review as appropriate.
@@ -17,11 +20,11 @@ This documentation contains the following article types:
 
 ##  🔎How Content Moderator works
 
-Using the Content Moderator service requires an Azure subscription and a Content Moderator resource. The Content Moderator service can be accessed through REST. 
+The Content Moderator service can be accessed through REST. 
 
-- ### The APIs
+- ### Type of analaysis
 
-There are different types of APIs available in Content Moderator. The following table describes **the current available API**.
+There are different types of analysis available in Content Moderator. The following table describes **the current available API**.
 
 | API             | Functionality                                                |
 | :-------------- | :----------------------------------------------------------- |
@@ -69,7 +72,7 @@ This feature of the API provide scores for several different categories. Here ar
 
 Before you can begin to test content moderation or integrate it into your custom applications, you need to create and subscribe to a Content Moderator resource and get the subscription key for accessing the resource.
 
-### 1. Create and subscribe to a Content Moderator resource
+### Step 1. Create and subscribe to a Content Moderator resource
 
 1. Sign in to the [Azure portal](https://portal.azure.com/).
 2. In the left pane, select **Create a resource**.
@@ -88,54 +91,36 @@ To access your Content Moderator resource, you'll need a subscription key:
 1. In the left pane, under **Resource Management**, select **Keys and Endpoints**.
 2. Copy one of the subscription key values for later use.
 
-### 2. Sample Requests
+### Step 2. Sample Requests
 
-Now that you have a resource available in Azure for content moderation, and you have a subscription key for that resource, let's run some tests by using the API.
-
-You can test the API with cURL:
-
-```json
-curl -X POST "https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/Text/Detect?api-version=2022-09-30-preview"
--H "Ocp-Apim-Subscription-Key: {subscription key}"
--H "Content-Type: application/json" 
--d "{ "text": "Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052" }"
-```
+Now that you have a resource available in Azure for Content Moderator, and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
 
 1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 2. Change the body of the request to whatever string of text you'd like to analyze.
 
+```json
+{
+    "text":"You are an idiot! Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052",
+    "categories": []
+}
+```
+
+| Name           | Description                                                  |
+| :------------- | :----------------------------------------------------------- |
+| **Text**       | (required) The text to score. This is assumed to be raw text to be checked. Other non-ascii characters can be included. |
+| **Categories** | (required) A category name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. |
+
 > ### 🚧NOTE:
 >
-> The default maximum length for text submissions is 10K characters. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
+> The default maximum length for text submissions is **10K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
 
-### 3. Evaluate the response
+### Step 3. Evaluate the response
 
-You should see the text moderation results displayed as JSON data. For example:
+You should see the Text moderation results displayed as JSON data. For example:
 
 ```json
 {
     "value": [
-        {
-            "category": "Sexual",
-            "isHitted": false,
-            "score": 5.1635565E-5,
-            "modelOutputDetail": null,
-            "diagnoses": null
-        },
-        {
-            "category": "Violence",
-            "isHitted": false,
-            "score": 0.0012748118,
-            "modelOutputDetail": null,
-            "diagnoses": null
-        },
-        {
-            "category": "HateSpeech",
-            "isHitted": false,
-            "score": 0.11488042,
-            "modelOutputDetail": null,
-            "diagnoses": null
-        },
         {
             "category": "Profanity",
             "isHitted": false,
@@ -144,9 +129,44 @@ You should see the text moderation results displayed as JSON data. For example:
             "diagnoses": null
         },
         {
-            "category": "SelfHarm",
+            "category": "Sexual",
             "isHitted": false,
-            "score": 0.002663622,
+            "score": 0.0012824624,
+            "modelOutputDetail": null,
+            "diagnoses": null
+        },
+        {
+            "category": "SensitiveTopics",
+            "isHitted": false,
+            "score": 0.0,
+            "modelOutputDetail": null,
+            "diagnoses": null
+        },
+        {
+            "category": "SelfHarm",
+            "isHitted": true,
+            "score": 0.7939568,
+            "modelOutputDetail": null,
+            "diagnoses": null
+        },
+        {
+            "category": "DisInfoTopics",
+            "isHitted": false,
+            "score": 0.0,
+            "modelOutputDetail": null,
+            "diagnoses": null
+        },
+        {
+            "category": "Violence",
+            "isHitted": false,
+            "score": 0.01797534,
+            "modelOutputDetail": null,
+            "diagnoses": null
+        },
+        {
+            "category": "HateSpeech",
+            "isHitted": true,
+            "score": 0.99421316,
             "modelOutputDetail": null,
             "diagnoses": null
         },
@@ -157,8 +177,8 @@ You should see the text moderation results displayed as JSON data. For example:
             "modelOutputDetail": null,
             "diagnoses": [
                 {
-                    "start": 21,
-                    "end": 36,
+                    "start": 39,
+                    "end": 54,
                     "isHitted": true,
                     "score": 1.0,
                     "diagnosisDetail": {
@@ -166,8 +186,8 @@ You should see the text moderation results displayed as JSON data. For example:
                     }
                 },
                 {
-                    "start": 61,
-                    "end": 76,
+                    "start": 79,
+                    "end": 94,
                     "isHitted": true,
                     "score": 0.95,
                     "diagnosisDetail": {
@@ -175,8 +195,17 @@ You should see the text moderation results displayed as JSON data. For example:
                     }
                 },
                 {
-                    "start": 45,
-                    "end": 55,
+                    "start": 80,
+                    "end": 94,
+                    "isHitted": true,
+                    "score": 0.6,
+                    "diagnosisDetail": {
+                        "entity_type": "IP_ADDRESS"
+                    }
+                },
+                {
+                    "start": 63,
+                    "end": 73,
                     "isHitted": true,
                     "score": 1.0,
                     "diagnosisDetail": {
@@ -184,8 +213,8 @@ You should see the text moderation results displayed as JSON data. For example:
                     }
                 },
                 {
-                    "start": 45,
-                    "end": 55,
+                    "start": 63,
+                    "end": 73,
                     "isHitted": false,
                     "score": 0.05,
                     "diagnosisDetail": {
@@ -193,8 +222,8 @@ You should see the text moderation results displayed as JSON data. For example:
                     }
                 },
                 {
-                    "start": 95,
-                    "end": 102,
+                    "start": 113,
+                    "end": 120,
                     "isHitted": true,
                     "score": 0.85,
                     "diagnosisDetail": {
@@ -202,17 +231,8 @@ You should see the text moderation results displayed as JSON data. For example:
                     }
                 },
                 {
-                    "start": 45,
-                    "end": 55,
-                    "isHitted": false,
-                    "score": 0.01,
-                    "diagnosisDetail": {
-                        "entity_type": "US_DRIVER_LICENSE"
-                    }
-                },
-                {
-                    "start": 45,
-                    "end": 55,
+                    "start": 63,
+                    "end": 73,
                     "isHitted": true,
                     "score": 0.75,
                     "diagnosisDetail": {
@@ -220,8 +240,8 @@ You should see the text moderation results displayed as JSON data. For example:
                     }
                 },
                 {
-                    "start": 28,
-                    "end": 36,
+                    "start": 46,
+                    "end": 54,
                     "isHitted": true,
                     "score": 0.5,
                     "diagnosisDetail": {
@@ -229,8 +249,17 @@ You should see the text moderation results displayed as JSON data. For example:
                     }
                 },
                 {
-                    "start": 107,
-                    "end": 112,
+                    "start": 63,
+                    "end": 73,
+                    "isHitted": false,
+                    "score": 0.01,
+                    "diagnosisDetail": {
+                        "entity_type": "US_DRIVER_LICENSE"
+                    }
+                },
+                {
+                    "start": 125,
+                    "end": 130,
                     "isHitted": true,
                     "score": 0.85,
                     "diagnosisDetail": {
@@ -241,35 +270,67 @@ You should see the text moderation results displayed as JSON data. For example:
         }
     ]
 }
-
 ```
 
-**Response Format Reference**
-
-A classifier classifies an input (an entire sentence of text) into different categories. It assigns a confidence score for categories.
+#### **Response Format Reference**
 
 Classification models can be multi-headed. For example, when a text is run through text moderation model, one head might classify sexual content while another head might classify violence.
 
-The confidence scores for each model head sum to 1.
+The confidence score is from 0 to 1. A higher score indicates a greater likelihood that a reader would perceive the comment as containing the given category. For example, a comment like “ You are an idiot ” may receive a probability score of 0.99 for category Hate Speech, indicating that 9 out of 10 people would perceive that comment as hate. 
+
+```json
+{
+            "category": "HateSpeech",
+            "isHitted": true,
+            "score": 0.99754024,
+            "modelOutputDetail": null,
+            "diagnoses": null
+        },
+```
+
+> ### 🚧NOTE: **Why the score might change**
+>
+> We update our models regularly. Before updating, we thoroughly test to ensure models meet a high quality bar for the results of these tests.  However you may see that a specific score changed as a result of an update. Note that we are not able to notify users each time an update is released.
+
+
 
 | Name                    | Description                                                  |
 | :---------------------- | :----------------------------------------------------------- |
 | **Category**            | Each output class that the API predicts.                     |
 | **Is hitted**           | Whether harmful content has been detected or not             |
-| **Score**               | Confidence score of predicted class                          |
-| **Model output detail** | Risk level                                                   |
+| **Score**               | Confidence score of predicted categories                     |
+| **Model output detail** | Risk level (Not for this version)                            |
 | **Start_char_index**    | First character processed.                                   |
 | **End_char_index**      | Last character processed.                                    |
 | **Diagnosis Detail**    | You'll see that the email, IP address, phone, and address values are under a JSON array value of PII. You will see these values in diagnosis. |
 
-### 4. Error Codes
+### Step 4: Limitations
+
+#### Quota limit
+
+By default, we set a quota limit:
+
+| Pricing Tier | Query per second (QPS) | Maximum value                                                |
+| :----------- | :--------------------- | ------------------------------------------------------------ |
+| F0           | 1                      | 5000 requests per resource per month.                        |
+| S0           | 20                     | 5000 requests per resource per month. (to be finished and wait for developers' stress test) |
+
+If you're running a production website, you may need to [request a quota increase](acm-team@microsoft.com).
+
+#### Latency & Reliability
+
+We aim to keep Text moderation API fast enough to be used in real-time scenarios as comments are being written, with response times around 100ms. Different categories will have different latencies. **(to be finished and wait for developers' stress test)**
+
+#### API Errors
+
+There are several types of errors you may encounter while using the Text moderation API. The message and details fields will provide the information you need to understand the error.
 
 | HTML Status | Meaning                                                      |
 | :---------- | :----------------------------------------------------------- |
 | 200         | Ok – everything worked!                                      |
 | 400         | Bad request – the request could not be accepted.             |
 | 403         | Unauthorized – there is an issue with the API key.           |
-| 404         | Not found – the page could not be found.                     |
+| 404         | Not found.                                                   |
 | 429         | Too many requests – you’ve made too many requests to our API, please try again in a few minutes. |
 | 500         | Internal service error – we had a problem with our server. Please try again later. |
 | 503         | Service unavailable – we are temporarily offline for maintenance. Please try again later. |
