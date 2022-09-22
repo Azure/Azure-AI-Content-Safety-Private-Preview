@@ -1,10 +1,12 @@
 
 
-#  Content Moderator Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
+#  Content Moderator v2 Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
 
-Welcome to Azure Content Moderator service! 
+Welcome to Azure Content Moderator service v2 Private Preview! 
 
-The Content Moderator service is powered by Microsoft artificial intelligence and runs on Azure. The service can scan text and images for potentially risky, offensive, or undesirable aspects. Having a large amount of content to moderate can be time consuming. Using a service, such as Azure Content Moderator, you can automate much of this process and set up the need for human review as appropriate.
+The Azure Content Moderator API is a cognitive service that checks text, image, and video content for material that is potentially offensive, risky, or otherwise undesirable. In the upcoming v2 private preview, we are going to introduce a reboot of ACM, which lets developers and data scientists use new SOTA text, image, audio video and multi-modal models to make the applications using the new AI generative models by OpenAI (like GPT-X, Dall-E 2 and Codex, which powers GitHub Copilot) and Microsoft products safe to use. The new models are not only good at making AIs safe, but they are also targeted at User Generated Content on social media, game chat room and forum...
+
+**In the Sept 2023 release, APIs to detect harm content in text are the release focus.**
 
 ##  📒 Overview 
 
@@ -20,7 +22,7 @@ This documentation contains the following article types:
 
 ##  🔎How Content Moderator works
 
-The Content Moderator service can be accessed through REST. 
+The Content Moderator service can be accessed through RESTful APIs. 
 
 - ### Type of analaysis
 
@@ -32,8 +34,7 @@ There are different types of analysis available in Content Moderator. The follow
 
 - ### Language availability
 
-The API is only available to use in English. The team is constantly developing models to support new languages.
-
+The API is only available in English. New languages will be supported in the future.
 
 
 ##  🗃Concepts
