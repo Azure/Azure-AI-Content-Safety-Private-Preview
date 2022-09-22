@@ -1,6 +1,6 @@
 
 
-#  Content Moderator Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
+#  Content Moderator v2 Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
 
 Welcome to Azure Content Moderator service! 
 
