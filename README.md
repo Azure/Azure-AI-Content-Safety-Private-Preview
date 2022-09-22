@@ -92,9 +92,23 @@ To access your Content Moderator resource, you'll need a subscription key:
 1. In the left pane, under **Resource Management**, select **Keys and Endpoints**.
 2. Copy one of the subscription key values for later use.
 
-### Step 2. Sample Requests
+### Step 2. Sample Request
 
 Now that you have a resource available in Azure for Content Moderator, and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
+
+Here is a sample request with cURL. 
+
+```json
+
+curl -X POST "https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview%22"
+-H "Ocp-Apim-Subscription-Key: {subscription key}"
+-H "Content-Type: application/json" 
+-H "Categories: []" 
+-d "{ "text": "Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052" }"
+      
+```
+
+#### **Request Format Reference**
 
 1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 2. Change the body of the request to whatever string of text you'd like to analyze.
