@@ -22,7 +22,7 @@ This documentation contains the following article types:
 
 ##  🔎How Content Moderator works
 
-The Content Moderator service can be accessed through REST. 
+The Content Moderator service can be accessed through RESTful APIs. 
 
 - ### Type of analaysis
 
@@ -34,8 +34,7 @@ There are different types of analysis available in Content Moderator. The follow
 
 - ### Language availability
 
-The API is only available to use in English. The team is constantly developing models to support new languages.
-
+The API is only available in English. New languages will be supported in the future.
 
 
 ##  🗃Concepts
