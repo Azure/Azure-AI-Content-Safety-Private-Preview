@@ -103,7 +103,7 @@ curl -X POST "https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/conte
 -H "Ocp-Apim-Subscription-Key: {subscription key}"
 -H "Content-Type: application/json" 
 -H "Categories: []" 
--d "{ "text": "Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052" }"
+-d "{ "text": "You are an idiot! Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052" }"
 ```
 
 #### **Request Format Reference**
