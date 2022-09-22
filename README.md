@@ -12,7 +12,7 @@ The Azure Content Moderator API is a cognitive service that checks text, image a
 
 This documentation contains the following article types:
 
-- **How the content moderator works** contain instructions for using the service in more general ways.
+- **How the Content Moderator works** contain instructions for using the service in more general ways.
 
 - **Concepts** provide in-depth explanations of the service categories.
 
@@ -34,7 +34,7 @@ There are different types of analysis available in Content Moderator. The follow
 
 - ### Language availability
 
-The API is only available in English. New languages will be supported in the future.
+Currently this API is only available in English. New languages will be supported in the future.
 
 
 ##  🗃Concepts
@@ -45,7 +45,7 @@ This feature of the API provide scores for several different categories. Here ar
 
 - **Category 1:** **Sexual** - Sexual describes language related to anatomical organs and genitals, romantic relationship, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one’s will, prostitution, pornography and Child Sexual Abuse Material (CSAM).
 
-- **Category 2:** **Violence** - Violence describes language related to physical actions intended to hurt, injure, damage, or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc. 
+- **Category 2:** **Violence** - Violence describes language related to physical actions intended to hurt, injure, damage or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc. 
 
 - **Category 3:** **Hate Speech** - Hate speech is defined as any speech that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.
 
@@ -65,7 +65,7 @@ This feature of the API provide scores for several different categories. Here ar
 
   - UK phone numbers
 
-  - Social Security numbers
+  - Social Security Numbers
   
     
 
@@ -94,7 +94,7 @@ To access your Content Moderator resource, you'll need a subscription key:
 
 ### Step 2. Sample Request
 
-Now that you have a resource available in Azure for Content Moderator, and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
+Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
 
 Here is a sample request with cURL. 
 
@@ -332,7 +332,7 @@ If you're running a production website, you may need to [request a quota increas
 
 #### Latency & Reliability
 
-We aim to keep Text moderation API fast enough to be used in real-time scenarios as comments are being written, with response times around 100ms. Different categories will have different latencies. **(to be finished and wait for developers' stress test)**
+We aim to keep Text moderation API fast enough to be used in real-time scenarios as comments are being written, with response times around 100ms. Different categories will have different latencies. **(to be finished and wait for developer's stress test)**
 
 #### API Errors
 
