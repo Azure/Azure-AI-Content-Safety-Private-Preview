@@ -98,14 +98,12 @@ Now that you have a resource available in Azure for Content Moderator, and you h
 
 Here is a sample request with cURL. 
 
-```json
-
+```shell
 curl -X POST "https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview%22"
 -H "Ocp-Apim-Subscription-Key: {subscription key}"
 -H "Content-Type: application/json" 
 -H "Categories: []" 
 -d "{ "text": "Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052" }"
-      
 ```
 
 #### **Request Format Reference**
