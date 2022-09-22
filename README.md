@@ -1,7 +1,7 @@
 #  Content Moderator Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
 Welcome to Azure Content Moderator service! 
 
-The Content Moderator service is an API that is powered by artificial intelligence and runs on Azure. The service can scan text and images for potentially risky, offensive, or undesirable aspects. Having a large amount of content to moderate can be time consuming. Using a service, such as Azure Content Moderator, you can automate much of this process and set up the need for human review as appropriate.
+The Content Moderator service is powered by Microsoft artificial intelligence and runs on Azure. The service can scan text and images for potentially risky, offensive, or undesirable aspects. Having a large amount of content to moderate can be time consuming. Using a service, such as Azure Content Moderator, you can automate much of this process and set up the need for human review as appropriate.
 
 ##  📒 Overview 
 
@@ -9,7 +9,7 @@ This documentation contains the following article types:
 
 - **How the content moderator works** contain instructions for using the service in more general ways.
 
-- **Concepts** provide in-depth explanations of the service functionality and features.
+- **Concepts** provide in-depth explanations of the service categories.
 
 - **QuickStart** are getting-started instructions to guide you through making requests to the service.
 
@@ -17,21 +17,19 @@ This documentation contains the following article types:
 
 ##  🔎How Content Moderator works
 
-Using the Content Moderator service requires an Azure subscription and a Content Moderator resource. 
-
-Microsoft provides a free pricing tier that you can use to test the service. Using the free tier, you can determine if the Content Moderator service is the right choice for your organization. The Content Moderator service can be accessed through REST. 
+Using the Content Moderator service requires an Azure subscription and a Content Moderator resource. The Content Moderator service can be accessed through REST. 
 
 - ### The APIs
 
-There are different types of APIs available in Content Moderator. The following table describes the current available API.
+There are different types of APIs available in Content Moderator. The following table describes **the current available API**.
 
 | API             | Functionality                                                |
 | :-------------- | :----------------------------------------------------------- |
-| Text Moderation | Scans text for sexual, violence, profanity, hate speech, self harm and personal data aspect |
+| Text Moderation | Scans text for sexual, violence, profanity, hate speech, self harm and personal data. |
 
 - ### Language availability
 
-The API is available to use in English. The team is constantly developing models to support new languages.
+The API is only available to use in English. The team is constantly developing models to support new languages.
 
 
 
@@ -67,7 +65,7 @@ This feature of the API provide scores for several different categories. Here ar
   
     
 
-## 💡 QuickStart - Test text moderation by using the API 
+## 💡 QuickStart - Text moderation by using the API 
 
 Before you can begin to test content moderation or integrate it into your custom applications, you need to create and subscribe to a Content Moderator resource and get the subscription key for accessing the resource.
 
