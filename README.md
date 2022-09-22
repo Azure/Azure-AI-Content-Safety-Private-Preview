@@ -107,7 +107,7 @@ Now that you have a resource available in Azure for Content Moderator, and you h
 
 | Name           | Description                                                  |
 | :------------- | :----------------------------------------------------------- |
-| **Text**       | (required) The text to score. This is assumed to be raw text to be checked. Other non-ascii characters can be included. |
+| **Text**       | (required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. |
 | **Categories** | (required) A category name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. |
 
 > ### 🚧NOTE:
