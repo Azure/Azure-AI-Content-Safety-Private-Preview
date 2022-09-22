@@ -2,9 +2,11 @@
 
 #  Content Moderator v2 Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
 
-Welcome to Azure Content Moderator service! 
+Welcome to Azure Content Moderator service v2 Private Preview! 
 
-The Content Moderator service is powered by Microsoft artificial intelligence and runs on Azure. The service can scan text and images for potentially risky, offensive, or undesirable aspects. Having a large amount of content to moderate can be time consuming. Using a service, such as Azure Content Moderator, you can automate much of this process and set up the need for human review as appropriate.
+The Azure Content Moderator API is a cognitive service that checks text, image, and video content for material that is potentially offensive, risky, or otherwise undesirable. In the upcoming v2 private preview, we are going to introduce a reboot of ACM, which lets developers and data scientists use new SOTA text, image and audio multi-modal models to make the applications using the new AI generative models by OpenAI (like GPT-X, Dall-E 2 and Codex, which powers GitHub Copilot) and Microsoft products safe to use. The new models are not only good at making AIs safe, but they are also targeted at User Generated Content. 
+
+**In the Sept 2023 release, harmful text content detect api powered SOTA models are the release focus.**
 
 ##  📒 Overview 
 
