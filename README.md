@@ -75,7 +75,7 @@ Here is a sample request with cURL.
 ```shell
 curl --request POST \
      --url 'https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
-     --header 'Ocp-Apim-Subscription-Key: bd08c370a76447eaa97b57ad8488b531' \
+     --header 'Ocp-Apim-Subscription-Key: ' \
      --header 'accept: application/json' \
      --header 'content-type: application/json' \
      --data '
@@ -95,7 +95,7 @@ payload = {"text": "You are an idiot. Is this a crap email abcdef@abcd.com, phon
 headers = {
     "accept": "application/json",
     "content-type": "application/json",
-    "Ocp-Apim-Subscription-Key": "bd08c370a76447eaa97b57ad8488b531"
+    "Ocp-Apim-Subscription-Key": ""
 }
 
 response = requests.post(url, json=payload, headers=headers)
@@ -110,7 +110,7 @@ var client = new RestClient("https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.
 var request = new RestRequest(Method.POST);
 request.AddHeader("accept", "application/json");
 request.AddHeader("content-type", "application/json");
-request.AddHeader("Ocp-Apim-Subscription-Key", "bd08c370a76447eaa97b57ad8488b531");
+request.AddHeader("Ocp-Apim-Subscription-Key", "");
 request.AddParameter("application/json", "{\"text\":\"You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052\"}", ParameterType.RequestBody);
 IRestResponse response = client.Execute(request);
 ```
@@ -127,7 +127,7 @@ Request request = new Request.Builder()
   .post(body)
   .addHeader("accept", "application/json")
   .addHeader("content-type", "application/json")
-  .addHeader("Ocp-Apim-Subscription-Key", "bd08c370a76447eaa97b57ad8488b531")
+  .addHeader("Ocp-Apim-Subscription-Key", "")
   .build();
 
 Response response = client.newCall(request).execute();
