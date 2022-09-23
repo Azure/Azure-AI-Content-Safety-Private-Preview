@@ -67,7 +67,73 @@ This feature of the API provide scores for several different categories. Here ar
 
   - Social Security Numbers
   
-    
+ ## 💡 Sample Code 
+
+Here is a sample request with cURL. 
+
+```shell
+curl --request POST \
+     --url 'https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
+     --header 'Ocp-Apim-Subscription-Key: bd08c370a76447eaa97b57ad8488b531' \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json' \
+     --data '
+{
+     "text": "You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052"
+}
+```
+
+Here is a sample request with Python. 
+
+```python
+import requests
+
+url = "https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview"
+
+payload = {"text": "You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052"}
+headers = {
+    "accept": "application/json",
+    "content-type": "application/json",
+    "Ocp-Apim-Subscription-Key": "bd08c370a76447eaa97b57ad8488b531"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+
+print(response.text)
+```
+
+Here is a sample request with C#. 
+
+```c#
+var client = new RestClient("https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview");
+var request = new RestRequest(Method.POST);
+request.AddHeader("accept", "application/json");
+request.AddHeader("content-type", "application/json");
+request.AddHeader("Ocp-Apim-Subscription-Key", "bd08c370a76447eaa97b57ad8488b531");
+request.AddParameter("application/json", "{\"text\":\"You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052\"}", ParameterType.RequestBody);
+IRestResponse response = client.Execute(request);
+```
+
+Here is a sample request with Java. 
+
+```java
+OkHttpClient client = new OkHttpClient();
+
+MediaType mediaType = MediaType.parse("application/json");
+RequestBody body = RequestBody.create(mediaType, "{\"text\":\"You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052\"}");
+Request request = new Request.Builder()
+  .url("https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview")
+  .post(body)
+  .addHeader("accept", "application/json")
+  .addHeader("content-type", "application/json")
+  .addHeader("Ocp-Apim-Subscription-Key", "bd08c370a76447eaa97b57ad8488b531")
+  .build();
+
+Response response = client.newCall(request).execute();
+```
+
+
+
 
 ## 💡 QuickStart - Text moderation by using the API 
 
