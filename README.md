@@ -15,6 +15,8 @@ This documentation contains the following article types:
 - **How the Content Moderator works** contain instructions for using the service in more general ways.
 
 - **Concepts** provide in-depth explanations of the service categories.
+- 
+- **Sample Code** are sample request using the cURL, Python,C# and Java.
 
 - **QuickStart** are getting-started instructions to guide you through making requests to the service.
 
