@@ -4,15 +4,15 @@
 
 Welcome to Azure Content Moderator service v2 Private Preview! 
 
-The Azure Content Moderator API is a cognitive service that checks text, image and video content for material that is potentially offensive, risky, or otherwise undesirable. In the upcoming v2 private preview, we are going to introduce a reboot of ACM, which lets developers and data scientists use new SOTA text, image, audio video and multi-modal models to make the applications using the new AI generative models by OpenAI (like GPT-X, Dall-E 2 and Codex, which powers GitHub Copilot) and Microsoft products safe to use. The new models are not only good at making AIs safe, but they are also targeted at User Generated Content on social media, game chat room and forum...
+The Azure Content Moderator API is a cognitive service that checks text, image and video content for material that is potentially offensive, risky, or otherwise undesirable. In the upcoming v2 private preview, we are going to introduce a reboot of Azure Content Moderator, which lets developers and data scientists use new state of the art text, image, audio video and multi-modal models to make the applications using the new AI generative models by OpenAI (like GPT-X, Dall-E 2 and Codex, which powers GitHub Copilot) and Microsoft products safe to use. The new models are not only good at making AIs safe, but they are also targeted at user generated content on social media, game chat rooms,  forums, etc.
 
-**In the Sept 2023 release, APIs to detect harm content in text are the release focus.**
+**In the Sept 2023 release, APIs to detect harmful content in text are the focus of the release release.**
 
 ##  📒 Overview 
 
 This documentation site is structured into following sections
 
-- **How the Content Moderator works** contain instructions for using the service in more general ways.
+- **How Content Moderator works** contain instructions for using the service in more general ways.
 
 - **Concepts** provide in-depth explanations of the service categories.
 - **Sample Code** are sample request using the cURL, Python,C# and Java.
@@ -27,7 +27,7 @@ The Content Moderator service can be accessed through RESTful APIs.
 
 - ### Type of analaysis
 
-There are different types of analysis available in Content Moderator. The following table describes **the current available API**.
+There are different types of analysis available in Content Moderator. The following table describes **the currently available API**.
 
 | API             | Functionality                                                |
 | :-------------- | :----------------------------------------------------------- |
@@ -403,7 +403,7 @@ If you're running a production website, you may need to [request a quota increas
 
 #### Latency & Reliability
 
-We aim to keep Text moderation API fast enough to be used in real-time scenarios as comments are being written, with response times around 100ms. Different categories will have different latencies. **(to be finished and wait for developer's stress test)**
+We aim to keep text moderation API fast enough to be used in real-time scenarios as comments are being written, with response times around 100ms. Different categories will have different latencies. **(to be finished and wait for developer's stress test)**
 
 #### API Errors
 
