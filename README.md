@@ -84,7 +84,7 @@ curl --request POST \
 }
 ```
 
-Here is a sample request with Python. 
+Here is a sample request with Python.
 
 ```python
 import requests
@@ -102,6 +102,10 @@ response = requests.post(url, json=payload, headers=headers)
 
 print(response.text)
 ```
+> ### 🚧DOWNLOAD:
+>[Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Code.ipynb)
+>
+
 
 Here is a sample request with C#. 
 
