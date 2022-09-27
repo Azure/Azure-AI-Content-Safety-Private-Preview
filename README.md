@@ -103,8 +103,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 > ### 🚧DOWNLOAD:
->[Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Code.ipynb)
->
+>[Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb)
 
 
 Here is a sample request with C#. 
