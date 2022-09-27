@@ -213,6 +213,7 @@ curl --request POST \
 > ### 🚧NOTE:
 >
 > The default maximum length for text submissions is **10K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
+> If your text includes **Personally identifiable information(PII)**, please be aware that this type of information has higher latency to process, and subsequent changes will be pending on our team.
 
 ### Step 4. Evaluate the response
 
