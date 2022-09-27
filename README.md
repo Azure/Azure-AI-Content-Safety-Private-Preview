@@ -55,17 +55,16 @@ This feature of the API provide scores for several different categories. Here ar
 - **Category 5:** **Self-harm**- Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
 
 - **Category 6:** **Personally identifiable information(PII)** - Personally identifiable information (PII) detects if any values in the text might be considered PII before you release it publicly. Key aspects that are detected include:
-
   - Email addresses
-
+  
   - US mailing addresses
-
+  
   - IP addresses
-
+  
   - US phone numbers
-
+  
   - UK phone numbers
-
+  
   - Social Security Numbers
   
  ## 💡 Sample Code 
@@ -211,9 +210,11 @@ curl --request POST \
 | **Text**       | (required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. |
 | **Categories** | (required) A category name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. |
 
-> ### 🚧NOTE:
+> ### 🚧NOTE: Text size and latency
 >
 > The default maximum length for text submissions is **10K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
+>
+> If your text includes **Personally identifiable information(PII)**, please be aware that this type of information has higher latency to process, and subsequent changes will be pending on our team.
 
 ### Step 4. Evaluate the response
 
