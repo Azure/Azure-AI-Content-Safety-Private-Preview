@@ -175,7 +175,7 @@ To access your Content Moderator resource, you'll need a subscription key:
 1. In the left pane, under **Resource Management**, select **Keys and Endpoints**.
 2. Copy one of the subscription key values for later use.
 
-### Step 2. Sample Request
+### Step 3. Sample Request
 
 Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
 
@@ -214,7 +214,7 @@ curl --request POST \
 >
 > The default maximum length for text submissions is **10K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
 
-### Step 3. Evaluate the response
+### Step 4. Evaluate the response
 
 You should see the Text moderation results displayed as JSON data. For example:
 
@@ -381,7 +381,7 @@ The confidence score is from 0 to 1. A higher score indicates a greater likeliho
 | **End_char_index**      | Last character processed.                                    | Number  |
 | **Diagnosis Detail**    | You'll see that the email, IP address, phone, and address values are under a JSON array value of PII. You will see these values in diagnosis. | String  |
 
-### Step 4: Limitations
+### Step 5: Limitations
 
 #### Quota limit
 
