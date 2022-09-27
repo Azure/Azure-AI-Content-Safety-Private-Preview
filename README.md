@@ -75,7 +75,7 @@ Here is a sample request with cURL.
 ```shell
 curl --request POST \
      --url 'https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
-     --header 'Ocp-Apim-Subscription-Key: ' \
+     --header 'Ocp-Apim-Subscription-Key:Please type your key here' \
      --header 'accept: application/json' \
      --header 'content-type: application/json' \
      --data '
@@ -95,7 +95,7 @@ payload = {"text": "You are an idiot. Is this a crap email abcdef@abcd.com, phon
 headers = {
     "accept": "application/json",
     "content-type": "application/json",
-    "Ocp-Apim-Subscription-Key": ""
+    "Ocp-Apim-Subscription-Key": "Please type your key here"
 }
 
 response = requests.post(url, json=payload, headers=headers)
@@ -114,7 +114,7 @@ var client = new RestClient("https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.
 var request = new RestRequest(Method.POST);
 request.AddHeader("accept", "application/json");
 request.AddHeader("content-type", "application/json");
-request.AddHeader("Ocp-Apim-Subscription-Key", "");
+request.AddHeader("Ocp-Apim-Subscription-Key", "Please type your key here");
 request.AddParameter("application/json", "{\"text\":\"You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052\"}", ParameterType.RequestBody);
 IRestResponse response = client.Execute(request);
 ```
@@ -131,7 +131,7 @@ Request request = new Request.Builder()
   .post(body)
   .addHeader("accept", "application/json")
   .addHeader("content-type", "application/json")
-  .addHeader("Ocp-Apim-Subscription-Key", "")
+  .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
   .build();
 
 Response response = client.newCall(request).execute();
@@ -144,17 +144,29 @@ Response response = client.newCall(request).execute();
 
 Before you can begin to test content moderation or integrate it into your custom applications, you need to create and subscribe to a Content Moderator resource and get the subscription key for accessing the resource.
 
-### Step 1. Create and subscribe to a Content Moderator resource
+
+
+### Step 1. Whitelist your subscription ID
+
+1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/izy7c2QgwC).
+2. The whitelist will take a few minutes to approve. After it does, go to next step.
+
+### Step 2. Create and subscribe to a Content Moderator resource
 
 1. Sign in to the [Azure portal](https://portal.azure.com/).
 2. In the left pane, select **Create a resource**.
 3. In the search box, enter **Content Moderator**, and then press Enter.
 4. From the search results, select **Content Moderator**.
 5. Select **Create**.
-6. Enter a unique name for your resource, select a subscription, and select a location close to you.
-7. Select the pricing tier for this resource.
-8. Create a new resource group.
-9. Select **Create**.
+6. Enter a unique name for your resource, select the **whitelisted subscription**, and select the region **South Central US**.
+
+> ### 🚧NOTE:
+>
+> Currently Content Moderator service only support one region: **South Central US**. Please create an Azure subscription in this region accordingly.
+
+1. Select the pricing tier for this resource.
+2. Create a new resource group.
+3. Select **Create**.
 
 The resource will take a few minutes to deploy. After it does, go to the new resource.
 
@@ -170,11 +182,15 @@ Now that you have a resource available in Azure for Content Moderator and you ha
 Here is a sample request with cURL. 
 
 ```shell
-curl -X POST "https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview%22"
--H "Ocp-Apim-Subscription-Key: {subscription key}"
--H "Content-Type: application/json" 
--H "Categories: []" 
--d "{ "text": "You are an idiot! Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052" }"
+curl --request POST \
+     --url 'https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
+     --header 'Ocp-Apim-Subscription-Key:Please type your key here' \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json' \
+     --data '
+{
+     "text": "You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052"
+}
 ```
 
 #### **Request Format Reference**
@@ -207,63 +223,35 @@ You should see the Text moderation results displayed as JSON data. For example:
     "value": [
         {
             "category": "Profanity",
-            "isHitted": false,
+            "detected": false,
             "score": 0.0,
             "modelOutputDetail": null,
             "diagnoses": null
         },
         {
             "category": "Sexual",
-            "isHitted": false,
-            "score": 0.0012824624,
-            "modelOutputDetail": null,
-            "diagnoses": null
-        },
-        {
-            "category": "SensitiveTopics",
-            "isHitted": false,
-            "score": 0.0,
+            "detected": false,
+            "score": 0.0011332317,
             "modelOutputDetail": null,
             "diagnoses": null
         },
         {
             "category": "SelfHarm",
-            "isHitted": true,
-            "score": 0.7939568,
-            "modelOutputDetail": null,
-            "diagnoses": null
-        },
-        {
-            "category": "DisInfoTopics",
-            "isHitted": false,
-            "score": 0.0,
-            "modelOutputDetail": null,
-            "diagnoses": null
-        },
-        {
-            "category": "Violence",
-            "isHitted": false,
-            "score": 0.01797534,
-            "modelOutputDetail": null,
-            "diagnoses": null
-        },
-        {
-            "category": "HateSpeech",
-            "isHitted": true,
-            "score": 0.99421316,
+            "detected": false,
+            "score": 0.46980238,
             "modelOutputDetail": null,
             "diagnoses": null
         },
         {
             "category": "PII",
-            "isHitted": true,
+            "detected": true,
             "score": 1.0,
             "modelOutputDetail": null,
             "diagnoses": [
                 {
                     "start": 39,
                     "end": 54,
-                    "isHitted": true,
+                    "detected": true,
                     "score": 1.0,
                     "diagnosisDetail": {
                         "entity_type": "EMAIL_ADDRESS"
@@ -272,43 +260,25 @@ You should see the Text moderation results displayed as JSON data. For example:
                 {
                     "start": 79,
                     "end": 94,
-                    "isHitted": true,
+                    "detected": true,
                     "score": 0.95,
                     "diagnosisDetail": {
                         "entity_type": "IP_ADDRESS"
                     }
                 },
                 {
-                    "start": 80,
-                    "end": 94,
-                    "isHitted": true,
-                    "score": 0.6,
-                    "diagnosisDetail": {
-                        "entity_type": "IP_ADDRESS"
-                    }
-                },
-                {
                     "start": 63,
                     "end": 73,
-                    "isHitted": true,
+                    "detected": true,
                     "score": 1.0,
                     "diagnosisDetail": {
                         "entity_type": "AU_MEDICARE"
                     }
                 },
                 {
-                    "start": 63,
-                    "end": 73,
-                    "isHitted": false,
-                    "score": 0.05,
-                    "diagnosisDetail": {
-                        "entity_type": "US_BANK_NUMBER"
-                    }
-                },
-                {
                     "start": 113,
                     "end": 120,
-                    "isHitted": true,
+                    "detected": true,
                     "score": 0.85,
                     "diagnosisDetail": {
                         "entity_type": "LOCATION"
@@ -317,7 +287,25 @@ You should see the Text moderation results displayed as JSON data. For example:
                 {
                     "start": 63,
                     "end": 73,
-                    "isHitted": true,
+                    "detected": false,
+                    "score": 0.05,
+                    "diagnosisDetail": {
+                        "entity_type": "US_BANK_NUMBER"
+                    }
+                },
+                {
+                    "start": 125,
+                    "end": 130,
+                    "detected": true,
+                    "score": 0.85,
+                    "diagnosisDetail": {
+                        "entity_type": "DATE_TIME"
+                    }
+                },
+                {
+                    "start": 63,
+                    "end": 73,
+                    "detected": true,
                     "score": 0.75,
                     "diagnosisDetail": {
                         "entity_type": "PHONE_NUMBER"
@@ -326,7 +314,7 @@ You should see the Text moderation results displayed as JSON data. For example:
                 {
                     "start": 46,
                     "end": 54,
-                    "isHitted": true,
+                    "detected": true,
                     "score": 0.5,
                     "diagnosisDetail": {
                         "entity_type": "URL"
@@ -335,22 +323,27 @@ You should see the Text moderation results displayed as JSON data. For example:
                 {
                     "start": 63,
                     "end": 73,
-                    "isHitted": false,
+                    "detected": false,
                     "score": 0.01,
                     "diagnosisDetail": {
                         "entity_type": "US_DRIVER_LICENSE"
                     }
-                },
-                {
-                    "start": 125,
-                    "end": 130,
-                    "isHitted": true,
-                    "score": 0.85,
-                    "diagnosisDetail": {
-                        "entity_type": "DATE_TIME"
-                    }
                 }
             ]
+        },
+        {
+            "category": "Violence",
+            "detected": false,
+            "score": 0.013958938,
+            "modelOutputDetail": null,
+            "diagnoses": null
+        },
+        {
+            "category": "HateSpeech",
+            "detected": true,
+            "score": 0.99444854,
+            "modelOutputDetail": null,
+            "diagnoses": null
         }
     ]
 }
@@ -363,13 +356,13 @@ Classification models can be multi-headed. For example, when a text is run throu
 The confidence score is from 0 to 1. A higher score indicates a greater likelihood that a reader would perceive the comment as containing the given category. For example, a comment like “ You are an idiot ” may receive a probability score of 0.99 for category Hate Speech, indicating that 9 out of 10 people would perceive that comment as hate. 
 
 ```json
-{
+ {
             "category": "HateSpeech",
-            "isHitted": true,
-            "score": 0.99754024,
+            "detected": true,
+            "score": 0.99444854,
             "modelOutputDetail": null,
             "diagnoses": null
-        },
+        }
 ```
 
 > ### 🚧NOTE: **Why the score might change**
@@ -378,15 +371,15 @@ The confidence score is from 0 to 1. A higher score indicates a greater likeliho
 
 
 
-| Name                    | Description                                                  |
-| :---------------------- | :----------------------------------------------------------- |
-| **Category**            | Each output class that the API predicts.                     |
-| **Is hitted**           | Whether harmful content has been detected or not             |
-| **Score**               | Confidence score of predicted categories                     |
-| **Model output detail** | Risk level (Not for this version)                            |
-| **Start_char_index**    | First character processed.                                   |
-| **End_char_index**      | Last character processed.                                    |
-| **Diagnosis Detail**    | You'll see that the email, IP address, phone, and address values are under a JSON array value of PII. You will see these values in diagnosis. |
+| Name                    | Description                                                  | Type    |
+| :---------------------- | :----------------------------------------------------------- | ------- |
+| **Category**            | Each output class that the API predicts.                     | String  |
+| **Detected**            | Whether harmful content has been detected or not             | Boolean |
+| **Score**               | Confidence score of predicted categories                     | Number  |
+| **Model output detail** | Risk level (Not for this version)                            | String  |
+| **Start_char_index**    | First character processed.                                   | Number  |
+| **End_char_index**      | Last character processed.                                    | Number  |
+| **Diagnosis Detail**    | You'll see that the email, IP address, phone, and address values are under a JSON array value of PII. You will see these values in diagnosis. | String  |
 
 ### Step 4: Limitations
 
@@ -394,10 +387,10 @@ The confidence score is from 0 to 1. A higher score indicates a greater likeliho
 
 By default, we set a quota limit:
 
-| Pricing Tier | Query per second (QPS) | Maximum value                                                |
-| :----------- | :--------------------- | ------------------------------------------------------------ |
-| F0           | 1                      | 5000 requests per resource per month.                        |
-| S0           | 20                     | 5000 requests per resource per month. (to be finished and wait for developers' stress test) |
+| Pricing Tier | Query per second (QPS) | Maximum value                         |
+| :----------- | :--------------------- | ------------------------------------- |
+| F0           | 1                      | 5000 requests per resource per month. |
+| S0           | 20                     | No maximum limit.                     |
 
 If you're running a production website, you may need to [request a quota increase](acm-team@microsoft.com).
 
