@@ -147,8 +147,8 @@ Before you can begin to test content moderation or integrate it into your custom
 
 ### Step 1. Whitelist your subscription ID
 
-1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/izy7c2QgwC).
-2. The whitelist will take a few minutes to approve. After it does, go to next step.
+1. Submit this form by filling in your subscription ID to let us whitelist this feature : [Microsoft Forms](https://forms.office.com/r/izy7c2QgwC).
+2. The whitelist will take a few hours to approve. 
 
 ### Step 2. Create and subscribe to a Content Moderator resource
 
@@ -163,9 +163,11 @@ Before you can begin to test content moderation or integrate it into your custom
 >
 > Currently Content Moderator service only support one region: **South Central US**. Please create an Azure subscription in this region accordingly.
 
-1. Select the pricing tier for this resource.
-2. Create a new resource group.
-3. Select **Create**.
+7. Select the pricing tier for this resource.
+
+8. Create a new resource group.
+
+9. Select **Create**.
 
 The resource will take a few minutes to deploy. After it does, go to the new resource.
 
