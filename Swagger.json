@@ -98,7 +98,7 @@
         },
         "detected": {
           "type": "boolean",
-          "description": "Whether this category is detected in [start,end)"
+          "description": "Whether this category is detected in [start,end]"
         },
         "score": {
           "description": "The score of detection result",
@@ -140,7 +140,7 @@
           }
         },
         "diagnoses": {
-          "description": "The diagnoses array, each element contains detection result in [start,end)",
+          "description": "The diagnoses array, each element contains detection result in [start,end]",
           "type": "array",
           "items": {
             "$ref": "#/definitions/TextDetectDiagnosis"
