@@ -164,9 +164,9 @@ Before you can begin to test content moderation or integrate it into your custom
 >
 > Currently Content Moderator service only support one region: **South Central US**. Please create an Azure subscription in this region accordingly.
 
-1. Select the pricing tier for this resource.
-2. Create a new resource group.
-3. Select **Create**.
+7. Select the pricing tier for this resource.
+8. Create a new resource group.
+9. Select **Create**.
 
 The resource will take a few minutes to deploy. After it does, go to the new resource.
 
