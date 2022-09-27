@@ -148,7 +148,7 @@ Before you can begin to test content moderation or integrate it into your custom
 
 ### Step 1. Whitelist your subscription ID
 
-1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/izy7c2QgwC).
+1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
 2. The whitelist will take a few minutes to approve. After it does, go to next step.
 
 ### Step 2. Create and subscribe to a Content Moderator resource
