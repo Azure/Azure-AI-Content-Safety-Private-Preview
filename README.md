@@ -8,16 +8,24 @@ The Azure Content Moderator API is a cognitive service that checks text, image a
 
 **In the Sept 2022 release, APIs to detect harmful content in text are the focus of the release.**
 
+
+
+## ⚠️ Disclaimer
+
+The sample code could have offensive content, user discretion is advised.
+
+
+
 ##  📒 Overview 
 
 This documentation site is structured into following sections.
 
-- **How It works** contain instructions for using the service in more general ways.
+- **How It works** contains instructions for using the service in more general ways.
 
-- **Concepts** provide in-depth explanations of the service categories.
-- **Sample Code** are sample request using the cURL, Python, C# and Java.
+- **Concepts** provides in-depth explanations of the service categories.
+- **Sample Code** is sample request using the cURL, Python, C# and Java.
 
-- **QuickStart** are getting-started instructions to guide you through making requests to the service.
+- **QuickStart** is getting-started instructions to guide you through making requests to the service.
 
   
 
@@ -38,6 +46,7 @@ There are different types of analysis available in our project. The following ta
 Currently this API is only available in English. New languages will be supported in the future.
 
 
+
 ##  🗃Concepts
 
 ### Text category
@@ -47,7 +56,7 @@ This feature of the API provide scores for several different categories. Here ar
 - **Category 1:** **Sexual** - Sexual describes language related to anatomical organs and genitals, romantic relationship, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one’s will, prostitution, pornography and Child Sexual Abuse Material (CSAM).
 - **Category 2:** **Violence** - Violence describes language related to physical actions intended to hurt, injure, damage or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc. 
 - **Category 3:** **Hate Speech** - Hate speech is defined as any speech that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.
-- **Category 4:** **Self-harm**- Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
+- **Category 4:** **Self-Harm**- Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
 
 
 
@@ -225,7 +234,7 @@ There are several types of errors you may encounter while using the Text moderat
 | 503         | Service unavailable – we are temporarily offline for maintenance. Please try again later. |
 | 504         | Gateway timeout – we are not able to fulfil your request at this time. Please try again later. |
 
- ## 💡 Other Sample Code 
+ ##  📝 Other Sample Code 
 
 - #### cURL
 
