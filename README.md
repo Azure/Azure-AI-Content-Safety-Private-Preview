@@ -69,7 +69,7 @@ Before you can begin to test the Project Carnegie or integrate it into your cust
 
 > ### 🚧NOTE:
 >
-> Currently service only support three regions:  **East US, West US 2 and  South Central US**. Please create an Azure subscription in these regions accordingly.
+> Currently the private preview feature only support three regions:  **East US, West US 2 and  South Central US**. Please create your Content Moderator resource in these regions accordingly.
 
 ### Step 3. Sample Request
 
