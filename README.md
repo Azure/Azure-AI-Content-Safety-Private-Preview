@@ -175,7 +175,7 @@ curl --request POST \
      --data '
 {
      "text": "You are an idiot."
-}
+}'
 ```
 
 #### **Request Format Reference**
