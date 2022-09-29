@@ -65,6 +65,11 @@ This feature of the API provide scores for several different categories. Here ar
 
 Before you can begin to test the Project Carnegie or integrate it into your custom applications, you need to create a Content Moderator resource and get the subscription keys to access the resource.
 
+> ### 🚧NOTE:
+>
+> The samples could contain offensive content, user discretion advised!!
+
+
 ### Step 1. Whitelist your subscription ID
 
 1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
