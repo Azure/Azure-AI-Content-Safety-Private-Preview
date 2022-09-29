@@ -83,6 +83,9 @@ Now that you have a resource available in Azure for Content Moderator and you ha
 
 Here is a sample request with Python.
 
+1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
+2. Run the following commands:
+
 ```python
 import requests
 
@@ -100,9 +103,11 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-> ### 🚧DOWNLOAD:
+> ### 🚧Sample Python Notebook:
 >
-> [Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb)
+> 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads) . 
+> 2. Download [Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb)
+> 3. Run the commands.
 
 #### **Request Format Reference**
 
@@ -233,6 +238,9 @@ There are several types of errors you may encounter while using the Text moderat
 - #### cURL
 
 Here is a sample request with cURL. 
+
+1. Install the [cURL](https://curl.se/download.html).
+2. Run the following commands:
 
 ```shell
 curl --location --request POST 'https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
