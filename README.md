@@ -134,7 +134,7 @@ print(response.text)
 | **Text**       | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
 | **Categories** | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
 
-> ### 🚧NOTE: Text size and latency
+> ### 📘NOTE: Text size and latency
 >
 > The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
 
