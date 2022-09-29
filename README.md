@@ -64,8 +64,9 @@ Before you can begin to test the Project Carnegie or integrate it into your cust
 ### Step 2. Create and subscribe to a Content Moderator resource
 
 1. Sign in to the [Azure portal](https://portal.azure.com/).
-2. Then [Create Content Moderator - Microsoft Azure](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator) resource. Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. Select **Create**.
-3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
+   1. Then [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. Select **Create**.
+
+2. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
 
 > ### 🚧NOTE:
 >
