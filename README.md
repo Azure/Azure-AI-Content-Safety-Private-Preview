@@ -100,7 +100,7 @@ print(response.text)
 > ### 🚧NOTE: Sample Python Jupyter Notebook
 >
 > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
-> 2. Download [Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb)
+> 2. Download [Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb), need github sign in to access. Please also note that you need to use "download ZIP" option from github instead of "save as" or you will get load error from Jupyter.
 > 3. Run the notebook.
 
 #### **Request Format Reference**
