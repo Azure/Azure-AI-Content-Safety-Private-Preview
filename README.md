@@ -10,7 +10,7 @@ The Azure Content Moderator API is a cognitive service that checks text, image a
 
 ##  📒 Overview 
 
-This documentation site is structured into following sections
+This documentation site is structured into following sections.
 
 - **How It works** contain instructions for using the service in more general ways.
 
