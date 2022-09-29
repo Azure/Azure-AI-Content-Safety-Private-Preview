@@ -291,7 +291,7 @@ If you're running a production website, you may need to [request a quota increas
 
 #### Latency & Reliability
 
-We aim to keep text moderation API fast enough to be used in real-time scenarios as comments are being written, with response times around 100ms. Different categories will have different latencies. **(to be finished and wait for developer's stress test)**
+We aim to keep text moderation API fast enough to be used in real-time scenarios as comments are being written, with response times around 100ms. Different categories will have different latencies. 
 
 #### API Errors
 
