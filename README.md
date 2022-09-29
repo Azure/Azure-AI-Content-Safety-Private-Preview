@@ -64,18 +64,12 @@ Before you can begin to test the Project Carnegie or integrate it into your cust
 ### Step 2. Create and subscribe to a Content Moderator resource
 
 1. Sign in to the [Azure portal](https://portal.azure.com/).
-2. Then [Create Content Moderator - Microsoft Azure](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator) resource. Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. 
-3. Select **Create**.
+2. Then [Create Content Moderator - Microsoft Azure](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator) resource. Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. Select **Create**.
+3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
 
 > ### 🚧NOTE:
 >
 > Currently service only support three regions:  **East US, West US 2 and  South Central US**. Please create an Azure subscription in these regions accordingly.
-
-The resource will take a few minutes to deploy. After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key:
-
-10. In the left pane, under **Resource Management**, select **Keys and Endpoints**.
-
-11. Copy one of the subscription key values for later use.
 
 ### Step 3. Sample Request
 
@@ -103,11 +97,11 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-> ### 🚧Sample Python Notebook:
+> ### 🚧NOTE: Sample Python Jupyter Notebook
 >
-> 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads) . 
+> 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
 > 2. Download [Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb)
-> 3. Run the commands.
+> 3. Run the notebook.
 
 #### **Request Format Reference**
 
@@ -129,8 +123,6 @@ print(response.text)
 > ### 🚧NOTE: Text size and latency
 >
 > The default maximum length for text submissions is **10K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
-
->
 
 ### Step 4. Evaluate the response
 
@@ -193,13 +185,13 @@ The confidence score is from 0 to 1. A higher score indicates a greater likeliho
 
 
 
-| Name                    | Description                                                  | Type    |
-| :---------------------- | :----------------------------------------------------------- | ------- |
-| **Category**            | Each output class that the API predicts.                     | String  |
-| **Detected**            | Whether harmful content has been detected or not             | Boolean |
-| **Score**               | Confidence score of predicted categories                     | Number  |
-| **Model output detail** | Risk level (Not supported for this version and will only show "null") | String  |
-| **Diagnosis Detail**    | You'll see that the email, IP address, phone, and address values are under a JSON array value of PII. You will see these values in diagnosis. | String  |
+| Name                    | Description                                              | Type    |
+| :---------------------- | :------------------------------------------------------- | ------- |
+| **Category**            | Each output class that the API predicts.                 | String  |
+| **Detected**            | Whether harmful content has been detected or not         | Boolean |
+| **Score**               | Confidence score of predicted categories                 | Number  |
+| **Model output detail** | Not supported for this version and will only show "null" | String  |
+| **Diagnosis Detail**    | Not supported for this version and will only show "null" | String  |
 
 ### Step 5: Limitations
 
