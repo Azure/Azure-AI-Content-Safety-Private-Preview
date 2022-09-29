@@ -218,7 +218,7 @@ By default, we set a quota limit:
 | F0           | 1                      | 5000 requests per resource per month. |
 | S0           | 10                     | No maximum limit.                     |
 
-If you're running in production, you may need to [request a quota increase](acm-team@microsoft.com).
+If you're running in production, you may need to [shoot us an email](mailto:acm-team@microsoft.com) to request a quota increase.
 
 #### Latency & Reliability
 
