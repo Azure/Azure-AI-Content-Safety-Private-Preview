@@ -6,7 +6,7 @@ Welcome to Azure Content Moderator service v2 Private Preview!
 
 The Azure Content Moderator API is a cognitive service that checks text, image and video content for material that is potentially offensive, risky, or otherwise undesirable. In the upcoming v2 private preview, we are going to introduce a reboot of Azure Content Moderator, which lets developers and data scientists use new state of the art text, image, audio video and multi-modal models to make the applications using the new AI generative models by OpenAI (like GPT-X, Dall-E 2 and Codex, which powers GitHub Copilot) and Microsoft products safe to use. The new models are not only good at making AIs safe, but they are also targeted at user generated content on social media, game chat rooms, forums, etc.
 
-**In the Sept 2023 release, APIs to detect harmful content in text are the focus of the release.**
+**In the Sept 2022 release, APIs to detect harmful content in text are the focus of the release.**
 
 ##  📒 Overview 
 
