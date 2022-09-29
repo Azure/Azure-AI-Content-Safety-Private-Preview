@@ -29,9 +29,9 @@ The Content Moderator service can be accessed through RESTful APIs.
 
 There are different types of analysis available in Content Moderator. The following table describes **the currently available API**.
 
-| API             | Functionality                                            |
-| :-------------- | :------------------------------------------------------- |
-| Text Moderation | Scans text for sexual, violence, hate speech, self harm. |
+| API             | Functionality                                                |
+| :-------------- | :----------------------------------------------------------- |
+| Text Moderation | Scans text for sexual, violence, hate speech, and self harm. |
 
 - ### Language availability
 
