@@ -135,11 +135,18 @@ Before you can begin to test content moderation or integrate it into your custom
 ### Step 2. Create and subscribe to a Content Moderator resource
 
 1. Sign in to the [Azure portal](https://portal.azure.com/).
+
 2. In the left pane, select **Create a resource**.
+
 3. In the search box, enter **Content Moderator**, and then press Enter.
+
 4. From the search results, select **Content Moderator**.
+
 5. Select **Create**.
+
 6. Enter a unique name for your resource, select the **whitelisted subscription**, and select the region **East US, West US 2 and  South Central US**.
+
+   
 
 > ### 🚧NOTE:
 >
@@ -151,12 +158,11 @@ Before you can begin to test content moderation or integrate it into your custom
 
 9. Select **Create**.
 
-The resource will take a few minutes to deploy. After it does, go to the new resource.
+The resource will take a few minutes to deploy. After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key:
 
-To access your Content Moderator resource, you'll need a subscription key:
+10. In the left pane, under **Resource Management**, select **Keys and Endpoints**.
 
-1. In the left pane, under **Resource Management**, select **Keys and Endpoints**.
-2. Copy one of the subscription key values for later use.
+11. Copy one of the subscription key values for later use.
 
 ### Step 3. Sample Request
 
