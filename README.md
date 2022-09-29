@@ -29,9 +29,9 @@ The Content Moderator service can be accessed through RESTful APIs.
 
 There are different types of analysis available in Content Moderator. The following table describes **the currently available API**.
 
-| API             | Functionality                                                |
-| :-------------- | :----------------------------------------------------------- |
-| Text Moderation | Scans text for sexual, violence, profanity, hate speech, self harm and personal data. |
+| API             | Functionality                                            |
+| :-------------- | :------------------------------------------------------- |
+| Text Moderation | Scans text for sexual, violence, hate speech, self harm. |
 
 - ### Language availability
 
@@ -60,7 +60,7 @@ curl --request POST \
      --header 'content-type: application/json' \
      --data '
 {
-     "text": "You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052"
+     "text": "You are an idiot."
 }
 ```
 
@@ -71,7 +71,7 @@ import requests
 
 url = "https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview"
 
-payload = {"text": "You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052"}
+payload = {"text": "You are an idiot."}
 headers = {
     "accept": "application/json",
     "content-type": "application/json",
@@ -86,6 +86,8 @@ print(response.text)
 >[Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb)
 
 
+
+
 Here is a sample request with C#. 
 
 ```c#
@@ -94,7 +96,7 @@ var request = new RestRequest(Method.POST);
 request.AddHeader("accept", "application/json");
 request.AddHeader("content-type", "application/json");
 request.AddHeader("Ocp-Apim-Subscription-Key", "Please type your key here");
-request.AddParameter("application/json", "{\"text\":\"You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052\"}", ParameterType.RequestBody);
+request.AddParameter("application/json", "{\"text\":\"You are an idiot.\"}", ParameterType.RequestBody);
 IRestResponse response = client.Execute(request);
 ```
 
@@ -104,7 +106,7 @@ Here is a sample request with Java.
 OkHttpClient client = new OkHttpClient();
 
 MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\"text\":\"You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052\"}");
+RequestBody body = RequestBody.create(mediaType, "{\"text\":\"You are an idiot.\"}");
 Request request = new Request.Builder()
   .url("https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview")
   .post(body)
@@ -127,8 +129,8 @@ Before you can begin to test content moderation or integrate it into your custom
 
 ### Step 1. Whitelist your subscription ID
 
-1. Submit this form by filling in your subscription ID to let us whitelist this feature : [Microsoft Forms](https://forms.office.com/r/izy7c2QgwC).
-2. The whitelist will take a few hours to approve. 
+1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
+2. The whitelist will take a few minutes to approve. After it does, go to next step.
 
 ### Step 2. Create and subscribe to a Content Moderator resource
 
@@ -194,8 +196,8 @@ curl --request POST \
 > ### 🚧NOTE: Text size and latency
 >
 > The default maximum length for text submissions is **10K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
+
 >
-> If your text includes **Personally identifiable information(PII)**, please be aware that this type of information has higher latency to process, and subsequent changes will be pending on our team.
 
 ### Step 4. Evaluate the response
 
