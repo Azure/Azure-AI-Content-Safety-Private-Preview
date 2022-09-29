@@ -33,7 +33,7 @@ This documentation site is structured into following sections.
 
 The Project Carnegie can be accessed through RESTful APIs. 
 
-- ### Type of analaysis
+- ### Type of analysis
 
 There are different types of analysis available in our project. The following table describes **the currently available API**.
 
@@ -65,7 +65,7 @@ This feature of the API provide scores for several different categories. Here ar
 
 Before you can begin to test the Project Carnegie or integrate it into your custom applications, you need to create a Content Moderator resource and get the subscription keys to access the resource.
 
-> ### 🚧NOTE:
+> ###  📘 NOTE:
 >
 > The samples could contain offensive content, user discretion advised!!
 
@@ -81,7 +81,7 @@ Before you can begin to test the Project Carnegie or integrate it into your cust
 2. [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. Select **Create**.
 3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
 
-> ### 🚧NOTE:
+> ###  📘 NOTE:
 >
 > Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 
@@ -111,7 +111,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-> ### 🚧NOTE: Sample Python Jupyter Notebook
+> ###  📘 NOTE: Sample Python Jupyter Notebook
 >
 > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
 > 2. Download [Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
@@ -193,7 +193,7 @@ The confidence score is from 0 to 1. A higher score indicates a greater likeliho
         }
 ```
 
-> ### 🚧NOTE: **Why the score might change**
+> ###  📘 NOTE: **Why the score might change**
 >
 > We update our models regularly. Before updating, we thoroughly test to ensure models meet a high quality bar for the results of these tests.  However you may see that a specific score changed as a result of an update. Note that we are not able to notify users each time an update is released.
 
