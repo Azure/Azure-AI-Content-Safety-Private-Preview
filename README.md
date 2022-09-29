@@ -54,14 +54,14 @@ This feature of the API provide scores for several different categories. Here ar
 
 ## 💡 QuickStart - Text moderation by using the API 
 
-Before you can begin to test the Project Carnegie or integrate it into your custom applications, you need to create and subscribe to a Content Moderator resource and get the subscription key for accessing the resource.
+Before you can begin to test the Project Carnegie or integrate it into your custom applications, you need to create a Content Moderator resource and get the subscription keys to access the resource.
 
 ### Step 1. Whitelist your subscription ID
 
 1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
-2. The whitelist will take a few minutes to approve. After it does, go to next step.
+2. The whitelist will take up to 49 hours to approve. Once you receive notification from Microsoft, you can go to next step.
 
-### Step 2. Create and subscribe to a Content Moderator resource
+### Step 2. Create a Content Moderator resource
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
 2. [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. Select **Create**.
@@ -69,9 +69,9 @@ Before you can begin to test the Project Carnegie or integrate it into your cust
 
 > ### 🚧NOTE:
 >
-> Currently the private preview feature only support three regions:  **East US, West US 2 and  South Central US**. Please create your Content Moderator resource in these regions accordingly.
+> Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 
-### Step 3. Sample Request
+### Step 3. Test with sample Request
 
 Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
 
