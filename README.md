@@ -179,7 +179,8 @@ You should see the Text moderation results displayed as JSON data. For example:
 
 #### **Response Format Reference**
 
-Classification models can be multi-headed. For example, when a text is run through text moderation model, one head might classify sexual content while another head might classify violence.
+Classification can be multi-labelled. For example, when a text is run through text moderation model, it could be classified as sexual content as well as violence.
+
 
 The confidence score is from 0 to 1. A higher score indicates a greater likelihood that a reader would perceive the comment as containing the given category. For example, a comment like “ You are an idiot ” may receive a probability score of 0.99 for category Hate Speech. 
 
