@@ -50,24 +50,14 @@ This feature of the API provide scores for several different categories. Here ar
 - **Category 4:** **Self-harm**- Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
  ## 💡 Sample Code 
 
-Here is a sample request with cURL. 
-
-```shell
-curl --location --request POST 'https://{place-with-your-endpoint}/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
---header 'Ocp-Apim-Subscription-Key: {place-with-your=key}' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "text":"You are an idiot.",
-    "categories": []
-}'
-```
+- #### Python
 
 Here is a sample request with Python.
 
 ```python
 import requests
 
-url = "https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview"
+url = "https://[Endpoint]/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview"
 
 payload = {"text": "You are an idiot."}
 headers = {
@@ -83,13 +73,26 @@ print(response.text)
 > ### 🚧DOWNLOAD:
 >[Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb)
 
+- #### cURL
 
+Here is a sample request with cURL. 
 
+```shell
+curl --location --request POST 'https://[Endpoint]/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {Please type your key here}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "text":"You are an idiot.",
+    "categories": []
+}'
+```
+
+- #### C#
 
 Here is a sample request with C#. 
 
 ```c#
-var client = new RestClient("https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview");
+var client = new RestClient("https://[Endpoint]/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview");
 var request = new RestRequest(Method.POST);
 request.AddHeader("accept", "application/json");
 request.AddHeader("content-type", "application/json");
@@ -97,6 +100,8 @@ request.AddHeader("Ocp-Apim-Subscription-Key", "Please type your key here");
 request.AddParameter("application/json", "{\"text\":\"You are an idiot.\"}", ParameterType.RequestBody);
 IRestResponse response = client.Execute(request);
 ```
+
+- #### Java
 
 Here is a sample request with Java. 
 
@@ -106,7 +111,7 @@ OkHttpClient client = new OkHttpClient();
 MediaType mediaType = MediaType.parse("application/json");
 RequestBody body = RequestBody.create(mediaType, "{\"text\":\"You are an idiot.\"}");
 Request request = new Request.Builder()
-  .url("https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview")
+  .url("https://[Endpoint]/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview")
   .post(body)
   .addHeader("accept", "application/json")
   .addHeader("content-type", "application/json")
@@ -167,14 +172,12 @@ Now that you have a resource available in Azure for Content Moderator and you ha
 Here is a sample request with cURL. 
 
 ```shell
-curl --request POST \
-     --url 'https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
-     --header 'Ocp-Apim-Subscription-Key:Please type your key here' \
-     --header 'accept: application/json' \
-     --header 'content-type: application/json' \
-     --data '
-{
-     "text": "You are an idiot."
+curl --location --request POST 'https://{place-with-your-endpoint}/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {place-with-your=key}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "text":"You are an idiot.",
+    "categories": []
 }'
 ```
 
