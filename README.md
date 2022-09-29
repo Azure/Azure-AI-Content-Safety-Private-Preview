@@ -193,9 +193,7 @@ The confidence score is from 0 to 1. A higher score indicates a greater likeliho
 | **Category**            | Each output class that the API predicts.                     | String  |
 | **Detected**            | Whether harmful content has been detected or not             | Boolean |
 | **Score**               | Confidence score of predicted categories                     | Number  |
-| **Model output detail** | Risk level (Not for this version)                            | String  |
-| **Start_char_index**    | First character processed.                                   | Number  |
-| **End_char_index**      | Last character processed.                                    | Number  |
+| **Model output detail** | Risk level (Not supported for this version and will only show "null") | String  |
 | **Diagnosis Detail**    | You'll see that the email, IP address, phone, and address values are under a JSON array value of PII. You will see these values in diagnosis. | String  |
 
 ### Step 5: Limitations
