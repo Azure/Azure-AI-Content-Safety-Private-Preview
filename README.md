@@ -48,78 +48,6 @@ This feature of the API provide scores for several different categories. Here ar
 - **Category 2:** **Violence** - Violence describes language related to physical actions intended to hurt, injure, damage or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc. 
 - **Category 3:** **Hate Speech** - Hate speech is defined as any speech that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.
 - **Category 4:** **Self-harm**- Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
- ## 💡 Sample Code 
-
-- #### Python
-
-Here is a sample request with Python.
-
-```python
-import requests
-
-url = "https://[Endpoint]/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview"
-
-payload = {"text": "You are an idiot."}
-headers = {
-    "accept": "application/json",
-    "content-type": "application/json",
-    "Ocp-Apim-Subscription-Key": "Please type your key here"
-}
-
-response = requests.post(url, json=payload, headers=headers)
-
-print(response.text)
-```
-> ### 🚧DOWNLOAD:
->[Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb)
-
-- #### cURL
-
-Here is a sample request with cURL. 
-
-```shell
-curl --location --request POST 'https://[Endpoint]/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
---header 'Ocp-Apim-Subscription-Key: {Please type your key here}' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "text":"You are an idiot.",
-    "categories": []
-}'
-```
-
-- #### C#
-
-Here is a sample request with C#. 
-
-```c#
-var client = new RestClient("https://[Endpoint]/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview");
-var request = new RestRequest(Method.POST);
-request.AddHeader("accept", "application/json");
-request.AddHeader("content-type", "application/json");
-request.AddHeader("Ocp-Apim-Subscription-Key", "Please type your key here");
-request.AddParameter("application/json", "{\"text\":\"You are an idiot.\"}", ParameterType.RequestBody);
-IRestResponse response = client.Execute(request);
-```
-
-- #### Java
-
-Here is a sample request with Java. 
-
-```java
-OkHttpClient client = new OkHttpClient();
-
-MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\"text\":\"You are an idiot.\"}");
-Request request = new Request.Builder()
-  .url("https://[Endpoint]/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview")
-  .post(body)
-  .addHeader("accept", "application/json")
-  .addHeader("content-type", "application/json")
-  .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
-  .build();
-
-Response response = client.newCall(request).execute();
-```
 
 
 
@@ -136,28 +64,12 @@ Before you can begin to test the Project Carnegie or integrate it into your cust
 ### Step 2. Create and subscribe to a Content Moderator resource
 
 1. Sign in to the [Azure portal](https://portal.azure.com/).
-
-2. In the left pane, select **Create a resource**.
-
-3. In the search box, enter **Content Moderator**, and then press **Enter**.
-
-4. From the search results, select **Content Moderator**.
-
-5. Select **Create**.
-
-6. Enter a unique name for your resource, select the **whitelisted subscription**, and select the region **East US, West US 2 and  South Central US**.
-
-   
+2. Then [Create Content Moderator - Microsoft Azure](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator) resource. Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. 
+3. Select **Create**.
 
 > ### 🚧NOTE:
 >
 > Currently service only support three regions:  **East US, West US 2 and  South Central US**. Please create an Azure subscription in these regions accordingly.
-
-7. Select the pricing tier for this resource.
-
-8. Create a new resource group.
-
-9. Select **Create**.
 
 The resource will take a few minutes to deploy. After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key:
 
@@ -169,17 +81,28 @@ The resource will take a few minutes to deploy. After it does, go to the new res
 
 Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
 
-Here is a sample request with cURL. 
+Here is a sample request with Python.
 
-```shell
-curl --location --request POST 'https://{place-with-your-endpoint}/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
---header 'Ocp-Apim-Subscription-Key: {place-with-your=key}' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "text":"You are an idiot.",
-    "categories": []
-}'
+```python
+import requests
+
+url = "https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview"
+
+payload = {"text": "You are an idiot."}
+headers = {
+    "accept": "application/json",
+    "content-type": "application/json",
+    "Ocp-Apim-Subscription-Key": "Please type your key here"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+
+print(response.text)
 ```
+
+> ### 🚧DOWNLOAD:
+>
+> [Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb)
 
 #### **Request Format Reference**
 
@@ -306,6 +229,56 @@ There are several types of errors you may encounter while using the Text moderat
 | 500         | Internal service error – we had a problem with our server. Please try again later. |
 | 503         | Service unavailable – we are temporarily offline for maintenance. Please try again later. |
 | 504         | Gateway timeout – we are not able to fulfil your request at this time. Please try again later. |
+
+ ## 💡 Other Sample Code 
+
+- #### cURL
+
+Here is a sample request with cURL. 
+
+```shell
+curl --location --request POST 'https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {Please type your key here}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "text":"You are an idiot.",
+    "categories": []
+}'
+```
+
+- #### C#
+
+Here is a sample request with C#. 
+
+```c#
+var client = new RestClient("https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview");
+var request = new RestRequest(Method.POST);
+request.AddHeader("accept", "application/json");
+request.AddHeader("content-type", "application/json");
+request.AddHeader("Ocp-Apim-Subscription-Key", "Please type your key here");
+request.AddParameter("application/json", "{\"text\":\"You are an idiot.\"}", ParameterType.RequestBody);
+IRestResponse response = client.Execute(request);
+```
+
+- #### Java
+
+Here is a sample request with Java. 
+
+```java
+OkHttpClient client = new OkHttpClient();
+
+MediaType mediaType = MediaType.parse("application/json");
+RequestBody body = RequestBody.create(mediaType, "{\"text\":\"You are an idiot.\"}");
+Request request = new Request.Builder()
+  .url("https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview")
+  .post(body)
+  .addHeader("accept", "application/json")
+  .addHeader("content-type", "application/json")
+  .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
+  .build();
+
+Response response = client.newCall(request).execute();
+```
 
 
 
