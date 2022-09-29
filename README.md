@@ -1,10 +1,10 @@
 
 
-#  Content Moderator v2 Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
+#  Project Carnegie Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
 
-Welcome to Azure Content Moderator service v2 Private Preview! 
+Welcome to the Project Carnegie! 
 
-The Azure Content Moderator API is a cognitive service that checks text, image and video content for material that is potentially offensive, risky, or otherwise undesirable. In the upcoming v2 private preview, we are going to introduce a reboot of Azure Content Moderator, which lets developers and data scientists use new state of the art text, image, audio video and multi-modal models to make the applications using the new AI generative models by OpenAI (like GPT-X, Dall-E 2 and Codex, which powers GitHub Copilot) and Microsoft products safe to use. The new models are not only good at making AIs safe, but they are also targeted at user generated content on social media, game chat rooms, forums, etc.
+The Project Carnegie is a private preview of Azure Cognitive Service that checks text, image and video content that is potentially offensive, risky, or otherwise undesirable. In the upcoming private preview, we are going to introduce a reboot of Azure Content Moderator, which lets developers and data scientists use new state-of-the-art text, image, audio video and multi-modal models to make the applications using the new AI generative models by OpenAI (like GPT-X, Dall-E 2 and Codex, which powers GitHub Copilot) and Microsoft products safe to use. The new models are not only good at making AIs safe, but they are also targeted at user-generated content on social media, game chat rooms, forums, etc.
 
 **In the Sept 2022 release, APIs to detect harmful content in text are the focus of the release.**
 
@@ -12,7 +12,7 @@ The Azure Content Moderator API is a cognitive service that checks text, image a
 
 This documentation site is structured into following sections
 
-- **How Content Moderator works** contain instructions for using the service in more general ways.
+- **How It works** contain instructions for using the service in more general ways.
 
 - **Concepts** provide in-depth explanations of the service categories.
 - **Sample Code** are sample request using the cURL, Python, C# and Java.
@@ -21,13 +21,13 @@ This documentation site is structured into following sections
 
   
 
-##  🔎How Content Moderator works
+##  🔎How It works
 
-The Content Moderator service can be accessed through RESTful APIs. 
+The Project Carnegie can be accessed through RESTful APIs. 
 
 - ### Type of analaysis
 
-There are different types of analysis available in Content Moderator. The following table describes **the currently available API**.
+There are different types of analysis available in our project. The following table describes **the currently available API**.
 
 | API             | Functionality                                                |
 | :-------------- | :----------------------------------------------------------- |
@@ -53,15 +53,13 @@ This feature of the API provide scores for several different categories. Here ar
 Here is a sample request with cURL. 
 
 ```shell
-curl --request POST \
-     --url 'https://cm-vnext-ppe-lixiang.ppe.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
-     --header 'Ocp-Apim-Subscription-Key:Please type your key here' \
-     --header 'accept: application/json' \
-     --header 'content-type: application/json' \
-     --data '
-{
-     "text": "You are an idiot."
-}
+curl --location --request POST 'https://{place-with-your-endpoint}/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {place-with-your=key}' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "text":"You are an idiot.",
+    "categories": []
+}'
 ```
 
 Here is a sample request with Python.
@@ -123,9 +121,7 @@ Response response = client.newCall(request).execute();
 
 ## 💡 QuickStart - Text moderation by using the API 
 
-Before you can begin to test content moderation or integrate it into your custom applications, you need to create and subscribe to a Content Moderator resource and get the subscription key for accessing the resource.
-
-
+Before you can begin to test the Project Carnegie or integrate it into your custom applications, you need to create and subscribe to a Content Moderator resource and get the subscription key for accessing the resource.
 
 ### Step 1. Whitelist your subscription ID
 
@@ -138,7 +134,7 @@ Before you can begin to test content moderation or integrate it into your custom
 
 2. In the left pane, select **Create a resource**.
 
-3. In the search box, enter **Content Moderator**, and then press Enter.
+3. In the search box, enter **Content Moderator**, and then press **Enter**.
 
 4. From the search results, select **Content Moderator**.
 
@@ -150,7 +146,7 @@ Before you can begin to test content moderation or integrate it into your custom
 
 > ### 🚧NOTE:
 >
-> Currently Content Moderator service only support three regions:  **East US, West US 2 and  South Central US**. Please create an Azure subscription in these regions accordingly.
+> Currently service only support three regions:  **East US, West US 2 and  South Central US**. Please create an Azure subscription in these regions accordingly.
 
 7. Select the pricing tier for this resource.
 
@@ -214,29 +210,29 @@ You should see the Text moderation results displayed as JSON data. For example:
     "value": [
         {
             "category": "SelfHarm",
-            "detected": true,
-            "score": 0.9901419,
+            "detected": false,
+            "score": 1.055202E-4,
             "modelOutputDetail": null,
             "diagnoses": null
         },
         {
             "category": "Violence",
-            "detected": true,
-            "score": 0.9925808,
+            "detected": false,
+            "score": 0.0,
             "modelOutputDetail": null,
             "diagnoses": null
         },
         {
             "category": "Sexual",
             "detected": false,
-            "score": 1.1471331E-4,
+            "score": 2.038020E-4,
             "modelOutputDetail": null,
             "diagnoses": null
         },
         {
             "category": "HateSpeech",
             "detected": true,
-            "score": 0.99658126,
+            "score": 0.9882153,
             "modelOutputDetail": null,
             "diagnoses": null
         }
@@ -254,7 +250,7 @@ The confidence score is from 0 to 1. A higher score indicates a greater likeliho
 {
             "category": "HateSpeech",
             "detected": true,
-            "score": 0.99658126,
+            "score": 0.9882153,
             "modelOutputDetail": null,
             "diagnoses": null
         }
