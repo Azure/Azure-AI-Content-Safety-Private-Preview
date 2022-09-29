@@ -131,7 +131,7 @@ print(response.text)
 
 > ### 🚧NOTE: Text size and latency
 >
-> The default maximum length for text submissions is **10K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
+> The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
 
 ### Step 4. Evaluate the response
 
@@ -211,7 +211,7 @@ By default, we set a quota limit:
 | Pricing Tier | Query per second (QPS) | Maximum value                         |
 | :----------- | :--------------------- | ------------------------------------- |
 | F0           | 1                      | 5000 requests per resource per month. |
-| S0           | 1                      | No maximum limit.                     |
+| S0           | 10                     | No maximum limit.                     |
 
 If you're running in production, you may need to [request a quota increase](acm-team@microsoft.com).
 
