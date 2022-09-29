@@ -100,7 +100,7 @@ print(response.text)
 > ### 🚧NOTE: Sample Python Jupyter Notebook
 >
 > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
-> 2. Download [Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb), need github sign in to access. Please also note that you need to use "download ZIP" option from github instead of "save as" or you will get load error from Jupyter.
+> 2. Download [Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
 > 3. Run the notebook.
 
 #### **Request Format Reference**
@@ -204,13 +204,13 @@ By default, we set a quota limit:
 | F0           | 1                      | 5000 requests per resource per month. |
 | S0           | 1                      | No maximum limit.                     |
 
-If you're running a production website, you may need to [request a quota increase](acm-team@microsoft.com).
+If you're running in production, you may need to [request a quota increase](acm-team@microsoft.com).
 
 #### Latency & Reliability
 
-We aim to keep text moderation API fast enough to be used in real-time scenarios as comments are being written, with response times around 100ms. Different categories will have different latencies. 
+We aim to keep text moderation API fast enough to be used in real-time scenarios, with response times around 100ms. Different categories will have different latencies. 
 
-#### API Errors
+#### API Error Messages
 
 There are several types of errors you may encounter while using the Text moderation API. The message and details fields will provide the information you need to understand the error.
 
