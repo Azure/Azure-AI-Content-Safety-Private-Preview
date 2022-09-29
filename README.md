@@ -45,28 +45,9 @@ Currently this API is only available in English. New languages will be supported
 This feature of the API provide scores for several different categories. Here are some of the categories our API can provide scores for:
 
 - **Category 1:** **Sexual** - Sexual describes language related to anatomical organs and genitals, romantic relationship, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one’s will, prostitution, pornography and Child Sexual Abuse Material (CSAM).
-
 - **Category 2:** **Violence** - Violence describes language related to physical actions intended to hurt, injure, damage or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc. 
-
 - **Category 3:** **Hate Speech** - Hate speech is defined as any speech that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.
-
-- **Category 4:** **Profanity** - Profanity is defined as any socially offensive use of language, which may also be called cursing, cussing, swearing, obscenities or expletives. It can show a debasement of someone or something or be considered an expression of strong feelings towards something. 
-
-- **Category 5:** **Self-harm**- Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
-
-- **Category 6:** **Personally identifiable information(PII)** - Personally identifiable information (PII) detects if any values in the text might be considered PII before you release it publicly. Key aspects that are detected include:
-  - Email addresses
-  
-  - US mailing addresses
-  
-  - IP addresses
-  
-  - US phone numbers
-  
-  - UK phone numbers
-  
-  - Social Security Numbers
-  
+- **Category 4:** **Self-harm**- Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
  ## 💡 Sample Code 
 
 Here is a sample request with cURL. 
@@ -156,11 +137,11 @@ Before you can begin to test content moderation or integrate it into your custom
 3. In the search box, enter **Content Moderator**, and then press Enter.
 4. From the search results, select **Content Moderator**.
 5. Select **Create**.
-6. Enter a unique name for your resource, select the **whitelisted subscription**, and select the region **South Central US**.
+6. Enter a unique name for your resource, select the **whitelisted subscription**, and select the region **East US, West US 2 and  South Central US**.
 
 > ### 🚧NOTE:
 >
-> Currently Content Moderator service only support one region: **South Central US**. Please create an Azure subscription in this region accordingly.
+> Currently Content Moderator service only support three regions:  **East US, West US 2 and  South Central US**. Please create an Azure subscription in these regions accordingly.
 
 7. Select the pricing tier for this resource.
 
@@ -189,7 +170,7 @@ curl --request POST \
      --header 'content-type: application/json' \
      --data '
 {
-     "text": "You are an idiot. Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052"
+     "text": "You are an idiot."
 }
 ```
 
@@ -200,15 +181,15 @@ curl --request POST \
 
 ```json
 {
-    "text":"You are an idiot! Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052",
-    "categories": []
+    "text":"You are an idiot.",
+    "categories": ["HateSpeech","Sexual","SelfHarm","Violence"]
 }
 ```
 
-| Name           | Description                                                  |
-| :------------- | :----------------------------------------------------------- |
-| **Text**       | (required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. |
-| **Categories** | (required) A category name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. |
+| Name           | Description                                                  | Type   |
+| :------------- | :----------------------------------------------------------- | ------ |
+| **Text**       | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
+| **Categories** | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
 
 > ### 🚧NOTE: Text size and latency
 >
@@ -224,126 +205,30 @@ You should see the Text moderation results displayed as JSON data. For example:
 {
     "value": [
         {
-            "category": "Profanity",
-            "detected": false,
-            "score": 0.0,
+            "category": "SelfHarm",
+            "detected": true,
+            "score": 0.9901419,
+            "modelOutputDetail": null,
+            "diagnoses": null
+        },
+        {
+            "category": "Violence",
+            "detected": true,
+            "score": 0.9925808,
             "modelOutputDetail": null,
             "diagnoses": null
         },
         {
             "category": "Sexual",
             "detected": false,
-            "score": 0.0011332317,
-            "modelOutputDetail": null,
-            "diagnoses": null
-        },
-        {
-            "category": "SelfHarm",
-            "detected": false,
-            "score": 0.46980238,
-            "modelOutputDetail": null,
-            "diagnoses": null
-        },
-        {
-            "category": "PII",
-            "detected": true,
-            "score": 1.0,
-            "modelOutputDetail": null,
-            "diagnoses": [
-                {
-                    "start": 39,
-                    "end": 54,
-                    "detected": true,
-                    "score": 1.0,
-                    "diagnosisDetail": {
-                        "entity_type": "EMAIL_ADDRESS"
-                    }
-                },
-                {
-                    "start": 79,
-                    "end": 94,
-                    "detected": true,
-                    "score": 0.95,
-                    "diagnosisDetail": {
-                        "entity_type": "IP_ADDRESS"
-                    }
-                },
-                {
-                    "start": 63,
-                    "end": 73,
-                    "detected": true,
-                    "score": 1.0,
-                    "diagnosisDetail": {
-                        "entity_type": "AU_MEDICARE"
-                    }
-                },
-                {
-                    "start": 113,
-                    "end": 120,
-                    "detected": true,
-                    "score": 0.85,
-                    "diagnosisDetail": {
-                        "entity_type": "LOCATION"
-                    }
-                },
-                {
-                    "start": 63,
-                    "end": 73,
-                    "detected": false,
-                    "score": 0.05,
-                    "diagnosisDetail": {
-                        "entity_type": "US_BANK_NUMBER"
-                    }
-                },
-                {
-                    "start": 125,
-                    "end": 130,
-                    "detected": true,
-                    "score": 0.85,
-                    "diagnosisDetail": {
-                        "entity_type": "DATE_TIME"
-                    }
-                },
-                {
-                    "start": 63,
-                    "end": 73,
-                    "detected": true,
-                    "score": 0.75,
-                    "diagnosisDetail": {
-                        "entity_type": "PHONE_NUMBER"
-                    }
-                },
-                {
-                    "start": 46,
-                    "end": 54,
-                    "detected": true,
-                    "score": 0.5,
-                    "diagnosisDetail": {
-                        "entity_type": "URL"
-                    }
-                },
-                {
-                    "start": 63,
-                    "end": 73,
-                    "detected": false,
-                    "score": 0.01,
-                    "diagnosisDetail": {
-                        "entity_type": "US_DRIVER_LICENSE"
-                    }
-                }
-            ]
-        },
-        {
-            "category": "Violence",
-            "detected": false,
-            "score": 0.013958938,
+            "score": 1.1471331E-4,
             "modelOutputDetail": null,
             "diagnoses": null
         },
         {
             "category": "HateSpeech",
             "detected": true,
-            "score": 0.99444854,
+            "score": 0.99658126,
             "modelOutputDetail": null,
             "diagnoses": null
         }
@@ -355,13 +240,13 @@ You should see the Text moderation results displayed as JSON data. For example:
 
 Classification models can be multi-headed. For example, when a text is run through text moderation model, one head might classify sexual content while another head might classify violence.
 
-The confidence score is from 0 to 1. A higher score indicates a greater likelihood that a reader would perceive the comment as containing the given category. For example, a comment like “ You are an idiot ” may receive a probability score of 0.99 for category Hate Speech, indicating that 9 out of 10 people would perceive that comment as hate. 
+The confidence score is from 0 to 1. A higher score indicates a greater likelihood that a reader would perceive the comment as containing the given category. For example, a comment like “ You are an idiot ” may receive a probability score of 0.99 for category Hate Speech. 
 
 ```json
- {
+{
             "category": "HateSpeech",
             "detected": true,
-            "score": 0.99444854,
+            "score": 0.99658126,
             "modelOutputDetail": null,
             "diagnoses": null
         }
@@ -392,7 +277,7 @@ By default, we set a quota limit:
 | Pricing Tier | Query per second (QPS) | Maximum value                         |
 | :----------- | :--------------------- | ------------------------------------- |
 | F0           | 1                      | 5000 requests per resource per month. |
-| S0           | 20                     | No maximum limit.                     |
+| S0           | 1                      | No maximum limit.                     |
 
 If you're running a production website, you may need to [request a quota increase](acm-team@microsoft.com).
 
