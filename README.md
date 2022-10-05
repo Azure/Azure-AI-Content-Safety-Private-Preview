@@ -1,6 +1,6 @@
 
 
-#  Project Carnegie Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
+#  Azure Content Moderator V2 Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
 
 Welcome to the Azure Content Moderator v2 Private Preview!
 
