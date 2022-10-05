@@ -25,15 +25,15 @@ This documentation site is structured into following sections.
 - **How It works** contains instructions for using the service in more general ways.
 
 - **Concepts** provides in-depth explanations of the service categories.
-- **Sample Code** is sample request using the cURL, Python, C# and Java.
+- **Sample Code** shows sample requests using the cURL, Python, C# and Java.
 
-- **QuickStart** is getting-started instructions to guide you through making requests to the service.
+- **QuickStart** goes over getting-started instructions to guide you through making requests to the service.
 
   
 
 ##  🔎How It works
 
-The Project Carnegie can be accessed through RESTful APIs. 
+Azure Content Moderator v2 can be accessed through RESTful APIs. 
 
 - ### Type of analysis
 
@@ -53,7 +53,7 @@ Currently this API is only available in English. New languages will be supported
 
 ### Text category
 
-This feature of the API provide scores for several different categories. Here are some of the categories our API can provide scores for:
+This feature of the API provides scores for 4 different categories. Here are brief guidelines of the categories our API can provide scores for. Please be aware that these are high level descriptions of the guidelines we use to build our categories. Please contact us for details about current extended guidelines:
 
 - **Category 1:** **Sexual** - Sexual describes language related to anatomical organs and genitals, romantic relationship, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one’s will, prostitution, pornography.
 - **Category 2:** **Violence** - Violence describes language related to physical actions intended to hurt, injure, damage or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc. 
@@ -65,7 +65,7 @@ This feature of the API provide scores for several different categories. Here ar
 
 ## 💡 QuickStart - Text moderation by using the API 
 
-Before you can begin to test the Project Carnegie or integrate it into your custom applications, you need to create a Content Moderator resource and get the subscription keys to access the resource.
+Before you can begin to test the Azure Content Moderator v2 or integrate it into your applications, you need to create a Content Moderator resource and get the subscription keys to access the resource.
 
 > ###  📘 NOTE:
 >
@@ -75,7 +75,7 @@ Before you can begin to test the Project Carnegie or integrate it into your cust
 ### Step 1. Whitelist your subscription ID
 
 1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
-2. The whitelist will take up to 49 hours to approve. Once you receive notification from Microsoft, you can go to next step.
+2. The whitelist will take up to 48 hours to approve. Once you receive notification from Microsoft, you can go to next step.
 
 ### Step 2. Create a Content Moderator resource
 
@@ -94,7 +94,7 @@ Now that you have a resource available in Azure for Content Moderator and you ha
 Here is a sample request with Python.
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
-2. Run the following commands:
+2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url (e.g. content-moderator-test.cognitiveservices.azure.com/):
 
 ```python
 import requests
@@ -221,7 +221,7 @@ By default, we set a quota limit:
 | F0           | 1                      | 5000 requests per resource per month. |
 | S0           | 10                     | No maximum limit.                     |
 
-If you're running in production, you may need to [shoot us an email](mailto:acm-team@microsoft.com) to request a quota increase.
+If you need a quota increase, you may need to [shoot us an email](mailto:acm-team@microsoft.com) to request a quota increase.
 
 #### Latency & Reliability
 
@@ -249,7 +249,7 @@ There are several types of errors you may encounter while using the Text moderat
 Here is a sample request with cURL. 
 
 1. Install the [cURL](https://curl.se/download.html).
-2. Run the following commands:
+2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url (e.g. content-moderator-test.cognitiveservices.azure.com/):
 
 ```shell
 curl --location --request POST 'https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
