@@ -2,11 +2,13 @@
 
 #  Project Carnegie Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
 
-Welcome to Project Carnegie (aka. Azure Content Moderator service v2) Private Preview!
+Welcome to the Azure Content Moderator v2 Private Preview!
 
-The Azure Content Moderator API is a cognitive service that checks text, image and video content for material that is potentially offensive, risky, or otherwise undesirable. In the upcoming v2 private preview, we are going to introduce a reboot of Azure Content Moderator with code name Project Carnegie, which lets developers and data scientists use new state of the art text, image, audio video and multi-modal models to make the applications & services safe with your user-generated-content and/or AI-generated-content.
+The Azure Content Moderator v2 Private Preview API is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable, in text. In upcoming v2 Private Preview versions, we are going to update the API with new functionalities that let developers and data scientists use new state of the art text, image and new multi-modal models to make applications & services safe from harmful user-generated-content and/or AI-generated-content.
 
-**In the Sept 2022 release, APIs to detect harmful content in text are the focus of the release.**
+The focus of the October 10th 2022 release is to detect harmful content in text. 
+
+**In the October 10th release, APIs to detect harmful content in text are the focus of the release.**
 
 
 
