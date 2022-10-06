@@ -92,7 +92,7 @@ Now that you have a resource available in Azure for Content Moderator and you ha
 Here is a sample request with Python.
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview" with "https://content-moderator-test.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview':
+2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview" with "https://content-mod-test.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview':
 
 ```python
 import requests
