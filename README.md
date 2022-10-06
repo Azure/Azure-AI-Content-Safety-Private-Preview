@@ -6,9 +6,7 @@ Welcome to the Azure Content Moderator v2 Private Preview!
 
 The Azure Content Moderator v2 Private Preview API is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable, in text. In upcoming v2 Private Preview versions, we are going to update the API with new functionalities that let developers and data scientists use new state of the art text, image and new multi-modal models to make applications & services safe from harmful user-generated-content and/or AI-generated-content.
 
-The focus of the October 10th 2022 release is to detect harmful content in text. 
-
-**In the October 10th release, APIs to detect harmful content in text are the focus of the release.**
+**The focus of the October 10th 2022 Private Preview release is to detect harmful content in text.**
 
 
 
