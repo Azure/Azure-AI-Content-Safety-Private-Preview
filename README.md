@@ -1,10 +1,10 @@
 
 
-#  Azure Content Moderator V2 Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
+#  Project "Carnagie" Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
 
-Welcome to the Azure Content Moderator v2 Private Preview!
+Welcome to the Project "Carnagie" Private Preview!
 
-The Azure Content Moderator v2 Private Preview API is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable, in text. In upcoming v2 Private Preview versions, we are going to update the API with new functionalities that let developers and data scientists use new state of the art text, image and new multi-modal models to make applications & services safe from harmful user-generated-content and/or AI-generated-content.
+The Project "Carnagie" Private Preview API is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable, in text. In upcoming Private Preview versions, we are going to update the API with new functionalities that let developers and data scientists use new state of the art text, image and new multi-modal models to make applications & services safe from harmful user-generated-content and/or AI-generated-content.
 
 **The focus of the October 10th 2022 Private Preview release is to detect harmful content in text.**
 
@@ -31,7 +31,7 @@ This documentation site is structured into following sections.
 
 ##  🔎How It works
 
-Azure Content Moderator v2 can be accessed through RESTful APIs. 
+Project "Carnagie" can be accessed through RESTful APIs. 
 
 - ### Type of analysis
 
@@ -39,7 +39,7 @@ There are different types of analysis available in our project. The following ta
 
 | API             | Functionality                                                |
 | :-------------- | :----------------------------------------------------------- |
-| Text Moderation | Scans text for sexual, violence, hate speech, and self harm. |
+| Toxic Text Detection | Scans text for sexual, violence, hate speech, and self harm. |
 
 - ### Language availability
 
@@ -61,9 +61,9 @@ This feature of the API provides scores for 4 different categories. Here are bri
 
 
 
-## 💡 QuickStart - Text moderation by using the API 
+## 💡 QuickStart - Toxic Text Detection by using the API 
 
-Before you can begin to test the Azure Content Moderator v2 or integrate it into your applications, you need to create a Content Moderator resource and get the subscription keys to access the resource.
+Before you can begin to test the Project "Carnagie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource.
 
 > ###  📘 NOTE:
 >
@@ -75,7 +75,7 @@ Before you can begin to test the Azure Content Moderator v2 or integrate it into
 1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
 2. The whitelist will take up to 48 hours to approve. Once you receive notification from Microsoft, you can go to next step.
 
-### Step 2. Create a Content Moderator resource
+### Step 2. Create an Azure ontent Moderator resource
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
 2. [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. Select **Create**.
@@ -83,7 +83,7 @@ Before you can begin to test the Azure Content Moderator v2 or integrate it into
 
 > ###  📘 NOTE:
 >
-> Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
+> Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 
 ### Step 3. Test with sample Request
 
