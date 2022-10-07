@@ -75,7 +75,7 @@ Before you can begin to test the Project "Carnagie" or integrate it into your ap
 1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
 2. The whitelist will take up to 48 hours to approve. Once you receive notification from Microsoft, you can go to next step.
 
-### Step 2. Create an Azure ontent Moderator resource
+### Step 2. Create an Azure Content Moderator resource
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
 2. [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. Select **Create**.
