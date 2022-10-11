@@ -1,10 +1,10 @@
 
 
-#  Project "Carnagie" Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
+#  Project "Carnegie" Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
 
-Welcome to the Project "Carnagie" Private Preview!
+Welcome to the Project "Carnegie" Private Preview!
 
-The Project "Carnagie" Private Preview API is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable, in text. In upcoming Private Preview versions, we are going to update the API with new functionalities that let developers and data scientists use new state of the art text, image and new multi-modal models to make applications & services safe from harmful user-generated-content and/or AI-generated-content.
+The Project "Carnegie" Private Preview API is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable, in text. In upcoming Private Preview versions, we are going to update the API with new functionalities that let developers and data scientists use new state of the art text, image and new multi-modal models to make applications & services safe from harmful user-generated-content and/or AI-generated-content.
 
 **The focus of the October 10th 2022 Private Preview release is to detect harmful content in text.**
 
@@ -31,7 +31,7 @@ This documentation site is structured into following sections.
 
 ##  🔎How It works
 
-Project "Carnagie" can be accessed through RESTful APIs. 
+Project "Carnegie" can be accessed through RESTful APIs. 
 
 - ### Type of analysis
 
@@ -63,7 +63,7 @@ This feature of the API provides scores for 4 different categories. Here are bri
 
 ## 💡 QuickStart - Toxic Text Detection by using the API 
 
-Before you can begin to test the Project "Carnagie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource.
+Before you can begin to test the Project "Carnegie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource.
 
 > ###  📘 NOTE:
 >
