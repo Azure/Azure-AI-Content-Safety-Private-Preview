@@ -295,6 +295,12 @@ Response response = client.newCall(request).execute();
 
 
 
+##  📝 API Reference 
+
+If you want to try our API with our API testing console, please check this [API Reference](https://westus2.dev.cognitive.microsoft.com/docs/services/ContentModerator-Moderate-2022-09-30-preview/operations/Text_Detect).
+
+
+
 ##  💬 We're here to help!
 
 If you get stuck, [shoot us an email](mailto:acm-team@microsoft.com) or use the feedback widget on the upper right of any page.
