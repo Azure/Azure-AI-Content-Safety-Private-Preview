@@ -298,8 +298,7 @@ Response response = client.newCall(request).execute();
 ##  📒 Key Reference 
 
 - [API Reference](https://westus2.dev.cognitive.microsoft.com/docs/services/ContentModerator-Moderate-2022-09-30-preview/operations/Text_Detect)
-- [Project Carnegie Private Preview Terms]( https://microsoft-my.sharepoint.com/:b:/p/fzarfati/Ed-tpM74vGVMkdxV4B6ftzwB9Htg-wSf2ZkwyolxV5Xvag?e=Pmg6V3 )
-
+- [Project Carnegie Private Preview Terms](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Private%20Preview%20Terms%20for%20Project%20Carnegie.pdf)
 
 
 ##  💬 We're here to help!
