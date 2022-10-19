@@ -1,6 +1,6 @@
 
 
-#  Project "Carnegie" Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 	
+#  Project "Carnegie" Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) ![informational](https://shields.io/badge/-Microsoft Confidential-MICROSOFT CONFIDENTIAL)	
 
 Welcome to the Project "Carnegie" Private Preview!
 
@@ -295,9 +295,10 @@ Response response = client.newCall(request).execute();
 
 
 
-##  📝 API Reference 
+##  📒 Key Reference 
 
-If you want to try our API with our API testing console, please check this [API Reference](https://westus2.dev.cognitive.microsoft.com/docs/services/ContentModerator-Moderate-2022-09-30-preview/operations/Text_Detect).
+- [API Reference](https://westus2.dev.cognitive.microsoft.com/docs/services/ContentModerator-Moderate-2022-09-30-preview/operations/Text_Detect)
+- [Project Carnegie Private Preview Terms]( https://microsoft-my.sharepoint.com/:b:/p/fzarfati/Ed-tpM74vGVMkdxV4B6ftzwB9Htg-wSf2ZkwyolxV5Xvag?e=Pmg6V3 )
 
 
 
