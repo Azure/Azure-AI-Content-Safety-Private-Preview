@@ -1,6 +1,7 @@
 
 
-#  Project "Carnegie" Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) ![informational](https://shields.io/badge/-Microsoft Confidential-MICROSOFT CONFIDENTIAL)	
+#  Project "Carnegie" Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 
+![informational](https://shields.io/badge/-Microsoft Confidential-MICROSOFT CONFIDENTIAL)	
 
 Welcome to the Project "Carnegie" Private Preview!
 
