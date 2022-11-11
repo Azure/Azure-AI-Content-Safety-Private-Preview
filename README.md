@@ -134,9 +134,11 @@ print(response.text)
 | **Text**       | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
 | **Categories** | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
 
-> ### 📘NOTE: Text size and latency
+> ### 📘NOTE: Text size, and granularity
 >
-> The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions.
+> The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions. 
+>
+> Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
 
 ### Step 4. Evaluate the response
 
@@ -299,6 +301,7 @@ Response response = client.newCall(request).execute();
 
 - [API Reference](https://westus2.dev.cognitive.microsoft.com/docs/services/ContentModerator-Moderate-2022-09-30-preview/operations/Text_Detect)
 - [Project Carnegie Private Preview Terms](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Private%20Preview%20Terms%20for%20Project%20Carnegie.pdf)
+- [AAD Auth User Guide](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/AAD%20Auth%20User%20Guide.pdf)
 
 
 ##  💬 We're here to help!
