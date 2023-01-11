@@ -32,10 +32,10 @@ Project "Carnegie" can be accessed through RESTful APIs.
 
 There are different types of analysis available in our project. The following table describes **the currently available API**.
 
-| API                  | Functionality                                                |
-| :------------------- | :----------------------------------------------------------- |
-| Toxic Text Detection | Scans text for sexual, violence, hate speech, and self harm with multi-severity risk level |
-| Image Detection      | Scans image for sexual, violence, hate speech, and self harm with multi-severity risk level |
+| API             | Functionality                                                |
+| :-------------- | :----------------------------------------------------------- |
+| Text Detection  | Scans text for sexual, violence, hate speech, and self harm with multi-severity risk level |
+| Image Detection | Scans image for sexual, violence, hate speech, and self harm with multi-severity risk level |
 
 - ### Language availability
 
