@@ -18,7 +18,7 @@ This documentation site is structured into the following sections.
 
 - **Concepts** provides in-depth explanations of the service categories.
 
-- **Sample Code** shows sample requests using the cURL, Python, C# and Java.
+- **Sample Code** shows sample requests using the cURL, Python and Java.
 
 - **QuickStart** goes over getting-started instructions to guide you through making requests to the service.
 
@@ -53,7 +53,6 @@ This feature of the API provides scores for 4 different categories. Here are bri
 - **Category 4:** **Self-Harm**- Self-harm describes language and images related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
 
 
-
 ## 💡QuickStart - Before you begin
 
 Before you can begin to test the Project "Carnegie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource.
@@ -79,7 +78,6 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 > ###  📘 NOTE:
 
 > Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
-
 
 
 ## 💡 QuickStart - Make an Text API Request
@@ -151,7 +149,7 @@ print(response.text)
 | Name                  | Description                                                  | Type   |
 | :-------------------- | :----------------------------------------------------------- | ------ |
 | **Text**              | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
-| **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
+| **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
 | **BlockListIds**      | Custom list Id.                                              |        |
 | **BreakByBlocklists** | The strategy means if detection will stop on block list  when returning true. |        |
 
@@ -191,7 +189,7 @@ You should see the Text moderation results displayed as JSON data. For example:
 
 | Name           | Description                                                  | Type   |
 | :------------- | :----------------------------------------------------------- | ------ |
-| **Category**   | Each output class that the API predicts. Classification can be multi-labelled. For example, when a text is run through text moderation model, it could be classified as sexual content as well as violence. | String |
+| **Category**   | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text moderation model, it could be classified as sexual content as well as violence. | String |
 | **Risk Level** | Severity of the consequences.                                | Number |
 
 #### **Risk Map:**
@@ -233,35 +231,29 @@ You should see the Text moderation results displayed as JSON data. For example:
 
       Once you prepare your data with either of the JPG or PNG, you could upload your image to your Storage Account.
       
-      - [Create a Storage Account](https://portal.azure.com/#create/Microsoft.StorageAccount-ARM), fill out the fields.
+   - [Create a Storage Account](https://portal.azure.com/#create/Microsoft.StorageAccount-ARM), fill out the fields.
 
    ![image](https://user-images.githubusercontent.com/36343326/211787848-a5e9b6c3-ea32-4bf2-a702-c0b78cc4c2bc.png)
 
    - Select **Container** to the left in your Storage Account resource and select **+Container** to create one that will store your data.
 
    - Upload your data to the container. Go to the container that you created, and select **Upload**, then choose your prepared image file and upload.
-
    
    - Once your data is uploaded, select your image file and copy the **blob URL** through the small blue button. (Please paste the URL somewhere convenient for further steps.)
    
      ![Screenshot of copy blob url for one table.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/onetable-copy-url.png)
    
    - Grant Content moderator access to read the data in your Storage Account.
-   
 
    - In your container, select **Access Control(IAM)** to the left, select **+ Add** to **Add role assignment**. If you see the add role assignment is disabled, please contact your Storage Account owner to add Owner role to your Container.
 
      ![Screenshot of set access control UI.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-role-assignment.png)
 
-   
 
-   -    Search role of **Storage Blob Data Reader**, **click on it** and then select **Next**. Technically, the roles highlighted below and the *Owner* role all should work.![Screenshot of add role assignment with reader roles selected.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-reader-role.png)
-   
+   - Search role of **Storage Blob Data Reader**, **click on it** and then select **Next**. Technically, the roles highlighted below and the *Owner* role all should work.![Screenshot of add role assignment with reader roles selected.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-reader-role.png)
    
    - Select assign access to **Managed identity**, and **Select Members**, then choose the content moderator resource that you created earlier, then select **Review + assign**.
-   
-   
-   ​      
+       
 
 ```python
 import requests
