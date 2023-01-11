@@ -230,19 +230,19 @@ You should see the Text moderation results displayed as JSON data. For example:
       Select **Container** to the left in your Storage Account resource and select **+Container** to create one that will store your data.
 
       Once you prepare your data with either of the JPG or PNG, you could upload your image to your Storage Account.
-      
-   - [Create a Storage Account](https://portal.azure.com/#create/Microsoft.StorageAccount-ARM), fill out the fields.
+
+      [Create a Storage Account](https://portal.azure.com/#create/Microsoft.StorageAccount-ARM), fill out the fields.
 
    ![image](https://user-images.githubusercontent.com/36343326/211787848-a5e9b6c3-ea32-4bf2-a702-c0b78cc4c2bc.png)
 
    - Select **Container** to the left in your Storage Account resource and select **+Container** to create one that will store your data.
 
    - Upload your data to the container. Go to the container that you created, and select **Upload**, then choose your prepared image file and upload.
-   
+
    - Once your data is uploaded, select your image file and copy the **blob URL** through the small blue button. (Please paste the URL somewhere convenient for further steps.)
-   
+
      ![Screenshot of copy blob url for one table.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/onetable-copy-url.png)
-   
+
    - Grant Content moderator access to read the data in your Storage Account.
 
    - In your container, select **Access Control(IAM)** to the left, select **+ Add** to **Add role assignment**. If you see the add role assignment is disabled, please contact your Storage Account owner to add Owner role to your Container.
@@ -253,7 +253,7 @@ You should see the Text moderation results displayed as JSON data. For example:
    - Search role of **Storage Blob Data Reader**, **click on it** and then select **Next**. Technically, the roles highlighted below and the *Owner* role all should work.![Screenshot of add role assignment with reader roles selected.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-reader-role.png)
    
    - Select assign access to **Managed identity**, and **Select Members**, then choose the content moderator resource that you created earlier, then select **Review + assign**.
-       
+     
 
 ```python
 import requests
