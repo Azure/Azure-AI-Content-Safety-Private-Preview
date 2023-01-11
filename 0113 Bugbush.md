@@ -12,7 +12,7 @@ The sample data and code could have offensive content, user discretion is advise
 
 ##  📒 Overview 
 
-This documentation site is structured into following sections.
+This documentation site is structured into the following sections.
 
 - **How It works** contains instructions for using the service in more general ways.
 
@@ -45,12 +45,12 @@ Currently this API is only available in English. New languages will be supported
 
 ### Text and image category
 
-This feature of the API provides scores for 4 different categories. Here are brief guidelines of the categories our API can provide scores for. Please be aware that these are high level descriptions of the guidelines we use to build our categories. Please contact us for details about current detailed guidelines:
+This feature of the API provides scores for 4 different categories. Here are brief guidelines for the categories our API can provide scores for. Please be aware that these are high level descriptions of the guidelines we use to build our categories. Please contact us for details about current detailed guidelines:
 
-- **Category 1:** **Sexual** - Sexual describes language related to anatomical organs and genitals, romantic relationship, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one’s will, prostitution, pornography.
-- **Category 2:** **Violence** - Violence describes language related to physical actions intended to hurt, injure, damage or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc. 
-- **Category 3:** **Hate Speech** - Hate speech is defined as any speech that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.
-- **Category 4:** **Self-Harm**- Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
+- **Category 1:** **Sexual** - Sexual describes language and images related to anatomical organs and genitals, romantic relationship, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one’s will, prostitution, pornography.
+- **Category 2:** **Violence** - Violence describes language and images related to physical actions intended to hurt, injure, damage or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc. 
+- **Category 3:** **Hate** - Hate is defined as any language and images that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.
+- **Category 4:** **Self-Harm**- Self-harm describes language and images related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
 
 
 
@@ -66,7 +66,7 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 
 1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
 
-2. The whitelist will take up to 48 hours to approve. Once you receive notification from Microsoft, you can go to next step.
+2. The whitelist will take up to 48 hours to approve. Once you receive a notification from Microsoft, you can go to the next step.
 
 ### Step 2. Create an Azure Content Moderator resource
 
@@ -249,7 +249,7 @@ You should see the Text moderation results displayed as JSON data. For example:
 
          - In your container, select **Access Control(IAM)** to the left, select **+ Add** to **Add role assignment**. If you see the add role assignment is disabled, please contact your Storage Account owner to add Owner role to your Container.
 
-    ![Screenshot of set access control UI.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-role-assignment.png)
+     ![Screenshot of set access control UI.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-role-assignment.png)
 
          - Search role of **Storage Blob Data Reader**, **click on it** and then select **Next**. Technically, the roles highlighted below and the *Owner* role all should work.
 
@@ -318,14 +318,14 @@ print(response.text)
 | :--------------- | :----------------------------------------------------------- | ------ |
 | **Content**      | Image to Base64                                              | Base64 |
 | **Url**          | Blob Url for image                                           |        |
-| **Image format** | Add to Fav(Required) This is assumed to be image with JPEG, PNG format. url or base 64. | String |
-| **Categories**   | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories in a single request. | String |
+| **Image format** | (Required) This is assumed to be an image in JPEG, PNG format. | String |
+| **Categories**   | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
 
 
 
 > ### 📘NOTE: Image size, and granularity
 
-> The default maximumsize for image submissions is **4MB** with at least **50x50** image dimensions. 
+> The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions. 
 
 ### Step 2. Image API with sample Response
 
@@ -393,7 +393,7 @@ There are several types of errors you may encounter while using the Text moderat
 | 429         | Too many requests – you’ve made too many requests to our API, please try again in a few minutes. |
 | 500         | Internal service error – we had a problem with our server. Please try again later. |
 | 503         | Service unavailable – we are temporarily offline for maintenance. Please try again later. |
-| 504         | Gateway timeout – we are not able to fulfil your request at this time. Please try again later. |
+| 504         | Gateway timeout – we are not able to fulfill your request at this time. Please try again later. |
 
  ##  📝 Other Sample Code 
 
