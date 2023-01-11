@@ -125,8 +125,6 @@ print(response.text)
 
 > ###  📘 NOTE: Sample Python Jupyter Notebook
 
->
-
 > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
 
 > 2. Download [Sample Python Notebook](https://github.com/Azure/Content-Moderator/blob/main/Sample%20Python%20Notebook.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
@@ -154,8 +152,8 @@ print(response.text)
 | :-------------------- | :----------------------------------------------------------- | ------ |
 | **Text**              | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
 | **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
-| **BlockListIds**      | Custom list Id                                               |        |
-| **BreakByBlocklists** | the strategy means if detection will stop on block list returning true? The naming is a little confusing |        |
+| **BlockListIds**      | Custom list Id.                                              |        |
+| **BreakByBlocklists** | The strategy means if detection will stop on block list  when returning true. |        |
 
 
 
@@ -231,33 +229,39 @@ You should see the Text moderation results displayed as JSON data. For example:
 
       **Second method: Upload to Storage Account** 
 
-      Once you prepare your data with either of the JPG or PNG, you could upload your image to your Storage Account.
+      Select **Container** to the left in your Storage Account resource and select **+Container** to create one that will store your data.
 
-      1. [Create a Storage Account](https://portal.azure.com/#create/Microsoft.StorageAccount-ARM), fill out the fields.
+      Once you prepare your data with either of the JPG or PNG, you could upload your image to your Storage Account.
+      
+      - [Create a Storage Account](https://portal.azure.com/#create/Microsoft.StorageAccount-ARM), fill out the fields.
 
    ![image](https://user-images.githubusercontent.com/36343326/211787848-a5e9b6c3-ea32-4bf2-a702-c0b78cc4c2bc.png)
 
-      2. Select **Container** to the left in your Storage Account resource and select **+Container** to create one that will store your data.
+   - Select **Container** to the left in your Storage Account resource and select **+Container** to create one that will store your data.
 
-      3. Upload your data to the container. Go to the container that you created, and select **Upload**, then choose your prepared image file and upload.
+   - Upload your data to the container. Go to the container that you created, and select **Upload**, then choose your prepared image file and upload.
 
-         Once your data is uploaded, select your image file and copy the **blob URL** through the small blue button. (Please paste the URL somewhere convenient for further steps.)
-
+   
+   - Once your data is uploaded, select your image file and copy the **blob URL** through the small blue button. (Please paste the URL somewhere convenient for further steps.)
+   
      ![Screenshot of copy blob url for one table.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/onetable-copy-url.png)
+   
+   - Grant Content moderator access to read the data in your Storage Account.
+   
 
-      4. Grant Content moderator access to read the data in your Storage Account.
-
-         - In your container, select **Access Control(IAM)** to the left, select **+ Add** to **Add role assignment**. If you see the add role assignment is disabled, please contact your Storage Account owner to add Owner role to your Container.
+   - In your container, select **Access Control(IAM)** to the left, select **+ Add** to **Add role assignment**. If you see the add role assignment is disabled, please contact your Storage Account owner to add Owner role to your Container.
 
      ![Screenshot of set access control UI.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-role-assignment.png)
 
-         - Search role of **Storage Blob Data Reader**, **click on it** and then select **Next**. Technically, the roles highlighted below and the *Owner* role all should work.
+   
 
-     ![Screenshot of add role assignment with reader roles selected.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-reader-role.png)
-
-         - Select assign access to **Managed identity**, and **Select Members**, then choose the anomaly detector resource that you created earlier, then select **Review + assign**.
-
-         
+   -    Search role of **Storage Blob Data Reader**, **click on it** and then select **Next**. Technically, the roles highlighted below and the *Owner* role all should work.![Screenshot of add role assignment with reader roles selected.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-reader-role.png)
+   
+   
+   - Select assign access to **Managed identity**, and **Select Members**, then choose the content moderator resource that you created earlier, then select **Review + assign**.
+   
+   
+   ​      
 
 ```python
 import requests
@@ -484,7 +488,7 @@ Response response = client.newCall(request).execute();
 
 ##  📒 Key Reference 
 
-- [API Reference](https://westus2.dev.cognitive.microsoft.com/docs/services/ContentModerator-Moderate-2022-09-30-preview/operations/Text_Detect)
+- [API Reference](https://github.com/Azure/azure-rest-api-specs-pr/pull/9275/files#diff-839f177f03dd3162188a1fde0c3b7c44371aeb686a1096a38f3d590381ad3867)
 - [Project Carnegie Private Preview Terms](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Private%20Preview%20Terms%20for%20Project%20Carnegie.pdf)
 
 ##  💬 We're here to help!
