@@ -48,14 +48,13 @@ Currently this API is only available in English. New languages will be supported
 This feature of the API provides scores for 4 different categories. Here are brief guidelines of the categories our API can provide scores for. Please be aware that these are high level descriptions of the guidelines we use to build our categories. Please contact us for details about current detailed guidelines:
 
 - **Category 1:** **Sexual** - Sexual describes language related to anatomical organs and genitals, romantic relationship, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one’s will, prostitution, pornography.
-
 - **Category 2:** **Violence** - Violence describes language related to physical actions intended to hurt, injure, damage or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc. 
-
 - **Category 3:** **Hate Speech** - Hate speech is defined as any speech that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.
-
 - **Category 4:** **Self-Harm**- Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
 
-## 💡 QuickStart - Detection by using the API 
+
+
+## 💡QuickStart - Before you begin
 
 Before you can begin to test the Project "Carnegie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource.
 
@@ -81,7 +80,15 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 
 > Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 
-### Step 3. Text API with sample Request
+
+
+## 💡 QuickStart - Make an Text API Request
+
+> ###  📘 NOTE:
+
+> The samples could contain offensive content, user discretion advised!!
+
+### Step 1. Text API with sample Request
 
 Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
 
@@ -89,30 +96,31 @@ Here is a sample request with Python.
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
 
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview" with "https://content-mod-test.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-09-30-preview':
+2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
 
 ```python
-
 import requests
+import json
 
-url = "https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview"
+url = "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
 
-payload = {"text": "You are an idiot."}
-
+payload = json.dumps({
+  "text": "you are an idiot",
+  "categories": [
+    "Hate",
+    "Sexual",
+    "SelfHarm",
+    "Violence"
+  ]
+})
 headers = {
-
-    "accept": "application/json",
-
-    "content-type": "application/json",
-
-    "Ocp-Apim-Subscription-Key": "Please type your key here"
-
+  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+  'Content-Type': 'application/json'
 }
 
-response = requests.post(url, json=payload, headers=headers)
+response = requests.request("POST", url, headers=headers, data=payload)
 
 print(response.text)
-
 ```
 
 > ###  📘 NOTE: Sample Python Jupyter Notebook
@@ -125,206 +133,158 @@ print(response.text)
 
 > 3. Run the notebook.
 
-#### **Request Format Reference**
-
 1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 
 2. Change the body of the request to whatever string of text you'd like to analyze.
 
 ```json
-
 {
-
-    "text":"You are an idiot.",
-
-    "categories": ["HateSpeech","Sexual","SelfHarm","Violence"]
-
+  "text": "you are an idiot",
+  "categories": [
+   "Hate","Sexual","SelfHarm","Violence"
+  ],
+  "blockListIds": [
+    "string"
+  ],
+  "breakByBlocklists": false
 }
-
 ```
 
-| Name           | Description                                                  | Type   |
+| Name                  | Description                                                  | Type   |
+| :-------------------- | :----------------------------------------------------------- | ------ |
+| **Text**              | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
+| **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
+| **BlockListIds**      | Custom list Id                                               |        |
+| **BreakByBlocklists** | the strategy means if detection will stop on block list returning true? The naming is a little confusing |        |
 
-| :------------- | :----------------------------------------------------------- | ------ |
 
-| **Text**       | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
-
-| **Categories** | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
 
 > ### 📘NOTE: Text size, and granularity
 
->
-
 > The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions. 
-
->
 
 > Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
 
-### Step 4. Evaluate the response
+### Step 2. Text API with sample Response
 
 You should see the Text moderation results displayed as JSON data. For example:
 
 ```json
-
 {
-
-    "value": [
-
-        {
-
-            "category": "SelfHarm",
-
-            "detected": false,
-
-            "score": 1.055202E-4,
-
-            "modelOutputDetail": null,
-
-            "diagnoses": null
-
-        },
-
-        {
-
-            "category": "Violence",
-
-            "detected": false,
-
-            "score": 0.0,
-
-            "modelOutputDetail": null,
-
-            "diagnoses": null
-
-        },
-
-        {
-
-            "category": "Sexual",
-
-            "detected": false,
-
-            "score": 2.038020E-4,
-
-            "modelOutputDetail": null,
-
-            "diagnoses": null
-
-        },
-
-        {
-
-            "category": "HateSpeech",
-
-            "detected": true,
-
-            "score": 0.9882153,
-
-            "modelOutputDetail": null,
-
-            "diagnoses": null
-
-        }
-
-    ]
-
+    "blocklistMatchResults": [],
+    "hateResult": {
+        "category": "Hate",
+        "riskLevel": 2
+    },
+    "selfHarmResult": {
+        "category": "SelfHarm",
+        "riskLevel": 0
+    },
+    "sexualResult": {
+        "category": "Sexual",
+        "riskLevel": 0
+    },
+    "violenceResult": {
+        "category": "Violence",
+        "riskLevel": 0
+    }
 }
-
 ```
 
-#### **Response Format Reference**
+| Name           | Description                                                  | Type   |
+| :------------- | :----------------------------------------------------------- | ------ |
+| **Category**   | Each output class that the API predicts. Classification can be multi-labelled. For example, when a text is run through text moderation model, it could be classified as sexual content as well as violence. | String |
+| **Risk Level** | Severity of the consequences.                                | Number |
 
-Classification can be multi-labelled. For example, when a text is run through text moderation model, it could be classified as sexual content as well as violence.
+#### **Risk Map:**
 
-The confidence score is from 0 to 1. A higher score indicates a greater likelihood that a reader would perceive the comment as containing the given category. For example, a comment like “ You are an idiot ” may receive a probability score of 0.99 for category Hate Speech. 
+| Risk level                    | Description                                                  | Example                                                      |
+| ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Risk 0 – Safe                 | Words, phrases marked as Risk 0 will always be allowed, meaning they cannot be filtered. | hello, goodbye, thank  you.                                  |
+| Risk 2 – Notable/Questionable | Risk 2 category stands for unknown and the classifier assigns a Risk 4 to any piece of text that it cannot decipher. Risk 2 is in the middle of the spectrum precisely because its risk and severity are unknown; it could be a simple misspelling of a low-risk word, or it could be a manipulation of a high risk one. | zero, 5, dumb, touching, dress, cow, daddy,  taste, inept, street, lies. missing words, keyboard mashing (asdsdjhasdgah),  misspellings (purel) |
+| Risk 4 - Mature               | Risk Level 4 stands for maturity. Words and phrases marked as a Risk 5 typically cover mature subject matters, utilize potentially inappropriate language, and are also heavily reliant on context.Examples: | mild forms of vulgarity, bullying, and hate speech, sharing of PII such as full names, phone numbers or addresses, discussions about controversial themes. |
+| Risk 6- Dangerous             | Words and phrases marked as a Risk 6 are explicit and  often offensive in nature. Most times they do not require additional context  to be considered high risk. Examples: strong swear words, explicit sexual  talk, severe bullying, and hate speech. | strong swear words, explicit sexual talk, severe bullying, and hate speech. |
 
-```json
+![image-20230111165421356](../../../../AppData/Roaming/Typora/typora-user-images/image-20230111165421356.png)
 
-{
+> ###  📘 NOTE: **Why the risk level is not continuous**
 
-            "category": "HateSpeech",
+> Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
-            "detected": true,
+## 💡 QuickStart - Make an Image API Request
 
-            "score": 0.9882153,
+### Step 1. Image API with sample Request
 
-            "modelOutputDetail": null,
+1. Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
 
-            "diagnoses": null
+   Here is a sample request with Python.
 
-        }
+   1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
 
-```
+   2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
 
-> ###  📘 NOTE: **Why the score might change**
+   3. Upload your image with two methods:
 
->
+      ##### First method: Transform your image to bash 64 with some [open source website](https://codebeautify.org/image-to-base64-converter)
 
-> We update our models regularly. Before updating, we thoroughly test to ensure models meet a high quality bar for the results of these tests.  However you may see that a specific score changed as a result of an update. Note that we are not able to notify users each time an update is released.
+      **Second method: Upload to Storage Account** 
 
-| Name                    | Description                                              | Type    |
+      Once you prepare your data with either of the JPG or PNG, you could upload your image to your Storage Account.
 
-| :---------------------- | :------------------------------------------------------- | ------- |
+      1. [Create a Storage Account](https://portal.azure.com/#create/Microsoft.StorageAccount-ARM), fill out the fields.
 
-| **Category**            | Each output class that the API predicts.                 | String  |
+         ![image-20230111181718638](../../../../AppData/Roaming/Typora/typora-user-images/image-20230111181718638.png)
 
-| **Detected**            | Whether harmful content has been detected or not         | Boolean |
+      2. Select **Container** to the left in your Storage Account resource and select **+Container** to create one that will store your data.
 
-| **Score**               | Confidence score of predicted categories                 | Number  |
+      3. Upload your data to the container. Go to the container that you created, and select **Upload**, then choose your prepared image file and upload.
 
-| **Model output detail** | Not supported for this version and will only show "null" | String  |
+         Once your data is uploaded, select your image file and copy the **blob URL** through the small blue button. (Please paste the URL somewhere convenient for further steps.)
 
-| **Diagnosis Detail** | Not supported for this version and will only show "null" | String |
-| -------------------- | -------------------------------------------------------- | ------ |
-|                      |                                                          |        |
+         ![Screenshot of copy blob url for one table.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/onetable-copy-url.png)
 
+      4. Grant Content moderator access to read the data in your Storage Account.
 
+         - In your container, select **Access Control(IAM)** to the left, select **+ Add** to **Add role assignment**. If you see the add role assignment is disabled, please contact your Storage Account owner to add Owner role to your Container.
 
+         ![Screenshot of set access control UI.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-role-assignment.png)
 
+         - Search role of **Storage Blob Data Reader**, **click on it** and then select **Next**. Technically, the roles highlighted below and the *Owner* role all should work.
 
+         ![Screenshot of add role assignment with reader roles selected.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-reader-role.png)
 
+         - Select assign access to **Managed identity**, and **Select Members**, then choose the anomaly detector resource that you created earlier, then select **Review + assign**.
 
-
-
-
-
-### Step 5. Image API with sample Request
-
-Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
-
-Here is a sample request with Python.
-
-1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
-
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-12-30-preview" with "https://content-mod-test.cognitiveservices.azure.com/contentmoderator/moderate/text/detect?api-version=2022-12-30-preview':
+         
 
 ```python
 import requests
+import json
 
-url = "https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview"
+url = "https://[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview"
 
-payload = {"text": "You are an idiot."}
-
+payload = json.dumps({
+  "image": {
+    "url": "https://cmsatest2023.blob.core.windows.net/images/adult.jpeg"
+  },
+  "categories": [
+    "Hate",
+    "Sexual",
+    "SelfHarm",
+    "Violence"
+  ]
+})
 headers = {
-
-    "accept": "application/json",
-
-    "content-type": "application/json",
-
-    "Ocp-Apim-Subscription-Key": "Please type your key here"
-
+  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+  'Content-Type': 'application/json'
 }
 
-response = requests.post(url, json=payload, headers=headers)
+response = requests.request("POST", url, headers=headers, data=payload)
 
 print(response.text)
-
 ```
 
 > ###  📘 NOTE: Sample Python Jupyter Notebook
-
->
 
 > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
 
@@ -332,168 +292,87 @@ print(response.text)
 
 > 3. Run the notebook.
 
-#### **Request Format Reference**
-
 1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 
 2. Change the body of the request to whatever string of text you'd like to analyze.
 
 ```json
 {
-
-    "text":"You are an idiot.",
-
-    "categories": ["HateSpeech","Sexual","SelfHarm","Violence"]
-
+  "image": {
+    "content": "string",
+    "url": "string",
+    "format": "jpeg"
+  },
+  "categories": [
+  "Hate","Sexual","SelfHarm","Violence"
+  ]
 }
 
 ```
 
-| Name           | Description                                                  | Type   |
 
+
+| Name             | Description                                                  | Type   |
+| :--------------- | :----------------------------------------------------------- | ------ |
+| **Content**      | Image to Base64                                              | Base64 |
+| **Url**          | Blob Url for image                                           |        |
+| **Image format** | Add to Fav(Required) This is assumed to be image with JPEG, PNG format. url or base 64. | String |
+| **Categories**   | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories in a single request. | String |
+
+
+
+> ### 📘NOTE: Image size, and granularity
+
+> The default maximumsize for image submissions is **4MB** with at least **50x50** image dimensions. 
+
+### Step 2. Image API with sample Response
+
+You should see the Image moderation results displayed as JSON data. For example:
+
+```json
+{
+    "hateResult": {
+        "category": "Hate",
+        "riskLevel": 0
+    },
+    "selfHarmResult": {
+        "category": "SelfHarm",
+        "riskLevel": 0
+    },
+    "sexualResult": {
+        "category": "Sexual",
+        "riskLevel": 0
+    },
+    "violenceResult": {
+        "category": "Violence",
+        "riskLevel": 6
+    }
+}
+```
+
+> ###  📘 NOTE: **Why the risk level is not continuous**
+>
+> > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
+
+|                | Description                                                  | Type   |
 | :------------- | :----------------------------------------------------------- | ------ |
+| **Category**   | Each output class that the API predicts.                     | String |
+| **Risk Level** | 0 – Safe, 2 – Notable/Questionable, 4 - Mature, 6 - Dangerous | Number |
 
-| **Text**       | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
 
-| **Categories** | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
 
-> ### 📘NOTE: Text size, and granularity
-
->
-
-> The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions. 
-
->
-
-> Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
-
-### Step 6. Evaluate the response
-
-You should see the Text moderation results displayed as JSON data. For example:
-
-```json
-{
-
-    "value": [
-
-        {
-
-            "category": "SelfHarm",
-
-            "detected": false,
-
-            "score": 1.055202E-4,
-
-            "modelOutputDetail": null,
-
-            "diagnoses": null
-
-        },
-
-        {
-
-            "category": "Violence",
-
-            "detected": false,
-
-            "score": 0.0,
-
-            "modelOutputDetail": null,
-
-            "diagnoses": null
-
-        },
-
-        {
-
-            "category": "Sexual",
-
-            "detected": false,
-
-            "score": 2.038020E-4,
-
-            "modelOutputDetail": null,
-
-            "diagnoses": null
-
-        },
-
-        {
-
-            "category": "HateSpeech",
-
-            "detected": true,
-
-            "score": 0.9882153,
-
-            "modelOutputDetail": null,
-
-            "diagnoses": null
-
-        }
-
-    ]
-
-}
-
-```
-
-#### **Response Format Reference**
-
-Classification can be multi-labelled. For example, when a text is run through text moderation model, it could be classified as sexual content as well as violence.
-
-The confidence score is from 0 to 1. A higher score indicates a greater likelihood that a reader would perceive the comment as containing the given category. For example, a comment like “ You are an idiot ” may receive a probability score of 0.99 for category Hate Speech. 
-
-```json
-{
-
-            "category": "HateSpeech",
-
-            "detected": true,
-
-            "score": 0.9882153,
-
-            "modelOutputDetail": null,
-
-            "diagnoses": null
-
-        }
-
-```
-
-> ###  📘 NOTE: **Why the score might change**
-
-> We update our models regularly. Before updating, we thoroughly test to ensure models meet a high quality bar for the results of these tests.  However you may see that a specific score changed as a result of an update. Note that we are not able to notify users each time an update is released.
-
-| Name                    | Description                                              | Type    |
-
-| :---------------------- | :------------------------------------------------------- | ------- |
-
-| **Category**            | Each output class that the API predicts.                 | String  |
-
-| **Detected**            | Whether harmful content has been detected or not         | Boolean |
-
-| **Score**               | Confidence score of predicted categories                 | Number  |
-
-| **Model output detail** | Not supported for this version and will only show "null" | String  |
-
-| **Diagnosis Detail**    | Not supported for this version and will only show "null" | String  |
-
-### Step 5: Limitations
+## ⚠️ Limitations
 
 #### Quota limit
 
 By default, we set a quota limit:
 
 | Pricing Tier | Query per second (QPS) | Maximum value                         |
-
 | :----------- | :--------------------- | ------------------------------------- |
-
 | F0           | 1                      | 5000 requests per resource per month. |
-
 | S0           | 10                     | No maximum limit.                     |
 
-If you need a quota increase, you may need to [shoot us an email](mailto:acm-team@microsoft.com) to request a quota increase.
+If you need a quota increase, you may need to [shoot us an email](mailto:acm-team@microsoft.com) to request.
 
 #### Latency & Reliability
 
@@ -504,72 +383,36 @@ We aim to keep text moderation API fast enough to be used in real-time scenarios
 There are several types of errors you may encounter while using the Text moderation API. The message and details fields will provide the information you need to understand the error.
 
 | HTML Status | Meaning                                                      |
-
 | :---------- | :----------------------------------------------------------- |
-
 | 200         | Ok – everything worked!                                      |
-
 | 400         | Bad request – the request could not be accepted.             |
-
 | 403         | Unauthorized – there is an issue with the API key.           |
-
 | 404         | Not found.                                                   |
-
 | 429         | Too many requests – you’ve made too many requests to our API, please try again in a few minutes. |
-
 | 500         | Internal service error – we had a problem with our server. Please try again later. |
-
 | 503         | Service unavailable – we are temporarily offline for maintenance. Please try again later. |
-
 | 504         | Gateway timeout – we are not able to fulfil your request at this time. Please try again later. |
 
  ##  📝 Other Sample Code 
+
+#### Text API
 
 - #### cURL
 
 Here is a sample request with cURL. 
 
-1. Install the [cURL](https://curl.se/download.html).
-
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url (e.g. content-moderator-test.cognitiveservices.azure.com/):
+Install the [cURL](https://curl.se/download.html).
 
 ```shell
-
-curl --location --request POST 'https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview' \
-
---header 'Ocp-Apim-Subscription-Key: {Please type your key here}' \
-
+curl --location --request POST 'https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en' \
+--header 'Ocp-Apim-Subscription-Key: Please type your key here' \
 --header 'Content-Type: application/json' \
-
 --data-raw '{
-
-    "text":"You are an idiot.",
-
-    "categories": []
-
+  "text": "you are an idiot",
+  "categories": [
+   "Hate","Sexual","SelfHarm","Violence"
+  ]
 }'
-
-```
-
-- #### C#
-
-Here is a sample request with C#. 
-
-```c#
-
-var client = new RestClient("https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview");
-
-var request = new RestRequest(Method.POST);
-
-request.AddHeader("accept", "application/json");
-
-request.AddHeader("content-type", "application/json");
-
-request.AddHeader("Ocp-Apim-Subscription-Key", "Please type your key here");
-
-request.AddParameter("application/json", "{\"text\":\"You are an idiot.\"}", ParameterType.RequestBody);
-
-IRestResponse response = client.Execute(request);
 
 ```
 
@@ -578,38 +421,69 @@ IRestResponse response = client.Execute(request);
 Here is a sample request with Java. 
 
 ```java
-
-OkHttpClient client = new OkHttpClient();
-
-MediaType mediaType = MediaType.parse("application/json");
-
-RequestBody body = RequestBody.create(mediaType, "{\"text\":\"You are an idiot.\"}");
-
-Request request = new Request.Builder()
-
-  .url("https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview")
-
-  .post(body)
-
-  .addHeader("accept", "application/json")
-
-  .addHeader("content-type", "application/json")
-
-  .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
-
+OkHttpClient client = new OkHttpClient().newBuilder()
   .build();
-
+MediaType mediaType = MediaType.parse("application/json");
+RequestBody body = RequestBody.create(mediaType, "{\r\n  \"text\": \"you are an idiot\",\r\n  \"categories\": [\r\n   \"Hate\",\"Sexual\",\"SelfHarm\",\"Violence\"\r\n  ]\r\n}");
+Request request = new Request.Builder()
+  .url("https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en")
+  .method("POST", body)
+  .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
+  .addHeader("Content-Type", "application/json")
+  .build();
 Response response = client.newCall(request).execute();
 
 ```
 
+
+
+#### Image API
+
+- #### cURL
+
+Here is a sample request with cURL. 
+
+Install the [cURL](https://curl.se/download.html).
+
+```shell
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+MediaType mediaType = MediaType.parse("application/json");
+RequestBody body = RequestBody.create(mediaType, "{\r\n  \"image\": {\r\n    \"url\": \"https://cmsatest2023.blob.core.windows.net/images/adult.jpeg\"\r\n  },\r\n  \"categories\": [\r\n    \"Hate\",\"Sexual\",\"SelfHarm\",\"Violence\"\r\n  ]\r\n}");
+Request request = new Request.Builder()
+  .url("https://[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview")
+  .method("POST", body)
+  .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
+  .addHeader("Content-Type", "application/json")
+  .build();
+Response response = client.newCall(request).execute();
+```
+
+- #### Java
+
+Here is a sample request with Java. 
+
+```java
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+MediaType mediaType = MediaType.parse("application/json");
+RequestBody body = RequestBody.create(mediaType, "{\r\n  \"image\": {\r\n    \"url\": \"https://cmsatest2023.blob.core.windows.net/images/adult.jpeg\"\r\n  },\r\n  \"categories\": [\r\n    \"Hate\",\"Sexual\",\"SelfHarm\",\"Violence\"\r\n  ]\r\n}");
+Request request = new Request.Builder()
+  .url("https://[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview")
+  .method("POST", body)
+  .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
+  .addHeader("Content-Type", "application/json")
+  .build();
+Response response = client.newCall(request).execute();
+
+```
+
+
+
 ##  📒 Key Reference 
 
 - [API Reference](https://westus2.dev.cognitive.microsoft.com/docs/services/ContentModerator-Moderate-2022-09-30-preview/operations/Text_Detect)
-
 - [Project Carnegie Private Preview Terms](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Private%20Preview%20Terms%20for%20Project%20Carnegie.pdf)
-
-- [AAD Auth User Guide](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/AAD%20Auth%20User%20Guide.pdf)
 
 ##  💬 We're here to help!
 
