@@ -205,7 +205,9 @@ You should see the Text moderation results displayed as JSON data. For example:
 | Risk 4 - Mature               | Risk Level 4 stands for maturity. Words and phrases marked as a Risk 5 typically cover mature subject matters, utilize potentially inappropriate language, and are also heavily reliant on context.Examples: | mild forms of vulgarity, bullying, and hate speech, sharing of PII such as full names, phone numbers or addresses, discussions about controversial themes. |
 | Risk 6- Dangerous             | Words and phrases marked as a Risk 6 are explicit and  often offensive in nature. Most times they do not require additional context  to be considered high risk. Examples: strong swear words, explicit sexual  talk, severe bullying, and hate speech. | strong swear words, explicit sexual talk, severe bullying, and hate speech. |
 
-![image-20230111165421356](../../../../AppData/Roaming/Typora/typora-user-images/image-20230111165421356.png)
+![Content Moderation-Pitch Deck 1207](https://user-images.githubusercontent.com/36343326/211787069-c1de12c3-ba48-452a-a64a-809df3c8fb43.png)
+
+
 
 > ###  📘 NOTE: **Why the risk level is not continuous**
 
@@ -233,7 +235,7 @@ You should see the Text moderation results displayed as JSON data. For example:
 
       1. [Create a Storage Account](https://portal.azure.com/#create/Microsoft.StorageAccount-ARM), fill out the fields.
 
-         ![image-20230111181718638](../../../../AppData/Roaming/Typora/typora-user-images/image-20230111181718638.png)
+   ![image](https://user-images.githubusercontent.com/36343326/211787848-a5e9b6c3-ea32-4bf2-a702-c0b78cc4c2bc.png)
 
       2. Select **Container** to the left in your Storage Account resource and select **+Container** to create one that will store your data.
 
@@ -241,17 +243,17 @@ You should see the Text moderation results displayed as JSON data. For example:
 
          Once your data is uploaded, select your image file and copy the **blob URL** through the small blue button. (Please paste the URL somewhere convenient for further steps.)
 
-         ![Screenshot of copy blob url for one table.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/onetable-copy-url.png)
+     ![Screenshot of copy blob url for one table.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/onetable-copy-url.png)
 
       4. Grant Content moderator access to read the data in your Storage Account.
 
          - In your container, select **Access Control(IAM)** to the left, select **+ Add** to **Add role assignment**. If you see the add role assignment is disabled, please contact your Storage Account owner to add Owner role to your Container.
 
-         ![Screenshot of set access control UI.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-role-assignment.png)
+    ![Screenshot of set access control UI.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-role-assignment.png)
 
          - Search role of **Storage Blob Data Reader**, **click on it** and then select **Next**. Technically, the roles highlighted below and the *Owner* role all should work.
 
-         ![Screenshot of add role assignment with reader roles selected.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-reader-role.png)
+     ![Screenshot of add role assignment with reader roles selected.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-reader-role.png)
 
          - Select assign access to **Managed identity**, and **Select Members**, then choose the anomaly detector resource that you created earlier, then select **Review + assign**.
 
