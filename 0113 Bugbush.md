@@ -211,120 +211,176 @@ You should see the Text moderation results displayed as JSON data. For example:
 
 
 
+### Step 3. Check text against a custom list 
 
+The default AI classfiers is sufficient for most content moderation needs. However, you might need to screen for terms that are specific to your organization.
 
-### Step 3. Create your own blocklists
+Now, you can create custom lists of terms to use with the Text Moderation API.
 
+Below provides information and code samples to help you get started:
 
-
-### Step 2. Text API with sample Response
-
-You should see the Text moderation results displayed as JSON data. For example:
-
-```json
-{
-    "blocklistMatchResults": [],
-    "hateResult": {
-        "category": "Hate",
-        "riskLevel": 2
-    },
-    "selfHarmResult": {
-        "category": "SelfHarm",
-        "riskLevel": 0
-    },
-    "sexualResult": {
-        "category": "Sexual",
-        "riskLevel": 0
-    },
-    "violenceResult": {
-        "category": "Violence",
-        "riskLevel": 0
-    }
-}
-```
-
-| Name           | Description                                                  | Type   |
-| :------------- | :----------------------------------------------------------- | ------ |
-| **Category**   | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text moderation model, it could be classified as sexual content as well as violence. | String |
-| **Risk Level** | Severity of the consequences.                                | Number |
-
-#### **Risk Map:**
+- Create a list.
+- Add terms to a list.
+- Screen terms against the terms in a list.
+- Delete terms from a list.
+- Delete a list.
+- Edit list information.
 
 
 
-### Step 2. Text API with sample Response
+#### Create a term list
 
-You should see the Text moderation results displayed as JSON data. For example:
+> ###  📘 NOTE: 
+
+> There is a maximum limit of **5 term lists** with each list to **not exceed 10,000 terms**.
+
+1. In the **Ocp-Apim-Subscription-Key** box, enter your subscription key.
+2. In the **Request body** box, enter values for **Name** (for example, MyList) and **Description**.
+3. Select **Send**. Your list is created. Note the **ID** value that is associated with the new list. You need this ID for other term list management functions.
+
+**Request content**
 
 ```json
 {
-    "blocklistMatchResults": [],
-    "hateResult": {
-        "category": "Hate",
-        "riskLevel": 2
-    },
-    "selfHarmResult": {
-        "category": "SelfHarm",
-        "riskLevel": 0
-    },
-    "sexualResult": {
-        "category": "Sexual",
-        "riskLevel": 0
-    },
-    "violenceResult": {
-        "category": "Violence",
-        "riskLevel": 0
-    }
+    "listId": "1234",
+    "name": "MyList",
+    "description": "This is a violence list"
 }
 ```
 
-| Name           | Description                                                  | Type   |
-| :------------- | :----------------------------------------------------------- | ------ |
-| **Category**   | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text moderation model, it could be classified as sexual content as well as violence. | String |
-| **Risk Level** | Severity of the consequences.                                | Number |
+**Response content**
 
-#### **Risk Map:**
+```json
+200 OK
+```
 
+#### Add a term to a term list
 
+1. In the **listId** parameter, enter the list ID that you generated in previous step.
+2. In the **Request body** box, enter values for **Text** (for example, blood) and type a value for **language**. 
+3. Enter your subscription key, and then select **Send**.
+4. In the **Response content** box, verify the terms you entered.
 
-
-
-
-
-### Step 2. Text API with sample Response
-
-You should see the Text moderation results displayed as JSON data. For example:
+**Request content**
 
 ```json
 {
-    "blocklistMatchResults": [],
-    "hateResult": {
-        "category": "Hate",
-        "riskLevel": 2
-    },
-    "selfHarmResult": {
-        "category": "SelfHarm",
-        "riskLevel": 0
-    },
-    "sexualResult": {
-        "category": "Sexual",
-        "riskLevel": 0
-    },
-    "violenceResult": {
-        "category": "Violence",
-        "riskLevel": 0
-    }
+    "itemId": "01",
+    "description": "my first word",
+    "text": "blood",
+    "language": "en"
 }
 ```
 
-| Name           | Description                                                  | Type   |
-| :------------- | :----------------------------------------------------------- | ------ |
-| **Category**   | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text moderation model, it could be classified as sexual content as well as violence. | String |
-| **Risk Level** | Severity of the consequences.                                | Number |
+**Response content**
 
-#### **Risk Map:**
+```json
+200 OK
+```
+
+#### Get all terms in a term list
+
+1. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in previous step. 
+2. Enter your subscription key, and then select **Send**.
+3. In the **Response content** box, verify the terms you entered.
+4. Now, you could screen text using a term list.
+
+**Request content**
+
+```json
+{
+    "listId": "1234"
+}
+```
+
+**Response content**
+
+```json
+{
+    "values": [
+        {
+            "itemId": "01",
+            "description": "my first word",
+            "text": "blood",
+            "language": "en"
+        }
+    ]
+}
+```
 
 
+
+#### Delete terms and lists
+
+Deleting a term or a list is straightforward. You use the API to do the following tasks:
+
+- Delete a term. (**Term - Delete**)
+- Delete all the terms in a list without deleting the list. (**Term - Delete All Terms**)
+- Delete a list and all of its contents. (**Term Lists - Delete**)
+
+#### Delete a term
+
+1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
+2. Enter the ID of the term.
+3. Enter your subscription key, and then select **Send**.
+
+**Request content**
+
+```json
+{
+    "listId": "1234",
+    "itemId": "01"
+}
+```
+
+**Response content**
+
+```json
+200 OK
+```
+
+
+
+#### Delete a term
+
+1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
+2. Enter the ID of the term.
+3. Enter your subscription key, and then select **Send**.
+
+**Request content**
+
+```json
+{
+    "listId": "1234",
+    "itemId": "01"
+}
+```
+
+**Response content**
+
+```json
+200 OK
+```
+
+
+
+#### Delete a term list
+
+1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
+2. Enter your subscription key, and then select **Send**.
+3. **Request content**
+
+```csharp
+{
+  "listId": "1234"
+}
+```
+
+**Response content**
+
+```json
+200 OK
+```
 
 
 
