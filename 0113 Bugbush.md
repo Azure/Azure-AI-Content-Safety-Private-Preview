@@ -1,5 +1,21 @@
 #  Project "Carnegie" Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 
 
+[TOC]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Welcome to the Project "Carnegie" Private Preview!
 
 The Project "Carnegie" Private Preview API is a Cognitive Service that detects certain material that is potentially offensive, risky, or otherwise undesirable. The initial version of Project Carnegie Preview will detect material in text and image. In later versions, we intend to update the API with new functionalities offering state of the art text, image and multi-modal models that will detect problematic content to help make applications & services safer from harmful User-generated-content and/or AI-generated-content.
@@ -192,7 +208,7 @@ You should see the Text moderation results displayed as JSON data. For example:
 | **Category**   | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text moderation model, it could be classified as sexual content as well as violence. | String |
 | **Risk Level** | Severity of the consequences.                                | Number |
 
-#### **Risk Map:**
+**Risk map:**
 
 | Risk level                    | Description                                                  | Example                                                      |
 | ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -318,7 +334,7 @@ Deleting a term or a list is straightforward. You use the API to do the followin
 - Delete all the terms in a list without deleting the list. (**Term - Delete All Terms**)
 - Delete a list and all of its contents. (**Term Lists - Delete**)
 
-#### Delete a term
+##### Delete a term
 
 1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
 2. Enter the ID of the term.
@@ -341,30 +357,7 @@ Deleting a term or a list is straightforward. You use the API to do the followin
 
 
 
-#### Delete a term
-
-1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
-2. Enter the ID of the term.
-3. Enter your subscription key, and then select **Send**.
-
-**Request content**
-
-```json
-{
-    "listId": "1234",
-    "itemId": "01"
-}
-```
-
-**Response content**
-
-```json
-200 OK
-```
-
-
-
-#### Delete a term list
+##### Delete a term list
 
 1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
 2. Enter your subscription key, and then select **Send**.
