@@ -209,6 +209,125 @@ You should see the Text moderation results displayed as JSON data. For example:
 
 > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
+
+
+
+
+### Step 3. Create your own blocklists
+
+
+
+### Step 2. Text API with sample Response
+
+You should see the Text moderation results displayed as JSON data. For example:
+
+```json
+{
+    "blocklistMatchResults": [],
+    "hateResult": {
+        "category": "Hate",
+        "riskLevel": 2
+    },
+    "selfHarmResult": {
+        "category": "SelfHarm",
+        "riskLevel": 0
+    },
+    "sexualResult": {
+        "category": "Sexual",
+        "riskLevel": 0
+    },
+    "violenceResult": {
+        "category": "Violence",
+        "riskLevel": 0
+    }
+}
+```
+
+| Name           | Description                                                  | Type   |
+| :------------- | :----------------------------------------------------------- | ------ |
+| **Category**   | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text moderation model, it could be classified as sexual content as well as violence. | String |
+| **Risk Level** | Severity of the consequences.                                | Number |
+
+#### **Risk Map:**
+
+
+
+### Step 2. Text API with sample Response
+
+You should see the Text moderation results displayed as JSON data. For example:
+
+```json
+{
+    "blocklistMatchResults": [],
+    "hateResult": {
+        "category": "Hate",
+        "riskLevel": 2
+    },
+    "selfHarmResult": {
+        "category": "SelfHarm",
+        "riskLevel": 0
+    },
+    "sexualResult": {
+        "category": "Sexual",
+        "riskLevel": 0
+    },
+    "violenceResult": {
+        "category": "Violence",
+        "riskLevel": 0
+    }
+}
+```
+
+| Name           | Description                                                  | Type   |
+| :------------- | :----------------------------------------------------------- | ------ |
+| **Category**   | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text moderation model, it could be classified as sexual content as well as violence. | String |
+| **Risk Level** | Severity of the consequences.                                | Number |
+
+#### **Risk Map:**
+
+
+
+
+
+
+
+### Step 2. Text API with sample Response
+
+You should see the Text moderation results displayed as JSON data. For example:
+
+```json
+{
+    "blocklistMatchResults": [],
+    "hateResult": {
+        "category": "Hate",
+        "riskLevel": 2
+    },
+    "selfHarmResult": {
+        "category": "SelfHarm",
+        "riskLevel": 0
+    },
+    "sexualResult": {
+        "category": "Sexual",
+        "riskLevel": 0
+    },
+    "violenceResult": {
+        "category": "Violence",
+        "riskLevel": 0
+    }
+}
+```
+
+| Name           | Description                                                  | Type   |
+| :------------- | :----------------------------------------------------------- | ------ |
+| **Category**   | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text moderation model, it could be classified as sexual content as well as violence. | String |
+| **Risk Level** | Severity of the consequences.                                | Number |
+
+#### **Risk Map:**
+
+
+
+
+
 ## 💡 QuickStart - Make an Image API Request
 
 ### Step 1. Image API with sample Request
@@ -223,37 +342,10 @@ You should see the Text moderation results displayed as JSON data. For example:
 
    3. Upload your image with two methods:
 
-      ##### First method: Transform your image to bash 64 with some [open source website](https://codebeautify.org/image-to-base64-converter)
+      ##### First method: Encode your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
 
-      **Second method: Upload to Storage Account** 
+      ##### **Second method**: [Upload to Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html) .
 
-      Select **Container** to the left in your Storage Account resource and select **+Container** to create one that will store your data.
-
-      Once you prepare your data with either of the JPG or PNG, you could upload your image to your Storage Account.
-
-      [Create a Storage Account](https://portal.azure.com/#create/Microsoft.StorageAccount-ARM), fill out the fields.
-
-   ![image](https://user-images.githubusercontent.com/36343326/211787848-a5e9b6c3-ea32-4bf2-a702-c0b78cc4c2bc.png)
-
-   - Select **Container** to the left in your Storage Account resource and select **+Container** to create one that will store your data.
-
-   - Upload your data to the container. Go to the container that you created, and select **Upload**, then choose your prepared image file and upload.
-
-   - Once your data is uploaded, select your image file and copy the **blob URL** through the small blue button. (Please paste the URL somewhere convenient for further steps.)
-
-     ![Screenshot of copy blob url for one table.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/onetable-copy-url.png)
-
-   - Grant Content moderator access to read the data in your Storage Account.
-
-   - In your container, select **Access Control(IAM)** to the left, select **+ Add** to **Add role assignment**. If you see the add role assignment is disabled, please contact your Storage Account owner to add Owner role to your Container.
-
-     ![Screenshot of set access control UI.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-role-assignment.png)
-
-
-   - Search role of **Storage Blob Data Reader**, **click on it** and then select **Next**. Technically, the roles highlighted below and the *Owner* role all should work.![Screenshot of add role assignment with reader roles selected.](https://learn.microsoft.com/en-us/azure/cognitive-services/anomaly-detector/media/prepare-data/add-reader-role.png)
-   
-   - Select assign access to **Managed identity**, and **Select Members**, then choose the content moderator resource that you created earlier, then select **Review + assign**.
-     
 
 ```python
 import requests
@@ -308,14 +400,11 @@ print(response.text)
 
 ```
 
-
-
-| Name             | Description                                                  | Type   |
-| :--------------- | :----------------------------------------------------------- | ------ |
-| **Content**      | Image to Base64                                              | Base64 |
-| **Url**          | Blob Url for image                                           |        |
-| **Image format** | (Required) This is assumed to be an image in JPEG, PNG format. | String |
-| **Categories**   | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
+| Name               | Description                                                  | Sample                                                       |
+| :----------------- | :----------------------------------------------------------- | ------------------------------------------------------------ |
+| **Content OR Url** | (Required) First way to upload your image is to optimize your images and convert them to base64. Second way is to upload your image to Blob and get a Blob Url for image. | Blob url:https://cmsatest2023.blob.core.windows.net/images/adult.jpeg |
+| **Image format**   | (Required) This is assumed to be an image in JPEG, PNG format. | String                                                       |
+| **Categories**     | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String                                                       |
 
 
 
