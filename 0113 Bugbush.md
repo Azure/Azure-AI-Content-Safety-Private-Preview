@@ -59,7 +59,7 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 
 ### Step 1. Whitelist your subscription ID
 
-1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
+1. Submit this form by filling in your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
 
 2. The whitelist will take up to 48 hours to approve. Once you receive a notification from Microsoft, you can go to the next step.
 
@@ -71,9 +71,8 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 
 3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
 
-> ###  📘 NOTE:
-
-> Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
+   > ###  📘 NOTE:
+   > Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 
 
 ## 💡 QuickStart - Make an Text API Request
@@ -89,7 +88,6 @@ Here is a sample request with Python.
 2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
 
    > ###  📘 NOTE:
-   >
    > The samples could contain offensive content, user discretion advised!!
 
 ```python
@@ -117,15 +115,11 @@ response = requests.request("POST", url, headers=headers, data=payload)
 print(response.text)
 ```
 
-> ###  📘 NOTE: Sample Python Jupyter Notebook
->
-> The samples could contain offensive content, user discretion advised!!
->
-> > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
->
-> > 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
->
-> > 3. Run the notebook.
+  > ###  📘 NOTE: Sample Python Jupyter Notebook
+  > The samples could contain offensive content, user discretion advised!!
+  >  1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
+  >  2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
+  >  3. Run the notebook.
 
 1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 
@@ -150,12 +144,9 @@ print(response.text)
 | **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
 | **BlockListIds**      | Custom list Id.                                              |        |
 | **BreakByBlocklists** | The strategy means if detection will stop on block list  when returning true. |        |
-
-> ###  📘 NOTE: Text size, and granularity
->
-> > The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions. 
->
-> > Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
+   > ###  📘 NOTE: Text size, and granularity
+   > The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions. 
+   > Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
 
 ### 
 
@@ -203,9 +194,8 @@ You should see the Text moderation results displayed as JSON data. For example:
 
 
 
-> ###  📘 NOTE: **Why the risk level is not continuous**
->
-> Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
+  > ###  📘 NOTE:
+  > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
 
 
@@ -228,9 +218,8 @@ Below provides information and code samples to help you get started:
 
 #### Create a term list
 
-> ###  📘 NOTE: 
-
-> There is a maximum limit of **5 term lists** with each list to **not exceed 10,000 terms**.
+  > ###  📘 NOTE:
+  > There is a maximum limit of **5 term lists** with each list to **not exceed 10,000 terms**.
 
 1. In the **Ocp-Apim-Subscription-Key** box, enter your subscription key.
 2. In the **Request body** box, enter values for **Name** (for example, MyList) and **Description**.
@@ -378,7 +367,6 @@ Deleting a term or a list is straightforward. You use the API to do the followin
       ##### **Second method**: [Upload to Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html) .
 
       > ###  📘 NOTE:
-   >
       > The samples could contain offensive content, user discretion advised!!
 
 
@@ -409,15 +397,11 @@ response = requests.request("POST", url, headers=headers, data=payload)
 print(response.text)
 ```
 
-> ###  📘 NOTE: Sample Python Jupyter Notebook
->
-> The samples could contain offensive content, user discretion advised!!
->
-> > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
->
-> > 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
->
-> > 3. Run the notebook.
+  > ###  📘 NOTE: Sample Python Jupyter Notebook
+  > The samples could contain offensive content, user discretion advised!!
+  > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
+  > 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
+  > 3. Run the notebook.
 
 1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 
@@ -445,9 +429,8 @@ print(response.text)
 
 
 
-> ### 📘NOTE: Image size, and granularity
-
-> The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions. 
+  > ### 📘NOTE: Image size, and granularity
+  > The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions. 
 
 ### Step 2. Image API with sample Response
 
@@ -474,9 +457,8 @@ You should see the Image moderation results displayed as JSON data. For example:
 }
 ```
 
-> ###  📘 NOTE: **Why the risk level is not continuous**
->
-> > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
+  > ###  📘 NOTE: **Why the risk level is not continuous**
+  > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
 |                | Description                                                  | Type   |
 | :------------- | :----------------------------------------------------------- | ------ |
@@ -517,7 +499,7 @@ There are several types of errors you may encounter while using the Text moderat
 | 503         | Service unavailable – we are temporarily offline for maintenance. Please try again later. |
 | 504         | Gateway timeout – we are not able to fulfill your request at this time. Please try again later. |
 
- ##  📝 Other Sample Code 
+##  📝 Other Sample Code 
 
 #### Text API
 
