@@ -1,10 +1,6 @@
-#  Project "Carnegie" Private Preview Documentation  !
+#  Project "Carnegie" Private Preview Documentation !
 
 [TOC]
-<<<<<<< HEAD
-
-=======
->>>>>>> e55fb6fa10031abdec90dac9f4691cf1bc05d247
 Welcome to the Project "Carnegie" Private Preview!
 
 The Project "Carnegie" Private Preview API is a Cognitive Service that detects certain material that is potentially offensive, risky, or otherwise undesirable. The initial version of Project Carnegie Preview will detect material in text and image. In later versions, we intend to update the API with new functionalities offering state of the art text, image and multi-modal models that will detect problematic content to help make applications & services safer from harmful User-generated-content and/or AI-generated-content.
@@ -77,7 +73,7 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
 
 > ###  📘 NOTE:
-
+>
 > Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 
 
@@ -126,11 +122,11 @@ print(response.text)
 >
 > The samples could contain offensive content, user discretion advised!!
 >
-> > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
+> 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
 >
-> > 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
+> 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
 >
-> > 3. Run the notebook.
+> 3. Run the notebook.
 
 1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 
@@ -158,9 +154,9 @@ print(response.text)
 
 > ###  📘 NOTE: Text size, and granularity
 >
-> > The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions. 
+> The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions. 
 >
-> > Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
+> Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
 
 ### 
 
@@ -229,17 +225,16 @@ Below provides information and code samples to help you get started:
 - Delete a list.
 - Edit list information.
 
-
-
-#### Create a term list
+#### Create a term list-PATCH
 
 > ###  📘 NOTE: 
-
+>
 > There is a maximum limit of **5 term lists** with each list to **not exceed 10,000 terms**.
 
-1. In the **Ocp-Apim-Subscription-Key** box, enter your subscription key.
-2. In the **Request body** box, enter values for **Name** (for example, MyList) and **Description**.
-3. Select **Send**. Your list is created. Note the **ID** value that is associated with the new list. You need this ID for other term list management functions.
+2. In the **Request body**, enter values for **ListID, Name (for example, MyList) and **Description.
+2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234?api-version=2022-12-30-preview
+2. Enter your subscription key, and then select **Send**.
+3. In the **Response content** box, your list is created. Note the **ID** value that is associated with the new list. You need this ID for management functions.
 
 **Request content**
 
@@ -254,13 +249,14 @@ Below provides information and code samples to help you get started:
 **Response content**
 
 ```json
-200 OK
+200
 ```
 
-#### Add a term to a term list
+#### Add a term to a term list-PATCH
 
 1. In the **listId** parameter, enter the list ID that you generated in previous step.
-2. In the **Request body** box, enter values for **Text** (for example, blood) and type a value for **language**. 
+2. In the **Request body**, enter values for ** Text** (for example, blood) and type a value for **language**. 
+2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
 3. Enter your subscription key, and then select **Send**.
 4. In the **Response content** box, verify the terms you entered.
 
@@ -278,15 +274,16 @@ Below provides information and code samples to help you get started:
 **Response content**
 
 ```json
-200 OK
+200
 ```
 
-#### Get all terms in a term list
+#### Get all terms in a term list-GET
 
 1. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in previous step. 
+1. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
 2. Enter your subscription key, and then select **Send**.
 3. In the **Response content** box, verify the terms you entered.
-4. Now, you could screen text using a term list.
+4. Now, you successfully created a list including a term, you could screen text using a term list.
 
 **Request content**
 
@@ -313,18 +310,11 @@ Below provides information and code samples to help you get started:
 
 
 
-#### Delete terms and lists
-
-Deleting a term or a list is straightforward. You use the API to do the following tasks:
-
-- Delete a term. (**Term - Delete**)
-- Delete all the terms in a list without deleting the list. (**Term - Delete All Terms**)
-- Delete a list and all of its contents. (**Term Lists - Delete**)
-
-##### Delete a term
+#### Delete a term-DELETE
 
 1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
 2. Enter the ID of the term.
+2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
 3. Enter your subscription key, and then select **Send**.
 
 **Request content**
@@ -339,14 +329,15 @@ Deleting a term or a list is straightforward. You use the API to do the followin
 **Response content**
 
 ```json
-200 OK
+200
 ```
 
 
 
-##### Delete a term list
+#### Delete a term list and all of its contents-DELETE
 
 1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
+1. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234?api-version=2022-12-30-preview
 2. Enter your subscription key, and then select **Send**.
 3. **Request content**
 
@@ -359,7 +350,7 @@ Deleting a term or a list is straightforward. You use the API to do the followin
 **Response content**
 
 ```json
-200 OK
+200
 ```
 
 
@@ -383,7 +374,7 @@ Deleting a term or a list is straightforward. You use the API to do the followin
       ##### **Second method**: [Upload to Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html) .
 
       > ###  📘 NOTE:
-   >
+      >
       > The samples could contain offensive content, user discretion advised!!
 
 
@@ -418,11 +409,11 @@ print(response.text)
 >
 > The samples could contain offensive content, user discretion advised!!
 >
-> > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
+> 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
 >
-> > 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
+> 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
 >
-> > 3. Run the notebook.
+> 3. Run the notebook.
 
 1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 
@@ -451,7 +442,7 @@ print(response.text)
 
 
 > ### 📘NOTE: Image size, and granularity
-
+>
 > The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions. 
 
 ### Step 2. Image API with sample Response
@@ -481,7 +472,7 @@ You should see the Image moderation results displayed as JSON data. For example:
 
 > ###  📘 NOTE: **Why the risk level is not continuous**
 >
-> > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
+> Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
 |                | Description                                                  | Type   |
 | :------------- | :----------------------------------------------------------- | ------ |
@@ -522,7 +513,7 @@ There are several types of errors you may encounter while using the Text moderat
 | 503         | Service unavailable – we are temporarily offline for maintenance. Please try again later. |
 | 504         | Gateway timeout – we are not able to fulfill your request at this time. Please try again later. |
 
- ##  📝 Other Sample Code 
+## 📝 Other Sample Code 
 
 #### Text API
 
