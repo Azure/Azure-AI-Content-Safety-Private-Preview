@@ -2,20 +2,6 @@
 
 [TOC]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Welcome to the Project "Carnegie" Private Preview!
 
 The Project "Carnegie" Private Preview API is a Cognitive Service that detects certain material that is potentially offensive, risky, or otherwise undesirable. The initial version of Project Carnegie Preview will detect material in text and image. In later versions, we intend to update the API with new functionalities offering state of the art text, image and multi-modal models that will detect problematic content to help make applications & services safer from harmful User-generated-content and/or AI-generated-content.
@@ -73,10 +59,6 @@ This feature of the API provides scores for 4 different categories. Here are bri
 
 Before you can begin to test the Project "Carnegie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource.
 
-> ###  📘 NOTE:
-
-> The samples could contain offensive content, user discretion advised!!
-
 ### Step 1. Whitelist your subscription ID
 
 1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
@@ -98,10 +80,6 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 
 ## 💡 QuickStart - Make an Text API Request
 
-> ###  📘 NOTE:
-
-> The samples could contain offensive content, user discretion advised!!
-
 ### Step 1. Text API with sample Request
 
 Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
@@ -111,6 +89,10 @@ Here is a sample request with Python.
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
 
 2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
+
+   > ###  📘 NOTE:
+   >
+   > The samples could contain offensive content, user discretion advised!!
 
 ```python
 import requests
@@ -138,12 +120,14 @@ print(response.text)
 ```
 
 > ###  📘 NOTE: Sample Python Jupyter Notebook
-
-> 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
-
-> 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
-
-> 3. Run the notebook.
+>
+> The samples could contain offensive content, user discretion advised!!
+>
+> > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
+>
+> > 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
+>
+> > 3. Run the notebook.
 
 1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 
@@ -169,13 +153,13 @@ print(response.text)
 | **BlockListIds**      | Custom list Id.                                              |        |
 | **BreakByBlocklists** | The strategy means if detection will stop on block list  when returning true. |        |
 
+> ###  📘 NOTE: Text size, and granularity
+>
+> > The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions. 
+>
+> > Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
 
-
-> ### 📘NOTE: Text size, and granularity
-
-> The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions. 
-
-> Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
+### 
 
 ### Step 2. Text API with sample Response
 
@@ -222,7 +206,7 @@ You should see the Text moderation results displayed as JSON data. For example:
 
 
 > ###  📘 NOTE: **Why the risk level is not continuous**
-
+>
 > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
 
@@ -395,6 +379,10 @@ Deleting a term or a list is straightforward. You use the API to do the followin
 
       ##### **Second method**: [Upload to Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html) .
 
+      > ###  📘 NOTE:
+   >
+      > The samples could contain offensive content, user discretion advised!!
+
 
 ```python
 import requests
@@ -424,12 +412,14 @@ print(response.text)
 ```
 
 > ###  📘 NOTE: Sample Python Jupyter Notebook
-
-> 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
-
-> 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
-
-> 3. Run the notebook.
+>
+> The samples could contain offensive content, user discretion advised!!
+>
+> > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
+>
+> > 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
+>
+> > 3. Run the notebook.
 
 1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 
