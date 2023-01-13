@@ -271,15 +271,8 @@ print(response.headers)
 print(response.text)
 ```
 
-The response code should be `201` and the response body should be like this:
+The response code should be `201` and the URL to get the creted list should be contained in header, named **TextList-Location**
 
-```json
-{
-    "listId": "1234",
-    "name": "MyList",
-    "description": "This is a violence list"
-}
-```
 
 #### Add a term to a term list
 
