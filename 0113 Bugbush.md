@@ -158,8 +158,6 @@ print(response.text)
 >
 > Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
 
-### 
-
 ### Step 2. Text API with sample Response
 
 You should see the Text moderation results displayed as JSON data. For example:
@@ -227,7 +225,7 @@ Below provides information and code samples to help you get started:
 
 #### Create a term list-PATCH
 
-> ###  📘 NOTE: 
+> #####  📘 NOTE: 
 >
 > There is a maximum limit of **5 term lists** with each list to **not exceed 10,000 terms**.
 
