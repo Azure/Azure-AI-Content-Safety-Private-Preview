@@ -438,7 +438,7 @@ print(response.text)
 | **Content OR Url** | (Required) First way to upload your image is to optimize your images and convert them to base64. Second way is to upload your image to Blob and get a Blob Url for image. | Blob url:https://cmsatest2023.blob.core.windows.net/images/adult.jpeg |
 | **Image format**   | (Required) This is assumed to be an image in JPEG, PNG format. | String                                                       |
 | **Categories**     | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String                                                       |
-
+```
 
 
 > ### 📘NOTE: Image size, and granularity
