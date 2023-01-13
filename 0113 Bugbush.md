@@ -336,13 +336,6 @@ The response code should be `200`.
 4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 5. Enter the following JSON in the **Request body** field, for example:
 
-**Request content**
-
-```json
-{
-    "listId": "1234"
-}
-```
 
 ```python
 import requests
