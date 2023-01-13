@@ -25,7 +25,7 @@ This documentation site is structured into the following sections.
 
   
 
-##  🔎How It works
+##  🔎How It Works
 
 Project "Carnegie" can be accessed through RESTful APIs. 
 
@@ -81,13 +81,13 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 
 ### Step 1. Text API with sample Request
 
-Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
+Now that you have a resource available in Azure Content Moderator and you have a subscription key for that resource, let's run some tests by using the text moderation API.
 
 Here is a sample request with Python.
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
-
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "https://content-mod-test.cognitiveservices.azure.com/" replace "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
+2. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. 
+2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. For example, if your Resource URL is: "https://content-mod-test.cognitiveservices.azure.com/" replace "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
 3. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 4. Change the body of the request to whatever string of text you'd like to analyze.
 
@@ -329,6 +329,10 @@ The response code should be `200`.
 4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 5. Enter the following JSON in the **Request body** field, for example:
 
+<<<<<<< Updated upstream
+=======
+**Request content** with sample url: [Endpoint]contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
+>>>>>>> Stashed changes
 
 ```python
 import requests
@@ -372,7 +376,7 @@ The status code should be 200 and the response body should be like this:
 5. Enter your subscription key, and then select **Send**.
 6. In the **Response content** box, verify the terms you entered.
 
-**Request content** with sample url: https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en
+**Request content** with sample url: [Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en
 
 ```json
 {
@@ -487,7 +491,7 @@ Now that you have a resource available in Azure for Content Moderator and you ha
 import requests
 import json
 
-url = "https://[Endpoint]/contentmoderator/image:analyze?api-version=2022-12-30-preview"
+url = "[Endpoint]/contentmoderator/image:analyze?api-version=2022-12-30-preview"
 
 payload = json.dumps({
   "image": {
