@@ -72,7 +72,7 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 
 3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
 
-> ###  📘 NOTE:
+> **_📘 NOTE:_**
 >
 > Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 
@@ -89,7 +89,7 @@ Here is a sample request with Python.
 
 2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
 
-   > ###  📘 NOTE:
+   > **_📘 NOTE:_**
    >
    > The samples could contain offensive content, user discretion advised!!
 
@@ -118,7 +118,7 @@ response = requests.request("POST", url, headers=headers, data=payload)
 print(response.text)
 ```
 
-> ###  📘 NOTE: Sample Python Jupyter Notebook
+> **_📘 NOTE: Sample Python Jupyter Notebook_**
 >
 > The samples could contain offensive content, user discretion advised!!
 >
@@ -152,7 +152,7 @@ print(response.text)
 | **BlockListIds**      | Custom list Id.                                              |        |
 | **BreakByBlocklists** | The strategy means if detection will stop on block list  when returning true. |        |
 
-> ###  📘 NOTE: Text size, and granularity
+> **_📘 NOTE: Text size, and granularity_**
 >
 > The default maximum length for text submissions is **7K characters**. If you need to analyze longer blocks of text, you can split the input text (e.g., using punctuation or spacing) across multiple related submissions. 
 >
@@ -202,7 +202,7 @@ You should see the Text moderation results displayed as JSON data. For example:
 
 
 
-> ###  📘 NOTE: **Why the risk level is not continuous**
+> **_📘 NOTE: Why the risk level is not continuous_**
 >
 > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
@@ -372,7 +372,7 @@ Below provides information and code samples to help you get started:
 
       #### **Second method**: [Upload to Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html) .
 
-      > ####  📘 NOTE:
+      > **_📘 NOTE:_**
       >
       > The samples could contain offensive content, user discretion advised!!
 
@@ -404,7 +404,7 @@ response = requests.request("POST", url, headers=headers, data=payload)
 print(response.text)
 ```
 
-> ####  📘 NOTE: Sample Python Jupyter Notebook
+> **_📘 NOTE: Sample Python Jupyter Notebook_**
 >
 > The samples could contain offensive content, user discretion advised!!
 >
@@ -440,7 +440,7 @@ print(response.text)
 ```
 
 
-> #### 📘NOTE: Image size, and granularity
+> **_ 📘NOTE: Image size, and granularity _**
 >
 > The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions. 
 
@@ -469,7 +469,7 @@ You should see the Image moderation results displayed as JSON data. For example:
 }
 ```
 
-> ####  📘 NOTE: **Why the risk level is not continuous**
+> **_ 📘 NOTE: Why the risk level is not continuous _**
 >
 > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
