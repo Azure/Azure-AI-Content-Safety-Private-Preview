@@ -225,14 +225,15 @@ Below provides information and code samples to help you get started:
 
 #### Create a term list-PATCH
 
-> #####  📘 NOTE: 
+> **_📘 NOTE:_**
 >
 > There is a maximum limit of **5 term lists** with each list to **not exceed 10,000 terms**.
+> 
 
-2. In the **Request body**, enter values for **ListID, Name (for example, MyList) and **Description.
+1. In the **Request body**, enter values for **ListID, Name (for example, MyList) and **Description.
 2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234?api-version=2022-12-30-preview
-2. Enter your subscription key, and then select **Send**.
-3. In the **Response content** box, your list is created. Note the **ID** value that is associated with the new list. You need this ID for management functions.
+3. Enter your subscription key, and then select **Send**.
+4. In the **Response content** box, your list is created. Note the **ID** value that is associated with the new list. You need this ID for management functions.
 
 **Request content**
 
