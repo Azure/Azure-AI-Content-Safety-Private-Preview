@@ -437,12 +437,11 @@ print(response.text)
 | **Content OR Url** | (Required) First way to upload your image is to optimize your images and convert them to base64. Second way is to upload your image to Blob and get a Blob Url for image. | Blob url:https://cmsatest2023.blob.core.windows.net/images/adult.jpeg |
 | **Image format**   | (Required) This is assumed to be an image in JPEG, PNG format. | String                                                       |
 | **Categories**     | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String                                                       |
-```
 
-
-> **_ 📘NOTE: Image size, and granularity _**
+> **_ 📘 NOTE: Image size, and granularity _**
 >
 > The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions. 
+>
 
 ### Step 2. Image API with sample Response
 
