@@ -224,19 +224,20 @@ Below provides information and code samples to help you get started:
 - Delete a list.
 - Edit list information.
 
-#### Create a term list-PATCH
+#### Create a term list
 
 > **_📘 NOTE:_**
 >
 > There is a maximum limit of **5 term lists** with each list to **not exceed 10,000 terms**.
 > 
 
-1. In the **Request body**, enter values for **ListID, Name (for example, MyList) and **Description.
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. [Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview
-3. Enter your subscription key, and then select **Send**.
-4. In the **Response content** box, your list is created. Note the **ID** value that is associated with the new list. You need this ID for management functions.
 
-**Request content**
+1. Use method **PATCH**.
+2. The relative path should be "/text/lists/{listId}".
+3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
+3. Substitute [Endpoint] with your endpoint.
+4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+5. Enter the following JSON in the **Request body** field, for example:
 
 ```json
 {
@@ -246,22 +247,49 @@ Below provides information and code samples to help you get started:
 }
 ```
 
-**Response content**
+```python
+import requests
+import json
 
-```json
-200
+url = "[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview"
+
+payload = json.dumps({
+    "listId": "1234",
+    "name": "MyList",
+    "description": "This is a violence list"
+})
+headers = {
+  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("PATCH", url, headers=headers, data=payload)
+
+
+print(response.status_code)
+print(response.headers)
+print(response.text)
 ```
 
-#### Add a term to a term list-PATCH
+The response code should be `201` and the response body should be like this:
 
-1. Change you method to **PATCH**.
-1. In the **listId** parameter, enter the list ID that you generated in previous step.
-2. In the **Request body**, enter values for ** Text** (for example, blood) and type a value for **language**. 
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
-3. Enter your subscription key, and then select **Send**.
-4. In the **Response content** box, verify the terms you entered.
+```json
+{
+    "listId": "1234",
+    "name": "MyList",
+    "description": "This is a violence list"
+}
+```
 
-**Request content**
+#### Add a term to a term list
+
+1. Use method **PATCH**.
+2. The relative path should be "/text/lists/{listId}/items/{itemId}".
+3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
+4. In the **itemId** parameter, enter the ID of the term (in our example, )
+3. Substitute [Endpoint] with your endpoint.
+4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+5. Enter the following JSON in the **Request body** field, for example:
 
 ```json
 {
@@ -272,20 +300,41 @@ Below provides information and code samples to help you get started:
 }
 ```
 
-**Response content**
+```python
+import requests
+import json
 
-```json
-200
+url = "[Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview"
+
+payload = json.dumps({
+    "itemId": "01",
+    "description": "my first word",
+    "text": "blood",
+    "language": "en"
+})
+headers = {
+  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("PATCH", url, headers=headers, data=payload)
+
+
+print(response.status_code)
+print(response.headers)
+print(response.text)
 ```
+
+The response code should be `200`.
 
 #### Get all terms in a term list-GET
 
-1. Change you method to **GET**.
-1. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in previous step. 
-1. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
-2. Enter your subscription key, and then select **Send**.
-3. In the **Response content** box, verify the terms you entered.
-4. Now, you successfully created a list including a term, you could screen text using a term list.
+1. Use method **GET**.
+2. The relative path should be "/text/lists/{listId}/items".
+3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
+3. Substitute [Endpoint] with your endpoint.
+4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+5. Enter the following JSON in the **Request body** field, for example:
 
 **Request content**
 
@@ -295,8 +344,26 @@ Below provides information and code samples to help you get started:
 }
 ```
 
-**Response content**
+```python
+import requests
+import json
 
+url = "[Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview"
+
+headers = {
+  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("GET", url, headers=headers)
+
+
+print(response.status_code)
+print(response.headers)
+print(response.text)
+```
+
+The status code should be 200 and the response body should be like this:
 ```json
 {
     "values": [
