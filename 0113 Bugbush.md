@@ -1,4 +1,4 @@
-#  1Project "Carnegie" Private Preview Documentation !
+#  Project "Carnegie" Private Preview Documentation !
 
 [TOC]
 Welcome to the Project "Carnegie" Private Preview!
@@ -77,7 +77,7 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 > Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 
 
-## 💡 QuickStart - Make an Text API Request
+## 💡QuickStart - Make an Text API Request
 
 ### Step 1. Text API with sample Request
 
@@ -121,7 +121,7 @@ Here is a sample request with Python.
   print(response.status_code)
   print(response.headers)
   print(response.text)
-```
+  ```
 
 > **_📘 NOTE: Sample Python Jupyter Notebook_**
 >
@@ -224,22 +224,24 @@ Below provides information and code samples to help you get started:
 - Delete a list.
 - Edit list information.
 
-#### Create a term list
+#### Create a term list-PATCH
 
 > **_📘 NOTE:_**
 >
 > There is a maximum limit of **5 term lists** with each list to **not exceed 10,000 terms**.
 > 
 
+1. Change you method to **PATCH**.
+2. The relative path should be "https://[Endpoint]/contentmoderator/text/lists/**[listId]**?api-version=2022-12-30-preview"
+3. In the **listId** parameter, enter the ID of the list that you want to create (in our example, **1234**). 
+4. In the **Request body**, enter values for ListID, Name (for example, MyList) and Description.
+5. Enter your subscription key, and then select **Send**.
+4. In the **Response content** box, your list is created. Note the **ID** value that is associated with the new list. You need this ID for management functions.
 
-1. Use method **PATCH**.
-2. The relative path should be "/text/lists/{listId}".
-3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
-3. Substitute [Endpoint] with your endpoint.
-4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
-5. Enter the following JSON in the **Request body** field, for example:
+**Request content** with sample url:[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview
 
 ```json
+
 {
     "listId": "1234",
     "name": "MyList",
@@ -247,49 +249,23 @@ Below provides information and code samples to help you get started:
 }
 ```
 
-```python
-import requests
-import json
-
-url = "[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview"
-
-payload = json.dumps({
-    "listId": "1234",
-    "name": "MyList",
-    "description": "This is a violence list"
-})
-headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your key here',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("PATCH", url, headers=headers, data=payload)
-
-
-print(response.status_code)
-print(response.headers)
-print(response.text)
-```
-
-The response code should be `201` and the response body should be like this:
+**Response content**
 
 ```json
-{
-    "listId": "1234",
-    "name": "MyList",
-    "description": "This is a violence list"
-}
+200
 ```
 
-#### Add a term to a term list
+#### Add a term to a term list-PATCH
 
-1. Use method **PATCH**.
-2. The relative path should be "/text/lists/{listId}/items/{itemId}".
-3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
-4. In the **itemId** parameter, enter the ID of the term (in our example, )
-3. Substitute [Endpoint] with your endpoint.
-4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
-5. Enter the following JSON in the **Request body** field, for example:
+1. Change you method to **PATCH**.
+2. The relative path should be "https://[Endpoint]contentmoderator/text/lists/**[listId]**/items/**[itemId]**?api-version=2022-12-30-preview"
+3. In the **listId** parameter, enter the list ID that you generated in previous step.
+4. In the **itemId** parameter, enter the ID of the term that you want to create.
+5. In the **Request body**, enter values for **Text** (for example, blood) and type a value for **language**. 
+6. Enter your subscription key, and then select **Send**.
+4. In the **Response content** box, verify the terms you entered.
+
+**Request content** with sample url: https://[Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
 
 ```json
 {
@@ -300,43 +276,22 @@ The response code should be `201` and the response body should be like this:
 }
 ```
 
-```python
-import requests
-import json
+**Response content**
 
-url = "[Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview"
-
-payload = json.dumps({
-    "itemId": "01",
-    "description": "my first word",
-    "text": "blood",
-    "language": "en"
-})
-headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your key here',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("PATCH", url, headers=headers, data=payload)
-
-
-print(response.status_code)
-print(response.headers)
-print(response.text)
+```json
+200
 ```
-
-The response code should be `200`.
 
 #### Get all terms in a term list-GET
 
-1. Use method **GET**.
-2. The relative path should be "/text/lists/{listId}/items".
-3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
-3. Substitute [Endpoint] with your endpoint.
-4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
-5. Enter the following JSON in the **Request body** field, for example:
+1. Change you method to **GET**.
+2. The relative path should be "https://[Endpoint]contentmoderator/text/lists/**[listId]**/items?api-version=2022-12-30-preview"
+3. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in previous step. 
+4. Enter your subscription key, and then select **Send**.
+5. In the **Response content** box, verify the terms you entered.
+4. Now, you successfully created a list including a term, you could screen text using a term list.
 
-**Request content**
+**Request content** with sample url: https://[Endpoint]contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
 
 ```json
 {
@@ -344,26 +299,8 @@ The response code should be `200`.
 }
 ```
 
-```python
-import requests
-import json
+**Response content**
 
-url = "[Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview"
-
-headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your key here',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("GET", url, headers=headers)
-
-
-print(response.status_code)
-print(response.headers)
-print(response.text)
-```
-
-The status code should be 200 and the response body should be like this:
 ```json
 {
     "values": [
@@ -377,17 +314,77 @@ The status code should be 200 and the response body should be like this:
 }
 ```
 
+#### Screen terms against a list-POST
+
+1. Change you method to **POST**.
+2. The path should be "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
+3. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in previous step. 
+4. Set BreakByBlocklists: true
+5. Enter your subscription key, and then select **Send**.
+6. In the **Response content** box, verify the terms you entered.
+
+**Request content** with sample url: https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en
+
+```json
+{
+    "text": "I want to beat you till you blood",
+    "categories": [
+        "Hate",
+        "Sexual",
+        "SelfHarm",
+        "Violence"
+    ],
+    "blockListIds": [
+        "1234"
+    ],
+    "breakByBlocklists": true
+}
+```
+
+**Response content**
+
+```json
+{
+    "blocklistMatchResults": [
+        {
+            "listId": "1234",
+            "itemId": "01",
+            "itemText": "blood",
+            "offset": "28",
+            "length": "5"
+        }
+    ],
+    "hateResult": {
+        "category": "Hate",
+        "riskLevel": 2
+    },
+    "selfHarmResult": {
+        "category": "SelfHarm",
+        "riskLevel": 0
+    },
+    "sexualResult": {
+        "category": "Sexual",
+        "riskLevel": 0
+    },
+    "violenceResult": {
+        "category": "Violence",
+        "riskLevel": 4
+    }
+}
+```
+
 
 
 #### Delete a term-DELETE
 
-1. Change you method to **DELETE**.
-1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
-2. Enter the ID of the term.
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
-3. Enter your subscription key, and then select **Send**.
+1. Use method **DELETE**.
+2. The relative path should be "/text/lists/{listId}/items/{itemId}".
+3. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
+4. In the **itemId** parameter, enter the ID of the term that you want to delete.
+5. Substitute [Endpoint] with your endpoint.
+6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
 
-**Request content**
+**Request content** with sample url: https://[Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
 
 ```json
 {
@@ -395,54 +392,42 @@ The status code should be 200 and the response body should be like this:
     "itemId": "01"
 }
 ```
-
 **Response content**
 
 ```json
-200
+204
 ```
-
-
 
 #### Delete a term list and all of its contents-DELETE
 
-1. Change you method to **DELETE**.
-1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
-1. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234?api-version=2022-12-30-preview
-2. Enter your subscription key, and then select **Send**.
-3. **Request content**
+1. Use method **DELETE**.
+2. The relative path should be "/text/lists/{listId}".
+3. In the **listId** parameter, enter the ID of the list that you want to delete. 
+5. Substitute [Endpoint] with your endpoint.
+6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 
-```csharp
-{
-  "listId": "1234"
-}
-```
 
 **Response content**
 
 ```json
-200
+204
 ```
 
 
 
-## 💡 QuickStart - Make an Image API Request
+## 💡QuickStart - Make an Image API Request
 
 ### Step 1. Image API with sample Request
 
-1. Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
+Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
 
    Here is a sample request with Python.
 
-   1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
-
-   2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
-
-   3. Upload your image with two methods:
-
-      - First method: Encode your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
-
-      - Second method: [Upload to Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html) .
+1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
+2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
+3. Upload your image **by encoding your image to base64**. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
+4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
+5. Change the body of the request to whatever image you'd like to analyze.
 
 > **_📘 NOTE:_**
 >
@@ -488,10 +473,6 @@ print(response.text)
 >
 > 3. Run the notebook.
 
-1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
-
-2. Change the body of the request to whatever string of text you'd like to analyze.
-
 ```json
 {
   "image": {
@@ -506,11 +487,11 @@ print(response.text)
 
 ```
 
-| Name               | Description                                                  | Sample                                                       |
-| :----------------- | :----------------------------------------------------------- | ------------------------------------------------------------ |
-| **Content OR Url** | (Required) First way to upload your image is to optimize your images and convert them to base64. Second way is to upload your image to Blob and get a Blob Url for image. | Blob url:https://cmsatest2023.blob.core.windows.net/images/adult.jpeg |
-| **Image format**   | (Required) This is assumed to be an image in JPEG, PNG format. | String                                                       |
-| **Categories**     | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String                                                       |
+| Name             | Description                                                  | Type   |
+| :--------------- | :----------------------------------------------------------- | ------ |
+| **Content**      | (Required) Upload your image is to optimize your images and convert them to base64. | Base64 |
+| **Image format** | (Required) This is assumed to be any image format such as JPEG, PNG, but all need to be convert to base 64. | String |
+| **Categories**   | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
 
 > **_📘 NOTE: Image size, and granularity_**
 >
