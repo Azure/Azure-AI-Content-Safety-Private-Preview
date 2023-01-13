@@ -87,35 +87,37 @@ Here is a sample request with Python.
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
 
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
+2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "https://content-mod-test.cognitiveservices.azure.com/" replace "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
+3. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+4. Change the body of the request to whatever string of text you'd like to analyze.
 
-   > **_📘 NOTE:_**
-   >
-   > The samples could contain offensive content, user discretion advised!!
+ > **_📘 NOTE:_**
+ >
+ > The samples could contain offensive content, user discretion advised!!
 
-```python
-import requests
-import json
+  ```python
+  import requests
+  import json
 
-url = "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
+  url = "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
 
-payload = json.dumps({
-  "text": "you are an idiot",
-  "categories": [
-    "Hate",
-    "Sexual",
-    "SelfHarm",
-    "Violence"
-  ]
-})
-headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your key here',
-  'Content-Type': 'application/json'
-}
+  payload = json.dumps({
+    "text": "you are an idiot",
+    "categories": [
+      "Hate",
+      "Sexual",
+      "SelfHarm",
+      "Violence"
+    ]
+  })
+  headers = {
+    'Ocp-Apim-Subscription-Key': 'Please type your key here',
+    'Content-Type': 'application/json'
+  }
 
-response = requests.request("POST", url, headers=headers, data=payload)
+  response = requests.request("POST", url, headers=headers, data=payload)
 
-print(response.text)
+  print(response.text)
 ```
 
 > **_📘 NOTE: Sample Python Jupyter Notebook_**
@@ -127,10 +129,6 @@ print(response.text)
 > 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
 >
 > 3. Run the notebook.
-
-1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
-
-2. Change the body of the request to whatever string of text you'd like to analyze.
 
 ```json
 {
@@ -149,8 +147,8 @@ print(response.text)
 | :-------------------- | :----------------------------------------------------------- | ------ |
 | **Text**              | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
 | **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
-| **BlockListIds**      | Custom list Id.                                              |        |
-| **BreakByBlocklists** | The strategy means if detection will stop on block list  when returning true. |        |
+| **BlockListIds**      | Custom list Id array.                                              | Array |
+| **BreakByBlocklists** | If set this field to true, once blocklist is matched, the analysis will return immediately without model output. Default is false. | Boolean |
 
 > **_📘 NOTE: Text size, and granularity_**
 >
