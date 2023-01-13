@@ -329,10 +329,9 @@ The response code should be `200`.
 4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 5. Enter the following JSON in the **Request body** field, for example:
 
-<<<<<<< Updated upstream
-=======
+
+
 **Request content** with sample url: [Endpoint]contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
->>>>>>> Stashed changes
 
 ```python
 import requests
