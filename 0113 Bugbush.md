@@ -417,7 +417,7 @@ Below provides information and code samples to help you get started:
 
 ### Step 1. Image API with sample Request
 
-1. Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
+Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
 
    Here is a sample request with Python.
 
@@ -425,6 +425,10 @@ Below provides information and code samples to help you get started:
 2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
    3. Upload your image **by encoding your image to base64**. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
 
+
+  4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
+
+  5. Change the body of the request to whatever image you'd like to analyze.
 
 > **_📘 NOTE:_**
 >
@@ -469,10 +473,6 @@ print(response.text)
 > 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
 >
 > 3. Run the notebook.
-
-1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
-
-2. Change the body of the request to whatever string of text you'd like to analyze.
 
 ```json
 {
