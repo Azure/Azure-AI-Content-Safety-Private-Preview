@@ -334,7 +334,7 @@ The response code should be `200`.
 import requests
 import json
 
-url = "[Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview"
+url = "[Endpoint]/contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview"
 
 headers = {
   'Ocp-Apim-Subscription-Key': 'Please type your key here',
