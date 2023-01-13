@@ -1,4 +1,4 @@
-#  1Project "Carnegie" Private Preview Documentation !
+#  Project "Carnegie" Private Preview Documentation !
 
 [TOC]
 Welcome to the Project "Carnegie" Private Preview!
