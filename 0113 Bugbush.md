@@ -368,13 +368,13 @@ Below provides information and code samples to help you get started:
 
    3. Upload your image with two methods:
 
-      #### First method: Encode your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
+      - First method: Encode your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
 
-      #### **Second method**: [Upload to Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html) .
+      - Second method: [Upload to Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html) .
 
-      > **_📘 NOTE:_**
-      >
-      > The samples could contain offensive content, user discretion advised!!
+> **_📘 NOTE:_**
+>
+> The samples could contain offensive content, user discretion advised!!
 
 
 ```python
@@ -438,7 +438,7 @@ print(response.text)
 | **Image format**   | (Required) This is assumed to be an image in JPEG, PNG format. | String                                                       |
 | **Categories**     | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String                                                       |
 
-> **_ 📘 NOTE: Image size, and granularity _**
+> **_📘 NOTE: Image size, and granularity_**
 >
 > The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions. 
 >
@@ -468,7 +468,7 @@ You should see the Image moderation results displayed as JSON data. For example:
 }
 ```
 
-> **_ 📘 NOTE: Why the risk level is not continuous _**
+> **_📘 Note: Why the risk level is not continuous_**
 >
 > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
