@@ -382,11 +382,11 @@ Below provides information and code samples to help you get started:
 import requests
 import json
 
-url = "https://[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview"
+url = "https://[Endpoint]/contentmoderator/image:analyze?api-version=2022-12-30-preview"
 
 payload = json.dumps({
   "image": {
-    "url": "https://cmsatest2023.blob.core.windows.net/images/adult.jpeg"
+    "content": "[base64 encoded image]"
   },
   "categories": [
     "Hate",
@@ -396,7 +396,7 @@ payload = json.dumps({
   ]
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+  'Ocp-Apim-Subscription-Key': '[Endpoint Key]',
   'Content-Type': 'application/json'
 }
 
