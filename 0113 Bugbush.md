@@ -369,11 +369,11 @@ Below provides information and code samples to help you get started:
 
    3. Upload your image with two methods:
 
-      ##### First method: Encode your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
+      #### First method: Encode your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
 
-      ##### **Second method**: [Upload to Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html) .
+      #### **Second method**: [Upload to Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html) .
 
-      > ###  📘 NOTE:
+      > ####  📘 NOTE:
       >
       > The samples could contain offensive content, user discretion advised!!
 
@@ -405,7 +405,7 @@ response = requests.request("POST", url, headers=headers, data=payload)
 print(response.text)
 ```
 
-> ###  📘 NOTE: Sample Python Jupyter Notebook
+> ####  📘 NOTE: Sample Python Jupyter Notebook
 >
 > The samples could contain offensive content, user discretion advised!!
 >
@@ -441,7 +441,7 @@ print(response.text)
 ```
 
 
-> ### 📘NOTE: Image size, and granularity
+> #### 📘NOTE: Image size, and granularity
 >
 > The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions. 
 
@@ -470,7 +470,7 @@ You should see the Image moderation results displayed as JSON data. For example:
 }
 ```
 
-> ###  📘 NOTE: **Why the risk level is not continuous**
+> ####  📘 NOTE: **Why the risk level is not continuous**
 >
 > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
