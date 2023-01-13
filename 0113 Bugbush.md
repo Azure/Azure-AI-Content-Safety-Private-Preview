@@ -314,20 +314,12 @@ Below provides information and code samples to help you get started:
 
 #### Delete a term-DELETE
 
-1. Change you method to **DELETE**.
-1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
-2. Enter the ID of the term.
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
-3. Enter your subscription key, and then select **Send**.
-
-**Request content**
-
-```json
-{
-    "listId": "1234",
-    "itemId": "01"
-}
-```
+1. Use method **DELETE**.
+2. The relative path should be "/text/lists/{listId}/items/{itemId}".
+3. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
+4. In the **itemId** parameter, enter the ID of the term that you want to delete.
+5. Substitute [Endpoint] with your endpoint.
+6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 
 **Response content**
 
@@ -335,21 +327,14 @@ Below provides information and code samples to help you get started:
 200
 ```
 
-
-
 #### Delete a term list and all of its contents-DELETE
 
-1. Change you method to **DELETE**.
-1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
-1. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234?api-version=2022-12-30-preview
-2. Enter your subscription key, and then select **Send**.
-3. **Request content**
+1. Use method **DELETE**.
+2. The relative path should be "/text/lists/{listId}".
+3. In the **listId** parameter, enter the ID of the list that you want to delete. 
+5. Substitute [Endpoint] with your endpoint.
+6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 
-```csharp
-{
-  "listId": "1234"
-}
-```
 
 **Response content**
 
