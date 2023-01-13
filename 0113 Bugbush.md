@@ -1,4 +1,4 @@
-#  Project "Carnegie" Private Preview Documentation !
+#  1Project "Carnegie" Private Preview Documentation !
 
 [TOC]
 Welcome to the Project "Carnegie" Private Preview!
@@ -253,6 +253,7 @@ Below provides information and code samples to help you get started:
 
 #### Add a term to a term list-PATCH
 
+1. Change you method to **PATCH**.
 1. In the **listId** parameter, enter the list ID that you generated in previous step.
 2. In the **Request body**, enter values for ** Text** (for example, blood) and type a value for **language**. 
 2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
@@ -278,6 +279,7 @@ Below provides information and code samples to help you get started:
 
 #### Get all terms in a term list-GET
 
+1. Change you method to **GET**.
 1. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in previous step. 
 1. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
 2. Enter your subscription key, and then select **Send**.
@@ -311,6 +313,7 @@ Below provides information and code samples to help you get started:
 
 #### Delete a term-DELETE
 
+1. Change you method to **DELETE**.
 1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
 2. Enter the ID of the term.
 2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
@@ -335,6 +338,7 @@ Below provides information and code samples to help you get started:
 
 #### Delete a term list and all of its contents-DELETE
 
+1. Change you method to **DELETE**.
 1. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
 1. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234?api-version=2022-12-30-preview
 2. Enter your subscription key, and then select **Send**.
@@ -564,17 +568,14 @@ Here is a sample request with cURL.
 Install the [cURL](https://curl.se/download.html).
 
 ```shell
-OkHttpClient client = new OkHttpClient().newBuilder()
-  .build();
-MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\r\n  \"image\": {\r\n    \"url\": \"https://cmsatest2023.blob.core.windows.net/images/adult.jpeg\"\r\n  },\r\n  \"categories\": [\r\n    \"Hate\",\"Sexual\",\"SelfHarm\",\"Violence\"\r\n  ]\r\n}");
-Request request = new Request.Builder()
-  .url("https://[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview")
-  .method("POST", body)
-  .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
-  .addHeader("Content-Type", "application/json")
-  .build();
-Response response = client.newCall(request).execute();
+curl --location --request POST 'https://[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: Please type your key here' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "image": {
+    "content": "Please Paste base 64 code here"
+  }
+}'
 ```
 
 - #### Java
