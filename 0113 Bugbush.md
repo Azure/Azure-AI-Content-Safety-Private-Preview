@@ -117,6 +117,7 @@ Here is a sample request with Python.
 
   response = requests.request("POST", url, headers=headers, data=payload)
 
+  print(response)
   print(response.text)
 ```
 
@@ -229,7 +230,7 @@ Below provides information and code samples to help you get started:
 > 
 
 1. In the **Request body**, enter values for **ListID, Name (for example, MyList) and **Description.
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/1234?api-version=2022-12-30-preview
+2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. [Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview
 3. Enter your subscription key, and then select **Send**.
 4. In the **Response content** box, your list is created. Note the **ID** value that is associated with the new list. You need this ID for management functions.
 
