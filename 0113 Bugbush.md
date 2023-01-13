@@ -324,7 +324,7 @@ Below provides information and code samples to help you get started:
 **Response content**
 
 ```json
-200
+204
 ```
 
 #### Delete a term list and all of its contents-DELETE
@@ -339,7 +339,7 @@ Below provides information and code samples to help you get started:
 **Response content**
 
 ```json
-200
+204
 ```
 
 
