@@ -233,7 +233,7 @@ Below provides information and code samples to help you get started:
 
 
 1. Use method **PATCH**.
-2. The relative path should be "/text/lists/{listId}".
+2. The relative path should be "/text/lists/{listId}?api-version=2022-12-30-preview".
 3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
 3. Substitute [Endpoint] with your endpoint.
 4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
@@ -277,7 +277,7 @@ The response code should be `201` and the URL to get the creted list should be c
 #### Add a term to a term list
 
 1. Use method **PATCH**.
-2. The relative path should be "/text/lists/{listId}/items/{itemId}".
+2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
 3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
 4. In the **itemId** parameter, enter the ID of the term (in our example, )
 3. Substitute [Endpoint] with your endpoint.
@@ -427,7 +427,7 @@ The status code should be 200 and the response body should be like this:
 #### Delete a term-DELETE
 
 1. Use method **DELETE**.
-2. The relative path should be "/text/lists/{listId}/items/{itemId}".
+2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
 3. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
 4. In the **itemId** parameter, enter the ID of the term that you want to delete.
 5. Substitute [Endpoint] with your endpoint.
@@ -450,7 +450,7 @@ The status code should be 200 and the response body should be like this:
 #### Delete a term list and all of its contents-DELETE
 
 1. Use method **DELETE**.
-2. The relative path should be "/text/lists/{listId}".
+2. The relative path should be "/text/lists/{listId}?api-version=2022-12-30-preview".
 3. In the **listId** parameter, enter the ID of the list that you want to delete. 
 5. Substitute [Endpoint] with your endpoint.
 6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
