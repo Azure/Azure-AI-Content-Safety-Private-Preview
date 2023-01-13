@@ -232,9 +232,10 @@ Below provides information and code samples to help you get started:
 > 
 
 1. Change you method to **PATCH**.
-2. In the **Request body**, enter values for **ListID, Name (for example, MyList) and **Description.
-3. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]/contentmoderator/text/lists/**[listId]**?api-version=2022-12-30-preview
-4. Enter your subscription key, and then select **Send**.
+2. The relative path should be "https://[Endpoint]/contentmoderator/text/lists/**[listId]**?api-version=2022-12-30-preview"
+3. In the **listId** parameter, enter the ID of the list that you want to create (in our example, **1234**). 
+4. In the **Request body**, enter values for ListID, Name (for example, MyList) and Description.
+5. Enter your subscription key, and then select **Send**.
 4. In the **Response content** box, your list is created. Note the **ID** value that is associated with the new list. You need this ID for management functions.
 
 **Request content** with sample url:[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview
@@ -257,10 +258,11 @@ Below provides information and code samples to help you get started:
 #### Add a term to a term list-PATCH
 
 1. Change you method to **PATCH**.
-1. In the **listId** parameter, enter the list ID that you generated in previous step.
-2. In the **Request body**, enter values for ** Text** (for example, blood) and type a value for **language**. 
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/**[listId]**/items/**[itemId]**?api-version=2022-12-30-preview 
-3. Enter your subscription key, and then select **Send**.
+2. The relative path should be "https://[Endpoint]contentmoderator/text/lists/**[listId]**/items/**[itemId]**?api-version=2022-12-30-preview"
+3. In the **listId** parameter, enter the list ID that you generated in previous step.
+4. In the **itemId** parameter, enter the ID of the term that you want to create.
+5. In the **Request body**, enter values for **Text** (for example, blood) and type a value for **language**. 
+6. Enter your subscription key, and then select **Send**.
 4. In the **Response content** box, verify the terms you entered.
 
 **Request content** with sample url: https://[Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
@@ -283,10 +285,10 @@ Below provides information and code samples to help you get started:
 #### Get all terms in a term list-GET
 
 1. Change you method to **GET**.
-1. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in previous step. 
-1. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text/lists/**[listId]**/items?api-version=2022-12-30-preview
-2. Enter your subscription key, and then select **Send**.
-3. In the **Response content** box, verify the terms you entered.
+2. The relative path should be "https://[Endpoint]contentmoderator/text/lists/**[listId]**/items?api-version=2022-12-30-preview"
+3. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in previous step. 
+4. Enter your subscription key, and then select **Send**.
+5. In the **Response content** box, verify the terms you entered.
 4. Now, you successfully created a list including a term, you could screen text using a term list.
 
 **Request content** with sample url: https://[Endpoint]contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
@@ -315,9 +317,9 @@ Below provides information and code samples to help you get started:
 #### Screen terms against a list-POST
 
 1. Change you method to **POST**.
-2. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in previous step. 
-3. Set BreakByBlocklists: true
-4. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en
+2. The path should be "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
+3. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in previous step. 
+4. Set BreakByBlocklists: true
 5. Enter your subscription key, and then select **Send**.
 6. In the **Response content** box, verify the terms you entered.
 
