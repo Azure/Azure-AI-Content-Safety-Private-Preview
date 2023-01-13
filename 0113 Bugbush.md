@@ -117,7 +117,9 @@ Here is a sample request with Python.
 
   response = requests.request("POST", url, headers=headers, data=payload)
 
-  print(response)
+
+  print(response.status_code)
+  print(response.headers)
   print(response.text)
 ```
 
