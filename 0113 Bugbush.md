@@ -423,14 +423,11 @@ Now that you have a resource available in Azure for Content Moderator and you ha
 
    Here is a sample request with Python.
 
-   1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
+1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
 2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
-   3. Upload your image **by encoding your image to base64**. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
-
-
-  4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
-
-  5. Change the body of the request to whatever image you'd like to analyze.
+3. Upload your image **by encoding your image to base64**. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
+4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
+5. Change the body of the request to whatever image you'd like to analyze.
 
 > **_📘 NOTE:_**
 >
