@@ -1,11 +1,10 @@
 #  Project "Carnegie" Private Preview Documentation !
 
-[TOC]
 Welcome to the Project "Carnegie" Private Preview!
 
 The Project "Carnegie" Private Preview API is a Cognitive Service that detects certain material that is potentially offensive, risky, or otherwise undesirable. The initial version of Project Carnegie Preview will detect material in text and image. In later versions, we intend to update the API with new functionalities offering state of the art text, image and multi-modal models that will detect problematic content to help make applications & services safer from harmful User-generated-content and/or AI-generated-content.
 
-**The focus of the December 2022 Private Preview release is to add multi-severity risk levels with text API and new image API.**
+**The focus of the February 2022 Private Preview release is to add multi-severity risk levels with text API and new image API.**
 
 ## ⚠️ Disclaimer
 
@@ -15,11 +14,11 @@ The sample data and code could have offensive content, user discretion is advise
 
 This documentation site is structured into the following sections.
 
-- **How It works** contains instructions for using the service in more general ways.
+- **How It Works** contains instructions for using the service in more general ways.
 
 - **Concepts** provides in-depth explanations of the service categories.
 
-- **Sample Code** shows sample requests using the cURL, Python and Java.
+- **Other Sample Code** shows sample requests using the cURL, Python and Java.
 
 - **QuickStart** goes over getting-started instructions to guide you through making requests to the service.
 
@@ -44,14 +43,14 @@ Currently this API is only available in English. New languages will be supported
 
 ##  🗃Concepts
 
-### Text and image category
+### Text and Image Category
 
 This feature of the API provides scores for 4 different categories. Here are brief guidelines for the categories our API can provide scores for. Please be aware that these are high level descriptions of the guidelines we use to build our categories. Please contact us for details about current detailed guidelines:
 
 - **Category 1:** **Sexual** - Sexual describes language and images related to anatomical organs and genitals, romantic relationship, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one’s will, prostitution, pornography.
 - **Category 2:** **Violence** - Violence describes language and images related to physical actions intended to hurt, injure, damage or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc. 
 - **Category 3:** **Hate** - Hate is defined as any language and images that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.
-- **Category 4:** **Self-Harm**- Self-harm describes language and images related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
+- **Category 4:** **SelfHarm**- SelfHarm describes language and images related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
 
 
 ## 💡QuickStart - Before you begin
@@ -79,7 +78,7 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 
 ## 💡QuickStart - Make an Text API Request
 
-### Step 1. Text API with sample Request
+### Step 1. Text API with Sample Request
 
 Now that you have a resource available in Azure Content Moderator and you have a subscription key for that resource, let's run some tests by using the text moderation API.
 
@@ -87,8 +86,8 @@ Here is a sample request with Python.
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
 2. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. 
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. For example, if your Resource URL is: "https://content-mod-test.cognitiveservices.azure.com/" replace "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
-3. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+2. Substitute the [Endpoint] with your Resource Endpoint url. For example, "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview"
+3. Paste your subscription key into the **Subscription-Key** field.
 4. Change the body of the request to whatever string of text you'd like to analyze.
 
  > **_📘 NOTE:_**
@@ -129,7 +128,7 @@ Here is a sample request with Python.
 >
 > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
 >
-> 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
+> 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs a github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get a load error from Jupyter.
 >
 > 3. Run the notebook.
 
@@ -150,7 +149,7 @@ Here is a sample request with Python.
 | :-------------------- | :----------------------------------------------------------- | ------ |
 | **Text**              | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
 | **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
-| **BlockListIds**      | Custom list Id array.                                              | Array |
+| **BlocklistIds**      | Custom list Id array.                                              | Array |
 | **BreakByBlocklists** | If set this field to true, once blocklist is matched, the analysis will return immediately without model output. Default is false. | Boolean |
 
 > **_📘 NOTE: Text size, and granularity_**
@@ -211,7 +210,7 @@ You should see the Text moderation results displayed as JSON data. For example:
 
 ### Step 3. Check text against a custom list 
 
-The default AI classfiers is sufficient for most content moderation needs. However, you might need to screen for terms that are specific to your organization.
+The default AI classifiers are sufficient for most content moderation needs. However, you might need to screen for terms that are specific to your organization.
 
 Now, you can create custom lists of terms to use with the Text Moderation API.
 
@@ -234,7 +233,7 @@ Below provides information and code samples to help you get started:
 
 1. Use method **PATCH**.
 2. The relative path should be "/text/lists/{listId}?api-version=2022-12-30-preview".
-3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
+3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). The ID shoud be a string.
 3. Substitute [Endpoint] with your endpoint.
 4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 5. Enter the following JSON in the **Request body** field, for example:
@@ -251,7 +250,7 @@ Below provides information and code samples to help you get started:
 import requests
 import json
 
-url = "[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview"
+url = "[Endpoint]/contentmoderator/text/lists/[ListId]?api-version=2022-12-30-preview"
 
 payload = json.dumps({
     "listId": "1234",
@@ -271,7 +270,7 @@ print(response.headers)
 print(response.text)
 ```
 
-The response code should be `201` and the URL to get the creted list should be contained in header, named **TextList-Location**
+The response code should be `201` and the URL to get the created list should be contained in header, named **TextList-Location**
 
 
 #### Add a term to a term list
@@ -368,9 +367,9 @@ The status code should be 200 and the response body should be like this:
 
 #### Screen terms against a list-POST
 
-1. Change you method to **POST**.
-2. The path should be "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
-3. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in previous step. 
+1. Change your method to **POST**.
+2. The path should be "[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
+3. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in the previous step. 
 4. Set BreakByBlocklists: true
 5. Enter your subscription key, and then select **Send**.
 6. In the **Response content** box, verify the terms you entered.
@@ -436,7 +435,7 @@ The status code should be 200 and the response body should be like this:
 5. Substitute [Endpoint] with your endpoint.
 6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
 
-**Request content** with sample url: https://[Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
+**Request content** with sample url: [Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
 
 ```json
 {
@@ -469,14 +468,14 @@ The status code should be 200 and the response body should be like this:
 
 ## 💡QuickStart - Make an Image API Request
 
-### Step 1. Image API with sample Request
+### Step 1. Image API with Sample Request
 
-Now that you have a resource available in Azure for Content Moderator and you have a subscription key for that resource, let's run some tests by using the Text moderation API.
+Now that you have a resource available in Azure Content Moderator and you have a subscription key for that resource, let's run some tests by using the Image moderation API.
 
    Here is a sample request with Python.
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
-2. Run the following commands substituting the [Endpoint] with your Resource Endpoint url. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. For example, if your Resource URL is: "content-mod-test.cognitiveservices.azure.com/" replace "https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview" with **"https://content-mod-test.cognitiveservices.azure.com/contentmoderator/text:analyze?api-version=2022-12-30-preview"**
+2. Substitute the [Endpoint] with your Resource Endpoint url. For example, "[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview"
 3. Upload your image **by encoding your image to base64**. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
 4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 5. Change the body of the request to whatever image you'd like to analyze.
@@ -521,7 +520,7 @@ print(response.text)
 >
 > 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/individual#Downloads). 
 >
-> 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get load error from Jupyter.
+> 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get a load error from Jupyter.
 >
 > 3. Run the notebook.
 
@@ -541,8 +540,8 @@ print(response.text)
 
 | Name             | Description                                                  | Type   |
 | :--------------- | :----------------------------------------------------------- | ------ |
-| **Content**      | (Required) Upload your image is to optimize your images and convert them to base64. | Base64 |
-| **Image format** | (Required) This is assumed to be any image format such as JPEG, PNG, but all need to be convert to base 64. | String |
+| **Content**      | (Required) Upload your image to optimize your images and convert them to base64. | Base64 |
+| **Image format** | (Required) This is assumed to be any image format such as JPEG, PNG, etc. but all need to be converted to base 64. | String |
 | **Categories**   | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
 
 > **_📘 NOTE: Image size, and granularity_**
@@ -550,7 +549,7 @@ print(response.text)
 > The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions. 
 >
 
-### Step 2. Image API with sample Response
+### Step 2. Image API with Sample Response
 
 You should see the Image moderation results displayed as JSON data. For example:
 
@@ -588,7 +587,7 @@ You should see the Image moderation results displayed as JSON data. For example:
 
 ## ⚠️ Limitations
 
-#### Quota limit
+#### Quota Limit
 
 By default, we set a quota limit:
 
@@ -601,11 +600,11 @@ If you need a quota increase, you may need to [shoot us an email](mailto:acm-tea
 
 #### Latency & Reliability
 
-We aim to keep text moderation API fast enough to be used in real-time scenarios, with response times around 100ms. Different categories will have different latencies. 
+We aim to keep the text and image moderation API fast enough to be used in real-time scenarios, with response times around 100ms. Different categories will have different latencies. 
 
 #### API Error Messages
 
-There are several types of errors you may encounter while using the Text moderation API. The message and details fields will provide the information you need to understand the error.
+There are several types of errors you may encounter while using the text and image moderation API. The message and details fields will provide the information you need to understand the error.
 
 | HTML Status | Meaning                                                      |
 | :---------- | :----------------------------------------------------------- |
@@ -629,7 +628,7 @@ Here is a sample request with cURL.
 Install the [cURL](https://curl.se/download.html).
 
 ```shell
-curl --location --request POST 'https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en' \
+curl --location --request POST '[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en' \
 --header 'Ocp-Apim-Subscription-Key: Please type your key here' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -651,7 +650,7 @@ OkHttpClient client = new OkHttpClient().newBuilder()
 MediaType mediaType = MediaType.parse("application/json");
 RequestBody body = RequestBody.create(mediaType, "{\r\n  \"text\": \"you are an idiot\",\r\n  \"categories\": [\r\n   \"Hate\",\"Sexual\",\"SelfHarm\",\"Violence\"\r\n  ]\r\n}");
 Request request = new Request.Builder()
-  .url("https://[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en")
+  .url("[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en")
   .method("POST", body)
   .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
   .addHeader("Content-Type", "application/json")
@@ -671,7 +670,7 @@ Here is a sample request with cURL.
 Install the [cURL](https://curl.se/download.html).
 
 ```shell
-curl --location --request POST 'https://[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview' \
+curl --location --request POST '[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview' \
 --header 'Ocp-Apim-Subscription-Key: Please type your key here' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -691,7 +690,7 @@ OkHttpClient client = new OkHttpClient().newBuilder()
 MediaType mediaType = MediaType.parse("application/json");
 RequestBody body = RequestBody.create(mediaType, "{\r\n  \"image\": {\r\n    \"url\": \"https://cmsatest2023.blob.core.windows.net/images/adult.jpeg\"\r\n  },\r\n  \"categories\": [\r\n    \"Hate\",\"Sexual\",\"SelfHarm\",\"Violence\"\r\n  ]\r\n}");
 Request request = new Request.Builder()
-  .url("https://[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview")
+  .url("[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview")
   .method("POST", body)
   .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
   .addHeader("Content-Type", "application/json")
