@@ -72,7 +72,7 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 
 > **_📘 NOTE:_**
 >
-> Currently the private preview features are only available in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
+> Currently the private preview features are only available in S0 pricing tier and in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 
 
 ## 💡QuickStart - Make an Text API Request
@@ -137,19 +137,19 @@ Here is a sample request with Python.
   "categories": [
    "Hate","Sexual","SelfHarm","Violence"
   ],
-  "blockListIds": [
+  "blocklistIds": [
     "string"
   ],
   "breakByBlocklists": false
 }
 ```
-
-| Name                  | Description                                                  | Type   |
-| :-------------------- | :----------------------------------------------------------- | ------ |
-| **Text**              | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
-| **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
-| **BlocklistIds**      | Custom list Id array.                                              | Array |
-| **BreakByBlocklists** | If set this field to true, once blocklist is matched, the analysis will return immediately without model output. Default is false. | Boolean |
+| Name                  | Description                                                  | Type    |
+| :-------------------- | :----------------------------------------------------------- | ------- |
+| **Text**              | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String  |
+| **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories to get scores in a single request. | String  |
+| **Language**          | (Optional) Language code for text analysis. Value may contain only the language code (ex. "en", "fr") or BCP 47 language tag (ex. "en-US"). If you did not mention the language code, by default, we will detect all supported languages. **For this release, we only support English.** | String  |
+| **BlocklistIds**      | Custom list Id array. You could attach multiple lists here.  | Array   |
+| **BreakByBlocklists** | If set this field to true, once a blocklist is matched, the analysis will return immediately without model output. Default is false. | Boolean |
 
 > **_📘 NOTE: Text size, and granularity_**
 >
@@ -217,6 +217,7 @@ Below provides information and code samples to help you get started:
 
 - Create a list.
 - Add terms to a list.
+- Get all lists.
 - Screen terms against the terms in a list.
 - Delete terms from a list.
 - Delete a list.
@@ -269,7 +270,7 @@ print(response.headers)
 print(response.text)
 ```
 
-The response code should be `201` and the URL to get the created list should be contained in header, named **TextList-Location**
+The response code should be `201` and the URL to get the created list should be contained in the header, named **TextList-Location**
 
 
 #### Add a term to a term list
@@ -277,10 +278,11 @@ The response code should be `201` and the URL to get the created list should be 
 1. Use method **PATCH**.
 2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
 3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
-4. In the **itemId** parameter, enter the ID of the term (in our example, )
-3. Substitute [Endpoint] with your endpoint.
-4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
-5. Enter the following JSON in the **Request body** field, for example:
+4. In the **itemId** parameter, enter the ID of the term (in our example, **01** )
+5. In the **language** parameter, enter the Language code (ex. "en", "fr") or BCP 47 language tag (ex. "en-US"). If you did not mention the language code, by default, we will detect all supported languages. **For this release, we only support English.**
+6. Substitute [Endpoint] with your endpoint.
+7. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+8. Enter the following JSON in the **Request body** field, for example:
 
 ```json
 {
@@ -321,7 +323,7 @@ The response code should be `200`.
 #### Get all terms in a term list-GET
 
 1. Use method **GET**.
-2. The relative path should be "/text/lists/{listId}/items".
+2. The relative path should be "/text/lists/{listId}/items?api-version=2022-12-30-preview".
 3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
 3. Substitute [Endpoint] with your endpoint.
 4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
@@ -363,13 +365,51 @@ The status code should be 200 and the response body should be like this:
  ]
 }
 ```
+#### Get all lists-GET
+
+1. Use method **GET**.
+2. The relative path should be "/text/lists?api-version=2022-12-30-preview".
+3. Substitute [Endpoint] with your endpoint.
+4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+5. Enter the following JSON in the **Request body** field, for example:
+
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview
+
+
+
+```python
+
+import requests
+
+import json
+
+url = "[Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview"
+headers = {
+
+  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+
+  'Content-Type': 'application/json'
+
+}
+
+response = requests.request("GET", url, headers=headers)
+print(response.status_code)
+print(response.headers)
+print(response.text)
+
+```
+
+
+
+The status code should be `200` .
+
 
 #### Screen terms against a list-POST
 
 1. Change your method to **POST**.
 2. The path should be "[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
 3. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in the previous step. 
-4. Set BreakByBlocklists: true
+4. Set BreakByBlocklists: true, If set this field to true, once a blocklist is matched, the analysis will return immediately without model output. The default setting is false.
 5. Enter your subscription key, and then select **Send**.
 6. In the **Response content** box, verify the terms you entered.
 
@@ -384,7 +424,7 @@ The status code should be 200 and the response body should be like this:
         "SelfHarm",
         "Violence"
     ],
-    "blockListIds": [
+    "blocklistIds": [
         "1234"
     ],
     "breakByBlocklists": true
@@ -403,23 +443,7 @@ The status code should be 200 and the response body should be like this:
             "offset": "28",
             "length": "5"
         }
-    ],
-    "hateResult": {
-        "category": "Hate",
-        "riskLevel": 2
-    },
-    "selfHarmResult": {
-        "category": "SelfHarm",
-        "riskLevel": 0
-    },
-    "sexualResult": {
-        "category": "Sexual",
-        "riskLevel": 0
-    },
-    "violenceResult": {
-        "category": "Violence",
-        "riskLevel": 4
-    }
+    ]
 }
 ```
 
@@ -457,6 +481,16 @@ The status code should be 200 and the response body should be like this:
 6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 
 
+Request content** with sample url: [Endpoint]contentmoderator/text/lists/1234?api-version=2022-12-30-preview
+
+```json
+
+{
+    "listId": "1234"
+}
+
+```
+
 **Response content**
 
 ```json
@@ -475,9 +509,12 @@ Now that you have a resource available in Azure Content Moderator and you have a
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
 2. Substitute the [Endpoint] with your Resource Endpoint url. For example, "[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview"
-3. Upload your image **by encoding your image to base64**. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try.
-4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
-5. Change the body of the request to whatever image you'd like to analyze.
+3. **Image format**, we only support two image formats JPG and PNG.
+4. Upload your image with two methods:**by  Base64 or by Blob url**.
+   - **First method (Recommend): encoding your image to base64**. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try. Put your base 64 into below "Content" parameter.
+   - Second method: [Upload to Blob Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html). Put your Blob url into below "url" parameter.
+5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
+6. Change the body of the request to whatever image you'd like to analyze.
 
 > **_📘 NOTE:_**
 >
@@ -527,21 +564,25 @@ print(response.text)
 {
   "image": {
     "content": "string",
-    "url": "string",
-    "format": "jpeg"
+    "url": "string"
   },
   "categories": [
-  "Hate","Sexual","SelfHarm","Violence"
+  "Sexual","Violence"
   ]
 }
 
 ```
 
-| Name             | Description                                                  | Type   |
-| :--------------- | :----------------------------------------------------------- | ------ |
-| **Content**      | (Required) Upload your image to optimize your images and convert them to base64. | Base64 |
-| **Image format** | (Required) We only support two image format JPG and PNG. All need to be converted to base 64. | String |
-| **Categories**   | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
+
+| Name           | Description                                                  | Type   |
+| :------------- | :----------------------------------------------------------- | ------ |
+| **Content**    | (Required) Upload your image by converting them to base64. You could either choose "Content"or "Url". | Base64 |
+| **Url**        | (Optional) Upload your image by uploading them into blob storage. You could either choose "Content"or "Url". |        |
+| **Categories** | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
+
+
+
+
 
 > **_📘 NOTE: Image size, and granularity_**
 >
@@ -550,6 +591,10 @@ print(response.text)
 
 ### Step 2. Image API with Sample Response
 
+> **_📘 NOTE:_**
+>
+> For this release, we only supported two classifiers: "Sexual" and "Violence" for image detection. "Hate" and "SelfHarm" will be released soon.
+**Request content** with base 64:
 You should see the Image moderation results displayed as JSON data. For example:
 
 ```json
@@ -592,14 +637,13 @@ By default, we set a quota limit:
 
 | Pricing Tier | Query per second (QPS) | Maximum value                         |
 | :----------- | :--------------------- | ------------------------------------- |
-| F0           | 1                      | 5000 requests per resource per month. |
-| S0           | 10                     | No maximum limit.                     |
+| S0           | 10                     | 5000 requests per resource per month. |
 
 If you need a quota increase, you may need to [shoot us an email](mailto:acm-team@microsoft.com) to request.
 
 #### Latency & Reliability
 
-We aim to keep the text and image moderation API fast enough to be used in real-time scenarios, with response times around 100ms. Different categories will have different latencies. 
+We aim to keep the text and image moderation API fast enough to be used in real-time scenarios, with response times around 100~300ms. Different categories will have different latencies. 
 
 #### API Error Messages
 
@@ -608,6 +652,8 @@ There are several types of errors you may encounter while using the text and ima
 | HTML Status | Meaning                                                      |
 | :---------- | :----------------------------------------------------------- |
 | 200         | Ok – everything worked!                                      |
+| 201         | Created.                                                     |
+| 204         | No Content. The server has fulfilled the request but does not need to return an entity-body. |
 | 400         | Bad request – the request could not be accepted.             |
 | 403         | Unauthorized – there is an issue with the API key.           |
 | 404         | Not found.                                                   |
