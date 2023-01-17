@@ -68,7 +68,6 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
 2. [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. Select **Create**.
-
 3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
 
 > **_📘 NOTE:_**
@@ -231,7 +230,7 @@ Below provides information and code samples to help you get started:
 >
 
 
-1. Use method **PATCH**.
+1. Use method **PATCH** to create a list or update existing list's description or name.
 2. The relative path should be "/text/lists/{listId}?api-version=2022-12-30-preview".
 3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). The ID shoud be a string.
 3. Substitute [Endpoint] with your endpoint.
@@ -541,7 +540,7 @@ print(response.text)
 | Name             | Description                                                  | Type   |
 | :--------------- | :----------------------------------------------------------- | ------ |
 | **Content**      | (Required) Upload your image to optimize your images and convert them to base64. | Base64 |
-| **Image format** | (Required) This is assumed to be any image format such as JPEG, PNG, etc. but all need to be converted to base 64. | String |
+| **Image format** | (Required) We only support two image format JPG and PNG. All need to be converted to base 64. | String |
 | **Categories**   | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
 
 > **_📘 NOTE: Image size, and granularity_**
