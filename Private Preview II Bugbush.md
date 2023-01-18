@@ -251,7 +251,7 @@ Below provides information and code samples to help you get started:
 import requests
 import json
 
-url = "[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview"
+url = "[Endpoint]/contentmoderator/text/lists/[ListId]?api-version=2022-12-30-preview"
 
 payload = json.dumps({
     "listId": "1234",
@@ -447,35 +447,7 @@ The status code should be `200` .
     ]
 }
 ```
-```python
-import requests
-import json
 
-url = "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
-
-payload = json.dumps({
-  "text": "you are an idiot",
-  "categories": [
-    "Hate",
-    "Sexual",
-    "SelfHarm",
-    "Violence"
-  ],
-  "blockListIds":["1234"],
-  "breakByBlocklists": "true"
-})
-headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("POST", url, headers=headers, data=payload)
-
-
-print(response.status_code)
-print(response.headers)
-print(response.text)
-```
 
 
 #### Delete a term-DELETE
@@ -499,24 +471,6 @@ print(response.text)
 
 ```json
 204
-```
-```python
-import requests
-import json
-
-url = "[Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview"
-
-headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("DELETE", url, headers=headers, data=payload)
-
-
-print(response.status_code)
-print(response.headers)
-print(response.text)
 ```
 
 #### Delete a term list and all of its contents-DELETE
@@ -543,24 +497,7 @@ Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234?a
 ```json
 204
 ```
-```python
-import requests
-import json
 
-url = "[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview"
-
-headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("DELETE", url, headers=headers, data=payload)
-
-
-print(response.status_code)
-print(response.headers)
-print(response.text)
-```
 
 
 ## 💡QuickStart - Make a Image API Request
@@ -577,11 +514,16 @@ Now that you have a resource available in Azure Content Moderator and you have a
 4. Upload your image with two methods:**by  Base64 or by Blob url**.
    - **First method (Recommend): encoding your image to base64**. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try. Put your base 64 into below "content" parameter.
    - Second method: [Upload to Blob Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html). Put your Blob url into below "url" parameter. To access your blob storage account, it's require to enable system assigned managed identity for content moderator instance and assign the role of "Storage Blob Data Contributor/Owner/Reader" to the identity.
-     - Enable managed identity for content moderator instance
+     - Enable managed identity for content moderator instance. 
+
         ![enable-mai](https://github.com/Azure/Project-Carnegie-Private-Preview/raw/96ef614e276bef74efdb242922438b4ac3aa0b0d/images/enable-cm-mi.png)
+
      - Assign the role of "Storage Blob Data Contributor/Owner/Reader" to the identity. Any roles highlighted below should work.
+
         ![assign-role](https://github.com/Azure/Project-Carnegie-Private-Preview/raw/96ef614e276bef74efdb242922438b4ac3aa0b0d/images/assign-role-1.png)
+
         ![assign-role](https://github.com/Azure/Project-Carnegie-Private-Preview/raw/96ef614e276bef74efdb242922438b4ac3aa0b0d/images/assign-role-2.png)
+
         ![assign-role](https://github.com/Azure/Project-Carnegie-Private-Preview/raw/96ef614e276bef74efdb242922438b4ac3aa0b0d/images/assign-role-3.png)
 5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 6. Change the body of the request to whatever image you'd like to analyze.
@@ -599,11 +541,7 @@ url = "[Endpoint]/contentmoderator/image:analyze?api-version=2022-12-30-preview"
 
 payload = json.dumps({
   "image": {
-    #use content when upload image by base64
     "content": "[base64 encoded image]"
-    
-    #use url when upload image by blob url
-    #"url": "[image blob url]"
   },
   "categories": [
     "Hate",
