@@ -680,7 +680,7 @@ Here is a sample request with cURL.
 Install the [cURL](https://curl.se/download.html).
 
 ```shell
-curl --location --request POST '[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en' \
+curl --location --request POST '[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en' \
 --header 'Ocp-Apim-Subscription-Key: Please type your Subscription Key here' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -702,7 +702,7 @@ OkHttpClient client = new OkHttpClient().newBuilder()
 MediaType mediaType = MediaType.parse("application/json");
 RequestBody body = RequestBody.create(mediaType, "{\r\n  \"text\": \"you are an idiot\",\r\n  \"categories\": [\r\n   \"Hate\",\"Sexual\",\"SelfHarm\",\"Violence\"\r\n  ]\r\n}");
 Request request = new Request.Builder()
-  .url("[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en")
+  .url("[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en")
   .method("POST", body)
   .addHeader("Ocp-Apim-Subscription-Key", "Please type your Subscription Key here")
   .addHeader("Content-Type", "application/json")
@@ -722,7 +722,7 @@ Here is a sample request with cURL.
 Install the [cURL](https://curl.se/download.html).
 
 ```shell
-curl --location --request POST '[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview' \
+curl --location --request POST '[Endpoint]/contentmoderator/image:analyze?api-version=2022-12-30-preview' \
 --header 'Ocp-Apim-Subscription-Key: Please type your Subscription Key here' \
 --header 'Content-Type: application/json' \
 --data-raw '{
