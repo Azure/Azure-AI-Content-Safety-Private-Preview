@@ -755,7 +755,6 @@ Response response = client.newCall(request).execute();
 
 ##  📒 Key Reference 
 
-- [API Reference](https://github.com/Azure/azure-rest-api-specs-pr/pull/9275/files#diff-839f177f03dd3162188a1fde0c3b7c44371aeb686a1096a38f3d590381ad3867)
 - [Project Carnegie Private Preview Terms](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Private%20Preview%20Terms%20for%20Project%20Carnegie.pdf)
 
 ##  💬 We're here to help!
