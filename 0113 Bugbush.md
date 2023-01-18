@@ -86,7 +86,7 @@ Here is a sample request with Python.
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
 2. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. 
 2. Substitute the [Endpoint] with your Resource Endpoint url. For example, "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview"
-3. Paste your subscription key into the **Subscription-Key** field.
+3. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 4. Change the body of the request to whatever string of text you'd like to analyze.
 
  > **_📘 NOTE:_**
@@ -109,7 +109,7 @@ Here is a sample request with Python.
     ]
   })
   headers = {
-    'Ocp-Apim-Subscription-Key': 'Please type your key here',
+    'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
     'Content-Type': 'application/json'
   }
 
@@ -259,7 +259,7 @@ payload = json.dumps({
     "description": "This is a violence list"
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
   'Content-Type': 'application/json'
 }
 
@@ -307,7 +307,7 @@ payload = json.dumps({
     "language": "en"
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
   'Content-Type': 'application/json'
 }
 
@@ -387,7 +387,7 @@ import json
 url = "[Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview"
 headers = {
 
-  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
 
   'Content-Type': 'application/json'
 
@@ -546,7 +546,7 @@ payload = json.dumps({
   ]
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': '[Endpoint Key]',
+  'Ocp-Apim-Subscription-Key': '[Subscription Key]',
   'Content-Type': 'application/json'
 }
 
@@ -681,7 +681,7 @@ Install the [cURL](https://curl.se/download.html).
 
 ```shell
 curl --location --request POST '[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en' \
---header 'Ocp-Apim-Subscription-Key: Please type your key here' \
+--header 'Ocp-Apim-Subscription-Key: Please type your Subscription Key here' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "text": "you are an idiot",
@@ -704,7 +704,7 @@ RequestBody body = RequestBody.create(mediaType, "{\r\n  \"text\": \"you are an 
 Request request = new Request.Builder()
   .url("[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en")
   .method("POST", body)
-  .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
+  .addHeader("Ocp-Apim-Subscription-Key", "Please type your Subscription Key here")
   .addHeader("Content-Type", "application/json")
   .build();
 Response response = client.newCall(request).execute();
@@ -723,7 +723,7 @@ Install the [cURL](https://curl.se/download.html).
 
 ```shell
 curl --location --request POST '[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview' \
---header 'Ocp-Apim-Subscription-Key: Please type your key here' \
+--header 'Ocp-Apim-Subscription-Key: Please type your Subscription Key here' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "image": {
@@ -744,7 +744,7 @@ RequestBody body = RequestBody.create(mediaType, "{\r\n  \"image\": {\r\n    \"u
 Request request = new Request.Builder()
   .url("[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview")
   .method("POST", body)
-  .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
+  .addHeader("Ocp-Apim-Subscription-Key", "Please type your Subscription Key here")
   .addHeader("Content-Type", "application/json")
   .build();
 Response response = client.newCall(request).execute();
