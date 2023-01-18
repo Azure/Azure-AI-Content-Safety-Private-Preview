@@ -137,18 +137,18 @@ Here is a sample request with Python.
   "categories": [
    "Hate","Sexual","SelfHarm","Violence"
   ],
-  "blocklistIds": [
+  "blockListIds": [
     "string"
   ],
   "breakByBlocklists": false
 }
 ```
 | Name                  | Description                                                  | Type    |
-| :-------------------- | :----------------------------------------------------------- | ------- |
+| :-------------------- | :----------------------------------------------------------- | :------- |
 | **Text**              | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String  |
 | **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories to get scores in a single request. | String  |
 | **Language**          | (Optional) Language code for text analysis. Value can contain only the language code (ex. "en", "fr") of BCP 47. If you did not mention the language code, by default, we will detect all supported languages. **For this release, we only support English.** | String  |
-| **BlocklistIds**      | Custom list Id array. You could attach multiple lists here.  | Array   |
+| **BlockListIds**      | Custom list Id array. You could attach multiple lists here.  | Array   |
 | **BreakByBlocklists** | If set this field to true, once a blocklist is matched, the analysis will return immediately without model output. Default is false. | Boolean |
 
 > **_📘 NOTE: Text size, and granularity_**
