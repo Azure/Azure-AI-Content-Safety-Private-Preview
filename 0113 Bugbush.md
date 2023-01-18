@@ -35,7 +35,7 @@ There are different types of analysis available in our project. The following ta
 | API             | Functionality                                                |
 | :-------------- | :----------------------------------------------------------- |
 | Text Detection  | Scans text for sexual, violence, hate speech, and self harm with multi-severity risk level |
-| Image Detection | Scans image for sexual, violence, hate speech, and self harm with multi-severity risk level |
+| Image Detection | Scans image for sexual, violence with multi-severity risk level |
 
 - ### Language availability
 
@@ -43,7 +43,7 @@ Currently this API is only available in English. New languages will be supported
 
 ##  🗃Concepts
 
-### Text and Image Category
+###  Category
 
 This feature of the API provides scores for 4 different categories. Here are brief guidelines for the categories our API can provide scores for. Please be aware that these are high level descriptions of the guidelines we use to build our categories. Please contact us for details about current detailed guidelines:
 
@@ -204,7 +204,7 @@ You should see the Text moderation results displayed as JSON data. For example:
 
 > **_📘 NOTE: Why the risk level is not continuous_**
 >
-> Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
+> Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 0, 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
 
 
@@ -332,7 +332,7 @@ The response code should be `200`.
 
 
 
-**Request content** with sample url: [Endpoint]contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
 
 ```python
 import requests
@@ -408,13 +408,13 @@ The status code should be `200` .
 #### Screen terms against a list-POST
 
 1. Change your method to **POST**.
-2. The path should be "[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
+2. The path should be "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
 3. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in the previous step. 
-4. Set BreakByBlocklists: true, If set this field to true, once a blocklist is matched, the analysis will return immediately without model output. The default setting is false.
+4. Set breakByBlocklists: true, If set this field to true, once a blocklist is matched, the analysis will return immediately without model output. The default setting is false.
 5. Enter your subscription key, and then select **Send**.
 6. In the **Response content** box, verify the terms you entered.
 
-**Request content** with sample url: [Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en
+**Request content** with sample url: [Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en
 
 ```json
 {
@@ -459,7 +459,7 @@ The status code should be `200` .
 5. Substitute [Endpoint] with your endpoint.
 6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
 
-**Request content** with sample url: [Endpoint]contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
 
 ```json
 {
@@ -482,7 +482,7 @@ The status code should be `200` .
 6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 
 
-Request content** with sample url: [Endpoint]contentmoderator/text/lists/1234?api-version=2022-12-30-preview
+Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview
 
 ```json
 
@@ -500,7 +500,7 @@ Request content** with sample url: [Endpoint]contentmoderator/text/lists/1234?ap
 
 
 
-## 💡QuickStart - Make an Image API Request
+## 💡QuickStart - Make a Image API Request
 
 ### Step 1. Image API with Sample Request
 
@@ -583,7 +583,7 @@ print(response.text)
 
 | Name           | Description                                                  | Type   |
 | :------------- | :----------------------------------------------------------- | ------ |
-| **Content**    | (Required) Upload your image by converting them to base64. You could either choose "Content"or "Url". | Base64 |
+| **Content**    | (Optional) Upload your image by converting them to base64. You could either choose "Content"or "Url". | Base64 |
 | **Url**        | (Optional) Upload your image by uploading them into blob storage. You could either choose "Content"or "Url". |        |
 | **Categories** | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
 
@@ -642,9 +642,9 @@ You should see the Image moderation results displayed as JSON data. For example:
 
 By default, we set a quota limit:
 
-| Pricing Tier | Query per second (QPS) | Maximum value                         |
-| :----------- | :--------------------- | ------------------------------------- |
-| S0           | 10                     | 5000 requests per resource per month. |
+| Pricing Tier | Query per second (QPS) | 
+| :----------- | :--------------------- | 
+| S0           | 10                     | 
 
 If you need a quota increase, you may need to [shoot us an email](mailto:acm-team@microsoft.com) to request.
 
