@@ -142,6 +142,7 @@ Here is a sample request with Python.
   ],
   "breakByBlocklists": false
 }
+```
 
 | Name                  | Description                                                  | Type    |
 | :-------------------- | :----------------------------------------------------------- | ------- |
