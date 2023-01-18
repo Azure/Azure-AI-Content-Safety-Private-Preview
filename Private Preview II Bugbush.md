@@ -4,7 +4,7 @@ Welcome to the Project "Carnegie" Private Preview!
 
 The Project "Carnegie" Private Preview API is a Cognitive Service that detects certain material that is potentially offensive, risky, or otherwise undesirable. The initial version of Project Carnegie Preview will detect material in text and image. In later versions, we intend to update the API with new functionalities offering state of the art text, image and multi-modal models that will detect problematic content to help make applications & services safer from harmful User-generated-content and/or AI-generated-content.
 
-**The focus of the February 2022 Private Preview release is to add multi-severity risk levels with text API and new image API.**
+**The focus of the 2022-12-30 Private Preview release is to add multi-severity risk levels with text API and new image API.**
 
 ## ⚠️ Disclaimer
 
@@ -652,7 +652,7 @@ If you need a quota increase, you may need to [shoot us an email](mailto:acm-tea
 
 We aim to keep the text and image moderation API fast enough to be used in real-time scenarios, with response times around 100~300ms. Different categories will have different latencies. 
 
-#### API Error Messages
+##  🗃API Error Messages
 
 There are several types of errors you may encounter while using the text and image moderation API. The message and details fields will provide the information you need to understand the error.
 
