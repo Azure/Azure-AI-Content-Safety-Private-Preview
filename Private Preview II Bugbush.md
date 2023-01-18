@@ -724,20 +724,21 @@ We aim to keep our APIs fast enough to be used in real-time scenarios. Images an
 
 ##  🗃Response Code Reference
 
-There are several types of errors you may encounter while using the text and image moderation API. The message and details fields will provide the information you need to understand the error.
+There are several types of response code you may encounter while using the text and image moderation API. The message and details fields will provide the information you need to understand the error if any.
 
 | HTML Status | Meaning                                                      |
 | :---------- | :----------------------------------------------------------- |
-| 200         | Ok – everything worked!                                      |
-| 201         | Created.                                                     |
-| 204         | No Content. The server has fulfilled the request but does not need to return an entity-body. |
-| 400         | Bad request – the request could not be accepted.             |
-| 403         | Unauthorized – there is an issue with the API key.           |
-| 404         | Not found.                                                   |
-| 429         | Too many requests – you’ve made too many requests to our API, please try again in a few minutes. |
-| 500         | Internal service error – we had a problem with our server. Please try again later. |
-| 503         | Service unavailable – we are temporarily offline for maintenance. Please try again later. |
-| 504         | Gateway timeout – we are not able to fulfill your request at this time. Please try again later. |
+| 200         | OK - Standard response for successful HTTP requests.              |
+| 201         | Created - The request has been fulfilled, resulting in the creation of a new resource. |
+| 204         | No content - The server successfully processed the request, and is not returning any content. |
+| 400         | Bad request – The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing). |
+| 401         | Unauthorized – Authentication is required and has failed. |
+| 403         | Forbidden – User not having the necessary permissions for a resource. |
+| 404         | Not found - The requested resource could not be found. |
+| 429         | Too many requests – The user has sent too many requests in a given amount of time. Please refer to "Quota Limit" section for limitations. |
+| 500         | Internal servr error – An unexpected condition was encountered in the server side. |
+| 503         | Service unavailable – The server cannot handle the request temporarily. Please try again later. |
+| 504         | Gateway timeout – The server did not receive a timely response from the upstream service. Please try again later. |
 
 ## 📝 Other Sample Code 
 
