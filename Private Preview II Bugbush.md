@@ -75,7 +75,7 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 > Currently the private preview features are only available in S0 pricing tier and in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 
 
-## 💡QuickStart - Make an Text API Request
+## 💡QuickStart - Make a Text API Request
 
 ### Step 1. Text API with Sample Request
 
@@ -208,7 +208,7 @@ You should see the Text moderation results displayed as JSON data. For example:
 
 
 
-### Step 3. Check text against a custom list 
+### Step 3. Check text against a custom list
 
 The default AI classifiers are sufficient for most content moderation needs. However, you might need to screen for terms that are specific to your organization.
 
@@ -219,12 +219,12 @@ Below provides information and code samples to help you get started:
 - Create a list.
 - Add terms to a list.
 - Get all lists.
-- Check terms against the terms in a list.
+- Check text against a custom list.
 - Delete terms from a list.
 - Delete a list.
 - Edit list information.
 
-#### Create a term list
+#### Create a term list-PATCH
 
 > **_📘 NOTE:_**
 >
@@ -274,7 +274,7 @@ print(response.text)
 The response code should be `201` and the URL to get the created list should be contained in the header, named **Location**
 
 
-#### Add a term to a term list
+#### Add a term to a term list-PATCH
 
 1. Use method **PATCH**.
 2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
@@ -405,7 +405,7 @@ print(response.text)
 The status code should be `200` .
 
 
-#### Screen terms against a list-POST
+#### Check text against a custom list-POST
 
 1. Change your method to **POST**.
 2. The path should be "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
