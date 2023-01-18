@@ -158,7 +158,7 @@ Here is a sample request with Python.
 >
 > Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
 
-### Step 2. Text API with sample Response
+### Step 2. Text API with Sample Response
 
 You should see the Text moderation results displayed as JSON data. For example:
 
@@ -219,7 +219,7 @@ Below provides information and code samples to help you get started:
 - Create a list.
 - Add terms to a list.
 - Get all lists.
-- Screen terms against the terms in a list.
+- Check terms against the terms in a list.
 - Delete terms from a list.
 - Delete a list.
 - Edit list information.
