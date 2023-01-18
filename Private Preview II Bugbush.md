@@ -224,7 +224,7 @@ Below provides information and code samples to help you get started:
 - Delete a list.
 - Edit list information.
 
-#### Create a term list-PATCH
+#### Create or modify a term list-PATCH
 
 > **_📘 NOTE:_**
 >
@@ -274,7 +274,12 @@ print(response.text)
 The response code should be `201` and the URL to get the created list should be contained in the header, named **Location**
 
 
-#### Add a term to a term list-PATCH
+#### Add or modify a term to a term list-PATCH
+
+> **_📘 NOTE:_**
+>
+> There will be some delay after you added or edited a term until it takes effect, usually **not exceed 5 minutes**.
+>
 
 1. Use method **PATCH**.
 2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
@@ -386,11 +391,8 @@ import json
 
 url = "[Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview"
 headers = {
-
   'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
-
   'Content-Type': 'application/json'
-
 }
 
 response = requests.request("GET", url, headers=headers)
@@ -399,8 +401,6 @@ print(response.headers)
 print(response.text)
 
 ```
-
-
 
 The status code should be `200` .
 
@@ -428,7 +428,7 @@ The status code should be `200` .
     "blocklistIds": [
         "1234"
     ],
-    "breakByBlocklists": true
+    "breakByBlocklists": false
 }
 ```
 
@@ -452,7 +452,7 @@ import requests
 import json
 url = "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
 payload = json.dumps({
-  "text": "you are an idiot",
+  "text": "I want to beat you till you blood",
   "categories": [
     "Hate",
     "Sexual",
@@ -460,7 +460,7 @@ payload = json.dumps({
     "Violence"
   ],
   "blockListIds":["1234"],
-  "breakByBlocklists": "true"
+  "breakByBlocklists": True
 })
 headers = {
   'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
@@ -474,6 +474,11 @@ print(response.text)
 
 
 #### Delete a term-DELETE
+
+> **_📘 NOTE:_**
+>
+> There will be some delay after you delete a term until it takes effect, usually **not exceed 5 minutes**.
+>
 
 1. Use method **DELETE**.
 2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
