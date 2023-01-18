@@ -147,7 +147,7 @@ Here is a sample request with Python.
 | :-------------------- | :----------------------------------------------------------- | ------- |
 | **Text**              | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String  |
 | **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories to get scores in a single request. | String  |
-| **Language**          | (Optional) Language code for text analysis. Value may contain only the language code (ex. "en", "fr") or BCP 47 language tag (ex. "en-US"). If you did not mention the language code, by default, we will detect all supported languages. **For this release, we only support English.** | String  |
+| **Language**          | (Optional) Language code for text analysis. Value can contain only the language code (ex. "en", "fr") of BCP 47. If you did not mention the language code, by default, we will detect all supported languages. **For this release, we only support English.** | String  |
 | **BlocklistIds**      | Custom list Id array. You could attach multiple lists here.  | Array   |
 | **BreakByBlocklists** | If set this field to true, once a blocklist is matched, the analysis will return immediately without model output. Default is false. | Boolean |
 
@@ -279,7 +279,7 @@ The response code should be `201` and the URL to get the created list should be 
 2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
 3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
 4. In the **itemId** parameter, enter the ID of the term (in our example, **01** )
-5. In the **language** parameter, enter the Language code (ex. "en", "fr") or BCP 47 language tag (ex. "en-US"). If you did not mention the language code, by default, we will detect all supported languages. **For this release, we only support English.**
+5. In the **language** parameter, enter the Language code (ex. "en", "fr") defined by BCP 47. If you did not mention the language code, by default, we will detect all supported languages. **For this release, we only support English.**
 6. Substitute [Endpoint] with your endpoint.
 7. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 8. Enter the following JSON in the **Request body** field, for example:
