@@ -68,7 +68,7 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
 
 2. [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. Select **Create**.
-3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
+3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **Subscription Key and Endpoint**. Copy one of the subscription key values and endpoint for later use.
 
 > **_📘 NOTE:_**
 >
@@ -271,7 +271,7 @@ print(response.headers)
 print(response.text)
 ```
 
-The response code should be `201` and the URL to get the created list should be contained in the header, named **TextList-Location**
+The response code should be `201` and the URL to get the created list should be contained in the header, named **Location**
 
 
 #### Add a term to a term list
@@ -319,7 +319,7 @@ print(response.headers)
 print(response.text)
 ```
 
-The response code should be `200`.
+The response code should be `201` and the URL to get the created list should be contained in the header, named **Location**.
 
 #### Get all terms in a term list-GET
 
@@ -509,10 +509,10 @@ Now that you have a resource available in Azure Content Moderator and you have a
    Here is a sample request with Python.
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
-2. Substitute the [Endpoint] with your Resource Endpoint url. For example, "[Endpoint]contentmoderator/text:analyze?api-version=2022-12-30-preview"
-3. **Image format**, we only support two image formats JPG and PNG.
+2. Substitute the [Endpoint] with your Resource Endpoint url. For example, "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview"
+3. **Image format**, we only support two image formats JPEG and PNG.
 4. Upload your image with two methods:**by  Base64 or by Blob url**.
-   - **First method (Recommend): encoding your image to base64**. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try. Put your base 64 into below "Content" parameter.
+   - **First method (Recommend): encoding your image to base64**. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try. Put your base 64 into below "content" parameter.
    - Second method: [Upload to Blob Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html). Put your Blob url into below "url" parameter. To access your blob storage account, it's require to enable system assigned managed identity for content moderator instance and assign the role of "Storage Blob Data Contributor/Owner/Reader" to the identity.
      - Enable managed identity for content moderator instance
         ![enable-mai](https://github.com/Azure/Project-Carnegie-Private-Preview/raw/96ef614e276bef74efdb242922438b4ac3aa0b0d/images/enable-cm-mi.png)
