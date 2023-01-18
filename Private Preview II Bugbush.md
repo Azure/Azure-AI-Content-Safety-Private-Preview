@@ -650,7 +650,13 @@ If you need a quota increase, you may need to [shoot us an email](mailto:acm-tea
 
 #### Latency & Reliability
 
-We aim to keep the text and image moderation API fast enough to be used in real-time scenarios, with response times around 100~300ms. Different categories will have different latencies. 
+We aim to keep our APIs fast enough to be used in real-time scenarios, with response times around 100~300ms. Different categories will have different latencies. 
+
+| API         | Latency                                                      |
+| :---------- | :----------------------------------------------------------- |
+| Text        | 100~300ms                                                    |
+| Image       | 100~300ms                                                    |
+
 
 ##  🗃API Error Messages
 
