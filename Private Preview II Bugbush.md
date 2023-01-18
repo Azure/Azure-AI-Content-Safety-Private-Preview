@@ -650,7 +650,7 @@ If you need a quota increase, you may need to [shoot us an email](mailto:acm-tea
 
 #### Latency & Reliability
 
-We aim to keep our APIs fast enough to be used in real-time scenarios, with response times around 100~300ms. Different categories will have different latencies. 
+We aim to keep our APIs fast enough to be used in real-time scenarios. Image and Text APIs will have different latencies. 
 
 | API         | Latency                                                      |
 | :---------- | :----------------------------------------------------------- |
