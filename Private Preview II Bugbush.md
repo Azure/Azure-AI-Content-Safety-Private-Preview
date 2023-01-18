@@ -650,7 +650,7 @@ If you need a quota increase, you may need to [shoot us an email](mailto:acm-tea
 
 #### Latency & Reliability
 
-We aim to keep our APIs fast enough to be used in real-time scenarios. Image and Text APIs will have different latencies. 
+We aim to keep our APIs fast enough to be used in real-time scenarios. Images and text APIs will have different latencies, while the below latencies only occur when the client data center and server data center are located in the same region. 
 
 | API         | Latency                                                      |
 | :---------- | :----------------------------------------------------------- |
@@ -658,7 +658,7 @@ We aim to keep our APIs fast enough to be used in real-time scenarios. Image and
 | Image       | 100~300ms                                                    |
 
 
-##  🗃API Error Messages
+##  🗃Response Code Reference
 
 There are several types of errors you may encounter while using the text and image moderation API. The message and details fields will provide the information you need to understand the error.
 
