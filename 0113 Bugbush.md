@@ -515,7 +515,7 @@ Now that you have a resource available in Azure Content Moderator and you have a
    - Second method: [Upload to Blob Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html). Put your Blob url into below "url" parameter. To access your blob storage account, it's require to enable system assigned managed identity for content moderator instance and assign the role of "Storage Blob Data Contributor/Owner/Reader" to the identity.
      - Enable managed identity for content moderator instance
         ![enable-mai](https://github.com/Azure/Project-Carnegie-Private-Preview/raw/96ef614e276bef74efdb242922438b4ac3aa0b0d/images/enable-cm-mi.png)
-     - Assign the role of "Storage Blob Data Contributor" to the identity. The roles highlighted below all should work.
+     - Assign the role of "Storage Blob Data Contributor/Owner/Reader" to the identity. Any roles highlighted below should work.
         ![assign-role](https://github.com/Azure/Project-Carnegie-Private-Preview/raw/96ef614e276bef74efdb242922438b4ac3aa0b0d/images/assign-role-1.png)
         ![assign-role](https://github.com/Azure/Project-Carnegie-Private-Preview/raw/96ef614e276bef74efdb242922438b4ac3aa0b0d/images/assign-role-2.png)
         ![assign-role](https://github.com/Azure/Project-Carnegie-Private-Preview/raw/96ef614e276bef74efdb242922438b4ac3aa0b0d/images/assign-role-3.png)
