@@ -514,14 +514,16 @@ Now that you have a resource available in Azure Content Moderator and you have a
 4. Upload your image with two methods:**by  Base64 or by Blob url**.
    - **First method (Recommend): encoding your image to base64**. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding for a quick try. Put your base 64 into below "content" parameter.
    - Second method: [Upload to Blob Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html). Put your Blob url into below "url" parameter. To access your blob storage account, it's require to enable system assigned managed identity for content moderator instance and assign the role of "Storage Blob Data Contributor/Owner/Reader" to the identity.
-    - Enable managed identity for content moderator instance. 
-![enable-cm-mi-1](https://user-images.githubusercontent.com/36343326/213126427-2c789737-f8ec-416b-9e96-d96bf25de58e.png)
+
+> **_📘 NOTE:_**
+>
+> Currently we only support system assigned Managed Identity to access blob storage.
+     - Enable managed identity for content moderator instance. 
+     ![enable-cm-mi-1](https://user-images.githubusercontent.com/36343326/213126427-2c789737-f8ec-416b-9e96-d96bf25de58e.png)
      - Assign the role of "Storage Blob Data Contributor/Owner/Reader" to the Managed identity. Any roles highlighted below should work.
-![assign-role-2](https://user-images.githubusercontent.com/36343326/213126492-938bd351-7e53-45a7-97df-b9d8be94ad80.png)
-
-![assign-role-3](https://user-images.githubusercontent.com/36343326/213126536-31efac53-1741-4ff6-97a0-324b9a7e67a9.png)
-
-![assign-role-4](https://user-images.githubusercontent.com/36343326/213126616-03af2bc9-2328-42f6-abeb-766eff28cd8a.png)
+     ![assign-role-2](https://user-images.githubusercontent.com/36343326/213126492-938bd351-7e53-45a7-97df-b9d8be94ad80.png)
+     ![assign-role-3](https://user-images.githubusercontent.com/36343326/213126536-31efac53-1741-4ff6-97a0-324b9a7e67a9.png)
+     ![assign-role-4](https://user-images.githubusercontent.com/36343326/213126616-03af2bc9-2328-42f6-abeb-766eff28cd8a.png)
 5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
 6. Change the body of the request to whatever image you'd like to analyze.
 
