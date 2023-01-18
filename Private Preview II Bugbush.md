@@ -251,7 +251,7 @@ Below provides information and code samples to help you get started:
 import requests
 import json
 
-url = "[Endpoint]/contentmoderator/text/lists/[ListId]?api-version=2022-12-30-preview"
+url = "[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview"
 
 payload = json.dumps({
     "listId": "1234",
@@ -447,7 +447,35 @@ The status code should be `200` .
     ]
 }
 ```
+```python
+import requests
+import json
 
+url = "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
+
+payload = json.dumps({
+  "text": "you are an idiot",
+  "categories": [
+    "Hate",
+    "Sexual",
+    "SelfHarm",
+    "Violence"
+  ],
+  "blockListIds":["1234"],
+  "breakByBlocklists": "true"
+})
+headers = {
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+
+print(response.status_code)
+print(response.headers)
+print(response.text)
+```
 
 
 #### Delete a term-DELETE
@@ -471,6 +499,24 @@ The status code should be `200` .
 
 ```json
 204
+```
+```python
+import requests
+import json
+
+url = "[Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview"
+
+headers = {
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("DELETE", url, headers=headers, data=payload)
+
+
+print(response.status_code)
+print(response.headers)
+print(response.text)
 ```
 
 #### Delete a term list and all of its contents-DELETE
@@ -497,7 +543,24 @@ Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234?a
 ```json
 204
 ```
+```python
+import requests
+import json
 
+url = "[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview"
+
+headers = {
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("DELETE", url, headers=headers, data=payload)
+
+
+print(response.status_code)
+print(response.headers)
+print(response.text)
+```
 
 
 ## 💡QuickStart - Make a Image API Request
@@ -536,7 +599,11 @@ url = "[Endpoint]/contentmoderator/image:analyze?api-version=2022-12-30-preview"
 
 payload = json.dumps({
   "image": {
+    #use content when upload image by base64
     "content": "[base64 encoded image]"
+    
+    #use url when upload image by blob url
+    #"url": "[image blob url]"
   },
   "categories": [
     "Hate",
