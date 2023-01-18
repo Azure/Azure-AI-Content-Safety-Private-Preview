@@ -2,33 +2,31 @@
 
 Welcome to the Project "Carnegie" Private Preview!
 
-The Project "Carnegie" Private Preview API is a Cognitive Service that detects certain material that is potentially offensive, risky, or otherwise undesirable. The initial version of Project Carnegie Preview will detect material in text and image. In later versions, we intend to update the API with new functionalities offering state of the art text, image and multi-modal models that will detect problematic content to help make applications & services safer from harmful User-generated-content and/or AI-generated-content.
+The Project "Carnegie" Private Preview API is a Cognitive Services that detects certain material that is potentially offensive, risky, or otherwise undesirable. The initial version of Project Carnegie Preview will detect material in text and image. In later versions, we intend to update the API with new functionalities offering state of the art text, image and multi-modal models that will detect problematic content to help make applications & services safer from harmful User-generated-content and/or AI-generated-content.
 
-**The focus of the 2022-12-30 Private Preview release is to add multi-severity risk levels with text API and new image API.**
+**The focus of the release 2022-12-30-private is to add multi-severity risk levels and custom blocklist support with text APIs, as well as the new image APIs.**
 
 ## ⚠️ Disclaimer
 
 The sample data and code could have offensive content, user discretion is advised.
 
-##  📒 Overview 
+## 📒 Overview 
 
-This documentation site is structured into the following sections.
+- **[How It Works](#how-it-works)** contains instructions for using the service in more general ways.
 
-- **How It Works** contains instructions for using the service in more general ways.
+- **[Concepts / Read First](#read-first)** provides informations needed before starting.
 
-- **Concepts** provides in-depth explanations of the service categories.
+- **Quick Start** goes over getting-started instructions to guide you through making requests to the service.
+    - [QuickStart - prepare Azure Content Moderator resource](#quickstart-prepare-resource)
+    - [QuickStart - Text analysis](#quickstart-text)
+    - [QuickStart - Text analysis with custom blocklist](#quickstart-text-list)
+    - [QuickStart - Image analysis](#quickstart-image)
 
-- **Other Sample Code** shows sample requests using the cURL, Python and Java.
-
-- **QuickStart** goes over getting-started instructions to guide you through making requests to the service.
-
-  
-
-##  🔎How It Works
+## <h2 id="how-it-works">🔎 How It Works</h2>
 
 Project "Carnegie" can be accessed through RESTful APIs. 
 
-- ### Type of analysis
+### Type of analysis
 
 There are different types of analysis available in our project. The following table describes **the currently available API**.
 
@@ -37,11 +35,23 @@ There are different types of analysis available in our project. The following ta
 | Text Detection  | Scans text for sexual, violence, hate speech, and self harm with multi-severity risk level |
 | Image Detection | Scans image for sexual, violence with multi-severity risk level |
 
-- ### Language availability
+### Language availability
 
 Currently this API is only available in English. New languages will be supported in the future.
 
-##  🗃Concepts
+## <h2 id="read-first">🗃Concepts / Read first</h2>
+
+### <h3 id="region-location">Region / Location</h3>
+
+Currently the private preview features are only available in below Azure regions: 
+- Central US EUAP
+
+To use the preview APIs, please create/re-use your Azure Content Moderator resource in the supported regions.   
+Feel free to contact us if more regions are required for your business.
+
+### <h3 id="sku-pricing-tier">SKU / Pricing Tier</h3>
+
+Currently the private preview features are only available in **S0** pricing tier.
 
 ###  Category
 
@@ -52,8 +62,7 @@ This feature of the API provides scores for 4 different categories. Here are bri
 - **Category 3:** **Hate** - Hate is defined as any language and images that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.
 - **Category 4:** **SelfHarm**- SelfHarm describes language and images related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
 
-
-## 💡QuickStart - Before you begin
+## <h2 id="quickstart-prepare-resource">💡QuickStart - prepare Azure Content Moderator resource</h2>
 
 Before you can begin to test the Project "Carnegie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource.
 
@@ -66,22 +75,14 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 ### Step 2. Create an Azure Content Moderator resource
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
+2. [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, [supported region](#region-location) and [supported pricing tier](#sku-pricing-tier). Select **Create**.
+3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To call Conetent Moderation APIs, you'll need an endpoint and a key; In the left pane, under **Resource Management**, select **Subscription Key and Endpoint**. The endpoint and either of the keys will be used to call APIs.
 
-2. [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West US 2 and  South Central US** and pricing tier. Select **Create**.
-3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Moderator resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **Subscription Key and Endpoint**. Copy one of the subscription key values and endpoint for later use.
+## <h2 id="quickstart-text">💡QuickStart - Text analysis</h2>
 
-> **_📘 NOTE:_**
->
-> Currently the private preview features are only available in S0 pricing tier and in three regions:  **East US, West US 2 and  South Central US**. Please create your Azure Content Moderator resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
+### Step 1. Call Text API with sample request
 
-
-## 💡QuickStart - Make a Text API Request
-
-### Step 1. Text API with Sample Request
-
-Now that you have a resource available in Azure Content Moderator and you have a subscription key for that resource, let's run some tests by using the text moderation API.
-
-Here is a sample request with Python.
+Here is a sample request with Python. For other languages, please refer to [more samples](#more-samples).
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/individual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
 2. You can find your Resource Endpoint URL in your Azure Portal in the Resource Overview page under the "Endpoint" field. 
@@ -158,7 +159,7 @@ Here is a sample request with Python.
 >
 > Text granularity depends on the business context: what you plan to do with the scores afterward. Annotating multi-paragraphs sometimes becomes skewed by content ratios. Suppose one paragraph has one sentence with a low severity of harm and another with a higher severity of harm. In that case, that low-severity sentence may be ignored in a longer document context. 
 
-### Step 2. Text API with Sample Response
+### Step 2. Understand Text API response
 
 You should see the Text moderation results displayed as JSON data. For example:
 
@@ -207,24 +208,21 @@ You should see the Text moderation results displayed as JSON data. For example:
 > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 0, 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
 
-
-### Step 3. Check text against a custom list
+## <h2 id="quickstart-text-list">💡QuickStart - Text analysis with custom blocklist</h2>
 
 The default AI classifiers are sufficient for most content moderation needs. However, you might need to screen for terms that are specific to your organization.
 
-Now, you can create custom lists of terms to use with the Text Moderation API.
+Now, you can create custom lists of terms to use with the Text API.
 
-Below provides information and code samples to help you get started:
+Below provides a sample to help you get started:
 
-- Create a list.
+- Create a term list.
 - Add terms to a list.
-- Get all lists.
 - Check text against a custom list.
-- Delete terms from a list.
-- Delete a list.
-- Edit list information.
 
-#### Create or modify a term list-PATCH
+For more list operations samples, please refer to [more examples](#more-custom-list-operations).
+
+### Step 1. Create a term list
 
 > **_📘 NOTE:_**
 >
@@ -274,12 +272,7 @@ print(response.text)
 The response code should be `201` and the URL to get the created list should be contained in the header, named **Location**
 
 
-#### Add or modify a term to a term list-PATCH
-
-> **_📘 NOTE:_**
->
-> There will be some delay after you added or edited a term until it takes effect, usually **not exceed 5 minutes**.
->
+### Step 2. Add a term to a term list
 
 1. Use method **PATCH**.
 2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
@@ -326,86 +319,10 @@ print(response.text)
 
 The response code should be `201` and the URL to get the created list should be contained in the header, named **Location**.
 
-#### Get all terms in a term list-GET
-
-1. Use method **GET**.
-2. The relative path should be "/text/lists/{listId}/items?api-version=2022-12-30-preview".
-3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
-3. Substitute [Endpoint] with your endpoint.
-4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
-5. Enter the following JSON in the **Request body** field, for example:
 
 
 
-**Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
-
-```python
-import requests
-import json
-
-url = "[Endpoint]/contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview"
-
-headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your key here',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("GET", url, headers=headers)
-
-
-print(response.status_code)
-print(response.headers)
-print(response.text)
-```
-
-The status code should be 200 and the response body should be like this:
-```json
-{
- "values": [
-  {
-   "itemId": "01",
-   "description": "my first word",
-   "text": "blood",
-   "language": "en"
-  }
- ]
-}
-```
-#### Get all lists-GET
-
-1. Use method **GET**.
-2. The relative path should be "/text/lists?api-version=2022-12-30-preview".
-3. Substitute [Endpoint] with your endpoint.
-4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
-5. Enter the following JSON in the **Request body** field, for example:
-
-**Request content** with sample url: [Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview
-
-
-
-```python
-
-import requests
-
-import json
-
-url = "[Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview"
-headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("GET", url, headers=headers)
-print(response.status_code)
-print(response.headers)
-print(response.text)
-
-```
-
-The status code should be `200` .
-
-
-#### Check text against a custom list-POST
+### Step 3. Analyze text with a custom list
 
 1. Change your method to **POST**.
 2. The path should be "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
@@ -428,7 +345,7 @@ The status code should be `200` .
     "blocklistIds": [
         "1234"
     ],
-    "breakByBlocklists": false
+    "breakByBlocklists": true
 }
 ```
 
@@ -452,7 +369,7 @@ import requests
 import json
 url = "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
 payload = json.dumps({
-  "text": "I want to beat you till you blood",
+  "text": "you are an idiot",
   "categories": [
     "Hate",
     "Sexual",
@@ -460,7 +377,7 @@ payload = json.dumps({
     "Violence"
   ],
   "blockListIds":["1234"],
-  "breakByBlocklists": True
+  "breakByBlocklists": "true"
 })
 headers = {
   'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
@@ -473,89 +390,10 @@ print(response.text)
 ```
 
 
-#### Delete a term-DELETE
 
-> **_📘 NOTE:_**
->
-> There will be some delay after you delete a term until it takes effect, usually **not exceed 5 minutes**.
->
+## <h2 id="quickstart-image">💡QuickStart - Image analysis</h2>
 
-1. Use method **DELETE**.
-2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
-3. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
-4. In the **itemId** parameter, enter the ID of the term that you want to delete.
-5. Substitute [Endpoint] with your endpoint.
-6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
-
-**Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
-
-```json
-{
-    "listId": "1234",
-    "itemId": "01"
-}
-```
-**Response content**
-
-```json
-204
-```
-```python
-import requests
-import json
-url = "[Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview"
-headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
-  'Content-Type': 'application/json'
-}
-response = requests.request("DELETE", url, headers=headers, data=payload)
-print(response.status_code)
-print(response.headers)
-print(response.text)
-```
-
-#### Delete a term list and all of its contents-DELETE
-
-1. Use method **DELETE**.
-2. The relative path should be "/text/lists/{listId}?api-version=2022-12-30-preview".
-3. In the **listId** parameter, enter the ID of the list that you want to delete. 
-5. Substitute [Endpoint] with your endpoint.
-6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
-
-
-Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview
-
-```json
-
-{
-    "listId": "1234"
-}
-
-```
-
-**Response content**
-
-```json
-204
-```
-```python
-import requests
-import json
-url = "[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview"
-headers = {
-  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
-  'Content-Type': 'application/json'
-}
-response = requests.request("DELETE", url, headers=headers, data=payload)
-print(response.status_code)
-print(response.headers)
-print(response.text)
-```
-
-
-## 💡QuickStart - Make a Image API Request
-
-### Step 1. Image API with Sample Request
+### Step 1. Call Image API with sample request
 
 Now that you have a resource available in Azure Content Moderator and you have a subscription key for that resource, let's run some tests by using the Image moderation API.
 
@@ -665,7 +503,7 @@ print(response.text)
 > The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions. 
 >
 
-### Step 2. Image API with Sample Response
+### Step 2. Understand Image API response
 
 > **_📘 NOTE:_**
 >
@@ -704,52 +542,11 @@ You should see the Image moderation results displayed as JSON data. For example:
 | **Risk Level** | 0 – Safe, 2 – Notable/Questionable, 4 - Mature, 6 - Dangerous | Number |
 
 
+## <h2 id="more-samples">More samples</h2>
 
-## ⚠️ Limitations
+### Text analysis
 
-#### Quota Limit
-
-By default, we set a quota limit:
-
-| Pricing Tier | Query per second (QPS) | 
-| :----------- | :--------------------- | 
-| S0           | 10                     | 
-
-If you need a quota increase, you may need to [shoot us an email](mailto:acm-team@microsoft.com) to request.
-
-#### Latency & Reliability
-
-We aim to keep our APIs fast enough to be used in real-time scenarios. Images and text APIs will have different latencies, while the below latencies only occur when the client data center and server data center are located in the same region. 
-
-| API         | Latency                                                      |
-| :---------- | :----------------------------------------------------------- |
-| Text        | 100~300ms                                                    |
-| Image       | 100~300ms                                                    |
-
-
-##  🗃Response Code Reference
-
-There are several types of response code you may encounter while using the text and image moderation API. The message and details fields will provide the information you need to understand the error if any.
-
-| HTML Status | Meaning                                                      |
-| :---------- | :----------------------------------------------------------- |
-| 200         | OK - Standard response for successful HTTP requests.              |
-| 201         | Created - The request has been fulfilled, resulting in the creation of a new resource. |
-| 204         | No content - The server successfully processed the request, and is not returning any content. |
-| 400         | Bad request – The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing). |
-| 401         | Unauthorized – Authentication is required and has failed. |
-| 403         | Forbidden – User not having the necessary permissions for a resource. |
-| 404         | Not found - The requested resource could not be found. |
-| 429         | Too many requests – The user has sent too many requests in a given amount of time. Please refer to "Quota Limit" section for limitations. |
-| 500         | Internal servr error – An unexpected condition was encountered in the server side. |
-| 503         | Service unavailable – The server cannot handle the request temporarily. Please try again later. |
-| 504         | Gateway timeout – The server did not receive a timely response from the upstream service. Please try again later. |
-
-## 📝 Other Sample Code 
-
-#### Text API
-
-- #### cURL
+#### cURL
 
 Here is a sample request with cURL. 
 
@@ -768,7 +565,7 @@ curl --location --request POST '[Endpoint]/contentmoderator/text:analyze?api-ver
 
 ```
 
-- #### Java
+#### Java
 
 Here is a sample request with Java. 
 
@@ -787,11 +584,9 @@ Response response = client.newCall(request).execute();
 
 ```
 
+### Image analysis
 
-
-#### Image API
-
-- #### cURL
+#### cURL
 
 Here is a sample request with cURL. 
 
@@ -808,7 +603,7 @@ curl --location --request POST '[Endpoint]/contentmoderator/image:analyze?api-ve
 }'
 ```
 
-- #### Java
+#### Java
 
 Here is a sample request with Java. 
 
@@ -827,10 +622,209 @@ Response response = client.newCall(request).execute();
 
 ```
 
+### <h3 id="more-custom-list-operations">Custom list operations</h3>
+
+In addition to the operations mentioned in the quickstart section. There are more operations to help you manage and use the custom list.
+
+#### Get all terms in a term list
+
+1. Use method **GET**.
+2. The relative path should be "/text/lists/{listId}/items?api-version=2022-12-30-preview".
+3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
+3. Substitute [Endpoint] with your endpoint.
+4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+5. Enter the following JSON in the **Request body** field, for example:
 
 
-##  📒 Key Reference 
 
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
+
+```python
+import requests
+import json
+
+url = "[Endpoint]/contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview"
+
+headers = {
+  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("GET", url, headers=headers)
+
+
+print(response.status_code)
+print(response.headers)
+print(response.text)
+```
+
+The status code should be 200 and the response body should be like this:
+```json
+{
+ "values": [
+  {
+   "itemId": "01",
+   "description": "my first word",
+   "text": "blood",
+   "language": "en"
+  }
+ ]
+}
+```
+#### Get all lists
+
+1. Use method **GET**.
+2. The relative path should be "/text/lists?api-version=2022-12-30-preview".
+3. Substitute [Endpoint] with your endpoint.
+4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+5. Enter the following JSON in the **Request body** field, for example:
+
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview
+
+
+
+```python
+
+import requests
+
+import json
+
+url = "[Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview"
+headers = {
+
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
+
+  'Content-Type': 'application/json'
+
+}
+
+response = requests.request("GET", url, headers=headers)
+print(response.status_code)
+print(response.headers)
+print(response.text)
+
+```
+
+
+
+The status code should be `200` .
+
+
+
+#### Delete a term
+
+1. Use method **DELETE**.
+2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
+3. In the **listId** parameter, enter the ID of the list that you want to delete a term from (in our example, **1234**). 
+4. In the **itemId** parameter, enter the ID of the term that you want to delete.
+5. Substitute [Endpoint] with your endpoint.
+6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
+
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
+
+```json
+{
+    "listId": "1234",
+    "itemId": "01"
+}
+```
+**Response content**
+
+```json
+204
+```
+```python
+import requests
+import json
+url = "[Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview"
+headers = {
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
+  'Content-Type': 'application/json'
+}
+response = requests.request("DELETE", url, headers=headers, data=payload)
+print(response.status_code)
+print(response.headers)
+print(response.text)
+```
+
+#### Delete a term list and all of its contents
+
+1. Use method **DELETE**.
+2. The relative path should be "/text/lists/{listId}?api-version=2022-12-30-preview".
+3. In the **listId** parameter, enter the ID of the list that you want to delete. 
+5. Substitute [Endpoint] with your endpoint.
+6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+
+
+Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview
+
+```json
+
+{
+    "listId": "1234"
+}
+
+```
+
+**Response content**
+
+```json
+204
+```
+```python
+import requests
+import json
+url = "[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview"
+headers = {
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
+  'Content-Type': 'application/json'
+}
+response = requests.request("DELETE", url, headers=headers, data=payload)
+print(response.status_code)
+print(response.headers)
+print(response.text)
+```
+
+
+## <h2 id="additional-information">Additional information</h2>
+
+### Limits
+
+#### Query per second
+
+| Pricing Tier | Query per second (QPS) | 
+| :----------- | :--------------------- | 
+| S0           | 10                     | 
+
+If you need more, please [shoot us an email](mailto:acm-team@microsoft.com) to request.
+
+### Latency
+
+The service is desgined for real-time scenarios, while various factors could affect the client observed latency. To avoid the networking impact as much as possible, you may want to make API calls from the same region as the ACM resource located. Below are some number for your reference, if you observe unexpected high latency, please contact us.
+
+| API         | Latency for reference                                                    |
+| :---------- | :----------------------------------------------------------- |
+| Text analysis        | 100~300ms                                                    |
+| Image analysis       | 100~300ms                                                    |
+
+### Response codes
+
+| Response code | Description                                                      |
+| :---------- | :----------------------------------------------------------- |
+| 200         | OK - Standard response for successful HTTP requests.              |
+| 201         | Created - The request has been fulfilled, resulting in the creation of a new resource. |
+| 204         | No content - The server successfully processed the request, and is not returning any content. Usually you will see it for DELETE operation.|
+| 400         | Bad request – The server cannot or will not process the request due to a client error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing). |
+| 401         | Unauthorized – Authentication is required and has failed. |
+| 403         | Forbidden – User not having the necessary permissions for a resource. |
+| 404         | Not found - The requested resource could not be found. |
+| 429         | Too many requests – The user has sent too many requests in a given amount of time. Please refer to "Quota Limit" section for limitations. |
+| 500         | Internal servr error – An unexpected condition was encountered in the server side. |
+| 503         | Service unavailable – The server cannot handle the request temporarily. Please try again later. |
+| 504         | Gateway timeout – The server did not receive a timely response from the upstream service. Please try again later. |
+
+
+## Term of use
 - [Project Carnegie Private Preview Terms](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Private%20Preview%20Terms%20for%20Project%20Carnegie.pdf)
 
 ##  💬 We're here to help!
