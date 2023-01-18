@@ -536,7 +536,11 @@ url = "[Endpoint]/contentmoderator/image:analyze?api-version=2022-12-30-preview"
 
 payload = json.dumps({
   "image": {
+    #use content when upload image by base64
     "content": "[base64 encoded image]"
+    
+    #use url when upload image by blob url
+    #"url": "[image blob url]"
   },
   "categories": [
     "Hate",
