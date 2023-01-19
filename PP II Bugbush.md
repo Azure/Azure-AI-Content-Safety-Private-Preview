@@ -43,7 +43,7 @@ Currently this API is only available in English. New languages will be supported
 
 ### Region / Location
 
-Currently the private preview features are only available in below Azure regions: 
+Currently the private preview features are only available in the below Azure regions: 
 - Central US EUAP
 
 To use the preview APIs, please create/re-use your Azure Content Moderator resource in the supported regions.   
@@ -277,7 +277,7 @@ The response code should be `201` and the URL to get the created list should be 
 
 > **_📘 NOTE:_**
 >
-> There will be some delay after you added or edited a term until it takes effect on text analysis, usually **not exceed 5 minutes**.
+> There will be some delay after you add or edit a term until it takes effect on text analysis, usually **not exceeding 5 minutes**.
 >
 
 1. Use method **PATCH**.
@@ -759,7 +759,7 @@ print(response.text)
 
 > **_📘 NOTE:_**
 >
-> There will be some delay after you delete a list until it takes effect on text analysis, usually **not exceed 5 minutes**.
+> There will be some delay after you delete a list until it takes effect on text analysis, usually **not exceeding 5 minutes**.
 >
 
 1. Use method **DELETE**.
@@ -832,7 +832,7 @@ The service is desgined for real-time scenarios, while various factors could aff
 | 403         | Forbidden – User not having the necessary permissions for a resource. |
 | 404         | Not found - The requested resource could not be found. |
 | 429         | Too many requests – The user has sent too many requests in a given amount of time. Please refer to "Quota Limit" section for limitations. |
-| 500         | Internal servr error – An unexpected condition was encountered in the server side. |
+| 500         | Internal server error – An unexpected condition was encountered on the server side. |
 | 503         | Service unavailable – The server cannot handle the request temporarily. Please try again later. |
 | 504         | Gateway timeout – The server did not receive a timely response from the upstream service. Please try again later. |
 
