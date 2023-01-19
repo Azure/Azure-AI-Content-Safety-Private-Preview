@@ -14,13 +14,13 @@ The sample data and code could have offensive content, user discretion is advise
 
 - **[How It Works](#how-it-works)** contains instructions for using the service in more general ways.
 
-- **[Concepts / Read First](#read-first)** provides informations needed before starting.
+- **[Concepts / Read First](#concepts--read-first)** provides informations needed before starting.
 
 - **Quick Start** goes over getting-started instructions to guide you through making requests to the service.
-    - [QuickStart - prepare Azure Content Moderator resource](#quickstart-prepare-resource)
-    - [QuickStart - Text analysis](#quickstart-text)
-    - [QuickStart - Text analysis with custom blocklist](#quickstart-text-list)
-    - [QuickStart - Image analysis](#quickstart-image)
+    - [QuickStart - prepare Azure Content Moderator resource](#quickstart---prepare-azure-content-moderator-resource)
+    - [QuickStart - Text analysis](#quickstart---text-analysis)
+    - [QuickStart - Text analysis with custom blocklist](#quickstart---text-analysis-with-custom-blocklist)
+    - [QuickStart - Image analysis](#quickstart---image-analysis)
 
 ## 🔎 How It Works
 
@@ -75,7 +75,7 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 ### Step 2. Create an Azure Content Moderator resource
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
-2. [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, [supported region](#region-location) and [supported pricing tier](#sku-pricing-tier). Select **Create**.
+2. [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, [supported region](#region--location) and [supported pricing tier](#sku--pricing-tier). Select **Create**.
 3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To call Conetent Moderation APIs, you'll need an endpoint and a key; In the left pane, under **Resource Management**, select **Subscription Key and Endpoint**. The endpoint and either of the keys will be used to call APIs.
 
 ## 💡QuickStart - Text analysis
@@ -220,7 +220,7 @@ Below provides a sample to help you get started:
 - Add terms to a list.
 - Check text against a custom list.
 
-For more list operations samples, please refer to [more examples](#more-custom-list-operations).
+For more list operations samples, please refer to [more examples](#custom-list-operations).
 
 ### Step 1. Create or modify a term list
 
