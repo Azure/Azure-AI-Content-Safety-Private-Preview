@@ -12,7 +12,7 @@ The sample data and code could have offensive content, user discretion is advise
 
 ## 📒 Overview 
 
-- **[How It Works](#how-it-works)** contains instructions for using the service in more general ways.
+- **[How It Works](#-how-it-works)** contains instructions for using the service in more general ways.
 
 - **[Concepts / Read First](#concepts--read-first)** provides informations needed before starting.
 
