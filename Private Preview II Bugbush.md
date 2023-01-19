@@ -222,7 +222,7 @@ Below provides a sample to help you get started:
 
 For more list operations samples, please refer to [more examples](#more-custom-list-operations).
 
-### Step 1. Create a term list
+### Step 1. Create or modify a term list
 
 > **_📘 NOTE:_**
 >
@@ -272,7 +272,13 @@ print(response.text)
 The response code should be `201` and the URL to get the created list should be contained in the header, named **Location**
 
 
-### Step 2. Add a term to a term list
+### Step 2. Add or modify a term to a term list
+
+
+> **_📘 NOTE:_**
+>
+> There will be some delay after you added or edited a term until it takes effect on text analysis, usually **not exceed 5 minutes**.
+>
 
 1. Use method **PATCH**.
 2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
@@ -369,7 +375,7 @@ import requests
 import json
 url = "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
 payload = json.dumps({
-  "text": "you are an idiot",
+  "text": "I want to beat you till you blood",
   "categories": [
     "Hate",
     "Sexual",
@@ -377,7 +383,7 @@ payload = json.dumps({
     "Violence"
   ],
   "blockListIds":["1234"],
-  "breakByBlocklists": "true"
+  "breakByBlocklists": True
 })
 headers = {
   'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
@@ -691,11 +697,8 @@ import json
 
 url = "[Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview"
 headers = {
-
   'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
-
   'Content-Type': 'application/json'
-
 }
 
 response = requests.request("GET", url, headers=headers)
@@ -712,6 +715,11 @@ The status code should be `200` .
 
 
 #### Delete a term
+
+> **_📘 NOTE:_**
+>
+> There will be some delay after you delete a term until it takes effect on text analysis, usually **not exceed 5 minutes**.
+>
 
 1. Use method **DELETE**.
 2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
@@ -748,6 +756,11 @@ print(response.text)
 ```
 
 #### Delete a term list and all of its contents
+
+> **_📘 NOTE:_**
+>
+> There will be some delay after you delete a list until it takes effect on text analysis, usually **not exceed 5 minutes**.
+>
 
 1. Use method **DELETE**.
 2. The relative path should be "/text/lists/{listId}?api-version=2022-12-30-preview".
