@@ -22,7 +22,7 @@ The sample data and code could have offensive content, user discretion is advise
     - [QuickStart - Text analysis with custom blocklist](#quickstart-text-list)
     - [QuickStart - Image analysis](#quickstart-image)
 
-## <h2 id="how-it-works">🔎 How It Works</h2>
+## 🔎 How It Works
 
 Project "Carnegie" can be accessed through RESTful APIs. 
 
@@ -39,9 +39,9 @@ There are different types of analysis available in our project. The following ta
 
 Currently this API is only available in English. New languages will be supported in the future.
 
-## <h2 id="read-first">🗃Concepts / Read first</h2>
+## 🗃Concepts / Read first
 
-### <h3 id="region-location">Region / Location</h3>
+### Region / Location
 
 Currently the private preview features are only available in below Azure regions: 
 - Central US EUAP
@@ -49,7 +49,7 @@ Currently the private preview features are only available in below Azure regions
 To use the preview APIs, please create/re-use your Azure Content Moderator resource in the supported regions.   
 Feel free to contact us if more regions are required for your business.
 
-### <h3 id="sku-pricing-tier">SKU / Pricing Tier</h3>
+### SKU / Pricing Tier
 
 Currently the private preview features are only available in **S0** pricing tier.
 
@@ -62,7 +62,7 @@ This feature of the API provides scores for 4 different categories. Here are bri
 - **Category 3:** **Hate** - Hate is defined as any language and images that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.
 - **Category 4:** **SelfHarm**- SelfHarm describes language and images related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
 
-## <h2 id="quickstart-prepare-resource">💡QuickStart - prepare Azure Content Moderator resource</h2>
+## 💡QuickStart - prepare Azure Content Moderator resource
 
 Before you can begin to test the Project "Carnegie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource.
 
@@ -78,7 +78,7 @@ Before you can begin to test the Project "Carnegie" or integrate it into your ap
 2. [Create Content Moderator Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, [supported region](#region-location) and [supported pricing tier](#sku-pricing-tier). Select **Create**.
 3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To call Conetent Moderation APIs, you'll need an endpoint and a key; In the left pane, under **Resource Management**, select **Subscription Key and Endpoint**. The endpoint and either of the keys will be used to call APIs.
 
-## <h2 id="quickstart-text">💡QuickStart - Text analysis</h2>
+## 💡QuickStart - Text analysis
 
 ### Step 1. Call Text API with sample request
 
@@ -208,7 +208,7 @@ You should see the Text moderation results displayed as JSON data. For example:
 > Currently, we only have 0, 2, 4,6 four high-level risk levels available to us. In the future, we may be able to extend the risk levels to 0, 1, 2, 3, 4, 5, 6, 7, seven levels with finer granularity. 
 
 
-## <h2 id="quickstart-text-list">💡QuickStart - Text analysis with custom blocklist</h2>
+## 💡QuickStart - Text analysis with custom blocklist
 
 The default AI classifiers are sufficient for most content moderation needs. However, you might need to screen for terms that are specific to your organization.
 
@@ -397,7 +397,7 @@ print(response.text)
 
 
 
-## <h2 id="quickstart-image">💡QuickStart - Image analysis</h2>
+## 💡QuickStart - Image analysis
 
 ### Step 1. Call Image API with sample request
 
@@ -548,7 +548,7 @@ You should see the Image moderation results displayed as JSON data. For example:
 | **Risk Level** | 0 – Safe, 2 – Notable/Questionable, 4 - Mature, 6 - Dangerous | Number |
 
 
-## <h2 id="more-samples">More samples</h2>
+## More samples
 
 ### Text analysis
 
@@ -628,7 +628,7 @@ Response response = client.newCall(request).execute();
 
 ```
 
-### <h3 id="more-custom-list-operations">Custom list operations</h3>
+### Custom list operations
 
 In addition to the operations mentioned in the quickstart section. There are more operations to help you manage and use the custom list.
 
@@ -799,7 +799,7 @@ print(response.text)
 ```
 
 
-## <h2 id="additional-information">Additional information</h2>
+## Additional information
 
 ### Limits
 
