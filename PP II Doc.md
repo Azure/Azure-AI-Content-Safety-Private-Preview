@@ -1,4 +1,4 @@
-#  Project "Carnegie" Private Preview Documentation !
+#  Project "Carnegie" Private Preview Documentation
 
 Welcome to the Project "Carnegie" Private Preview!
 
