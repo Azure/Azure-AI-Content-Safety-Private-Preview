@@ -64,7 +64,8 @@ This feature of the API provides scores for 4 different categories. Here are bri
 
 ## 💡QuickStart - prepare Azure Content Moderator resource
 
-Before you can begin to test the Project "Carnegie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource.
+Before you can begin to test the Project "Carnegie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource. If you had an ACM resource before, you could re-use the existing ACM resource instead of creating a new one.![image](https://user-images.githubusercontent.com/36343326/215653839-f3731a71-f4b7-4080-8422-6011aff3d3e2.png)
+
 
 ### Step 1. Whitelist your subscription ID
 
@@ -148,7 +149,7 @@ Here is a sample request with Python. For other languages, please refer to [more
 | Name                  | Description                                                  | Type    |
 | :-------------------- | :----------------------------------------------------------- | ------- |
 | **Text**              | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String  |
-| **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories to get scores in a single request. | String  |
+| **Categories**        | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available category names. If no categories are specified, all four categories are used, we will use multiple categories to get scores in a single request. | String  |
 | **Language**          | (Optional) Language code for text analysis. Value can contain only the language code (ex. "en", "fr") of BCP 47. If you did not mention the language code, by default, we will detect all supported languages. **For this release, we only support English.** | String  |
 | **BlockListIds**      | Custom list Id array. You could attach multiple lists here.  | Array   |
 | **BreakByBlocklists** | If set this field to true, once a blocklist is matched, the analysis will return immediately without model output. Default is false. | Boolean |
@@ -232,7 +233,7 @@ For more list operations samples, please refer to [more examples](#custom-list-o
 
 1. Use method **PATCH** to create a list or update existing list's description or name.
 2. The relative path should be "/text/lists/{listId}?api-version=2022-12-30-preview".
-3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). The ID shoud be a string.
+3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). The ID shoud be a string and the limitation of id length is 64 characters.
 3. Substitute [Endpoint] with your endpoint.
 4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 5. Enter the following JSON in the **Request body** field, for example:
@@ -335,7 +336,7 @@ The response code should be `201` and the URL to get the created list should be 
 3. To verify that the term has been added to the list; In the **listId** parameter, enter the list ID that you generated in the previous step. 
 4. Set breakByBlocklists: true, If set this field to true, once a blocklist is matched, the analysis will return immediately without model output. The default setting is false.
 5. Enter your subscription key, and then select **Send**.
-6. In the **Response content** box, verify the terms you entered.
+6. In the **Response content** box, verify the terms you entered. The custom list is literally matched by characters and do NOT support regex.
 
 **Request content** with sample url: [Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en
 
@@ -636,10 +637,10 @@ In addition to the operations mentioned in the quickstart section. There are mor
 
 1. Use method **GET**.
 2. The relative path should be "/text/lists/{listId}/items?api-version=2022-12-30-preview".
-3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
-3. Substitute [Endpoint] with your endpoint.
-4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
-5. Enter the following JSON in the **Request body** field, for example:
+3. In the **listId** parameter, enter the ID of the list that you want to get (in our example, **1234**). 
+4. Substitute [Endpoint] with your endpoint.
+5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+6. Enter the following JSON in the **Request body** field, for example:
 
 
 
