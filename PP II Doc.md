@@ -64,7 +64,7 @@ This feature of the API provides scores for 4 different categories. Here are bri
 
 ## 💡QuickStart - prepare Azure Content Moderator resource
 
-Before you can begin to test the Project "Carnegie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource. If you had an ACM resource before, you could re-use the existing ACM resource instead of creating a new one.![image](https://user-images.githubusercontent.com/36343326/215653839-f3731a71-f4b7-4080-8422-6011aff3d3e2.png)
+Before you can begin to test the Project "Carnegie" or integrate it into your applications, you need to create an Azure Content Moderator resource and get the subscription keys to access the resource. If you had an ACM resource before, you could re-use the existing ACM resource instead of creating a new one.
 
 
 ### Step 1. Whitelist your subscription ID
