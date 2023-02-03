@@ -2,7 +2,7 @@
 
 Welcome to the Project "Carnegie" private preview!
 
-The Project "Carnegie" Private Preview API is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable. The initial version of Project Carnegie preview will work on text and image content. In later versions, we intend to update the API with new functionalities offering state-of-the-art text, image and multi-modal models that will detect problematic content. Project "Carnegie" helps make applications and services safer from harmful user-generated and AI-generated content.
+The Project "Carnegie" Private Preview API is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable. The Project Carnegie preview will work on new functionalities offering state-of-the-art text, image and multi-modal models that will detect problematic content. Project "Carnegie" helps make applications and services safer from harmful user-generated and AI-generated content.
 
 **The focus of the release `2022-12-30-private` is to add multi-severity risk levels and custom blocklist support with text APIs, as well as the new image APIs.**
 
