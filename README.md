@@ -198,14 +198,14 @@ The JSON fields in the output are defined in the following table:
 
 The following table describes the different risk levels:
 
-| Risk level                    | Description                                                  | Example                                                      |
-| ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Risk 0 – Safe                 | Words, phrases marked as Risk 0 will always be allowed, meaning they cannot be filtered. | "hello", "goodbye", "thank  you".                                  |
-| Risk 2 – Notable/Questionable | Risk 2 category means "unknown," and the classifier assigns a Risk 2 to any text that it cannot decipher. Risk 2 is in the middle of the spectrum because its risk and severity are unknown; it could be a simple misspelling of a low-risk word, or it could be a manipulation of a high-risk word. | "zero", "5", "dumb", "touching", "dress", "cow", "daddy",  "taste", "inept", "street", "lies". missing words, keyboard mashing (asdsdjhasdgah),  misspellings (purel) |
-| Risk 4 – Mature               | Risk Level 4 denotes mature content. Words and phrases marked as a Risk 4 typically cover mature subject matter, utilize potentially inappropriate language, and are also heavily reliant on context. | mild forms of vulgarity, bullying, and hate speech, sharing of PII such as full names, phone numbers or addresses, discussions about controversial themes. |
-| Risk 6 – Dangerous             | Words and phrases marked as a Risk 6 are explicit and  often offensive in nature. Most times. they do not require additional context to be considered high risk. | strong swear words, explicit sexual speech, severe bullying, and hate speech. |
+| Risk level                    | Description                                                  | 
+| ----------------------------- | ------------------------------------------------------------ | 
+| Risk 0 – Safe                 | The content is appropriate and respectful for everyone. It does not contain any material that might be upsetting, harmful, or unsuitable for some audiences |                                
+| Risk 2 – Low | Offensive use of language | 
+| Risk 4 – Medium               | Risk Level 4 denotes mature content. Words and phrases marked as a Risk 4 typically cover mature subject matter, utilize potentially inappropriate language, and are also heavily reliant on context. | 
+| Risk 6 – High             | Words and phrases marked as a Risk 6 are explicit and often offensive in nature. Most times. they do not require additional context to be considered high risk. | 
 
-![Content Moderation-Pitch Deck 1207](https://user-images.githubusercontent.com/36343326/211787069-c1de12c3-ba48-452a-a64a-809df3c8fb43.png)
+
 
 
 > **NOTE: Why risk level is not continuous**
