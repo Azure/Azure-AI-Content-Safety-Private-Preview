@@ -1,4 +1,4 @@
-#  Project "Carnegie" private preview documentation
+#  Project "Carnegie" Private Preview Documentation
 
 Welcome to the Project "Carnegie" private preview!
 
@@ -196,14 +196,27 @@ The JSON fields in the output are defined in the following table:
 | **Category**   | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text moderation model, it could be classified as sexual content as well as violence. | String |
 | **Risk Level** | Severity of the consequences.                                | Number |
 
-The following table describes the different risk levels:
+The following table describes the different the risk levels at a high level for the Hate and Fairness category, a more comprehensive description will be released soon for each supported category:
 
 | Risk level                    | Description                                                  | 
 | ----------------------------- | ------------------------------------------------------------ | 
-| Risk 0 – Safe                 | The content is appropriate and respectful for everyone. It does not contain any material that might be upsetting, harmful, or unsuitable for some audiences |                                
-| Risk 2 – Low | Offensive use of language | 
-| Risk 4 – Medium               | Risk Level 4 denotes mature content. Words and phrases marked as a Risk 4 typically cover mature subject matter, utilize potentially inappropriate language, and are also heavily reliant on context. | 
-| Risk 6 – High             | Words and phrases marked as a Risk 6 are explicit and often offensive in nature. Most times. they do not require additional context to be considered high risk. | 
+| Risk 0 – Safe                 | The content is appropriate and respectful for everyone. It does not contain any material that might be upsetting, harmful, or unsuitable for some audiences. Please note expressions of mild dislike or disagreement fall into this level. These expressions may not be meant to hurt or offend anyone, but they may still be seen as rude or impolite by some people. For example, saying “I don’t like old people”. This level also includes neutral mentions of identity attributes in contexts that are factual, informative, or educational, such as history, geography, medicine, and so on. For example, saying “The average life expectancy in Japan is 84 years” or “Breast cancer is more common in women than in men”. |                                
+| Risk 2 – Low | Language that is harmful, but is not direct to an individual or group, such as:
+•	Words that are rude, vulgar, offensive or abusive to anyone.
+•	Views or attitudes that are biased, unfair or disrespectful towards any group of people based on their identity or characteristics.
+•	Stereotypes that are negative or false positive, meaning they either portray a group of people in a bad or inaccurate way.
+ | 
+| Risk 4 – Medium               | Language that targets individuals or groups based on their identity, such as race, ethnicity, religion, gender, sexual orientation, disability, or any other characteristic or Direct verbal sentiment-motivated insults and negative comments intended to hurt an individual or a group of people based on their attributes | 
+| Risk 6 – High             | Group characterizations that makes a differentiation between the groups and other social groups appealing to take harmful and violent actions against an Identity Group based on their attributes
+-	Hate speech propaganda that can be perceived as a direct threat against the Identity Groups or that calls for violence against the Identity Groups
+-	Texts that allegedly claim one group’s superiority over those with any of the attributes of the Identity Groups to justify discrimination, segregation, or exclusion and call for subjugation and domination
+-	Glorification of Nazi and SS symbolism, KKK and Confederate flag outside of historical, educational or artistic settings
+-	Hate crime preparation, praise and glorification of violence against the Identity Group
+-	Texts that contain supremacist groups’ recruitment of new members 
+-	Texts that praise, glorify and endorse genocide
+-	Texts that radicalize and incite people to join communities and spread hate speech against the Identity Group
+-	Stalking as a form of illegal harassing behavior towards Identity Group that make them feel unsafe
+ | 
 
 
 
