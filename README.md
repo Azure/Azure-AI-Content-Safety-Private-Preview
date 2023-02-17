@@ -44,7 +44,7 @@ Currently, this API is only available in English. New languages will be supporte
 ### Region / Location
 
 To use the preview APIs, please create/re-use your Azure Content Moderator resource in the supported regions. Currently, the private preview features are only available in the following Azure regions: 
-- East US, West US 2 and South Central US
+- East US and South Central US
 
 Feel free to contact us if you require more regions for your business.
 
