@@ -127,7 +127,7 @@ The JSON fields that can be included in the request body are defined in this tab
 | :-------------------- | :----------------------------------------------------------- | ------- |
 | **Text**              | (Required) This is the raw text to be checked. Other non-ascii characters can be included. | String  |
 | **Categories**        | (Optional) This is assumed to be an array of category names. See the **Concepts** section for a list of available category names. If no categories are specified, all four categories are used. We will use multiple categories to get scores in a single request. | String  |
-| **Language**          | (Required) Language code for text analysis. **Currently, we support English, German, Japanese, Spanish, and French.** Value can contain either the English language code of BCP 47 `"en"`, Or if you want to detect other four supported languages, you should specify `"multi"`.  | String  |
+| **Language**          | (Required) Language code for text analysis. **Currently, we support English, German, Japanese, Spanish, and French.** Value can contain either the English language code of BCP 47 `"en"`, or if you want to detect other four supported languages, you should specify `"multi"`.  | String  |
 | **BlockListIds**      | Custom list ID array. You could attach multiple lists here.  | Array   |
 | **BreakByBlocklists** | If set this field to `true`, once a blocklist is matched, the analysis will return immediately without model output. Default is `false`. | Boolean |
 
