@@ -54,12 +54,14 @@ Currently, the private preview features are only available in the **S0** pricing
 
 ### Content Categories and Severity Levels
 
-The API provides severity levels for four different categories, described below. For a comprehensive view of the category definitions and severity levels definitions please refer to: https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Guidelines.md
+The API provides severity levels for four different categories, described below. For a comprehensive view of the category and severity levels definitions please refer to: [Categories and Severity Levels Guidelines](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Guidelines.md)
 
-- **Category 1:** **Sexual** - `Sexual` content describes language and images related to anatomical organs and genitals, romantic relationship, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one’s will, prostitution, pornography.
-- **Category 2:** **Violence** - `Violence` describes language and images related to physical actions intended to hurt, injure, damage or kill someone or something; describes weapons, guns and related entities, such as manufacturers, associations, legislation, and so on. 
-- **Category 3:** **Hate** - `Hate` is defined as any language and images that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance, and body size.
-- **Category 4:** **SelfHarm**- `SelfHarm` describes language and images related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.
+| Category                  | Description                                                  | 
+| ----------------------------- | ------------------------------------------------------------ | 
+| Hate                 | Hate refers to any content that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.  |                         
+| Sexual                | Sexual describes language related to anatomical organs and genitals, romantic relationships, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one’s will, prostitution, pornography and abuse.  |
+| Violence           | Violence describes language related to physical actions intended to hurt, injure, damage, or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc.  | 
+| Self-Harm               | Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.   |  
 
 ## 💡QuickStart - Create an Azure Content Moderator resource
 
@@ -197,16 +199,7 @@ The JSON fields in the output are defined in the following table:
 | **Category**   | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text moderation model, it could be classified as sexual content as well as violence. | String |
 | **Risk Level** | Severity of the consequences.                                | Number |
 
-The following table describes the different risk levels across all categories.
-
-| Risk level                    | Description                                                  | 
-| ----------------------------- | ------------------------------------------------------------ | 
-| Risk 0 – Safe                 | The content is appropriate and respectful for everyone. It does not contain any material that might be upsetting, harmful, or unsuitable for some audiences. Please note expressions of mild dislike or disagreement fall into this level. These expressions may not be meant to hurt or offend anyone, but they may still be seen as rude or impolite by some people. For example, saying “I don’t like old people”. This level also includes neutral mentions of identity attributes in contexts that are factual, informative, or educational, such as history, geography, medicine, and so on. For example, saying “The average life expectancy in Japan is 84 years” or “Breast cancer is more common in women than in men”. |                         
-| Risk 2 – Low | Content that expresses prejudiced, judgmental or opinionated views, includes offensive use of language, stereotyping, usage cases exploring a fictional world (e.g. gaming, literature) and depictions at low intensity.  |
-| Risk 4 – Medium               | Content that uses offensive, insulting, mocking, intimidating, denigrating language towards Identity Groups, includes depictions on seeking and executing harmful instructions, fantasies, glorification, promotion of harm at medium intensity, explicit graphic content.  | 
-| Risk 6 – High                 | Content that displays explicit and severe harmful instructions, threats, actions, damage and abuse, includes endorsement, glorification, promotion of severe harmful acts, extreme or illegal forms of harm, radicalization, and non-consensual power exchange or abuse.  |  
-
-
+The API provides severity levels for four different categories, described below. For a comprehensive view of the category and severity levels definitions please refer to: [Categories and Severity Levels Guidelines](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Guidelines.md) 
 
 
 > **NOTE: Why risk level is not continuous**
