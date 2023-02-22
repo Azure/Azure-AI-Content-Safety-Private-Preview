@@ -54,7 +54,7 @@ Currently, the private preview features are only available in the **S0** pricing
 
 ### Content Categories and Severity Levels
 
-The API provides severity levels for four different categories, described below. For a comprehensive view of the category and severity levels definitions please refer to: [Categories and Severity Levels Guidelines](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Guidelines.md)
+The API provides severity levels for four different categories, described below. For a comprehensive view of the category and severity levels definitions please refer to: [Categories and Severity Levels Guidelines](https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Guidelines.md).
 
 | Category                  | Description                                                  | 
 | ----------------------------- | ------------------------------------------------------------ | 
