@@ -52,9 +52,9 @@ Feel free to contact us if you require more regions for your business.
 
 Currently, the private preview features are only available in the **S0** pricing tier.
 
-### Content flag categories
+### Content Categories and Severity Levels
 
-The API provides severity levels for four different categories, described below. Please be aware that these are high-level descriptions of the guidelines we use to build our categories. Contact us for more details about current guidelines:
+The API provides severity levels for four different categories, described below. For a comprehensive view of the category definitions and severity levels definitions please refer to: https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Guidelines.md
 
 - **Category 1:** **Sexual** - `Sexual` content describes language and images related to anatomical organs and genitals, romantic relationship, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one’s will, prostitution, pornography.
 - **Category 2:** **Violence** - `Violence` describes language and images related to physical actions intended to hurt, injure, damage or kill someone or something; describes weapons, guns and related entities, such as manufacturers, associations, legislation, and so on. 
