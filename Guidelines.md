@@ -9,6 +9,10 @@
 | Violence           | Violence describes language related to physical actions intended to hurt, injure, damage, or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, etc.  | 
 | Self-Harm               | Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one’s body or kill oneself.   |  
 
+> **NOTE: Why risk level is not continuous**
+>
+> Currently, we only use levels 0, 2, 4, and 6. In the future, we may be able to extend the risk levels to 0, 1, 2, 3, 4, 5, 6, 7: seven levels with finer granularity.
+
 ## Text - Hate Category
 
 | Level                  | Description                                                  | 
