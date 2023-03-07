@@ -37,7 +37,7 @@ There are different types of analysis available in our project. The following ta
 
 ### Language availability
 
-Currently, this API is only available in English. New languages will be supported in the future.
+Currently, this API supports English, German, Japanese, Spanish, and French. New languages are coming soon.
 
 ## Concepts / Read first
 
