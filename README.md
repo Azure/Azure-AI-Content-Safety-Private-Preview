@@ -126,13 +126,13 @@ The following is a sample request with Python. For other languages, please refer
 
 The JSON fields that can be included in the request body are defined in this table:
 
-| Name                  | Description                                                  | Type    |
-| :-------------------- | :----------------------------------------------------------- | ------- |
-| **Text**              | (Required) This is the raw text to be checked. Other non-ascii characters can be included. | String  |
-| **Categories**        | (Optional) This is assumed to be an array of category names. See the **Concepts** section for a list of available category names. If no categories are specified, all four categories are used. We will use multiple categories to get scores in a single request. | String  |
-| **Language**          | (Required) Language code for text analysis. **Currently, we support English, German, Japanese, Spanish, and French.** Value can contain either the English language code of BCP 47 `"en"`, or if you want to detect other four supported languages, you should specify `"multi"`.  | String  |
-| **BlockListIds**      | Custom list ID array. You could attach multiple lists here.  | Array   |
-| **BreakByBlocklists** | If set this field to `true`, once a blocklist is matched, the analysis will return immediately without model output. Default is `false`. | Boolean |
+| Name                  | Description                                                  | Type               |
+| :-------------------- | :----------------------------------------------------------- | ------------------ |
+| **Text**              | (Required) This is the raw text to be checked. Other non-ascii characters can be included. | String             |
+| **Categories**        | (Optional) This is assumed to be an array of category names. See the **Concepts** section for a list of available category names. If no categories are specified, all four categories are used. We will use multiple categories to get scores in a single request. | String             |
+| **Language**          | (Required) Language code for text analysis. **Currently, we support English, German, Japanese, Spanish, and French.** Value can contain either the English language code of BCP 47 `"en"`, or if you want to detect other four supported languages, you should specify `"multi"`. | String             |
+| **BlockListIds**      | Custom list ID array. You could attach multiple listsID here. ListsID should be number. | Array with numbers |
+| **BreakByBlocklists** | If set this field to `true`, once a blocklist is matched, the analysis will return immediately without model output. Default is `false`. | Boolean            |
 
 See the following sample request body:
 
@@ -143,7 +143,7 @@ See the following sample request body:
    "Hate","Sexual","SelfHarm","Violence"
   ],
   "blockListIds": [
-    "string"
+    "numbers"
   ],
   "breakByBlocklists": false
 }
@@ -222,7 +222,7 @@ You can create custom lists of terms to use with the Text API. The following ste
 
 1. Use method **PATCH** to create a list or update an existing list's description or name.
 1. The relative API path should be "/text/lists/{listId}?api-version=2022-12-30-preview".
-1. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). The ID should be a string of up to 64 characters.
+1. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). The ID should be a number up to 64 characters.
 1. Substitute `<Endpoint>` with your endpoint URL.
 1. Paste your subscription key into `the Ocp-Apim-Subscription-Key` field.
 
