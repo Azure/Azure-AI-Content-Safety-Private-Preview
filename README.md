@@ -124,13 +124,22 @@ The following is a sample request with Python. For other languages, please refer
 ```
 
 
+
+The below fields must be included in the url:
+
+| Name            | Description                                                  | Type        |
+| :-------------- | :----------------------------------------------------------- | ----------- |
+| **API Version** | (Required) This is the API version to be checked. Current version is: api-version=2022-12-30-preview. Example: <Endpoint>/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en | String      |
+| **Language**    | (Required) Language code for text analysis. **Currently, we support English, German, Japanese, Spanish, and French.** Value can contain either the English language code of BCP 47 `"en"`, or if you want to detect other four supported languages, you should specify `"multi"`.                                    Example:<Endpoint>/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en | BCP 47 code |
+
+
+
 The JSON fields that can be included in the request body are defined in this table:
 
 | Name                  | Description                                                  | Type               |
 | :-------------------- | :----------------------------------------------------------- | ------------------ |
 | **Text**              | (Required) This is the raw text to be checked. Other non-ascii characters can be included. | String             |
 | **Categories**        | (Optional) This is assumed to be an array of category names. See the **Concepts** section for a list of available category names. If no categories are specified, all four categories are used. We will use multiple categories to get scores in a single request. | String             |
-| **Language**          | (Required) Language code for text analysis. **Currently, we support English, German, Japanese, Spanish, and French.** Value can contain either the English language code of BCP 47 `"en"`, or if you want to detect other four supported languages, you should specify `"multi"`. | String             |
 | **BlockListIds**      | Custom list ID array. You could attach multiple listsID here. ListsID should be number. | Array with numbers |
 | **BreakByBlocklists** | If set this field to `true`, once a blocklist is matched, the analysis will return immediately without model output. Default is `false`. | Boolean            |
 
@@ -213,6 +222,19 @@ The default AI classifiers are sufficient for most content moderation needs. How
 
 You can create custom lists of terms to use with the Text API. The following steps help you get started. For more list operations samples, please refer to [more examples](#custom-list-operations).
 
+
+
+The below fields must be included in the url:
+
+| Name            | Description                                                  | Type        |
+| :-------------- | :----------------------------------------------------------- | ----------- |
+| **ListID**      | (Required) This is the listID to be checked.                                                                                                          Example: url = "<Endpoint>/contentmoderator/text/lists/{ListID}?api-version=2022-12-30-preview" | String      |
+| **ItemID**      | (Required) This is the listID to be checked.                                                                                                          Example: url = "<Endpoint>/contentmoderator/text/lists/{ListID}/items/{ItemID}?api-version=2022-12-30-preview" | BCP 47 code |
+| **API Version** | (Required) This is the API version to be checked. Current version is: api-version=2022-12-30-preview. Example: <Endpoint>/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en | String      |
+| **Language**    | (Required) Language code for text analysis. **Currently, we support English, German, Japanese, Spanish, and French.** Value can contain either the English language code of BCP 47 `"en"`, or if you want to detect other four supported languages, you should specify `"multi"`.                                    Example:<Endpoint>/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en | BCP 47 code |
+
+
+
 ### Create or modify a terms list
 
 > **NOTE:**
@@ -222,7 +244,7 @@ You can create custom lists of terms to use with the Text API. The following ste
 
 1. Use method **PATCH** to create a list or update an existing list's description or name.
 1. The relative API path should be "/text/lists/{listId}?api-version=2022-12-30-preview".
-1. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). The ID should be a number up to 64 characters.
+1. In the **listId** parameter, enter the ID of the list that you want to add **in the url** (in our example, **1234**). The ID should be a number up to 64 characters.
 1. Substitute `<Endpoint>` with your endpoint URL.
 1. Paste your subscription key into `the Ocp-Apim-Subscription-Key` field.
 
@@ -264,9 +286,9 @@ The response code should be `201` and the URL to get the created list should be 
 1. Use method **PATCH**.
 2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
 3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
-4. In the **itemId** parameter, enter the ID of the term (in our example, **01** )
-5. In the **language** parameter, enter the language code (for example, `"en"`, `"fr"`) defined by BCP 47. If you did not mention the language code, by default, we will detect all supported languages. **For this release, we only support English.**
-6. Substitute `<Endpoint>` with your endpoint.
+4. In the **itemId** parameter, enter the ID of the term **in the url** (in our example, **01** )
+5. In the **language** parameter, enter the language code **in the url** (for example, `"en"`, `"fr"`) defined by BCP 47. If you did not mention the language code, by default, we will detect all supported languages. 
+5. Substitute `<Endpoint>` with your endpoint.
 7. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
 8. Enter the following JSON in the **Request body** field, for example:
 
@@ -312,7 +334,7 @@ The response code should be `201` and the URL to get the created list should be 
 
 1. Change your method to **POST**.
 1. The relative path should be "/contentmoderator/text:analyze?api-version=2022-12-30-preview&language=en"
-1. Verify that the term has been added to the list. In the **listId** parameter, enter the list ID that you generated in the previous step. 
+1. Verify that the term has been added to the list. In the **listId** parameter, enter the list ID **in the url** that you generated in the previous step. 
 1. Set `breakByBlocklists: True`, so that once a blocklist is matched, the analysis will return immediately without model output. The default setting is `false`.
 1. Enter your subscription key, and then select **Send**.
 1. In the **Response content** box, verify the terms you entered. The custom list is literally matched by characters and do NOT support regex.
