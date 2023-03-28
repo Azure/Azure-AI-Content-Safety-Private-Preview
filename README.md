@@ -287,7 +287,7 @@ The response code should be `201` and the URL to get the created list should be 
 2. The relative path should be "/text/lists/{listId}/items/{itemId}?api-version=2022-12-30-preview".
 3. In the **listId** parameter, enter the ID of the list that you want to add (in our example, **1234**). 
 4. In the **itemId** parameter, enter the ID of the term **in the url** (in our example, **01** )
-5. In the **language** parameter, enter the language code **in the url** (for example, `"en"`, `"fr"`) defined by BCP 47. If you did not mention the language code, by default, we will detect all supported languages. 
+5. In the **language** parameter, enter the language code **in the url** (for example, `"en"`, `"multi"`). 
 5. Substitute `<Endpoint>` with your endpoint.
 7. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
 8. Enter the following JSON in the **Request body** field, for example:
