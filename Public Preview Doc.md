@@ -10,7 +10,7 @@ The Azure Content Safety Public Preview API is a Cognitive Service that detects 
 
 Azure Content Safety can be accessed through RESTful APIs.
 
-### Types of analysis
+### Product Types
 
 There are different types of analysis available in our project. The following table describes the currently available API.
 
