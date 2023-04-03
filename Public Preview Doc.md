@@ -823,7 +823,7 @@ You should see the Image moderation results displayed as JSON data. For example:
 }
 ```
 
-
+## QuickStart - Azure Content Safety Studio
 
 # Concepts 
 
