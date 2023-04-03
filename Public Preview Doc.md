@@ -776,7 +776,7 @@ You should see the Image moderation results displayed as JSON data. For example:
 
 
 
-## Concepts 
+# Concepts 
 
 ### Content Categories 
 
