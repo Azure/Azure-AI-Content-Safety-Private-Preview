@@ -139,6 +139,8 @@ The following is a sample request with Python.
 >
 > The samples may contain offensive content, user discretion advised.
 
+#### Python
+
 ```python
   import requests
   import json
@@ -146,7 +148,7 @@ The following is a sample request with Python.
   url = "<Endpoint>/contentmoderator/text:analyze?api-version=2022-12-30-preview"
 
   payload = json.dumps({
-    "text": "you are an Nameiot",
+    "text": "you are an idiot",
     "categories": [
       "Hate",
       "Sexual",
@@ -165,6 +167,23 @@ The following is a sample request with Python.
   print(response.status_code)
   print(response.headers)
   print(response.text)
+```
+
+#### cURL
+
+Here is a sample request with cURL. You must have [cURL](https://curl.se/download.html) installed to run it.
+
+```shell
+curl --location --request POST '[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: Please type your Subscription Key here' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "text": "you are an Nameiot",
+  "categories": [
+   "Hate","Sexual","SelfHarm","Violence"
+  ]
+}'
+
 ```
 
 
@@ -195,7 +214,7 @@ See the following sample request body:
    "Hate","Sexual","SelfHarm","Violence"
   ],
   "blocklistNames": [
-    "numbers"
+    "array"
   ],
   "breakByBlocklists": false
 }
@@ -215,6 +234,8 @@ See the following sample request body:
 > 2. Download the [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-public-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs a github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get a load error from Jupyter.
 >
 > 3. Run the notebook.
+
+
 
 ### Interpret Text API response
 
@@ -587,10 +608,6 @@ print(response.text)
 
 
 
-
-
-
-
 ## QuickStart - Image analysis
 
 ### Disclaimer
@@ -604,7 +621,9 @@ Now that you have an Azure Content Safety resource and you have a subscription k
 Here is a sample request with Python:
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/indivNameual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
+
 1. Substitute the `<Endpoint>` with your resource endpoint URL.
+
 1. Upload your image by one of two methods:**by  Base64 or by Blob url**. We only support JPEG and PNG image formats.
    - First method (Recommend): encoding your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding quickly. Put the path to your base 64 image in the _content_ parameter below.
    - Second method: [Upload image to Blob Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html). Put your Blob URL into the _url_ parameter below. Currently we only support system assigned Managed Identity to access blob storage, so you must enable system assigned Managed identity for the Azure Content Safety instance and assign the role of "Storage Blob Data Contributor/Owner/Reader" to the identity:
@@ -621,11 +640,14 @@ Here is a sample request with Python:
        ![assign-role-4](https://user-images.githubusercontent.com/36343326/213126616-03af2bc9-2328-42f6-abeb-766eff28cd8a.png)
    
 1. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
+
 1. Change the body of the request to whatever image you'd like to analyze.
 
 > **NOTE:**
 >
 > The samples could contain offensive content, user discretion advised.
+
+#### Python
 
 
 ```python
@@ -683,6 +705,25 @@ The JSON fields that can be included in the request body are defined in this tab
 >
 > 3. Run the notebook.
 
+
+
+#### cURL
+
+Here is a sample request with cURL. You must have [cURL](https://curl.se/download.html) installed to run it.
+
+```shell
+curl --location --request POST '[Endpoint]/contentmoderator/image:analyze?api-version=2022-12-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: Please type your Subscription Key here' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "image": {
+    "content": "Please Paste base 64 code here"
+  }
+}'
+```
+
+
+
 ### Understand Image API response
 
 You should see the Image moderation results displayed as JSON data. For example:
@@ -732,9 +773,17 @@ Here is a sample request with Python:
 > The samples could contain offensive content, user discretion advised.
 
 
+
+#### Python
+
+
 ```python
 
 ```
+
+#### cURL
+
+
 
 The JSON fields that can be included in the request body are defined in this table:
 
@@ -797,90 +846,6 @@ You should see the Image moderation results displayed as JSON data. For example:
 | 2        | Low         |
 | 4        | Medium      |
 | 6        | High        |
-
-
-
-# Samples
-
-### Disclaimer
-
-The sample data and code may contain offensive content. User discretion is advised.
-
-### Text analysis
-
-#### cURL
-
-Here is a sample request with cURL. You must have [cURL](https://curl.se/download.html) installed to run it.
-
-```shell
-curl --location --request POST '[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview' \
---header 'Ocp-Apim-Subscription-Key: Please type your Subscription Key here' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "text": "you are an Nameiot",
-  "categories": [
-   "Hate","Sexual","SelfHarm","Violence"
-  ]
-}'
-
-```
-
-#### Java
-
-Here is a sample request with Java. 
-
-```java
-OkHttpClient client = new OkHttpClient().newBuilder()
-  .build();
-MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\r\n  \"text\": \"you are an Nameiot\",\r\n  \"categories\": [\r\n   \"Hate\",\"Sexual\",\"SelfHarm\",\"Violence\"\r\n  ]\r\n}");
-Request request = new Request.Builder()
-  .url("[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview")
-  .method("POST", body)
-  .addHeader("Ocp-Apim-Subscription-Key", "Please type your Subscription Key here")
-  .addHeader("Content-Type", "application/json")
-  .build();
-Response response = client.newCall(request).execute();
-
-```
-
-### Image analysis
-
-#### cURL
-
-Here is a sample request with cURL. You must have [cURL](https://curl.se/download.html) installed to run it.
-
-```shell
-curl --location --request POST '[Endpoint]/contentmoderator/image:analyze?api-version=2022-12-30-preview' \
---header 'Ocp-Apim-Subscription-Key: Please type your Subscription Key here' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "image": {
-    "content": "Please Paste base 64 code here"
-  }
-}'
-```
-
-#### Java
-
-Here is a sample request with Java. 
-
-```java
-OkHttpClient client = new OkHttpClient().newBuilder()
-  .build();
-MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\r\n  \"image\": {\r\n    \"url\": \"https://cmsatest2023.blob.core.windows.net/images/adult.jpeg\"\r\n  },\r\n  \"categories\": [\r\n    \"Hate\",\"Sexual\",\"SelfHarm\",\"Violence\"\r\n  ]\r\n}");
-Request request = new Request.Builder()
-  .url("[Endpoint]contentmoderator/image:analyze?api-version=2022-12-30-preview")
-  .method("POST", body)
-  .addHeader("Ocp-Apim-Subscription-Key", "Please type your Subscription Key here")
-  .addHeader("Content-Type", "application/json")
-  .build();
-Response response = client.newCall(request).execute();
-
-```
-
-
 
 
 
