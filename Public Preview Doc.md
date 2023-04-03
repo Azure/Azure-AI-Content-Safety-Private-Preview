@@ -624,7 +624,7 @@ Here is a sample request with Python:
 
 1. Substitute the `<Endpoint>` with your resource endpoint URL.
 
-1. Upload your image by one of two methods:**by  Base64 or by Blob url**. We only support JPEG and PNG image formats.
+1. Upload your image by one of two methods:**by  Base64 or by Blob url**. We only support JPEG, PNG, GIF, BMP image formats.
    - First method (Recommend): encoding your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding quickly. Put the path to your base 64 image in the _content_ parameter below.
    - Second method: [Upload image to Blob Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html). Put your Blob URL into the _url_ parameter below. Currently we only support system assigned Managed Identity to access blob storage, so you must enable system assigned Managed identity for the Azure Content Safety instance and assign the role of "Storage Blob Data Contributor/Owner/Reader" to the identity:
      - Enable managed identity for Azure Content Safety instance. 
@@ -763,7 +763,7 @@ Here is a sample request with Python:
 
 1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/indivNameual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
 1. Substitute the `<Endpoint>` with your resource endpoint URL.
-1. Upload your image by **Base64 **. We support JPEG ,PNG, GIF image formats.
+1. Upload your image by **Base64 **. We support JPEG, PNG, GIF, BMP image formats.
    - Encoding your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding quickly. Put the path to your base 64 image in the _content_ parameter below.
 1. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
 1. Change the body of the request to whatever image you'd like to analyze.
