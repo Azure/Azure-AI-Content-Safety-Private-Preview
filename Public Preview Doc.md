@@ -6,7 +6,7 @@
 
 Welcome to the Azure Content Safety public preview!
 
-The Azure Content Safety Public Preview API is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable. The Azure Content Safety public preview will work on new functionalities offering state-of-the-art text, image and multi-modal models that will detect problematic content. Azure Content Safety helps make applications and services safer from harmful user-generated and AI-generated content.
+The Azure Content Safety Public Preview is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable. The Azure Content Safety public preview will work on new functionalities offering state-of-the-art text, image and multi-modal APIs and the studio that will detect problematic content. Azure Content Safety helps make applications and services safer from harmful user-generated and AI-generated content.
 
 Azure Content Safety can be accessed through RESTful APIs.
 
