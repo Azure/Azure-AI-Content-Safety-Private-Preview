@@ -12,14 +12,14 @@ Azure Content Safety can be accessed through RESTful APIs.
 
 ### Product Types
 
-There are different types of analysis available in our project. The following table describes the currently available API.
+There are different types of analysis available in our product. 
 
 | Type                        | Functionality                                                |
 | :-------------------------- | :----------------------------------------------------------- |
 | Text Detection API          | Scans text for sexual, violence, hate speech, and self harm with multi-severity risk levels. |
 | Image Detection API         | Scans image for sexual, violence, hate speech, and self harm with multi-severity risk levels. |
 | Multimodal Detection API    | Scans both image and text (include separate text or text from OCR of image) for hate content with multi-severity risk levels. |
-| Azure Content Safety Studio |                                                              |
+| Azure Content Safety Studio | ACS Studio is an online tool to visually explore, understand, evaluate  the ACS service. The studio provides a platform for you to experiment with the different ACS classifies and sample their returned data in an interactive manner without the need to write code. |
 
 
 
