@@ -158,7 +158,7 @@ The following is a sample request with Curl.
 
 @Patrick @ Meng AI  The following is a sample request with PythonSDK . 
 
-
+@Meng AI, please refer this to write the python sample step by step https://learn.microsoft.com/en-us/azure/cognitive-services/content-moderator/client-libraries?tabs=visual-studio&pivots=programming-language-python
 
 ```json
 
@@ -462,11 +462,17 @@ You should see the Image moderation results displayed as JSON data. For example:
 
 # 3. Samples
 
-@Meng AI github link with sdk, each languages should put into different SDK repos
+@Meng AI github link with sdk, each languages should put into different SDK repos, please refer below link to write samples
+
+## Python
+
+https://learn.microsoft.com/en-us/samples/azure/azure-sdk-for-python/formrecognizer-samples/?view=form-recog-3.0.0
 
 
 
+## .Net
 
+https://learn.microsoft.com/en-us/samples/azure/azure-sdk-for-net/azure-form-recognizer-client-sdk-samples/?view=form-recog-3.0.0
 
 # 4. How to Guide
 
@@ -525,7 +531,7 @@ The following is a sample request with Curl.
 
 @Patrick @ Meng AI  The following is a sample request with PythonSDK . 
 
-
+@Meng AI, please refer this to write the python sample step by step https://learn.microsoft.com/en-us/azure/cognitive-services/content-moderator/client-libraries?tabs=visual-studio&pivots=programming-language-python
 
 ```json
 
@@ -540,6 +546,10 @@ The following is a sample request with Curl.
 #### .Net
 
 The following is a sample request with .Net. 
+
+
+
+@Meng AI, please refer this to write the .net sample step by step https://learn.microsoft.com/en-us/azure/cognitive-services/content-moderator/client-libraries?tabs=visual-studio&pivots=programming-language-csharp
 
 ```json
 
