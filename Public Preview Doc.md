@@ -460,7 +460,7 @@ You should see the Image moderation results displayed as JSON data. For example:
 
 ## Azure Content Safety Studio
 
-# Samples
+# 3. Samples
 
 @Meng AI github link with sdk, each languages should put into different SDK repos
 
@@ -468,7 +468,7 @@ You should see the Image moderation results displayed as JSON data. For example:
 
 
 
-# How to Guide
+# 4. How to Guide
 
 ### Disclaimer
 
@@ -913,7 +913,7 @@ The following is a sample request with .Net.
 
 
 
-# Concepts 
+# 5. Concepts 
 
 ### Content Categories 
 
@@ -937,13 +937,13 @@ The following is a sample request with .Net.
 
 
 
-# Reference
+# 6. Reference
 
 Rest API link
 
 
 
-# Responsible use of AI
+# 7. Responsible use of AI
 
 @Patrick need to add this page 
 
@@ -955,7 +955,7 @@ Rest API link
 
 [Transparency Note-Azure Content Safety.docx](https://microsoftapc-my.sharepoint.com/:w:/g/personal/jinruishao_microsoft_com/ERahariyeaNDtAMrYGxvCGsBQ0Fj6dkoHQ9BVrD6-1ckxA?e=BsfagG)
 
-# Resources
+# 8. Resources
 
 ## Terms of use
 
