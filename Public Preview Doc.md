@@ -1,8 +1,12 @@
 
 
+<<<<<<< HEAD
 
 
 # Overview
+=======
+# 1. Overview
+>>>>>>> 832b6c7caa70e576fe902b36837f6cbe63e60172
 
 ##  What is Azure Content Safety
 
@@ -31,9 +35,19 @@ There are different types of analysis available in our product.
 
 @ Louise han
 
+<<<<<<< HEAD
 ### Azure Content Safety SDK
 
 @Meng Ai
+=======
+#### Get started using Form Recognizer Studio
+
+@ Louise han
+
+
+
+
+>>>>>>> 832b6c7caa70e576fe902b36837f6cbe63e60172
 
 ### Language availability
 
@@ -75,31 +89,15 @@ The service is designed for real-time scenarios, while various factors could aff
 | Text analysis  | 100~300ms             |
 | Image analysis | 100~300ms             |
 
-### Response codes
-
-The API may return the following HTTP response codes:
-
-| Response code | Description                                                  |
-| :------------ | :----------------------------------------------------------- |
-| 200           | OK - Standard response for successful HTTP requests.         |
-| 201           | Created - The request has been fulfilled, resulting in the creation of a new resource. |
-| 204           | No content - The server successfully processed the request, and is not returning any content. Usually you will see it for DELETE operation. |
-| 400           | Bad request – The server cannot or will not process the request due to a client error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing). |
-| 401           | Unauthorized – Authentication is required and has failed.    |
-| 403           | Forbidden – User not having the necessary permissions for a resource. |
-| 404           | Not found - The requested resource could not be found.       |
-| 429           | Too many requests – The user has sent too many requests in a given amount of time. Please refer to "Quota Limit" section for limitations. |
-| 500           | Internal server error – An unexpected condition was encountered on the server side. |
-| 503           | Service unavailable – The server cannot handle the request temporarily. Please try again later. |
-| 504           | Gateway timeout – The server did not receive a timely response from the upstream service. Please try again later. |
+### 
 
 
 
 
 
-# QuickStart
+# 2. QuickStart
 
-## QuickStart - Text analysis
+## Text analysis
 
 ### Disclaimer
 
@@ -115,6 +113,7 @@ Before you can begin to test the Azure Content Safety or integrate it into your 
 
 ### Call Text API with a sample request
 
+<<<<<<< HEAD
 The following is a sample request with Python. 
 
 1. Install [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/indivNameual#Downloads). Anaconda is a package containing many Python packages and allows for an easy start into the world of Python.
@@ -172,13 +171,19 @@ curl --location '<Endpoint>contentsafety/text:analyze?api-version=2023-04-30-pre
 }'
 ```
 
+=======
+>>>>>>> 832b6c7caa70e576fe902b36837f6cbe63e60172
 The below fields must be included in the url:
 
 | Name            | Description                                                  | Type   |
 | :-------------- | :----------------------------------------------------------- | ------ |
 | **API Version** | (Required) This is the API version to be checked. Current version is: api-version=2023-04-30-preview. Example: <Endpoint>/contentsafety/text:analyze?api-version=2023-04-30-preview | String |
 
+<<<<<<< HEAD
 The parameters in the request body are defined in this table:
+=======
+The JSON fields that can be included in the request body are defined in this table:
+>>>>>>> 832b6c7caa70e576fe902b36837f6cbe63e60172
 
 | Name                  | Description                                                  | Type    |
 | :-------------------- | :----------------------------------------------------------- | ------- |
@@ -192,6 +197,57 @@ The parameters in the request body are defined in this table:
 > The default maximum length for text submissions is **1K characters**. If you need to analyze longer blocks of text, you can split the input text (for example, using punctuation or spacing) across multiple related submissions. 
 >
 
+<<<<<<< HEAD
+=======
+
+
+#### Curl
+
+The following is a sample request with Curl. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### Python
+
+@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
+
+@Meng AI, please refer this to write the python sample step by step https://learn.microsoft.com/en-us/azure/cognitive-services/content-moderator/client-libraries?tabs=visual-studio&pivots=programming-language-python
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### .Net
+
+The following is a sample request with .Net. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### 
+
+>>>>>>> 832b6c7caa70e576fe902b36837f6cbe63e60172
 ### Interpret Text API response
 
 You should see the Text moderation results displayed as JSON data in the console output. For example:
@@ -231,8 +287,8 @@ The JSON fields in the output are defined in the following table:
 > Currently, we only use levels 0, 2, 4, and 6. In the future, we may be able to extend the risk levels to 0, 1, 2, 3, 4, 5, 6, 7: seven levels with finer granularity.
 
 
-## QuickStart - Text analysis with custom blocklist
 
+<<<<<<< HEAD
 ### Disclaimer
 
 The sample data and code may contain offensive content. User discretion is advised.
@@ -608,6 +664,9 @@ curl --location '<Endpoint>contentsafety/text/blocklists/1234:removeBlockItems?a
 ```
 
 ## QuickStart - Image analysis
+=======
+## Image analysis
+>>>>>>> 832b6c7caa70e576fe902b36837f6cbe63e60172
 
 ### Disclaimer
 
@@ -624,8 +683,11 @@ Here is a sample request with Python:
 1. Substitute the `<Endpoint>` with your resource endpoint URL.
 
 1. Upload your image by one of two methods:**by  Base64 or by Blob url**. We only support JPEG, PNG, GIF, BMP image formats.
+
    - First method (Recommend): encoding your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding quickly. Put the path to your base 64 image in the _content_ parameter below.
+
    - Second method: [Upload image to Blob Storage Account](https://statics.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html). Put your Blob URL into the _url_ parameter below. Currently we only support system assigned Managed Identity to access blob storage, so you must enable system assigned Managed identity for the Azure Content Safety instance and assign the role of "Storage Blob Data Contributor/Owner/Reader" to the identity:
+
      - Enable managed identity for Azure Content Safety instance. 
 
        ![enable-cm-mi-1](https://user-images.githubusercontent.com/36343326/213126427-2c789737-f8ec-416b-9e96-d96bf25de58e.png)
@@ -637,7 +699,7 @@ Here is a sample request with Python:
        ![assign-role-3](https://user-images.githubusercontent.com/36343326/213126536-31efac53-1741-4ff6-97a0-324b9a7e67a9.png)
 
        ![assign-role-4](https://user-images.githubusercontent.com/36343326/213126616-03af2bc9-2328-42f6-abeb-766eff28cd8a.png)
-   
+
 1. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
 
 1. Change the body of the request to whatever image you'd like to analyze.
@@ -646,9 +708,9 @@ Here is a sample request with Python:
 >
 > The samples could contain offensive content, user discretion advised.
 
-#### Python
 
 
+<<<<<<< HEAD
 ```python
 import requests
 import json
@@ -678,9 +740,69 @@ print(response.text)
 ```
 
 #### cURL
+=======
+The JSON fields that can be included in the request body are defined in this table:
 
-Here is a sample request with cURL. You must have [cURL](https://curl.se/download.html) installed to run it.
 
+| Name           | Description                                                  | Type   |
+| :------------- | :----------------------------------------------------------- | ------ |
+| **Content**    | (Optional) Upload your image by converting it to base64. You can either choose "Content"or "Url". | Base64 |
+| **Url**        | (Optional) Upload your image by uploading it into blob storage. You can either choose "Content"or "Url". |        |
+| **Categories** | (Optional) This is assumed to be multiple category names. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
+
+
+> **NOTE: Image size requirements**
+>
+> The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions.
+
+> **NOTE: Sample Python Jupyter Notebook**
+>
+> 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/indivNameual#Downloads). 
+>
+> 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-public-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get a load error from Jupyter.
+>
+> 3. Run the notebook.
+
+#### Curl
+
+The following is a sample request with Curl. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+>>>>>>> 832b6c7caa70e576fe902b36837f6cbe63e60172
+
+#### Python
+
+@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
+
+
+
+```json
+
+```
+
+```python
+
+```
+
+#### .Net
+
+The following is a sample request with .Net. 
+
+```json
+
+```
+
+```python
+
+<<<<<<< HEAD
 ```shell
 curl --location '<Endpoint>contentsafety/image:analyze?api-version=2023-04-30-preview' \
 --header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
@@ -690,6 +812,8 @@ curl --location '<Endpoint>contentsafety/image:analyze?api-version=2023-04-30-pr
   },
   "categories": ["Hate","SelfHarm", "Sexual", "Violence"]
 }'
+=======
+>>>>>>> 832b6c7caa70e576fe902b36837f6cbe63e60172
 ```
 
 
@@ -735,7 +859,36 @@ You should see the Image moderation results displayed as JSON data. For example:
 }
 ```
 
+<<<<<<< HEAD
 The parameters are defined in this table:
+=======
+
+
+## Multimodal analysis
+
+### Disclaimer
+
+The sample data and code may contain offensive content. User discretion is advised.
+
+### Call Multimodal API with sample request
+
+Here is a sample request with Python:
+
+1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/indivNameual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
+1. Substitute the `<Endpoint>` with your resource endpoint URL.
+1. Upload your image by **Base64 **. We support JPEG, PNG, GIF, BMP image formats.
+   - Encoding your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding quickly. Put the path to your base 64 image in the _content_ parameter below.
+1. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
+1. Change the body of the request to whatever image you'd like to analyze.
+
+> **NOTE:**
+>
+> The samples could contain offensive content, user discretion advised.
+
+
+
+The JSON fields that can be included in the request body are defined in this table:
+>>>>>>> 832b6c7caa70e576fe902b36837f6cbe63e60172
 
 
 | Name           | Description                                                  | Type   |
@@ -744,14 +897,548 @@ The parameters are defined in this table:
 | **Categories** | (Optional) This is assumed to be multiple category names, for current version, we only support hate categories. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
 
 
+<<<<<<< HEAD
+=======
+> **NOTE: Image size requirements**
+>
+> The default maximum size for image submissions is **4MB** with and must be between 50 x 50 pixels and 10,000 px x 10,000 pixels.
 
-## QuickStart - Azure Content Safety Studio
+#### Curl
 
+The following is a sample request with Curl. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### Python
+
+@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
+
+
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### .Net
+
+The following is a sample request with .Net. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+### Understand Image API response
+
+> **NOTE:**
+>
+> For this release, we only supported one classifiers, `Hate`for multimodal detection. Other categories will be released in the future.
+
+You should see the Image moderation results displayed as JSON data. For example:
+
+```json
+{
+    "hateResult": {
+        "category": "Hate",
+        "riskLevel": 0
+    }
+}
+```
+>>>>>>> 832b6c7caa70e576fe902b36837f6cbe63e60172
+
+## Azure Content Safety Studio
+
+<<<<<<< HEAD
 @louise
 
 
 
 # Concepts 
+=======
+# 3. Samples
+
+@Meng AI github link with sdk, each languages should put into different SDK repos, please refer below link to write samples
+
+## Python
+
+https://learn.microsoft.com/en-us/samples/azure/azure-sdk-for-python/formrecognizer-samples/?view=form-recog-3.0.0
+
+
+
+## .Net
+
+https://learn.microsoft.com/en-us/samples/azure/azure-sdk-for-net/azure-form-recognizer-client-sdk-samples/?view=form-recog-3.0.0
+
+# 4. How to Guide
+
+### Disclaimer
+
+The sample data and code may contain offensive content. User discretion is advised.
+
+The default AI classifiers are sufficient for most content moderation needs. However, you might need to screen for terms that are specific to your use case.
+
+You can create custom lists of terms to use with the Text API. The following steps help you get started. For more list operations samples, please refer to [more examples](#custom-list-operations).
+
+The below fields must be included in the url:
+
+| Name              | Description                                                  | Type        |
+| :---------------- | :----------------------------------------------------------- | ----------- |
+| **BlocklistName** | (Required) Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~                                                                                                     Example: url = "<Endpoint>/contentmoderator/text/lists/{blocklistName}?api-version=2022-12-30-preview" | String      |
+| **blockItems**    | (Required) This is the blocklistName to be checked.                                                                                                          Example: url = "<Endpoint>/contentmoderator/text/lists/{blocklistName}/items/{blockItems}?api-version=2022-12-30-preview" | BCP 47 code |
+| **API Version**   | (Required) This is the API version to be checked. Current version is: api-version=2022-12-30-preview. Example: <Endpoint>/contentmoderator/text:analyze?api-version=2022-12-30-preview | String      |
+
+
+
+### Create or modify a terms list
+
+> **NOTE:**
+>
+> There is a maximum limit of **5 term lists** per resource, with each list **not to exceed 10,000 terms**.
+
+
+1. Use method **PATCH** to create a list or update an existing list's description or name.
+
+1. The relative API path should be "/text/lists/{blocklistName}?api-version=2022-12-30-preview".
+
+1. In the **blocklistName** parameter, enter the Name of the list that you want to add **in the url** (in our example, **1234**). The Name should be a number up to 64 characters.
+
+1. Substitute `<Endpoint>` with your endpoint URL.
+
+1. Paste your subscription key into `the Ocp-Apim-Subscription-Key` field.
+
+   
+
+#### Curl
+
+The following is a sample request with Curl. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### Python
+
+@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
+
+@Meng AI, please refer this to write the python sample step by step https://learn.microsoft.com/en-us/azure/cognitive-services/content-moderator/client-libraries?tabs=visual-studio&pivots=programming-language-python
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### .Net
+
+The following is a sample request with .Net. 
+
+
+
+@Meng AI, please refer this to write the .net sample step by step https://learn.microsoft.com/en-us/azure/cognitive-services/content-moderator/client-libraries?tabs=visual-studio&pivots=programming-language-csharp
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+### Add or modify a term in the list
+
+
+> **NOTE:**
+>
+> There will be some delay after you add or edit a term before it takes effect on text analysis, usually **not exceeding 5 minutes**.
+
+1. Use method **PATCH**.
+2. The relative path should be "/text/lists/{blocklistName}/items/{blockItems}?api-version=2022-12-30-preview".
+3. In the url path  parameter, enter the **blocklistName** that you want to add   (in our example, **1234**). 
+4. In the **blockItems** parameter, enter the term **in the text part (in our example, **blood )
+5. Substitute `<Endpoint>` with your endpoint.
+6. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
+7. Enter the following JSON in the **Request body** field, for example
+
+
+
+#### Curl
+
+The following is a sample request with Curl. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### Python
+
+@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
+
+
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### .Net
+
+The following is a sample request with .Net. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+### Analyze text with a custom list
+
+1. Change your method to **POST**.
+1. The relative path should be "/contentmoderator/text:analyze?api-version=2022-12-30-preview"
+1. Verify that the term has been added to the list. In the **blocklistName** parameter, enter the list Name **in the url** that you generated in the previous step. 
+1. Set `breakByBlocklists: True`, so that once a blocklist is matched, the analysis will return immediately without model output. The default setting is `false`.
+1. Enter your subscription key, and then select **Send**.
+1. In the **Response content** box, verify the terms you entered. The custom list is literally matched by characters and do NOT support regex.
+
+
+
+
+
+#### Curl
+
+The following is a sample request with Curl. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### Python
+
+@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
+
+
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### .Net
+
+The following is a sample request with .Net. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+
+
+
+
+### Custom list operations
+
+In addition to the operations mentioned in the quickstart, There are more operations to help you manage and use the custom list feature. These examples use Python.
+
+#### Get all terms in a term list
+
+1. Use method **GET**.
+2. The relative path should be "/text/lists/{blocklistName}/items?api-version=2022-12-30-preview".
+3. In the **blocklistName** parameter, enter the Name of the list that you want to get (in our example, **1234**). 
+4. Substitute [Endpoint] with your endpoint.
+5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+6. Enter the following JSON in the **Request body** field, for example:
+
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
+
+
+
+#### Curl
+
+The following is a sample request with Curl. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### Python
+
+@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
+
+
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### .Net
+
+The following is a sample request with .Net. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+
+
+#### Get all lists
+
+1. Use method **GET**.
+2. The relative path should be "/text/lists?api-version=2022-12-30-preview".
+3. Substitute [Endpoint] with your endpoint.
+4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+5. Enter the following JSON in the **Request body** field, for example:
+
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview
+
+
+
+#### Curl
+
+The following is a sample request with Curl. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### Python
+
+@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
+
+
+
+```json
+
+```
+
+```python
+
+```
+
+#### .Net
+
+The following is a sample request with .Net. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+
+#### Delete a term
+
+> **NOTE:**
+>
+> There will be some delay after you delete a term before it takes effect on text analysis, usually **not exceed 5 minutes**.
+
+1. Use method **DELETE**.
+2. The relative path should be "/text/lists/{blocklistName}/items/{blockItems}?api-version=2022-12-30-preview".
+3. In the **blocklistName** parameter, enter the Name of the list that you want to delete a term from (in our example, **1234**). 
+4. In the **blockItems** parameter, enter the Name of the term that you want to delete.
+5. Substitute [Endpoint] with your endpoint.
+6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
+
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
+
+#### Curl
+
+The following is a sample request with Curl. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### Python
+
+@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
+
+
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### .Net
+
+The following is a sample request with .Net. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+
+
+#### Delete a term list and all of its contents
+
+> **NOTE:**
+>
+> There will be some delay after you delete a list before it takes effect on text analysis, usually **not exceeding 5 minutes**.
+
+
+1. Use method **DELETE**.
+2. The relative path should be "/text/lists/{blocklistName}?api-version=2022-12-30-preview".
+3. In the **blocklistName** parameter, enter the Name of the list that you want to delete. 
+4. Substitute [Endpoint] with your endpoint.
+5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+
+Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview
+
+
+
+#### Curl
+
+The following is a sample request with Curl. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+#### Python
+
+@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
+
+
+
+```json
+
+```
+
+```python
+
+```
+
+#### .Net
+
+The following is a sample request with .Net. 
+
+```json
+
+```
+
+```python
+
+```
+
+
+
+
+
+# 5. Concepts 
+>>>>>>> 832b6c7caa70e576fe902b36837f6cbe63e60172
 
 ### Content Categories 
 
@@ -775,17 +1462,25 @@ The parameters are defined in this table:
 
 
 
-# Reference
+# 6. Reference
 
 Rest API link
 
 
 
-# Responsible use of AI
+# 7. Responsible use of AI
+
+@Patrick need to add this page 
 
 
 
-# Resources
+## Transparency Notes
+
+
+
+[Transparency Note-Azure Content Safety.docx](https://microsoftapc-my.sharepoint.com/:w:/g/personal/jinruishao_microsoft_com/ERahariyeaNDtAMrYGxvCGsBQ0Fj6dkoHQ9BVrD6-1ckxA?e=BsfagG)
+
+# 8. Resources
 
 ## Terms of use
 
