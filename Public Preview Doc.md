@@ -19,9 +19,8 @@ There are different types of analysis available in our product.
 
 | Type                        | Functionality                                                |
 | :-------------------------- | :----------------------------------------------------------- |
-| Text Detection API          | Scans text for sexual, violence, hate speech, and self harm with multi-severity risk levels. |
-| Image Detection API         | Scans image for sexual, violence, hate speech, and self harm with multi-severity risk levels. |
-| Multimodal Detection API    | Scans both image and text (include separate text or text from OCR of image) for hate content with multi-severity risk levels. |
+| Text Detection API          | Scans text for sexual, violence, hate speech, and self harm with severity levels. |
+| Image Detection API         | Scans image for sexual, violence, hate speech, and self harm with multi-severity levels. |
 | Azure Content Safety Studio | ACS Studio is an online tool to visually explore, understand, evaluate  the ACS service. The studio provides a platform for you to experiment with the different ACS classifies and sample their returned data in an interactive manner without the need to write code. |
 
 
@@ -135,7 +134,7 @@ Here is a sample request with cURL. You must have [cURL](https://cURL.se/downloa
 
 ```shell
 cURL --location '<Endpoint>contentsafety/text:analyze?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key: '<enter_your_subscription_key_here>' \
+--header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
 --header 'Content-Type: application/json' \
 --data '{
   "text": "You are an idiot.",
@@ -158,14 +157,12 @@ The parameter in the request body are defined in this table:
 | **text**              | (Required) This is the raw text to be checked. Other non-ascii characters can be included. | String  |
 | **categories**        | (Optional) This is assumed to be an array of category names. See the **Concepts** section for a list of available category names. If no categories are specified, all four categories are used. We will use multiple categories to get scores in a single request. | String  |
 | **blocklistNames**    | Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~. You could attach multiple lists name here. | Array   |
-| **breakByBlocklists** | If set this field to `true`, once a blocklist is matched, the analysis will return immediately without model output. Default is `false`. | Boolean |
+| **breakByBlocklists** | When set to `true`, further analyses of harmful content will not be performed in cases where blocklists are hit. When set to `false`, all analyses of harmful content will be performed, whether or not blocklists are hit. | Boolean |
 
 > **NOTE: Text size and granularity**
 >
 > The default maximum length for text submissions is **1K characters**. If you need to analyze longer blocks of text, you can split the input text (for example, using punctuation or spacing) across multiple related submissions. 
 >
-
-
 
 
 
@@ -191,49 +188,47 @@ The following is a sample request with .Net.
 
 ### Interpret Text API response
 
-You should see the Text moderation results displayed as JSON data in the console output. For example:
+You should see results displayed as JSON data in the console output. For example:
 
 ```json
 {
-    "blocklistMatchResults": [],
+    "blocklistsMatchResults": [],
     "hateResult": {
         "category": "Hate",
-        "riskLevel": 2
+        "severity": 0
     },
     "selfHarmResult": {
         "category": "SelfHarm",
-        "riskLevel": 0
+        "severity": 0
     },
     "sexualResult": {
         "category": "Sexual",
-        "riskLevel": 0
+        "severity": 0
     },
     "violenceResult": {
         "category": "Violence",
-        "riskLevel": 0
+        "severity": 0
     }
 }
 ```
 
 The JSON fields in the output are defined in the following table:
 
-| Name           | Description                                                  | Type   |
-| :------------- | :----------------------------------------------------------- | ------ |
-| **Category**   | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text moderation model, it could be classified as sexual content as well as violence. | String |
-| **Risk Level** | Severity of the consequences.                                | Number |
+| Name         | Description                                                  | Type    |
+| :----------- | :----------------------------------------------------------- | ------- |
+| **category** | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text content safmodel, it could be classified as sexual content as well as violence. | String  |
+| **severity** | The higher the severity of input content, the larger this value is. The values could be: 0,2,4,6. | Integer |
 
 
-> **NOTE: Why risk level is not continuous**
+> **NOTE: Why severity level is not continuous**
 >
-> Currently, we only use levels 0, 2, 4, and 6. In the future, we may be able to extend the risk levels to 0, 1, 2, 3, 4, 5, 6, 7: seven levels with finer granularity.
+> Currently, we only use levels 0, 2, 4, and 6. In the future, we may be able to extend the severity levels to 0, 1, 2, 3, 4, 5, 6, 7: seven levels with finer granularity.
 
 
 
-### Disclaimer
+### Create a  blocklist
 
-The sample data and code may contain offensive content. User discretion is advised.
-
-The default AI classifiers are sufficient for most content moderation needs. However, you might need to screen for terms that are specific to your use case.
+The default AI classifiers are sufficient for most content safety needs. However, you might need to screen for terms that are specific to your use case.
 
 You can create custom lists of terms to use with the Text API. The following steps help you get started. 
 
@@ -245,10 +240,6 @@ The below fields must be included in the url:
 | **blockItems**    | (Required) This is the blocklistName to be checked.                                                                                                          Example: url = "<Endpoint>/contentsafety/text/blocklists/{blocklistName}/blockitems/{blockItems}?api-version=2023-04-30-preview" | BCP 47 code |
 | **API Version**   | (Required) This is the API version to be checked. Current version is: api-version=2023-04-30-preview. Example: <Endpoint>/contentsafety/text:analyze?api-version=2023-04-30-preview | String      |
 
-
-
-### Create or modify a terms list
-
 > **NOTE:**
 >
 > There is a maximum limit of **10,000 terms**.
@@ -256,7 +247,7 @@ The below fields must be included in the url:
 
 1. Use method **PATCH** to create a list or update an existing list's description or name.
 1. The relative API path should be "/text/blocklists/{blocklistName}?api-version=2023-04-30-preview".
-1. In the **blocklistName** parameter, enter the Name of the list that you want to add **in the url** (in our example, **1234**). The Name should be a number up to 64 characters.
+1. In the **blocklistName** parameter, enter the Name of the list that you want to add **in the url** (in our example, **1234**). Text blocklist name only supports the following characters: 0-9 A-Z a-z - . _ ~
 1. Substitute `<Endpoint>` with your endpoint URL.
 1. Paste your subscription key into `the Ocp-Apim-Subscription-Key` field.
 
@@ -300,20 +291,20 @@ cURL --location --request PATCH '<Endpoint>contentsafety/text/blocklists/1234?ap
 The response code should be `201` .
 
 
-### Add or modify a term in the list
+### Add a blockitem/blockitems 
 
 
 > **NOTE:**
 >
-> There will be some delay after you add or edit a term before it takes effect on text analysis, usually **not exceeding 5 minutes**.
+> We will support to add multiple blockitems within one API call.
 
 1. Use method **PATCH**.
 2. The relative path should be "/text/blocklists/{blocklistName}:addBlockItems?api-version=2023-04-30-preview".
-3. In the url path  parameter, enter the **blocklistName** that you want to add   (in our example, **1234**). 
-4. In the text parameter, enter the term (in our example, idiot ).
-5. Substitute `<Endpoint>` with your endpoint.
-6. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
-7. Enter the following JSON in the **Request body** field, for example:
+3. In the url path  parameter, enter the **blocklistName** that you want to add (in our example, **1234**). 
+4. In the description parameter, enter the description (in our example: this is a sample item ), the maximum length of dscritpion is 1024 characters. 
+5. In the text parameter, enter the blockterm (in our example: idiot ), we support **array of blockItems** to add, the maximum length of blockitem is 128 characters. 
+6. Substitute `<Endpoint>` with your endpoint.
+7. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
 
 #### Python
 
@@ -342,8 +333,6 @@ print(response.text)
 
 ```
 
-
-
 #### cURL
 
 ```json
@@ -360,7 +349,16 @@ cURL --location '<Endpoint>contentsafety/text/blocklists/1234:addBlockItems?api-
 }'
 ```
 
-The response code should be `201` .
+The response code should be `201` with the response body will be the below:
+
+```json
+{
+  "blocklistName": "string",
+  "description": "string"
+}
+```
+
+
 
 ### Analyze text with a custom list
 
@@ -448,17 +446,15 @@ print(response.text)
 }
 ```
 
-
-
 ### Custom list operations
 
-In addition to the operations mentioned in the quickstart, There are more operations to help you manage and use the custom list feature. These examples use Python.
+In addition to the operations mentioned above. There are more operations to help you manage and use the custom list feature. 
 
-#### Get all terms in a term list
+#### Get all blockItems by blocklistName
 
 1. Use method **GET**.
 2. The relative path should be "/text/blocklists/{blocklistName}/blockitems?api-version=2023-04-30-preview".
-3. In the **blocklistName** parameter, enter the Name of the list that you want to get (in our example, **1234**). 
+3. In the **blocklistName** parameter, enter the Name of the list that you want to get (in our example:**1234**). 
 4. Substitute [Endpoint] with your endpoint.
 5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 
@@ -491,17 +487,18 @@ The status code should be 200 and the response body should be like this:
 
 ```json
 {
-    "blockItems": [
-        {
-            "blockItemId": "a27f61c3-2282-41ea-8068-6226cdd8adb4",
-            "description": "This is a sample item",
-            "text": "idiot"
-        }
-    ]
+  "value": [
+    {
+      "blockItemId": "string",
+      "description": "string",
+      "text": "string"
+    }
+  ],
+  "nextLink": "string"
 }
 ```
 
-#### Get all lists
+#### Get all text blocklists
 
 1. Use method **GET**.
 2. The relative path should be "/text/blocklists?api-version=2023-04-30-preview".
@@ -537,15 +534,23 @@ cURL --location '<Endpoint>contentsafety/text/blocklists?api-version=2023-04-30-
 
 ```
 
-**Response content**
+The status code should be 200 and the response body should be like this:
 
 ```json
-200
+{
+  "value": [
+    {
+      "blocklistName": "string",
+      "description": "string"
+    }
+  ],
+  "nextLink": "string"
+}
 ```
 
 
 
-#### Delete a blcoklist
+#### Delete a blocklist
 
 > **NOTE:**
 >
@@ -553,7 +558,7 @@ cURL --location '<Endpoint>contentsafety/text/blocklists?api-version=2023-04-30-
 
 1. Use method **DELETE**.
 2. The relative path should be "/text/blocklists/{blocklistName}?api-version=2023-04-30-preview".
-3. In the **blocklistName** parameter, enter the Name of the list that you want to delete  (in our example, **1234**). 
+3. In the url **blocklistName** parameter, enter the Name of the list that you want to delete  (in our example:**1234**). 
 4. Substitute [Endpoint] with your endpoint.
 5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
 
@@ -598,16 +603,16 @@ curl --location --request DELETE '<Endpoint>contentsafety/text/blocklists/1234?a
 
 
 
-#### Delete a blockitem
+#### Remove a blockitem
 
 > **NOTE:**
 >
-> There will be some delay after you delete a term before it takes effect on text analysis, usually **not exceed 5 minutes**.
+> We support to remover multiple blockitems within one API call.
 
-1. Use method **DELETE**.
+1. Use method **POST**.
 2. The relative path should be "/text/blocklists/{blocklistName}:removeBlockItems?api-version=2023-04-30-preview".
-3. In the **blocklistName** parameter, enter the Name of the list that you want to delete a term from (in our example, **1234**). 
-4. In the blockItemIds parameter, enter the Itemid you get when you created the item.
+3. In the url **blocklistName** parameter, enter the Name of the list that you want to delete a term from (in our example: **1234**). 
+4. In the request body blockItemIds parameter, enter the singe or array of blockItemIds to remove.
 5. Substitute [Endpoint] with your endpoint.
 6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
 
@@ -657,66 +662,10 @@ cURL --location '<Endpoint>contentsafety/text/blocklists/1234:removeBlockItems?a
 
 
 
-
-#### Delete a bockterm
-
-> **NOTE:**
->
-> There will be some delay after you delete a term before it takes effect on text analysis, usually **not exceed 5 minutes**.
-
-1. Use method **DELETE**.
-2. The relative path should be "/text/blocklists/{blocklistName}?api-version=2023-04-30-preview".
-3. In the **blocklistName** parameter, enter the Name of the list that you want to delete  (in our example, **1234**). 
-5. Substitute [Endpoint] with your endpoint.
-6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
-
-##### Python
-
-```json
-import requests
-import json
-
-url = "<Endpoint>contentsafety/text/blocklists/1234?api-version=2023-04-30-preview"
-
-payload = json.dumps({
-  "description": "Test happy path"
-})
-headers = {
-  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("DELETE", url, headers=headers, data=payload)
-
-print(response.text)
-
-```
-
-##### cURL
-
-```json
-curl --location --request DELETE '<Endpoint>contentsafety/text/blocklists/1234?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
---header 'Content-Type: application/json' \
---data '{
-  "description": "Test happy path"
-}'
-```
-
-**Response content**
-
-```json
-204
-```
-
 ## Image analysis
-### Disclaimer
-
-The sample data and code may contain offensive content. User discretion is advised.
-
 ### Call Image API with sample request
 
-Now that you have an Azure Content Safety resource and you have a subscription key for that resource, let's run some tests by using the Image moderation API.
+Now that you have an Azure Content Safety resource and you have a subscription key for that resource, let's run some tests by using the Image content safety API.
 
 Here is a sample request with Python:
 
@@ -724,7 +673,7 @@ Here is a sample request with Python:
 
 1. Substitute the `<Endpoint>` with your resource endpoint URL.
 
-1. Upload your image by one of two methods:**by  Base64 or by Blob url**. We only support JPEG, PNG, GIF, BMP image formats.
+1. Upload your image by one of two methods:**by content (Base64) or by BlobUrl**. We only support JPEG, PNG, GIF, BMP image formats.
 
    - First method (Recommend): encoding your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding quickly. Put the path to your base 64 image in the _content_ parameter below.
 
@@ -745,10 +694,6 @@ Here is a sample request with Python:
 1. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
 
 1. Change the body of the request to whatever image you'd like to analyze.
-
-> **NOTE:**
->
-> The samples could contain offensive content, user discretion advised.
 
 ##### Python
 
@@ -787,7 +732,7 @@ cURL --location '<Endpoint>contentsafety/image:analyze?api-version=2023-04-30-pr
 --header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
 --header 'Content-Type: application/json' \
 --data '{
-  "image": {
+  "image": {"BlobUrl": "Please paste your blob url here"
   },
   "categories": ["Hate","SelfHarm", "Sexual", "Violence"]
 }'
@@ -797,18 +742,10 @@ cURL --location '<Endpoint>contentsafety/image:analyze?api-version=2023-04-30-pr
 The parameters in the request body are defined in this table:
 
 
-| Name           | Description                                                  | Type   |
-| :------------- | :----------------------------------------------------------- | ------ |
-| **Content**    | (Optional) Upload your image by converting it to base64. You can either choose "Content"or "Url". | Base64 |
-| **Url**        | (Optional) Upload your image by uploading it into blob storage. You can either choose "Content"or "Url". |        |
-| **Categories** | (Optional) This is assumed to be multiple category names. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
-
-
-> **NOTE: Image size requirements**
->
-> The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions.
-
-
+| Name                    | Description                                                  | Type              |
+| :---------------------- | :----------------------------------------------------------- | ----------------- |
+| **content and blobURL** | The content or blobUrl of image, could be base64 encoding bytes or blob url. If both are given, the request will be refused. The maximum size of image is 2048 pixels * 2048 pixels, no larger than 4MB at the same time. The minimum size of image is 50 pixels * 50 pixels. | Base64 or blobUrl |
+| **categories**          | The categories will be analyzed. If not assigned, a default set of the categories' analysis results will be returned. | String            |
 
 #### Python SDK
 
@@ -836,30 +773,28 @@ The following is a sample request with .Net.
 
 ```
 
-
-
 ### Understand Image API response
 
-You should see the Image moderation results displayed as JSON data. For example:
+You should see results displayed as JSON data. For example:
 
 ```json
 {
-    "hateResult": {
-        "category": "Hate",
-        "riskLevel": 0
-    },
-    "selfHarmResult": {
-        "category": "SelfHarm",
-        "riskLevel": 0
-    },
-    "sexualResult": {
-        "category": "Sexual",
-        "riskLevel": 0
-    },
-    "violenceResult": {
-        "category": "Violence",
-        "riskLevel": 6
-    }
+  "hateResult": {
+    "category": "Hate",
+    "severity": 0
+  },
+  "selfHarmResult": {
+    "category": "Hate",
+    "severity": 0
+  },
+  "sexualResult": {
+    "category": "Hate",
+    "severity": 0
+  },
+  "violenceResult": {
+    "category": "Hate",
+    "severity": 0
+  }
 }
 ```
 
@@ -869,10 +804,6 @@ You should see the Image moderation results displayed as JSON data. For example:
 
 
 @louise
-
-
-
-
 
 # 3. Samples
 
@@ -915,7 +846,7 @@ https://learn.microsoft.com/en-us/samples/azure/azure-sdk-for-net/azure-form-rec
 
 # 6. Reference
 
-Rest API link
+@Meng AI Restful API link
 
 
 
@@ -928,8 +859,6 @@ Rest API link
 ## Transparency Notes
 
 
-
-[Transparency Note-Azure Content Safety.docx](https://microsoftapc-my.sharepoint.com/:w:/g/personal/jinruishao_microsoft_com/ERahariyeaNDtAMrYGxvCGsBQ0Fj6dkoHQ9BVrD6-1ckxA?e=BsfagG)
 
 # 8. Resources
 
