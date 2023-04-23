@@ -29,7 +29,7 @@ There are different types of analysis available in our product.
 
 #### What is Azure Content Safety Studio?
 
-@ Louise han
+Azure Content Moderator Studio provides templates and customized workflows for users to choose and build their own content moderation workflows on multilingual and multimodal like text, image and video. The moderation within this studio not only contains the out-of-the-box AI models but leveraging Microsoft built-in lists which already proved the coverage of the profanities and could keep update to new trends swiftly, meanwhile, user custom lists could also be uploaded to enrich the coverage of harmful contents that certain industries care. All these cool capabilities are handled by the studio and its backend, customers don’t need to worry about the model development and could onboard their data for quick validation and monitor the KPIs accordingly like the tech metrics – latency, accuracy, recall, or the business metrics – blocking rate, blocked volume, category proportion, language proportion and more. With simply operations and configurations, the customers could test different solutions quickly and find the best-fit one, instead of wasting time experimenting with seas of models and spending that much on human moderating. 
 
 ### Language availability
 
