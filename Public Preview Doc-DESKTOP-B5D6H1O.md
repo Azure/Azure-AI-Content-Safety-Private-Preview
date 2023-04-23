@@ -1,27 +1,25 @@
 
 
-
-
 # Overview
 
 ##  What is Azure Content Safety
 
 Welcome to the Azure Content Safety public preview!
 
-The Azure Content Safety Public Preview is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable. The Azure Content Safety public preview will work on new functionalities offering state-of-the-art text, image and multi-modal APIs and the studio that will detect problematic content. Azure Content Safety helps make applications and services safer from harmful user-generated and AI-generated content.
+The Azure Content Safety Public Preview API is a Cognitive Service that detects material that is potentially offensive, risky, or otherwise undesirable. The Azure Content Safety public preview will work on new functionalities offering state-of-the-art text, image and multi-modal models that will detect problematic content. Azure Content Safety helps make applications and services safer from harmful user-generated and AI-generated content.
 
 Azure Content Safety can be accessed through RESTful APIs.
 
 ### Product Types
 
-There are different types of analysis available in our product. 
+There are different types of analysis available in our project. The following table describes the currently available API.
 
 | Type                        | Functionality                                                |
 | :-------------------------- | :----------------------------------------------------------- |
 | Text Detection API          | Scans text for sexual, violence, hate speech, and self harm with multi-severity risk levels. |
 | Image Detection API         | Scans image for sexual, violence, hate speech, and self harm with multi-severity risk levels. |
 | Multimodal Detection API    | Scans both image and text (include separate text or text from OCR of image) for hate content with multi-severity risk levels. |
-| Azure Content Safety Studio | ACS Studio is an online tool to visually explore, understand, evaluate  the ACS service. The studio provides a platform for you to experiment with the different ACS classifies and sample their returned data in an interactive manner without the need to write code. |
+| Azure Content Safety Studio |                                                              |
 
 
 
@@ -31,9 +29,21 @@ There are different types of analysis available in our product.
 
 @ Louise han
 
+#### Get started using Form Recognizer Studio
+
+@ Louise han
+
 ### Azure Content Safety SDK
 
-@Meng Ai
+
+
+#### Get started using Form Recognizer SDKs
+
+@ Louise han
+
+
+
+
 
 ### Language availability
 
@@ -51,17 +61,19 @@ Currently, the public preview features are  available in the **F0 and S0** prici
 
 #### Region / Location
 
-To use the public preview APIs, please create Azure Content Safety resource in the supported regions. Currently, the public preview features are only available in the following Azure regions: 
+To use the preview APIs, please create/re-use your Azure Content Safety resource in the supported regions. Currently, the public preview features are only available in the following Azure regions: 
 
 - East US and West Europe
 
 Feel free to contact us if you require more regions for your business.
 
+
+
 #### Query per second
 
 | Pricing Tier | Query per second (QPS) |
 | :----------- | :--------------------- |
-| F0           | 5                      |
+| F0           | 1                      |
 | S0           | 10                     |
 
 If you need a faster rate, please [contact us](mailto:acm-team@microsoft.com) to request.
@@ -110,7 +122,7 @@ The sample data and code may contain offensive content. User discretion is advis
 Before you can begin to test the Azure Content Safety or integrate it into your applications, you need to create an Azure Content Safety resource and get the subscription keys to access the resource.
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
-2. [Create Azure Content Safety Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicescontentsafety). Enter a unique name for your resource, select the subscription you entered on the application form, select a resource group, [supported region](#region--location) and [supported pricing tier](#sku--pricing-tier). Then select **Create**.
+2. [Create Azure Content Safety Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator). Enter a unique name for your resource, select the subscription you entered on the application form, select a resource group, [supported region](#region--location) and [supported pricing tier](#sku--pricing-tier). Then select **Create**.
 3. The resource will take a few minutes to deploy. After it finishes, Select **go to resource**. In the left pane, under **Resource Management**, select **Subscription Key and Endpoint**. The endpoint and either of the keys will be used to call APIs.
 
 ### Call Text API with a sample request
@@ -130,30 +142,31 @@ The following is a sample request with Python.
 #### Python
 
 ```python
-import requests
-import json
+  import requests
+  import json
 
-url = "<Endpoint>contentsafety/text:analyze?api-version=2023-04-30-preview"
+  url = "<Endpoint>/contentmoderator/text:analyze?api-version=2022-12-30-preview"
 
-payload = json.dumps({
-  "text": "You are an idiot.",
-  "categories": [
-    "Hate",
-    "SelfHarm",
-    "Sexual",
-    "Violence"
-  ],
-  "blocklistNames": [],
-  "breakByBlocklists": false
-})
-headers = {
-  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
-  'Content-Type': 'application/json'
-}
+  payload = json.dumps({
+    "text": "you are an idiot",
+    "categories": [
+      "Hate",
+      "Sexual",
+      "SelfHarm",
+      "Violence"
+    ]
+  })
+  headers = {
+    'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
+    'Content-Type': 'application/json'
+  }
 
-response = requests.request("POST", url, headers=headers, data=payload)
+  response = requests.request("POST", url, headers=headers, data=payload)
 
-print(response.text)
+
+  print(response.status_code)
+  print(response.headers)
+  print(response.text)
 ```
 
 #### cURL
@@ -161,36 +174,68 @@ print(response.text)
 Here is a sample request with cURL. You must have [cURL](https://curl.se/download.html) installed to run it.
 
 ```shell
-curl --location '<Endpoint>contentsafety/text:analyze?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key: '<enter_your_subscription_key_here>' \
+curl --location --request POST '[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: Please type your Subscription Key here' \
 --header 'Content-Type: application/json' \
---data '{
-  "text": "You are an idiot.",
-  "categories": ["Hate","SelfHarm", "Sexual", "Violence"],
-  "blocklistNames": [],
-  "breakByBlocklists": false
+--data-raw '{
+  "text": "you are an Nameiot",
+  "categories": [
+   "Hate","Sexual","SelfHarm","Violence"
+  ]
 }'
+
 ```
+
+
 
 The below fields must be included in the url:
 
 | Name            | Description                                                  | Type   |
 | :-------------- | :----------------------------------------------------------- | ------ |
-| **API Version** | (Required) This is the API version to be checked. Current version is: api-version=2023-04-30-preview. Example: <Endpoint>/contentsafety/text:analyze?api-version=2023-04-30-preview | String |
+| **API Version** | (Required) This is the API version to be checked. Current version is: api-version=2022-12-30-preview. Example: <Endpoint>/contentmoderator/text:analyze?api-version=2022-12-30-preview | String |
 
-The parameters in the request body are defined in this table:
+
+
+The JSON fields that can be included in the request body are defined in this table:
 
 | Name                  | Description                                                  | Type    |
 | :-------------------- | :----------------------------------------------------------- | ------- |
-| **text**              | (Required) This is the raw text to be checked. Other non-ascii characters can be included. | String  |
-| **categories**        | (Optional) This is assumed to be an array of category names. See the **Concepts** section for a list of available category names. If no categories are specified, all four categories are used. We will use multiple categories to get scores in a single request. | String  |
-| **blocklistNames**    | Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~. You could attach multiple lists name here. | Array   |
-| **breakByBlocklists** | If set this field to `true`, once a blocklist is matched, the analysis will return immediately without model output. Default is `false`. | Boolean |
+| **Text**              | (Required) This is the raw text to be checked. Other non-ascii characters can be included. | String  |
+| **Categories**        | (Optional) This is assumed to be an array of category names. See the **Concepts** section for a list of available category names. If no categories are specified, all four categories are used. We will use multiple categories to get scores in a single request. | String  |
+| **BlocklistNames**    | Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~. You could attach multiple lists name here. | Array   |
+| **BreakByBlocklists** | If set this field to `true`, once a blocklist is matched, the analysis will return immediately without model output. Default is `false`. | Boolean |
+
+See the following sample request body:
+
+```json
+{
+  "text": "you are an Nameiot",
+  "categories": [
+   "Hate","Sexual","SelfHarm","Violence"
+  ],
+  "blocklistNames": [
+    "array"
+  ],
+  "breakByBlocklists": false
+}
+```
 
 > **NOTE: Text size and granularity**
 >
 > The default maximum length for text submissions is **1K characters**. If you need to analyze longer blocks of text, you can split the input text (for example, using punctuation or spacing) across multiple related submissions. 
 >
+
+> **NOTE: Sample Python Jupyter Notebook**
+>
+> Do the following steps if you want to run the Python sample in a Jupyter Notebook.
+>
+> 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/indivNameual#Downloads). 
+>
+> 2. Download the [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-public-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs a github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get a load error from Jupyter.
+>
+> 3. Run the notebook.
+
+
 
 ### Interpret Text API response
 
@@ -239,15 +284,15 @@ The sample data and code may contain offensive content. User discretion is advis
 
 The default AI classifiers are sufficient for most content moderation needs. However, you might need to screen for terms that are specific to your use case.
 
-You can create custom lists of terms to use with the Text API. The following steps help you get started. 
+You can create custom lists of terms to use with the Text API. The following steps help you get started. For more list operations samples, please refer to [more examples](#custom-list-operations).
 
 The below fields must be included in the url:
 
 | Name              | Description                                                  | Type        |
 | :---------------- | :----------------------------------------------------------- | ----------- |
-| **blocklistName** | (Required) Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~                                                                                                                      Example: url = "<Endpoint>/contentsafety/text/blocklists/{blocklistName}?api-version=2023-04-30-preview" | String      |
-| **blockItems**    | (Required) This is the blocklistName to be checked.                                                                                                          Example: url = "<Endpoint>/contentsafety/text/blocklists/{blocklistName}/blockitems/{blockItems}?api-version=2023-04-30-preview" | BCP 47 code |
-| **API Version**   | (Required) This is the API version to be checked. Current version is: api-version=2023-04-30-preview. Example: <Endpoint>/contentsafety/text:analyze?api-version=2023-04-30-preview | String      |
+| **BlocklistName** | (Required) Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~                                                                                                     Example: url = "<Endpoint>/contentmoderator/text/lists/{blocklistName}?api-version=2022-12-30-preview" | String      |
+| **blockItems**    | (Required) This is the blocklistName to be checked.                                                                                                          Example: url = "<Endpoint>/contentmoderator/text/lists/{blocklistName}/items/{blockItems}?api-version=2022-12-30-preview" | BCP 47 code |
+| **API Version**   | (Required) This is the API version to be checked. Current version is: api-version=2022-12-30-preview. Example: <Endpoint>/contentmoderator/text:analyze?api-version=2022-12-30-preview | String      |
 
 
 
@@ -255,26 +300,26 @@ The below fields must be included in the url:
 
 > **NOTE:**
 >
-> There is a maximum limit of **10,000 terms**.
+> There is a maximum limit of **5 term lists** per resource, with each list **not to exceed 10,000 terms**.
 
 
 1. Use method **PATCH** to create a list or update an existing list's description or name.
-1. The relative API path should be "/text/blocklists/{blocklistName}?api-version=2023-04-30-preview".
+1. The relative API path should be "/text/lists/{blocklistName}?api-version=2022-12-30-preview".
 1. In the **blocklistName** parameter, enter the Name of the list that you want to add **in the url** (in our example, **1234**). The Name should be a number up to 64 characters.
 1. Substitute `<Endpoint>` with your endpoint URL.
 1. Paste your subscription key into `the Ocp-Apim-Subscription-Key` field.
-
-#### Python
 
 
 ```python
 import requests
 import json
 
-url = "<Endpoint>contentsafety/text/blocklists/1234?api-version=2023-04-30-preview"
+url = "<Endpoint>/contentmoderator/text/lists/1234?api-version=2022-12-30-preview"
 
 payload = json.dumps({
-  "description": "This is a sample blocklist"
+    "blocklistName": "1234",
+    "name": "MyList",
+    "description": "This is a violence list"
 })
 headers = {
   'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
@@ -283,25 +328,13 @@ headers = {
 
 response = requests.request("PATCH", url, headers=headers, data=payload)
 
+
+print(response.status_code)
+print(response.headers)
 print(response.text)
-
-
 ```
 
-#### cURL
-
-Here is a sample request with cURL. You must have [cURL](https://curl.se/download.html) installed to run it.
-
-```shell
-curl --location --request PATCH '<Endpoint>contentsafety/text/blocklists/1234?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key:<enter_your_subscription_key_here>' \
---header 'Content-Type: application/json' \
---data '{
-  "description": "This is a sample blocklist"
-}'
-```
-
-The response code should be `201` .
+The response code should be `201` and the URL to get the created list should be contained in the header, named **Location**
 
 
 ### Add or modify a term in the list
@@ -312,111 +345,80 @@ The response code should be `201` .
 > There will be some delay after you add or edit a term before it takes effect on text analysis, usually **not exceeding 5 minutes**.
 
 1. Use method **PATCH**.
-2. The relative path should be "/text/blocklists/{blocklistName}:addBlockItems?api-version=2023-04-30-preview".
+2. The relative path should be "/text/lists/{blocklistName}/items/{blockItems}?api-version=2022-12-30-preview".
 3. In the url path  parameter, enter the **blocklistName** that you want to add   (in our example, **1234**). 
-4. In the text parameter, enter the term (in our example, idiot ).
+4. In the **blockItems** parameter, enter the term **in the text part (in our example, **blood )
 5. Substitute `<Endpoint>` with your endpoint.
 6. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
-7. Enter the following JSON in the **Request body** field, for example:
-
-#### Python
+8. Enter the following JSON in the **Request body** field, for example:
 
 ```json
+{
+    "blockItems": "01",
+    "description": "my first word",
+    "text": "blood",
+}
+```
+
+```python
 import requests
 import json
 
-url = "<Endpoint>contentsafety/text/blocklists/1234:addBlockItems?api-version=2023-04-30-preview"
+url = "<Endpoint>/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview"
 
 payload = json.dumps({
-  "blockItems": [
-    {
-      "description": "This is a sample item",
-      "text": "idiot"
-    }
-  ]
+    "blockItems": "01",
+    "description": "my first word",
+    "text": "blood",
 })
 headers = {
   'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
   'Content-Type': 'application/json'
 }
 
-response = requests.request("POST", url, headers=headers, data=payload)
+response = requests.request("PATCH", url, headers=headers, data=payload)
 
+
+print(response.status_code)
+print(response.headers)
 print(response.text)
-
 ```
 
+The response code should be `201` and the URL to get the created list should be contained in the header, named **Location**.
 
 
-#### CURL
-
-```json
-curl --location '<Endpoint>contentsafety/text/blocklists/1234:addBlockItems?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
---header 'Content-Type: application/json' \
---data '{
-  "blockItems": [
-    {
-      "description": "This is a sample item",
-      "text": "idiot"
-    }
-  ]
-}'
-```
-
-The response code should be `201` .
 
 ### Analyze text with a custom list
 
 1. Change your method to **POST**.
-1. The relative path should be "/contentsafety/text:analyze?api-version=2023-04-30-preview"
-1. Verify that the term has been added to the list. In the **blocklistNames** parameter, enter the list Name you generated in the previous step. 
-1. Set `breakByBlocklists: true`, so that once a blocklist is matched, the analysis will return immediately without model output. The default setting is `false`.
+1. The relative path should be "/contentmoderator/text:analyze?api-version=2022-12-30-preview"
+1. Verify that the term has been added to the list. In the **blocklistName** parameter, enter the list Name **in the url** that you generated in the previous step. 
+1. Set `breakByBlocklists: True`, so that once a blocklist is matched, the analysis will return immediately without model output. The default setting is `false`.
 1. Enter your subscription key, and then select **Send**.
 1. In the **Response content** box, verify the terms you entered. The custom list is literally matched by characters and do NOT support regex.
-
-##### Curl
-
-```python
-curl --location '<Endpoint>contentsafety/text:analyze?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
---header 'Content-Type: application/json' \
---data '{
-  "text": "You are an idiot.",
-  "categories": ["Hate","SelfHarm", "Sexual", "Violence"],
-  "blocklistNames": ["1234"],
-  "breakByBlocklists": true
-}'
-```
-
-##### Python
 
 ```python
 import requests
 import json
-
-url = "<Endpoint>contentsafety/text:analyze?api-version=2023-04-30-preview"
-
+url = "[Endpoint]/contentmoderator/text:analyze?api-version=2022-12-30-preview&"
 payload = json.dumps({
-  "text": "You are an idiot.",
+  "text": "I want to beat you till you blood",
   "categories": [
     "Hate",
-    "SelfHarm",
     "Sexual",
+    "SelfHarm",
     "Violence"
   ],
-  "blocklistNames": [
-    "1234"
-  ],
+  "blocklistNames":["1234"],
   "breakByBlocklists": True
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
   'Content-Type': 'application/json'
 }
-
 response = requests.request("POST", url, headers=headers, data=payload)
-
+print(response.status_code)
+print(response.headers)
 print(response.text)
 ```
 
@@ -424,31 +426,15 @@ print(response.text)
 
 ```json
 {
-    "blocklistsMatchResults": [
+    "blocklistMatchResults": [
         {
             "blocklistName": "1234",
-            "blockItemId": "a27f61c3-2282-41ea-8068-6226cdd8adb4",
-            "blockItemText": "idiot",
-            "offset": "11",
+            "blockItems": "01",
+            "itemText": "blood",
+            "offset": "28",
             "length": "5"
         }
-    ],
-    "hateResult": {
-        "category": "Hate",
-        "severity": 0
-    },
-    "selfHarmResult": {
-        "category": "SelfHarm",
-        "severity": 0
-    },
-    "sexualResult": {
-        "category": "Sexual",
-        "severity": 0
-    },
-    "violenceResult": {
-        "category": "Violence",
-        "severity": 0
-    }
+    ]
 }
 ```
 
@@ -461,93 +447,78 @@ In addition to the operations mentioned in the quickstart, There are more operat
 #### Get all terms in a term list
 
 1. Use method **GET**.
-2. The relative path should be "/text/blocklists/{blocklistName}/blockitems?api-version=2023-04-30-preview".
+2. The relative path should be "/text/lists/{blocklistName}/items?api-version=2022-12-30-preview".
 3. In the **blocklistName** parameter, enter the Name of the list that you want to get (in our example, **1234**). 
 4. Substitute [Endpoint] with your endpoint.
 5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+6. Enter the following JSON in the **Request body** field, for example:
 
-##### Python
+
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview
 
 ```python
 import requests
+import json
 
-url = "<Endpoint>contentsafety/text/blocklists/1234/blockItems?api-version=2023-04-30-preview"
+url = "[Endpoint]/contentmoderator/text/lists/1234/items?api-version=2022-12-30-preview"
 
-payload = ""
 headers = {
-  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>'
+  'Ocp-Apim-Subscription-Key': 'Please type your key here',
+  'Content-Type': 'application/json'
 }
 
-response = requests.request("GET", url, headers=headers, data=payload)
+response = requests.request("GET", url, headers=headers)
 
+
+print(response.status_code)
+print(response.headers)
 print(response.text)
-```
-
-##### Curl
-
-```python
-curl --location '<Endpoint>contentsafety/text/blocklists/1234/blockItems?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
---data ''
 ```
 
 The status code should be 200 and the response body should be like this:
 
 ```json
 {
-    "blockItems": [
-        {
-            "blockItemId": "a27f61c3-2282-41ea-8068-6226cdd8adb4",
-            "description": "This is a sample item",
-            "text": "idiot"
-        }
-    ]
+ "values": [
+  {
+   "blockItems": "01",
+   "description": "my first word",
+   "text": "blood",
+  }
+ ]
 }
 ```
 
 #### Get all lists
 
 1. Use method **GET**.
-2. The relative path should be "/text/blocklists?api-version=2023-04-30-preview".
+2. The relative path should be "/text/lists?api-version=2022-12-30-preview".
 3. Substitute [Endpoint] with your endpoint.
 4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+5. Enter the following JSON in the **Request body** field, for example:
 
-##### Python:
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview
 
 
 ```python
 import requests
 
-url = "<Endpoint>contentsafety/text/blocklists?api-version=2023-04-30-preview"
+import json
 
-payload = ""
+url = "[Endpoint]/contentmoderator/text/lists?api-version=2022-12-30-preview"
 headers = {
-  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>'
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
+  'Content-Type': 'application/json'
 }
 
-response = requests.request("GET", url, headers=headers, data=payload)
-
+response = requests.request("GET", url, headers=headers)
+print(response.status_code)
+print(response.headers)
 print(response.text)
 
 ```
 
-##### Curl:
-
-
-```python
-curl --location '<Endpoint>contentsafety/text/blocklists?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
---data ''
-
-```
-
-**Response content**
-
-```json
-200
-```
-
-#### Delete a term list and all of its contents
+The status code should be `200` .
 
 
 #### Delete a term
@@ -557,48 +528,19 @@ curl --location '<Endpoint>contentsafety/text/blocklists?api-version=2023-04-30-
 > There will be some delay after you delete a term before it takes effect on text analysis, usually **not exceed 5 minutes**.
 
 1. Use method **DELETE**.
-2. The relative path should be "/text/blocklists/{blocklistName}:removeBlockItems?api-version=2023-04-30-preview".
+2. The relative path should be "/text/lists/{blocklistName}/items/{blockItems}?api-version=2022-12-30-preview".
 3. In the **blocklistName** parameter, enter the Name of the list that you want to delete a term from (in our example, **1234**). 
-4. In the blockItemIds parameter, enter the Itemid you get when you created the item.
+4. In the **blockItems** parameter, enter the Name of the term that you want to delete.
 5. Substitute [Endpoint] with your endpoint.
 6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
 
-##### Python
+**Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview
 
 ```json
-import requests
-import json
-
-url = "<Endpoint>contentsafety/text/blocklists/1234:removeBlockItems?api-version=2023-04-30-preview"
-
-payload = json.dumps({
-  "blockItemIds": [
-    "c4491d5b-9ea9-4d2a-97c7-70ae8e6fc8c1"
-  ]
-})
-headers = {
-  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
-  'Content-Type': 'application/json'
+{
+    "blocklistName": "1234",
+    "blockItems": "01"
 }
-
-response = requests.request("POST", url, headers=headers, data=payload)
-
-print(response.text)
-
-
-```
-
-##### Curl
-
-```json
-curl --location '<Endpoint>contentsafety/text/blocklists/1234:removeBlockItems?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
---header 'Content-Type: application/json' \
---data '{
-  "blockItemIds": [
-    "c4491d5b-9ea9-4d2a-97c7-70ae8e6fc8c1"
-  ]
-}'
 ```
 
 **Response content**
@@ -606,6 +548,65 @@ curl --location '<Endpoint>contentsafety/text/blocklists/1234:removeBlockItems?a
 ```json
 204
 ```
+
+```python
+import requests
+import json
+url = "[Endpoint]/contentmoderator/text/lists/1234/items/01?api-version=2022-12-30-preview"
+headers = {
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
+  'Content-Type': 'application/json'
+}
+response = requests.request("DELETE", url, headers=headers, data=payload)
+print(response.status_code)
+print(response.headers)
+print(response.text)
+```
+
+#### Delete a term list and all of its contents
+
+> **NOTE:**
+>
+> There will be some delay after you delete a list before it takes effect on text analysis, usually **not exceeding 5 minutes**.
+
+
+1. Use method **DELETE**.
+2. The relative path should be "/text/lists/{blocklistName}?api-version=2022-12-30-preview".
+3. In the **blocklistName** parameter, enter the Name of the list that you want to delete. 
+4. Substitute [Endpoint] with your endpoint.
+5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+
+Request content** with sample url: [Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview
+
+```json
+{
+    "blocklistName": "1234"
+}
+```
+
+**Response content**
+
+```json
+204
+```
+
+```python
+import requests
+import json
+url = "[Endpoint]/contentmoderator/text/lists/1234?api-version=2022-12-30-preview"
+headers = {
+  'Ocp-Apim-Subscription-Key': 'Please type your Subscription Key here',
+  'Content-Type': 'application/json'
+}
+response = requests.request("DELETE", url, headers=headers, data=payload)
+print(response.status_code)
+print(response.headers)
+print(response.text)
+```
+
+
+
+
 
 ## QuickStart - Image analysis
 
@@ -653,16 +654,20 @@ Here is a sample request with Python:
 import requests
 import json
 
-url = "<Endpoint>contentsafety/image:analyze?api-version=2023-04-30-preview"
+url = "<Endpoint>/contentmoderator/image:analyze?api-version=2022-12-30-preview"
 
 payload = json.dumps({
   "image": {
-    "content": "base 64 code"
+    #use content when upload image by base64
+    "content": "[base64 encoded image]"
+    
+    #use url when upload image by blob url
+    #"url": "[image blob url]"
   },
   "categories": [
     "Hate",
-    "SelfHarm",
     "Sexual",
+    "SelfHarm",
     "Violence"
   ]
 })
@@ -673,40 +678,49 @@ headers = {
 
 response = requests.request("POST", url, headers=headers, data=payload)
 
+print(response.status_code)
+print(response.headers)
 print(response.text)
-
 ```
 
-#### cURL
-
-Here is a sample request with cURL. You must have [cURL](https://curl.se/download.html) installed to run it.
-
-```shell
-curl --location '<Endpoint>contentsafety/image:analyze?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
---header 'Content-Type: application/json' \
---data '{
-  "image": {
-  },
-  "categories": ["Hate","SelfHarm", "Sexual", "Violence"]
-}'
-```
-
-
-
-The parameters in the request body are defined in this table:
+The JSON fields that can be included in the request body are defined in this table:
 
 
 | Name           | Description                                                  | Type   |
 | :------------- | :----------------------------------------------------------- | ------ |
 | **Content**    | (Optional) Upload your image by converting it to base64. You can either choose "Content"or "Url". | Base64 |
-| **Url**        | (Optional) Upload your image by uploading it into blob storage. You can either choose "Content"or "Url". | url    |
+| **Url**        | (Optional) Upload your image by uploading it into blob storage. You can either choose "Content"or "Url". |        |
 | **Categories** | (Optional) This is assumed to be multiple category names. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
 
 
 > **NOTE: Image size requirements**
 >
 > The default maximum size for image submissions is **4MB** with at least **50x50** image dimensions.
+
+> **NOTE: Sample Python Jupyter Notebook**
+>
+> 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/indivNameual#Downloads). 
+>
+> 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-public-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get a load error from Jupyter.
+>
+> 3. Run the notebook.
+
+
+
+#### cURL
+
+Here is a sample request with cURL. You must have [cURL](https://curl.se/download.html) installed to run it.
+
+```shell
+curl --location --request POST '[Endpoint]/contentmoderator/image:analyze?api-version=2022-12-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: Please type your Subscription Key here' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "image": {
+    "content": "Please Paste base 64 code here"
+  }
+}'
+```
 
 
 
@@ -735,7 +749,43 @@ You should see the Image moderation results displayed as JSON data. For example:
 }
 ```
 
-The parameters are defined in this table:
+
+
+## QuickStart - Multimodal analysis
+
+### Disclaimer
+
+The sample data and code may contain offensive content. User discretion is advised.
+
+### Call Multimodal API with sample request
+
+Here is a sample request with Python:
+
+1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/indivNameual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
+1. Substitute the `<Endpoint>` with your resource endpoint URL.
+1. Upload your image by **Base64 **. We support JPEG, PNG, GIF, BMP image formats.
+   - Encoding your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding quickly. Put the path to your base 64 image in the _content_ parameter below.
+1. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
+1. Change the body of the request to whatever image you'd like to analyze.
+
+> **NOTE:**
+>
+> The samples could contain offensive content, user discretion advised.
+
+
+
+#### Python
+
+
+```python
+
+```
+
+#### cURL
+
+
+
+The JSON fields that can be included in the request body are defined in this table:
 
 
 | Name           | Description                                                  | Type   |
@@ -744,12 +794,36 @@ The parameters are defined in this table:
 | **Categories** | (Optional) This is assumed to be multiple category names, for current version, we only support hate categories. See the **Concepts** part for a list of available category names. If no categories are specified, defaults are used, we will use multiple categories in a single request. | String |
 
 
+> **NOTE: Image size requirements**
+>
+> The default maximum size for image submissions is **4MB** with and must be between 50 x 50 pixels and 10,000 px x 10,000 pixels.
+
+> **NOTE: Sample Python Jupyter Notebook**
+>
+> 1. Install the [Jupyter Notebook](https://jupyter.org/install). Jupyter Notebook can also easily be installed using [Anaconda](https://www.anaconda.com/products/indivNameual#Downloads). 
+>
+> 2. Download [Sample Python Notebook](https://github.com/Azure/Project-Carnegie-public-Preview/blob/main/Sample%20Code%20for%20Text%20and%20Image%20API%20with%20Multi-severity.ipynb). Note: this needs github sign in to access. Please also note that you need to use "download ZIP" option from GitHub doc repo instead of "save as" or you will get a load error from Jupyter.
+>
+> 3. Run the notebook.
+
+### Understand Image API response
+
+> **NOTE:**
+>
+> For this release, we only supported one classifiers, `Hate`for multimodal detection. Other categories will be released in the future.
+
+You should see the Image moderation results displayed as JSON data. For example:
+
+```json
+{
+    "hateResult": {
+        "category": "Hate",
+        "riskLevel": 0
+    }
+}
+```
 
 ## QuickStart - Azure Content Safety Studio
-
-@louise
-
-
 
 # Concepts 
 
@@ -796,3 +870,6 @@ Rest API link
 If you get stuck, [email us](mailto:acm-team@microsoft.com) or use the feedback wNameget on the upper right of any page.
 
 We're excited you're here! ![:blue-heart:](https://content-moderator.readme.io/img/emojis/blue-heart.png)
+
+
+
