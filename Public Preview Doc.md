@@ -35,7 +35,7 @@ Azure Content Moderator Studio provides templates and customized workflows for u
 
 Currently, this API supports 8 languages, English, German, Japanese, Spanish, French, Italian, Portuguese, Chinese. New languages are coming soon.
 
-You do not need to specify language code for text analysis. we will automatically detect you r input text languages.
+You do not need to specify language code for text analysis. 
 
 ### Pricing
 
@@ -51,23 +51,14 @@ To use the public preview APIs, please create Azure Content Safety resource in t
 
 Feel free to contact us if you require more regions for your business.
 
-#### Query per second
+#### Request per second
 
-| Pricing Tier | Query per second (QPS) |
-| :----------- | :--------------------- |
-| F0           | 5                      |
-| S0           | 10                     |
+| Pricing Tier | Request per second (RPS) |
+| :----------- | :----------------------- |
+| F0           | 5                        |
+| S0           | 10                       |
 
-If you need a faster rate, please [contact us](mailto:acm-team@microsoft.com) to request.
-
-#### Latency
-
-The service is designed for real-time scenarios, while various factors could affect the client-observed latency. To avoid the networking impact as much as possible, you may want to make API calls from the same region as the Azure Content Safety resource. Below are some benchmark performance numbers for your reference. If you observe unexpected high latency, please contact us.
-
-| API            | Latency for reference |
-| :------------- | :-------------------- |
-| Text analysis  | 100~300ms             |
-| Image analysis | 100~300ms             |
+If you need a higher RPS, please [contact us](mailto:acm-team@microsoft.com) to request.
 
 
 
@@ -81,7 +72,7 @@ The sample data and code may contain offensive content. User discretion is advis
 
 ### Create an Azure Content Safety resource
 
-Before you can begin to test the Azure Content Safety or integrate it into your applications, you need to create an Azure Content Safety resource and get the subscription keys to access the resource.
+Before you can begin to use the Azure Content Safety or integrate it into your applications, you need to create an Azure Content Safety resource and get the subscription keys to access the resource.
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
 2. [Create Azure Content Safety Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicescontentsafety). Enter a unique name for your resource, select the subscription you entered on the application form, select a resource group, [supported region](#region--location) and [supported pricing tier](#sku--pricing-tier). Then select **Create**.
@@ -89,7 +80,6 @@ Before you can begin to test the Azure Content Safety or integrate it into your 
 
 ### Call Text API with a sample request 
 
-1. Install [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/indivNameual#Downloads). Anaconda is a package containing many Python packages and allows for an easy start into the world of Python.
 1. Find your Resource Endpoint URL in your Azure Portal in the **Resource Overview** page under the **Endpoint** field. 
 1. Substitute the `<Endpoint>` term with your Resource Endpoint URL.
 1. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
@@ -116,7 +106,7 @@ payload = json.dumps({
     "Violence"
   ],
   "blocklistNames": [],
-  "breakByBlocklists": false
+  "breakByBlocklists": False
 })
 headers = {
   'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
@@ -140,7 +130,7 @@ cURL --location '<Endpoint>contentsafety/text:analyze?api-version=2023-04-30-pre
   "text": "You are an idiot.",
   "categories": ["Hate","SelfHarm", "Sexual", "Violence"],
   "blocklistNames": [],
-  "breakByBlocklists": false
+  "breakByBlocklists": False
 }'
 ```
 
@@ -152,12 +142,12 @@ The below fields must be included in the url:
 | **API Version** | (Required) This is the API version to be checked. Current version is: api-version=2023-04-30-preview. Example: <Endpoint>/contentsafety/text:analyze?api-version=2023-04-30-preview | String |
 
 The parameter in the request body are defined in this table:
-| Name                  | Description                                                  | Type    |
-| :-------------------- | :----------------------------------------------------------- | ------- |
-| **text**              | (Required) This is the raw text to be checked. Other non-ascii characters can be included. | String  |
-| **categories**        | (Optional) This is assumed to be an array of category names. See the **Concepts** section for a list of available category names. If no categories are specified, all four categories are used. We will use multiple categories to get scores in a single request. | String  |
-| **blocklistNames**    | Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~. You could attach multiple lists name here. | Array   |
-| **breakByBlocklists** | When set to `true`, further analyses of harmful content will not be performed in cases where blocklists are hit. When set to `false`, all analyses of harmful content will be performed, whether or not blocklists are hit. | Boolean |
+| Name                  | Type     | Description                                                  | Type    |
+| :-------------------- | -------- | :----------------------------------------------------------- | ------- |
+| **text**              | Required | This is the raw text to be checked. Other non-ascii characters can be included. | String  |
+| **categories**        | Optional | This is assumed to be an array of category names. See the **Concepts** section for a list of available category names. If no categories are specified, all four categories are used. We will use multiple categories to get scores in a single request. | String  |
+| **blocklistNames**    | Required | Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~. You could attach multiple lists name here. | Array   |
+| **breakByBlocklists** | Required | When set to `true`, further analyses of harmful content will not be performed in cases where blocklists are hit. When set to `false`, all analyses of harmful content will be performed, whether or not blocklists are hit. | Boolean |
 
 > **NOTE: Text size and granularity**
 >
@@ -234,15 +224,15 @@ You can create custom lists of terms to use with the Text API. The following ste
 
 The below fields must be included in the url:
 
-| Name              | Description                                                  | Type        |
-| :---------------- | :----------------------------------------------------------- | ----------- |
-| **blocklistName** | (Required) Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~                                                                                                                      Example: url = "<Endpoint>/contentsafety/text/blocklists/{blocklistName}?api-version=2023-04-30-preview" | String      |
-| **blockItems**    | (Required) This is the blocklistName to be checked.                                                                                                          Example: url = "<Endpoint>/contentsafety/text/blocklists/{blocklistName}/blockitems/{blockItems}?api-version=2023-04-30-preview" | BCP 47 code |
-| **API Version**   | (Required) This is the API version to be checked. Current version is: api-version=2023-04-30-preview. Example: <Endpoint>/contentsafety/text:analyze?api-version=2023-04-30-preview | String      |
+| Name              | Type     | Description                                                  | Type        |
+| :---------------- | -------- | :----------------------------------------------------------- | ----------- |
+| **blocklistName** | Required | Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~                                                                                                                      Example: url = "<Endpoint>/contentsafety/text/blocklists/{blocklistName}?api-version=2023-04-30-preview" | String      |
+| **blockItems**    | Required | This is the blocklistName to be checked.                                                                                                          Example: url = "<Endpoint>/contentsafety/text/blocklists/{blocklistName}/blockitems/{blockItems}?api-version=2023-04-30-preview" | BCP 47 code |
+| **API Version**   | Required | This is the API version to be checked. Current version is: api-version=2023-04-30-preview. Example: <Endpoint>/contentsafety/text:analyze?api-version=2023-04-30-preview | String      |
 
 > **NOTE:**
 >
-> There is a maximum limit of **10,000 terms**.
+> There is a maximum limit of **10,000 terms**.The maximum term limit is applied on the sum of terms from all lists.
 
 
 1. Use method **PATCH** to create a list or update an existing list's description or name.
@@ -379,7 +369,7 @@ cURL --location '<Endpoint>contentsafety/text:analyze?api-version=2023-04-30-pre
   "text": "You are an idiot.",
   "categories": ["Hate","SelfHarm", "Sexual", "Violence"],
   "blocklistNames": ["1234"],
-  "breakByBlocklists": true
+  "breakByBlocklists": True
 }'
 ```
 
@@ -667,13 +657,9 @@ cURL --location '<Endpoint>contentsafety/text/blocklists/1234:removeBlockItems?a
 
 Now that you have an Azure Content Safety resource and you have a subscription key for that resource, let's run some tests by using the Image content safety API.
 
-Here is a sample request with Python:
-
-1. Install the [Python](https://pypi.org/) or [Anaconda](https://www.anaconda.com/products/indivNameual#Downloads). Anaconda is a nice package containing a lot of Python packages already and allows for an easy start into the world of Python.
-
 1. Substitute the `<Endpoint>` with your resource endpoint URL.
 
-1. Upload your image by one of two methods:**by content (Base64) or by BlobUrl**. We only support JPEG, PNG, GIF, BMP image formats.
+1. Upload your image by one of two methods: **by content (Base64) or by BlobUrl**. We only support **Jpeg, Png, Gif, Bmp,Tiff and Webp** image formats, If your format is animated, we will extract the first frame to do the detection.
 
    - First method (Recommend): encoding your image to base64. You could leverage [this website](https://codebeautify.org/image-to-base64-converter)  to do encoding quickly. Put the path to your base 64 image in the _content_ parameter below.
 
@@ -744,7 +730,7 @@ The parameters in the request body are defined in this table:
 
 | Name                    | Description                                                  | Type              |
 | :---------------------- | :----------------------------------------------------------- | ----------------- |
-| **content and blobURL** | The content or blobUrl of image, could be base64 encoding bytes or blob url. If both are given, the request will be refused. The maximum size of image is 2048 pixels * 2048 pixels, no larger than 4MB at the same time. The minimum size of image is 50 pixels * 50 pixels. | Base64 or blobUrl |
+| **content and BlobURL** | The content or BlobUrl of image, could be base64 encoding bytes or blob url. If both are given, the request will be refused. The maximum size of image is 2048 pixels * 2048 pixels, no larger than 4MB at the same time. The minimum size of image is 50 pixels * 50 pixels. | Base64 or BlobUrl |
 | **categories**          | The categories will be analyzed. If not assigned, a default set of the categories' analysis results will be returned. | String            |
 
 #### Python SDK
