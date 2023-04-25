@@ -288,7 +288,7 @@ The response code should be `201` .
 >
 > We will support to add multiple blockitems within one API call.
 
-1. Use method **PATCH**.
+1. Use method **POST**.
 2. The relative path should be "/text/blocklists/{blocklistName}:addBlockItems?api-version=2023-04-30-preview".
 3. In the url path  parameter, enter the **blocklistName** that you want to add (in our example, **1234**). 
 4. In the description parameter, enter the description (in our example: this is a sample item ), the maximum length of dscritpion is 1024 characters. 
