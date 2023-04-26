@@ -793,11 +793,11 @@ You should see results displayed as JSON data. For example:
 
 # 3. Samples
 
-@Meng AI github link with sdk, each languages should put into different SDK repos, please refer below link to write samples
-
 ## Python SDK
 
-https://learn.microsoft.com/en-us/samples/azure/azure-sdk-for-python/formrecognizer-samples/?view=form-recog-3.0.0
+@Patrick add the python sdk sample here with the below repo:
+
+https://github.com/Azure/azure-sdk-for-python/tree/6516122d6286812221d4d9607807aefb334f0353/sdk/contentsafety/azure-ai-contentsafety/samples
 
 
 
@@ -838,7 +838,7 @@ https://learn.microsoft.com/en-us/samples/azure/azure-sdk-for-net/azure-form-rec
 
 # 7. Responsible use of AI
 
-@Patrick need to add this 3 pages:
+@Patrick need to add this 3 pages, content are here
   https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Responsible%20AI.md
 
 1. Transparency note - Transparency Note for Azure Content Safety 
@@ -846,8 +846,18 @@ https://learn.microsoft.com/en-us/samples/azure/azure-sdk-for-net/azure-form-rec
 2. Code of Conduct - Code of Conduct for the Azure Content Safety 
   
 3. Data, Privacy, and security
-  
+
 ## Transparency Notes
+
+
+
+## Code of Conduct
+
+
+
+## Data, Privacy, and security
+
+
 
 
 
