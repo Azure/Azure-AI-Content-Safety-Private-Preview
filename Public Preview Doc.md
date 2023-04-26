@@ -19,9 +19,9 @@ There are different types of analysis available in our product.
 
 | Type                        | Functionality                                                |
 | :-------------------------- | :----------------------------------------------------------- |
-| Text Detection API          | Scans text for sexual, violence, hate speech, and self harm with severity levels. |
-| Image Detection API         | Scans image for sexual, violence, hate speech, and self harm with multi-severity levels. |
-| Azure Content Safety Studio | ACS Studio is an online tool to visually explore, understand, evaluate  the ACS service. The studio provides a platform for you to experiment with the different ACS classifies and sample their returned data in an interactive manner without the need to write code. |
+| Text Detection API          | Scans text for sexual, violence, hate, and selfharm with severity levels. |
+| Image Detection API         | Scans image for sexual, violence, hate, and selfharm with multi-severity levels. |
+| Azure Content Safety Studio | ACS Studio is an online tool to visually explore, understand, and evaluate  the ACS service. The studio provides a platform for you to experiment with the different ACS classifies and sample their returned data in an interactive manner without the need to write code. |
 
 
 
@@ -838,10 +838,15 @@ https://learn.microsoft.com/en-us/samples/azure/azure-sdk-for-net/azure-form-rec
 
 # 7. Responsible use of AI
 
-@Patrick need to add this page 
+@Patrick need to add this 3 pages:
+  https://github.com/Azure/Project-Carnegie-Private-Preview/blob/main/Responsible%20AI.md
 
+1. Transparency note - Transparency Note for Azure Content Safety 
 
-
+2. Code of Conduct - Code of Conduct for the Azure Content Safety 
+  
+3. Data, Privacy, and security
+  
 ## Transparency Notes
 
 
