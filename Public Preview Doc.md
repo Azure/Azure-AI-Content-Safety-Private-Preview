@@ -75,7 +75,7 @@ The sample data and code may contain offensive content. User discretion is advis
 Before you can begin to use the Azure Content Safety or integrate it into your applications, you need to create an Azure Content Safety resource and get the subscription keys to access the resource.
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
-2. [Create Azure Content Safety Resource](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicescontentsafety). Enter a unique name for your resource, select the subscription you entered on the application form, select a resource group, [supported region](#region--location) and [supported pricing tier](#sku--pricing-tier). Then select **Create**.
+2. [Create Azure Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select the subscription you entered on the application form, select a resource group, [supported region](#region--location) and [supported pricing tier](#sku--pricing-tier). Then select **Create**.
 3. The resource will take a few minutes to deploy. After it finishes, Select **go to resource**. In the left pane, under **Resource Management**, select **Subscription Key and Endpoint**. The endpoint and either of the keys will be used to call APIs.
 
 ### Call Text API with a sample request 
@@ -88,35 +88,6 @@ Before you can begin to use the Azure Content Safety or integrate it into your a
 > **NOTE:**
 >
 > The samples may contain offensive content, user discretion advised.
-
-#### Python
-
-```python
-import requests
-import json
-
-url = "<Endpoint>contentsafety/text:analyze?api-version=2023-04-30-preview"
-
-payload = json.dumps({
-  "text": "You are an idiot.",
-  "categories": [
-    "Hate",
-    "SelfHarm",
-    "Sexual",
-    "Violence"
-  ],
-  "blocklistNames": [],
-  "breakByBlocklists": False
-})
-headers = {
-  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("POST", url, headers=headers, data=payload)
-
-print(response.text)
-```
 
 #### cURL
 
@@ -154,20 +125,58 @@ The parameter in the request body are defined in this table:
 > The default maximum length for text submissions is **1K characters**. If you need to analyze longer blocks of text, you can split the input text (for example, using punctuation or spacing) across multiple related submissions. 
 >
 
+#### Python SDK  @meng ai @patrick
 
+##### Install the client library
 
-#### Python SDK
-
-@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
-
-@Meng AI, please refer this to write the python sample step by step https://learn.microsoft.com/en-us/azure/cognitive-services/content-moderator/client-libraries?tabs=visual-studio&pivots=programming-language-python
+After installing Python, you can install the Content Safety client library with the following command:
 
 ```json
-
+python -m pip install azure-ai-contentsafety
 ```
 
-```python
+##### Create a new Python application
 
+Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+
+```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import *
+
+
+class AnalyzeText(object):
+    def analyze_text(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+        TEXT_DATA_PATH = os.path.join("sample_data", "text.txt")
+
+        # Create an Content Safety client
+        client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+        # Read sample data
+        with open(TEXT_DATA_PATH) as f:
+            text = f.readline()
+
+        # Build request
+        request = AnalyzeTextOptions(text=text, categories=[TextCategory.HATE, TextCategory.SELF_HARM])
+
+        # Analyze text
+        try:
+            response = client.analyze_text(request)
+        except Exception as e:
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return
+
+        print(response.hate_result)
+        print(response.self_harm_result)
+
+
+if __name__ == "__main__":
+    sample = AnalyzeText()
+    sample.analyze_text()
 ```
 
 
@@ -278,10 +287,86 @@ cURL --location --request PATCH '<Endpoint>contentsafety/text/blocklists/1234?ap
 }'
 ```
 
-The response code should be `201` .
+The response code should be `201` with the response body will be the below:
+
+```json
+{
+  "blocklistName": "string",
+  "description": "string"
+}
+```
+
+#### 
+
+#### Python SDK  @meng ai @patrick
+
+##### Install the client library
+
+After installing Python, you can install the Content Safety client library with the following command:
+
+```json
+python -m pip install azure-ai-contentsafety
+```
+
+##### Create a new Python application
+
+Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+
+```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import *
+from azure.core.exceptions import HttpResponseError
+import time
 
 
-### Add a blockitem/blockitems 
+class ManageBlocklist(object):
+    def __init__(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+
+        # Create an Content Safety client
+        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+    def create_or_update_text_blocklist(self, name, description):
+        try:
+            return self.client.create_or_update_text_blocklist(
+                blocklist_name=name, resource=TextBlocklist(description=description)
+            )
+        except HttpResponseError as e:
+            print("Create or update text blocklist failed. ")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return None
+        except Exception as e:
+            print(e)
+            return None
+
+
+if __name__ == "__main__":
+    sample = ManageBlocklist()
+
+    blocklist_name = "Test Blocklist"
+    blocklist_description = "Test blocklist management."
+
+
+    # create blocklist
+    sample.create_or_update_text_blocklist(name=blocklist_name, description=blocklist_description)
+    result = sample.get_text_blocklist(blocklist_name)
+    if result is not None:
+        print("Blocklist created: {}".format(result))
+
+    block_item_text_1 = "k*ll"
+    block_item_text_2 = "h*te"
+    input_text = "I h*te you and I want to k*ll you."
+```
+
+
+
+
+
+### Add a blockitem
 
 
 > **NOTE:**
@@ -343,9 +428,80 @@ The response code should be `201` with the response body will be the below:
 
 ```json
 {
-  "blocklistName": "string",
-  "description": "string"
+    "value": [
+        {
+            "blockItemId": "b766f067-387d-49d5-a963-3195856caxxx",
+            "description": "This is a sample allow item",
+            "text": "idiot"
+        }
+    ]
 }
+```
+
+#### Python SDK  @meng ai @patrick
+
+##### Install the client library
+
+After installing Python, you can install the Content Safety client library with the following command:
+
+```json
+python -m pip install azure-ai-contentsafety
+```
+
+##### Create a new Python application
+
+Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+
+```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import *
+from azure.core.exceptions import HttpResponseError
+import time
+
+class ManageBlocklist(object):
+    def __init__(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+
+        # Create an Content Safety client
+        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+
+    def add_block_items(self, name, items):
+        block_items = [TextBlockItemInfo(text=i) for i in items]
+        try:
+            response = self.client.add_block_items(
+                blocklist_name=name,
+                body=AddBlockItemsOptions(block_items=block_items),
+            )
+        except HttpResponseError as e:
+            print("Add block items failed.")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return None
+
+        except Exception as e:
+            print(e)
+            return None
+
+        return response.value
+
+
+
+if __name__ == "__main__":
+    sample = ManageBlocklist()
+
+    blocklist_name = "Test Blocklist"
+    blocklist_description = "Test blocklist management."
+
+   
+    # add block items
+    result = sample.add_block_items(name=blocklist_name, items=[block_item_text_1, block_item_text_2])
+    if result is not None:
+        print("Block items added: {}".format(result))
+
 ```
 
 
@@ -440,7 +596,7 @@ print(response.text)
 
 In addition to the operations mentioned above. There are more operations to help you manage and use the custom list feature. 
 
-#### Get all blockItems by blocklistName
+#### Get all blockItems by the blocklistName
 
 1. Use method **GET**.
 2. The relative path should be "/text/blocklists/{blocklistName}/blockitems?api-version=2023-04-30-preview".
@@ -488,7 +644,58 @@ The status code should be 200 and the response body should be like this:
 }
 ```
 
-#### Get all text blocklists
+### Python SDK  @meng ai @patrick
+
+##### Install the client library
+
+After installing Python, you can install the Content Safety client library with the following command:
+
+```json
+python -m pip install azure-ai-contentsafety
+```
+
+##### Create a new Python application
+
+Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+
+```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import *
+from azure.core.exceptions import HttpResponseError
+import time
+
+
+class ManageBlocklist(object):
+    def __init__(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+
+        # Create an Content Safety client
+        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+
+    def list_block_items(self, name):
+        try:
+            response = self.client.list_text_blocklist_items(blocklist_name=name)
+            return list(response)
+        except HttpResponseError as e:
+            print("List block items failed.")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return None
+        except Exception as e:
+            print(e)
+            return None
+
+
+  
+```
+
+
+
+#### Get all blocklists
 
 1. Use method **GET**.
 2. The relative path should be "/text/blocklists?api-version=2023-04-30-preview".
@@ -536,6 +743,67 @@ The status code should be 200 and the response body should be like this:
   ],
   "nextLink": "string"
 }
+```
+
+#### Python SDK  @meng ai @patrick
+
+##### Install the client library
+
+After installing Python, you can install the Content Safety client library with the following command:
+
+```json
+python -m pip install azure-ai-contentsafety
+```
+
+##### Create a new Python application
+
+Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+
+```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import *
+from azure.core.exceptions import HttpResponseError
+import time
+
+
+class ManageBlocklist(object):
+    def __init__(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+
+        # Create an Content Safety client
+        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+    def list_text_blocklists(self):
+        try:
+            return self.client.list_text_blocklists()
+        except HttpResponseError as e:
+            print("List text blocklists failed.")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return None
+        except Exception as e:
+            print(e)
+            return None
+
+   
+
+    def get_text_blocklist(self, name):
+        try:
+            return self.client.get_text_blocklist(blocklist_name=name)
+        except HttpResponseError as e:
+            print("Get text blocklist failed.")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return None
+        except Exception as e:
+            print(e)
+            return None
+
+    
+   
 ```
 
 
@@ -589,6 +857,67 @@ curl --location --request DELETE '<Endpoint>contentsafety/text/blocklists/1234?a
 
 ```json
 204
+```
+
+#### Python SDK  @meng ai @patrick
+
+##### Install the client library
+
+After installing Python, you can install the Content Safety client library with the following command:
+
+```json
+python -m pip install azure-ai-contentsafety
+```
+
+##### Create a new Python application
+
+Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+
+```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import *
+from azure.core.exceptions import HttpResponseError
+import time
+
+
+class ManageBlocklist(object):
+    def __init__(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+
+        # Create an Content Safety client
+        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+    
+    def delete_blocklist(self, name):
+        try:
+            self.client.delete_text_blocklist(blocklist_name=name)
+            return True
+        except HttpResponseError as e:
+            print("Delete blocklist failed.")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return False
+        except Exception as e:
+            print(e)
+            return False
+
+
+if __name__ == "__main__":
+    sample = ManageBlocklist()
+
+    blocklist_name = "Test Blocklist"
+    blocklist_description = "Test blocklist management."
+
+
+    # delete blocklist
+    if sample.delete_blocklist(name=blocklist_name):
+        print("Blocklist {} deleted successfully.".format(blocklist_name))
+    print("Waiting for blocklist service update...")
+    time.sleep(30)
+
 ```
 
 
@@ -648,6 +977,73 @@ cURL --location '<Endpoint>contentsafety/text/blocklists/1234:removeBlockItems?a
 
 ```json
 204
+```
+
+#### Python SDK  @meng ai @patrick
+
+##### Install the client library
+
+After installing Python, you can install the Content Safety client library with the following command:
+
+```json
+python -m pip install azure-ai-contentsafety
+```
+
+##### Create a new Python application
+
+Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+
+```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import *
+from azure.core.exceptions import HttpResponseError
+import time
+
+
+class ManageBlocklist(object):
+    def __init__(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+
+        # Create an Content Safety client
+        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+   
+
+    def remove_block_items(self, name, items):
+        request = RemoveBlockItemsOptions(block_item_ids=[i.block_item_id for i in items])
+        try:
+            self.client.remove_block_items(blocklist_name=name, body=request)
+            return True
+        except HttpResponseError as e:
+            print("Remove block items failed.")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return False
+        except Exception as e:
+            print(e)
+            return False
+
+   
+
+if __name__ == "__main__":
+    sample = ManageBlocklist()
+
+    blocklist_name = "Test Blocklist"
+    blocklist_description = "Test blocklist management."
+
+    
+    # remove one blocklist item
+    if sample.remove_block_items(name=blocklist_name, items=[result[0]]):
+        print("Block item removed: {}".format(result[0]))
+
+    result = sample.list_block_items(name=blocklist_name)
+    if result is not None:
+        print("Remaining block items: {}".format(result))
+
+   
 ```
 
 
@@ -733,19 +1129,57 @@ The parameters in the request body are defined in this table:
 | **content and BlobURL** | The content or BlobUrl of image, could be base64 encoding bytes or blob url. If both are given, the request will be refused. The maximum size of image is 2048 pixels * 2048 pixels, no larger than 4MB at the same time. The minimum size of image is 50 pixels * 50 pixels. | Base64 or BlobUrl |
 | **categories**          | The categories will be analyzed. If not assigned, a default set of the categories' analysis results will be returned. | String            |
 
-#### Python SDK
+#### Python SDK  @meng ai @patrick
 
-@Patrick @ Meng AI  The following is a sample request with PythonSDK . 
+##### Install the client library
 
-
+After installing Python, you can install the Content Safety client library with the following command:
 
 ```json
-
+python -m pip install azure-ai-contentsafety
 ```
+
+##### Create a new Python application
+
+Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
 
 ```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import *
 
+
+class AnalyzeImage(object):
+    def analyze_image(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+        IMAGE_DATA_PATH = os.path.join("sample_data", "image.jpg")
+
+        # Create an Content Safety client
+        client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+        # Build request
+        with open(IMAGE_DATA_PATH, "rb") as file:
+            request = AnalyzeImageOptions(image=ImageData(content=file.read()))
+
+        # Analyze image
+        try:
+            response = client.analyze_image(request)
+        except Exception as e:
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return
+
+        print(response)
+
+
+if __name__ == "__main__":
+    sample = AnalyzeImage()
+    sample.analyze_image()
 ```
+
+
 
 #### .Net SDK
 
@@ -798,6 +1232,12 @@ You should see results displayed as JSON data. For example:
 @Patrick add the python sdk sample here with the below repo:
 
 https://github.com/Azure/azure-sdk-for-python/tree/6516122d6286812221d4d9607807aefb334f0353/sdk/contentsafety/azure-ai-contentsafety/samples
+
+
+
+
+
+
 
 
 
