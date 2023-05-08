@@ -29,7 +29,7 @@ There are different types of analysis available in our product.
 
 #### What is Azure Content Safety Studio?
 
-Azure Content Moderator Studio provides templates and customized workflows for users to choose and build their own content moderation workflows on multilingual and multimodal like text, image and video. The moderation within this studio not only contains the out-of-the-box AI models but leveraging Microsoft built-in lists which already proved the coverage of the profanities and could keep update to new trends swiftly, meanwhile, user custom lists could also be uploaded to enrich the coverage of harmful contents that certain industries care. All these cool capabilities are handled by the studio and its backend, customers don’t need to worry about the model development and could onboard their data for quick validation and monitor the KPIs accordingly like the tech metrics – latency, accuracy, recall, or the business metrics – blocking rate, blocked volume, category proportion, language proportion and more. With simply operations and configurations, the customers could test different solutions quickly and find the best-fit one, instead of wasting time experimenting with seas of models and spending that much on human moderating. 
+Azure Content Moderator Studio provides templates and customized workflows for users to choose and build their own content moderation workflows on multilingual and multimodal like text, image and video. The moderation within this studio not only contains the out-of-the-box AI models but leveraging Microsoft built-in lists which already proved the coverage of the profanities and could keep update to new trends swiftly, meanwhile, user blocklists could also be uploaded to enrich the coverage of harmful contents that certain industries care. All these cool capabilities are handled by the studio and its backend, customers don’t need to worry about the model development and could onboard their data for quick validation and monitor the KPIs accordingly like the tech metrics – latency, accuracy, recall, or the business metrics – blocking rate, blocked volume, category proportion, language proportion and more. With simply operations and configurations, the customers could test different solutions quickly and find the best-fit one, instead of wasting time experimenting with seas of models and spending that much on human moderating. 
 
 ### Language availability
 
@@ -137,7 +137,7 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+Create a new Python script and open it in your preferred editor or IDE. 
 
 ```python
 import os
@@ -178,12 +178,10 @@ if __name__ == "__main__":
     analyze_text()
 ```
 
-
-
 #### .Net SDK
 
 The following is a sample request with .Net.
-  
+
 ```csharp
 string endpoint = "[Your endpoint]";
 string key = "[Your subscription key]";
@@ -271,7 +269,7 @@ The JSON fields in the output are defined in the following table:
 
 The default AI classifiers are sufficient for most content safety needs. However, you might need to screen for terms that are specific to your use case.
 
-You can create custom lists of terms to use with the Text API. The following steps help you get started. 
+You can create blocklists of terms to use with the Text API. The following steps help you get started. 
 
 The below fields must be included in the url:
 
@@ -352,7 +350,7 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+Create a new Python script and open it in your preferred editor or IDE. 
 
 ```python
 import os
@@ -393,7 +391,7 @@ if __name__ == "__main__":
 ```
 
 #### .Net SDK
-  
+
 ```charp
   
 ```
@@ -482,7 +480,7 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+Create a new Python script and open it in your preferred editor or IDE. 
 
 ```python
 import os
@@ -535,14 +533,14 @@ if __name__ == "__main__":
 
 
 
-### Analyze text with a custom list
+### Analyze text with a blocklist
 
 1. Change your method to **POST**.
 1. The relative path should be "/contentsafety/text:analyze?api-version=2023-04-30-preview"
 1. Verify that the term has been added to the list. In the **blocklistNames** parameter, enter the list Name you generated in the previous step. 
 1. Set `breakByBlocklists: true`, so that once a blocklist is matched, the analysis will return immediately without model output. The default setting is `false`.
 1. Enter your subscription key, and then select **Send**.
-1. In the **Response content** box, verify the terms you entered. The custom list is literally matched by characters and do NOT support regex.
+1. In the **Response content** box, verify the terms you entered. The blocklist is literally matched by characters and do NOT support regex.
 
 #### cURL
 
@@ -620,7 +618,7 @@ print(response.text)
     }
 }
 ```
-  
+
 #### Python SDK  @meng ai @patrick
 
 ##### Install the client library
@@ -633,7 +631,7 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+Create a new Python script and open it in your preferred editor or IDE. 
 
 ```python
 import os
@@ -678,9 +676,9 @@ if __name__ == "__main__":
               .format(match_result.block_item_id, match_result.blocklist_name, match_result.block_item_text, match_result.offset, match_result.length))
 ```
 
-### Custom list operations
+### Blocklistlist operations @patrick
 
-In addition to the operations mentioned above. There are more operations to help you manage and use the custom list feature. 
+In addition to the operations mentioned above. There are more operations to help you manage and use the blocklist feature. 
 
 #### Get all blockItems by the blocklistName
 
@@ -742,7 +740,7 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+Create a new Python script and open it in your preferred editor or IDE. 
 
 ```python
 import os
@@ -776,6 +774,70 @@ if __name__ == "__main__":
     result = list_block_items(name=blocklist_name)
     if result is not None:
         print("Block items: {}".format(result))
+```
+
+#### Get a blocklist by a blocklist Name @patrick
+
+1. Use method **GET**.
+2. The relative path should be "/text/blocklists/{blocklistName}?api-version=2023-04-30-preview".
+3. Substitute [Endpoint] with your endpoint.
+4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
+
+##### Python
+
+
+```python
+import requests
+
+url = "<Endpoint>contentsafety/text/blocklists/{blocklistName}?api-version=2023-04-30-preview"
+
+payload = ""
+headers = {
+  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+
+```
+
+##### cURL
+
+
+```python
+cURL --location '<Endpoint>contentsafety/text/blocklists/{blocklistName}?api-version=2023-04-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
+--data ''
+
+```
+
+The status code should be 200 and the response body should be like this:
+
+```json
+{
+    "blocklistName": "",
+    "description": ""
+}
+```
+
+#### Python SDK  @meng ai @patrick
+
+##### Install the client library
+
+After installing Python, you can install the Content Safety client library with the following command:
+
+```json
+python -m pip install azure-ai-contentsafety
+```
+
+##### Create a new Python application
+
+Create a new Python script and open it in your preferred editor or IDE. 
+
+```python
+
+   
 ```
 
 
@@ -842,7 +904,7 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+Create a new Python script and open it in your preferred editor or IDE. 
 
 ```python
 import os
@@ -876,6 +938,130 @@ if __name__ == "__main__":
         print("List blocklists: ")
         for l in result:
             print(l)   
+```
+
+#### Remove a blockitem
+
+> **NOTE:**
+>
+> We support to remover multiple blockitems within one API call.
+
+1. Use method **POST**.
+2. The relative path should be "/text/blocklists/{blocklistName}:removeBlockItems?api-version=2023-04-30-preview".
+3. In the url **blocklistName** parameter, enter the Name of the list that you want to delete a term from (in our example: **1234**). 
+4. In the request body blockItemIds parameter, enter the singe or array of blockItemIds to remove.
+5. Substitute [Endpoint] with your endpoint.
+6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
+
+##### Python
+
+```json
+import requests
+import json
+
+url = "<Endpoint>contentsafety/text/blocklists/1234:removeBlockItems?api-version=2023-04-30-preview"
+
+payload = json.dumps({
+  "blockItemIds": [
+    "c4491d5b-9ea9-4d2a-97c7-70ae8e6fc8c1"
+  ]
+})
+headers = {
+  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+
+
+```
+
+##### cURL
+
+```json
+cURL --location '<Endpoint>contentsafety/text/blocklists/1234:removeBlockItems?api-version=2023-04-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
+--header 'Content-Type: application/json' \
+--data '{
+  "blockItemIds": [
+    "c4491d5b-9ea9-4d2a-97c7-70ae8e6fc8c1"
+  ]
+}'
+```
+
+**Response content**
+
+```json
+204
+```
+
+#### Python SDK  @meng ai @patrick
+
+##### Install the client library
+
+After installing Python, you can install the Content Safety client library with the following command:
+
+```json
+python -m pip install azure-ai-contentsafety
+```
+
+##### Create a new Python application
+
+Create a new Python script and open it in your preferred editor or IDE. 
+
+```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import *
+from azure.core.exceptions import HttpResponseError
+import time
+
+
+class ManageBlocklist(object):
+    def __init__(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+
+        # Create an Content Safety client
+        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+   
+
+    def remove_block_items(self, name, items):
+        request = RemoveBlockItemsOptions(block_item_ids=[i.block_item_id for i in items])
+        try:
+            self.client.remove_block_items(blocklist_name=name, body=request)
+            return True
+        except HttpResponseError as e:
+            print("Remove block items failed.")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return False
+        except Exception as e:
+            print(e)
+            return False
+
+   
+
+if __name__ == "__main__":
+    sample = ManageBlocklist()
+
+    blocklist_name = "Test Blocklist"
+    blocklist_description = "Test blocklist management."
+
+    
+    # remove one blocklist item
+    if sample.remove_block_items(name=blocklist_name, items=[result[0]]):
+        print("Block item removed: {}".format(result[0]))
+
+    result = sample.list_block_items(name=blocklist_name)
+    if result is not None:
+        print("Remaining block items: {}".format(result))
+
+   
 ```
 
 
@@ -943,7 +1129,7 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+Create a new Python script and open it in your preferred editor or IDE. 
 
 ```python
 import os
@@ -1049,7 +1235,7 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+Create a new Python script and open it in your preferred editor or IDE. 
 
 ```python
 import os
@@ -1182,7 +1368,7 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+Create a new Python script and open it in your preferred editor or IDE. 
 
 ```python
 import os
@@ -1230,7 +1416,7 @@ if __name__ == "__main__":
 #### .Net SDK
 
 The following is a sample request with .Net. 
-  
+
 ```csharp
 string endpoint = "[Your endpoint]";
 string key = "[Your subscription key]";
