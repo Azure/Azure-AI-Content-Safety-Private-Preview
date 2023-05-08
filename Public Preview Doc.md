@@ -362,7 +362,7 @@ from azure.ai.contentsafety.models import TextBlocklist
 from azure.core.exceptions import HttpResponseError
 
 endpoint = "[Your endpoint]"
-key = "[Your key]"
+key = "[Your subscription key]"
   
 # Create an Content Safety client
 client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
@@ -525,7 +525,6 @@ if __name__ == "__main__":
 
     block_item_text_1 = "k*ll"
     block_item_text_2 = "h*te"
-    input_text = "I h*te you and I want to k*ll you."
 
     # add block items
     result = add_block_items(name=blocklist_name, items=[block_item_text_1, block_item_text_2])
