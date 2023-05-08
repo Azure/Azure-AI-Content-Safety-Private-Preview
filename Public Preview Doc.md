@@ -947,7 +947,36 @@ python -m pip install azure-ai-contentsafety
 Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
 
 ```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.core.exceptions import HttpResponseError
 
+endpoint = "[Your endpoint]"
+key = "[Your subscription key]"
+
+# Create an Content Safety client
+client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
+
+def delete_blocklist(name):
+    try:
+        client.delete_text_blocklist(blocklist_name=name)
+        return True
+    except HttpResponseError as e:
+        print("Delete blocklist failed.")
+        print("Error code: {}".format(e.error.code))
+        print("Error message: {}".format(e.error.message))
+        return False
+    except Exception as e:
+        print(e)
+        return False
+
+if __name__ == "__main__":
+    blocklist_name = "TestBlocklist"
+
+    # delete blocklist
+    if delete_blocklist(name=blocklist_name):
+        print("Blocklist {} deleted successfully.".format(blocklist_name))
 ```
 
 
@@ -1030,9 +1059,8 @@ from azure.core.credentials import AzureKeyCredential
 from azure.ai.contentsafety.models import RemoveBlockItemsOptions
 from azure.core.exceptions import HttpResponseError
 
-
-key = os.environ["CONTENT_SAFETY_KEY"]
-endpoint = os.environ["CONTENT_SAFETY_ENDPOINT"]
+endpoint = "[Your endpoint]"
+key = "[Your subscription key]"
 
 # Create an Content Safety client
 client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
