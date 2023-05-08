@@ -254,7 +254,7 @@ Last updated: 04/04/2023
 
 
 
-# 2. Code of conduct for Azure Content Safety  Service
+# 2. Code of conduct for Azure Content Safety Service
 
 The following Code of Conduct defines the requirements that all Azure Content Safety implementations must adhere to in good faith. This code of conduct is in addition to the Acceptable Use Policy in the [Microsoft Online Services Terms](https://www.microsoft.com/licensing/product-licensing/products).
 
