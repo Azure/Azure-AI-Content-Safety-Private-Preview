@@ -749,35 +749,34 @@ Create a new Python script and open it in your preferred editor or IDE. Then add
 import os
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.core.credentials import AzureKeyCredential
-from azure.ai.contentsafety.models import *
 from azure.core.exceptions import HttpResponseError
-import time
+
+endpoint = "[Your endpoint]"
+key = "[Your subscription key]"
+
+# Create an Content Safety client
+client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
+
+def list_block_items(name):
+    try:
+        response = client.list_text_blocklist_items(blocklist_name=name)
+        return list(response)
+    except HttpResponseError as e:
+        print("List block items failed.")
+        print("Error code: {}".format(e.error.code))
+        print("Error message: {}".format(e.error.message))
+        return None
+    except Exception as e:
+        print(e)
+        return None
 
 
-class ManageBlocklist(object):
-    def __init__(self):
-        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
-        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+if __name__ == "__main__":
+    blocklist_name = "TestBlocklist"
 
-        # Create an Content Safety client
-        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
-
-
-    def list_block_items(self, name):
-        try:
-            response = self.client.list_text_blocklist_items(blocklist_name=name)
-            return list(response)
-        except HttpResponseError as e:
-            print("List block items failed.")
-            print("Error code: {}".format(e.error.code))
-            print("Error message: {}".format(e.error.message))
-            return None
-        except Exception as e:
-            print(e)
-            return None
-
-
-  
+    result = list_block_items(name=blocklist_name)
+    if result is not None:
+        print("Block items: {}".format(result))
 ```
 
 
