@@ -125,6 +125,50 @@ The parameter in the request body are defined in this table:
 > The default maximum length for text submissions is **1K characters**. If you need to analyze longer blocks of text, you can split the input text (for example, using punctuation or spacing) across multiple related submissions. 
 >
 
+
+
+### Interpret Text API response
+
+You should see results displayed as JSON data in the console output. For example:
+
+```json
+{
+    "blocklistsMatchResults": [],
+    "hateResult": {
+        "category": "Hate",
+        "severity": 0
+    },
+    "selfHarmResult": {
+        "category": "SelfHarm",
+        "severity": 0
+    },
+    "sexualResult": {
+        "category": "Sexual",
+        "severity": 0
+    },
+    "violenceResult": {
+        "category": "Violence",
+        "severity": 0
+    }
+}
+```
+
+The JSON fields in the output are defined in the following table:
+
+| Name         | Description                                                  | Type    |
+| :----------- | :----------------------------------------------------------- | ------- |
+| **category** | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text content safmodel, it could be classified as sexual content as well as violence. | String  |
+| **severity** | The higher the severity of input content, the larger this value is. The values could be: 0,2,4,6. | Integer |
+
+
+> **NOTE: Why severity level is not continuous**
+>
+> Currently, we only use levels 0, 2, 4, and 6. In the future, we may be able to extend the severity levels to 0, 1, 2, 3, 4, 5, 6, 7: seven levels with finer granularity.
+
+
+
+
+
 #### Python SDK  @meng ai @patrick
 
 ##### Install the client library
@@ -178,6 +222,8 @@ if __name__ == "__main__":
     analyze_text()
 ```
 
+
+
 #### .Net SDK
 
 The following is a sample request with .Net.
@@ -224,44 +270,6 @@ if (response.Value.ViolenceResult != null)
 }
 #endregion
 ```
-
-### Interpret Text API response
-
-You should see results displayed as JSON data in the console output. For example:
-
-```json
-{
-    "blocklistsMatchResults": [],
-    "hateResult": {
-        "category": "Hate",
-        "severity": 0
-    },
-    "selfHarmResult": {
-        "category": "SelfHarm",
-        "severity": 0
-    },
-    "sexualResult": {
-        "category": "Sexual",
-        "severity": 0
-    },
-    "violenceResult": {
-        "category": "Violence",
-        "severity": 0
-    }
-}
-```
-
-The JSON fields in the output are defined in the following table:
-
-| Name         | Description                                                  | Type    |
-| :----------- | :----------------------------------------------------------- | ------- |
-| **category** | Each output class that the API predicts. Classification can be multi-labeled. For example, when a text is run through a text content safmodel, it could be classified as sexual content as well as violence. | String  |
-| **severity** | The higher the severity of input content, the larger this value is. The values could be: 0,2,4,6. | Integer |
-
-
-> **NOTE: Why severity level is not continuous**
->
-> Currently, we only use levels 0, 2, 4, and 6. In the future, we may be able to extend the severity levels to 0, 1, 2, 3, 4, 5, 6, 7: seven levels with finer granularity.
 
 
 
@@ -360,7 +368,7 @@ from azure.ai.contentsafety.models import TextBlocklist
 from azure.core.exceptions import HttpResponseError
 
 endpoint = "[Your endpoint]"
-key = "[Your subscription key]"
+key = "[Your key]"
   
 # Create an Content Safety client
 client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
@@ -523,6 +531,7 @@ if __name__ == "__main__":
 
     block_item_text_1 = "k*ll"
     block_item_text_2 = "h*te"
+    input_text = "I h*te you and I want to k*ll you."
 
     # add block items
     result = add_block_items(name=blocklist_name, items=[block_item_text_1, block_item_text_2])
@@ -676,7 +685,7 @@ if __name__ == "__main__":
               .format(match_result.block_item_id, match_result.blocklist_name, match_result.block_item_text, match_result.offset, match_result.length))
 ```
 
-### Blocklistlist operations @patrick
+### Blocklist operations
 
 In addition to the operations mentioned above. There are more operations to help you manage and use the blocklist feature. 
 
@@ -740,7 +749,7 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. 
+
 
 ```python
 import os
@@ -776,10 +785,10 @@ if __name__ == "__main__":
         print("Block items: {}".format(result))
 ```
 
-#### Get a blocklist by a blocklist Name @patrick
+#### Get a blocklist by blocklist name
 
 1. Use method **GET**.
-2. The relative path should be "/text/blocklists/{blocklistName}?api-version=2023-04-30-preview".
+2. The relative path should be "/text/blocklists/{blockName}?api-version=2023-04-30-preview".
 3. Substitute [Endpoint] with your endpoint.
 4. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field.
 
@@ -789,7 +798,7 @@ if __name__ == "__main__":
 ```python
 import requests
 
-url = "<Endpoint>contentsafety/text/blocklists/{blocklistName}?api-version=2023-04-30-preview"
+url = "<Endpoint>contentsafety/text/blocklists/{blockName}?api-version=2023-04-30-preview"
 
 payload = ""
 headers = {
@@ -806,7 +815,7 @@ print(response.text)
 
 
 ```python
-cURL --location '<Endpoint>contentsafety/text/blocklists/{blocklistName}?api-version=2023-04-30-preview' \
+cURL --location '<Endpoint>contentsafety/text/blocklists/{blockName}?api-version=2023-04-30-preview' \
 --header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
 --data ''
 
@@ -837,7 +846,6 @@ Create a new Python script and open it in your preferred editor or IDE.
 
 ```python
 
-   
 ```
 
 
@@ -910,111 +918,6 @@ Create a new Python script and open it in your preferred editor or IDE.
 import os
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.core.credentials import AzureKeyCredential
-from azure.core.exceptions import HttpResponseError
-
-
-endpoint = "[Your endpoint]"
-key = "[Your subscription key]"
-
-# Create an Content Safety client
-client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
-
-def list_text_blocklists():
-    try:
-        return client.list_text_blocklists()
-    except HttpResponseError as e:
-        print("List text blocklists failed.")
-        print("Error code: {}".format(e.error.code))
-        print("Error message: {}".format(e.error.message))
-        return None
-    except Exception as e:
-        print(e)
-        return None
-
-if __name__ == "__main__":
-    # list blocklists
-    result = list_text_blocklists()
-    if result is not None:
-        print("List blocklists: ")
-        for l in result:
-            print(l)   
-```
-
-#### Remove a blockitem
-
-> **NOTE:**
->
-> We support to remover multiple blockitems within one API call.
-
-1. Use method **POST**.
-2. The relative path should be "/text/blocklists/{blocklistName}:removeBlockItems?api-version=2023-04-30-preview".
-3. In the url **blocklistName** parameter, enter the Name of the list that you want to delete a term from (in our example: **1234**). 
-4. In the request body blockItemIds parameter, enter the singe or array of blockItemIds to remove.
-5. Substitute [Endpoint] with your endpoint.
-6. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
-
-##### Python
-
-```json
-import requests
-import json
-
-url = "<Endpoint>contentsafety/text/blocklists/1234:removeBlockItems?api-version=2023-04-30-preview"
-
-payload = json.dumps({
-  "blockItemIds": [
-    "c4491d5b-9ea9-4d2a-97c7-70ae8e6fc8c1"
-  ]
-})
-headers = {
-  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("POST", url, headers=headers, data=payload)
-
-print(response.text)
-
-
-```
-
-##### cURL
-
-```json
-cURL --location '<Endpoint>contentsafety/text/blocklists/1234:removeBlockItems?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
---header 'Content-Type: application/json' \
---data '{
-  "blockItemIds": [
-    "c4491d5b-9ea9-4d2a-97c7-70ae8e6fc8c1"
-  ]
-}'
-```
-
-**Response content**
-
-```json
-204
-```
-
-#### Python SDK  @meng ai @patrick
-
-##### Install the client library
-
-After installing Python, you can install the Content Safety client library with the following command:
-
-```json
-python -m pip install azure-ai-contentsafety
-```
-
-##### Create a new Python application
-
-Create a new Python script and open it in your preferred editor or IDE. 
-
-```python
-import os
-from azure.ai.contentsafety import ContentSafetyClient
-from azure.core.credentials import AzureKeyCredential
 from azure.ai.contentsafety.models import *
 from azure.core.exceptions import HttpResponseError
 import time
@@ -1028,39 +931,33 @@ class ManageBlocklist(object):
         # Create an Content Safety client
         self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
 
-   
-
-    def remove_block_items(self, name, items):
-        request = RemoveBlockItemsOptions(block_item_ids=[i.block_item_id for i in items])
+    def list_text_blocklists(self):
         try:
-            self.client.remove_block_items(blocklist_name=name, body=request)
-            return True
+            return self.client.list_text_blocklists()
         except HttpResponseError as e:
-            print("Remove block items failed.")
+            print("List text blocklists failed.")
             print("Error code: {}".format(e.error.code))
             print("Error message: {}".format(e.error.message))
-            return False
+            return None
         except Exception as e:
             print(e)
-            return False
+            return None
 
    
 
-if __name__ == "__main__":
-    sample = ManageBlocklist()
-
-    blocklist_name = "Test Blocklist"
-    blocklist_description = "Test blocklist management."
+    def get_text_blocklist(self, name):
+        try:
+            return self.client.get_text_blocklist(blocklist_name=name)
+        except HttpResponseError as e:
+            print("Get text blocklist failed.")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return None
+        except Exception as e:
+            print(e)
+            return None
 
     
-    # remove one blocklist item
-    if sample.remove_block_items(name=blocklist_name, items=[result[0]]):
-        print("Block item removed: {}".format(result[0]))
-
-    result = sample.list_block_items(name=blocklist_name)
-    if result is not None:
-        print("Remaining block items: {}".format(result))
-
    
 ```
 
@@ -1135,33 +1032,47 @@ Create a new Python script and open it in your preferred editor or IDE.
 import os
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import *
 from azure.core.exceptions import HttpResponseError
+import time
 
-endpoint = "[Your endpoint]"
-key = "[Your subscription key]"
 
-# Create an Content Safety client
-client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
+class ManageBlocklist(object):
+    def __init__(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
 
-def delete_blocklist(name):
-    try:
-        client.delete_text_blocklist(blocklist_name=name)
-        return True
-    except HttpResponseError as e:
-        print("Delete blocklist failed.")
-        print("Error code: {}".format(e.error.code))
-        print("Error message: {}".format(e.error.message))
-        return False
-    except Exception as e:
-        print(e)
-        return False
+        # Create an Content Safety client
+        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+    
+    def delete_blocklist(self, name):
+        try:
+            self.client.delete_text_blocklist(blocklist_name=name)
+            return True
+        except HttpResponseError as e:
+            print("Delete blocklist failed.")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return False
+        except Exception as e:
+            print(e)
+            return False
+
 
 if __name__ == "__main__":
-    blocklist_name = "TestBlocklist"
+    sample = ManageBlocklist()
+
+    blocklist_name = "Test Blocklist"
+    blocklist_description = "Test blocklist management."
+
 
     # delete blocklist
-    if delete_blocklist(name=blocklist_name):
+    if sample.delete_blocklist(name=blocklist_name):
         print("Blocklist {} deleted successfully.".format(blocklist_name))
+    print("Waiting for blocklist service update...")
+    time.sleep(30)
+
 ```
 
 
@@ -1235,42 +1146,59 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. 
+
 
 ```python
 import os
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.core.credentials import AzureKeyCredential
-from azure.ai.contentsafety.models import RemoveBlockItemsOptions
+from azure.ai.contentsafety.models import *
 from azure.core.exceptions import HttpResponseError
+import time
 
-endpoint = "[Your endpoint]"
-key = "[Your subscription key]"
 
-# Create an Content Safety client
-client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
+class ManageBlocklist(object):
+    def __init__(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
 
-def remove_block_items(name, ids):
-    request = RemoveBlockItemsOptions(block_item_ids=ids)
-    try:
-        client.remove_block_items(blocklist_name=name, body=request)
-        return True
-    except HttpResponseError as e:
-        print("Remove block items failed.")
-        print("Error code: {}".format(e.error.code))
-        print("Error message: {}".format(e.error.message))
-        return False
-    except Exception as e:
-        print(e)
-        return False
+        # Create an Content Safety client
+        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+   
+
+    def remove_block_items(self, name, items):
+        request = RemoveBlockItemsOptions(block_item_ids=[i.block_item_id for i in items])
+        try:
+            self.client.remove_block_items(blocklist_name=name, body=request)
+            return True
+        except HttpResponseError as e:
+            print("Remove block items failed.")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return False
+        except Exception as e:
+            print(e)
+            return False
+
+   
 
 if __name__ == "__main__":
-    blocklist_name = "TestBlocklist"
-    remove_id = "abdd5ac6-7b4e-4d47-8ad2-369709651e8a"
+    sample = ManageBlocklist()
 
+    blocklist_name = "Test Blocklist"
+    blocklist_description = "Test blocklist management."
+
+    
     # remove one blocklist item
-    if remove_block_items(name=blocklist_name, ids=[remove_id]):
-        print("Block item removed: {}".format(remove_id))
+    if sample.remove_block_items(name=blocklist_name, items=[result[0]]):
+        print("Block item removed: {}".format(result[0]))
+
+    result = sample.list_block_items(name=blocklist_name)
+    if result is not None:
+        print("Remaining block items: {}".format(result))
+
+   
 ```
 
 
@@ -1368,7 +1296,7 @@ python -m pip install azure-ai-contentsafety
 
 ##### Create a new Python application
 
-Create a new Python script and open it in your preferred editor or IDE. 
+
 
 ```python
 import os
@@ -1503,12 +1431,6 @@ You should see results displayed as JSON data. For example:
 @Patrick add the python sdk sample here with the below repo:
 
 https://github.com/Azure/azure-sdk-for-python/tree/6516122d6286812221d4d9607807aefb334f0353/sdk/contentsafety/azure-ai-contentsafety/samples
-
-
-
-
-
-
 
 
 
