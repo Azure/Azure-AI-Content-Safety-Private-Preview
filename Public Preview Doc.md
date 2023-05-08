@@ -849,47 +849,34 @@ Create a new Python script and open it in your preferred editor or IDE. Then add
 import os
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.core.credentials import AzureKeyCredential
-from azure.ai.contentsafety.models import *
 from azure.core.exceptions import HttpResponseError
-import time
 
 
-class ManageBlocklist(object):
-    def __init__(self):
-        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
-        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+endpoint = "[Your endpoint]"
+key = "[Your subscription key]"
 
-        # Create an Content Safety client
-        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+# Create an Content Safety client
+client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
 
-    def list_text_blocklists(self):
-        try:
-            return self.client.list_text_blocklists()
-        except HttpResponseError as e:
-            print("List text blocklists failed.")
-            print("Error code: {}".format(e.error.code))
-            print("Error message: {}".format(e.error.message))
-            return None
-        except Exception as e:
-            print(e)
-            return None
+def list_text_blocklists():
+    try:
+        return client.list_text_blocklists()
+    except HttpResponseError as e:
+        print("List text blocklists failed.")
+        print("Error code: {}".format(e.error.code))
+        print("Error message: {}".format(e.error.message))
+        return None
+    except Exception as e:
+        print(e)
+        return None
 
-   
-
-    def get_text_blocklist(self, name):
-        try:
-            return self.client.get_text_blocklist(blocklist_name=name)
-        except HttpResponseError as e:
-            print("Get text blocklist failed.")
-            print("Error code: {}".format(e.error.code))
-            print("Error message: {}".format(e.error.message))
-            return None
-        except Exception as e:
-            print(e)
-            return None
-
-    
-   
+if __name__ == "__main__":
+    # list blocklists
+    result = list_text_blocklists()
+    if result is not None:
+        print("List blocklists: ")
+        for l in result:
+            print(l)   
 ```
 
 
@@ -960,49 +947,6 @@ python -m pip install azure-ai-contentsafety
 Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
 
 ```python
-import os
-from azure.ai.contentsafety import ContentSafetyClient
-from azure.core.credentials import AzureKeyCredential
-from azure.ai.contentsafety.models import *
-from azure.core.exceptions import HttpResponseError
-import time
-
-
-class ManageBlocklist(object):
-    def __init__(self):
-        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
-        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
-
-        # Create an Content Safety client
-        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
-
-    
-    def delete_blocklist(self, name):
-        try:
-            self.client.delete_text_blocklist(blocklist_name=name)
-            return True
-        except HttpResponseError as e:
-            print("Delete blocklist failed.")
-            print("Error code: {}".format(e.error.code))
-            print("Error message: {}".format(e.error.message))
-            return False
-        except Exception as e:
-            print(e)
-            return False
-
-
-if __name__ == "__main__":
-    sample = ManageBlocklist()
-
-    blocklist_name = "Test Blocklist"
-    blocklist_description = "Test blocklist management."
-
-
-    # delete blocklist
-    if sample.delete_blocklist(name=blocklist_name):
-        print("Blocklist {} deleted successfully.".format(blocklist_name))
-    print("Waiting for blocklist service update...")
-    time.sleep(30)
 
 ```
 
@@ -1083,53 +1027,37 @@ Create a new Python script and open it in your preferred editor or IDE. Then add
 import os
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.core.credentials import AzureKeyCredential
-from azure.ai.contentsafety.models import *
+from azure.ai.contentsafety.models import RemoveBlockItemsOptions
 from azure.core.exceptions import HttpResponseError
-import time
 
 
-class ManageBlocklist(object):
-    def __init__(self):
-        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
-        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+key = os.environ["CONTENT_SAFETY_KEY"]
+endpoint = os.environ["CONTENT_SAFETY_ENDPOINT"]
 
-        # Create an Content Safety client
-        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+# Create an Content Safety client
+client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
 
-   
-
-    def remove_block_items(self, name, items):
-        request = RemoveBlockItemsOptions(block_item_ids=[i.block_item_id for i in items])
-        try:
-            self.client.remove_block_items(blocklist_name=name, body=request)
-            return True
-        except HttpResponseError as e:
-            print("Remove block items failed.")
-            print("Error code: {}".format(e.error.code))
-            print("Error message: {}".format(e.error.message))
-            return False
-        except Exception as e:
-            print(e)
-            return False
-
-   
+def remove_block_items(name, ids):
+    request = RemoveBlockItemsOptions(block_item_ids=ids)
+    try:
+        client.remove_block_items(blocklist_name=name, body=request)
+        return True
+    except HttpResponseError as e:
+        print("Remove block items failed.")
+        print("Error code: {}".format(e.error.code))
+        print("Error message: {}".format(e.error.message))
+        return False
+    except Exception as e:
+        print(e)
+        return False
 
 if __name__ == "__main__":
-    sample = ManageBlocklist()
+    blocklist_name = "TestBlocklist"
+    remove_id = "abdd5ac6-7b4e-4d47-8ad2-369709651e8a"
 
-    blocklist_name = "Test Blocklist"
-    blocklist_description = "Test blocklist management."
-
-    
     # remove one blocklist item
-    if sample.remove_block_items(name=blocklist_name, items=[result[0]]):
-        print("Block item removed: {}".format(result[0]))
-
-    result = sample.list_block_items(name=blocklist_name)
-    if result is not None:
-        print("Remaining block items: {}".format(result))
-
-   
+    if remove_block_items(name=blocklist_name, ids=[remove_id]):
+        print("Block item removed: {}".format(remove_id))
 ```
 
 
