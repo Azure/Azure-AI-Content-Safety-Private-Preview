@@ -963,118 +963,6 @@ class ManageBlocklist(object):
 
 
 
-#### Delete a blocklist
-
-> **NOTE:**
->
-> There will be some delay after you delete a term before it takes effect on text analysis, usually **not exceed 5 minutes**.
-
-1. Use method **DELETE**.
-2. The relative path should be "/text/blocklists/{blocklistName}?api-version=2023-04-30-preview".
-3. In the url **blocklistName** parameter, enter the Name of the list that you want to delete  (in our example:**1234**). 
-4. Substitute [Endpoint] with your endpoint.
-5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
-
-##### Python
-
-```json
-import requests
-import json
-
-url = "<Endpoint>contentsafety/text/blocklists/1234?api-version=2023-04-30-preview"
-
-payload = json.dumps({
-  "description": "Test happy path"
-})
-headers = {
-  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request("DELETE", url, headers=headers, data=payload)
-
-print(response.text)
-
-```
-
-##### cURL
-
-```json
-curl --location --request DELETE '<Endpoint>contentsafety/text/blocklists/1234?api-version=2023-04-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
---header 'Content-Type: application/json' \
---data '{
-  "description": "Test happy path"
-}'
-```
-
-**Response content**
-
-```json
-204
-```
-
-#### Python SDK  @meng ai @patrick
-
-##### Install the client library
-
-After installing Python, you can install the Content Safety client library with the following command:
-
-```json
-python -m pip install azure-ai-contentsafety
-```
-
-##### Create a new Python application
-
-Create a new Python script and open it in your preferred editor or IDE. 
-
-```python
-import os
-from azure.ai.contentsafety import ContentSafetyClient
-from azure.core.credentials import AzureKeyCredential
-from azure.ai.contentsafety.models import *
-from azure.core.exceptions import HttpResponseError
-import time
-
-
-class ManageBlocklist(object):
-    def __init__(self):
-        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
-        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
-
-        # Create an Content Safety client
-        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
-
-    
-    def delete_blocklist(self, name):
-        try:
-            self.client.delete_text_blocklist(blocklist_name=name)
-            return True
-        except HttpResponseError as e:
-            print("Delete blocklist failed.")
-            print("Error code: {}".format(e.error.code))
-            print("Error message: {}".format(e.error.message))
-            return False
-        except Exception as e:
-            print(e)
-            return False
-
-
-if __name__ == "__main__":
-    sample = ManageBlocklist()
-
-    blocklist_name = "Test Blocklist"
-    blocklist_description = "Test blocklist management."
-
-
-    # delete blocklist
-    if sample.delete_blocklist(name=blocklist_name):
-        print("Blocklist {} deleted successfully.".format(blocklist_name))
-    print("Waiting for blocklist service update...")
-    time.sleep(30)
-
-```
-
 
 
 #### Remove a blockitem
@@ -1199,6 +1087,118 @@ if __name__ == "__main__":
         print("Remaining block items: {}".format(result))
 
    
+```
+
+#### Delete a blocklist
+
+> **NOTE:**
+>
+> There will be some delay after you delete a term before it takes effect on text analysis, usually **not exceed 5 minutes**.
+
+1. Use method **DELETE**.
+2. The relative path should be "/text/blocklists/{blocklistName}?api-version=2023-04-30-preview".
+3. In the url **blocklistName** parameter, enter the Name of the list that you want to delete  (in our example:**1234**). 
+4. Substitute [Endpoint] with your endpoint.
+5. Paste your subscription key into the **Ocp-Apim-Subscription-Key** field
+
+##### Python
+
+```json
+import requests
+import json
+
+url = "<Endpoint>contentsafety/text/blocklists/1234?api-version=2023-04-30-preview"
+
+payload = json.dumps({
+  "description": "Test happy path"
+})
+headers = {
+  'Ocp-Apim-Subscription-Key': '<enter_your_subscription_key_here>',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("DELETE", url, headers=headers, data=payload)
+
+print(response.text)
+
+```
+
+##### cURL
+
+```json
+curl --location --request DELETE '<Endpoint>contentsafety/text/blocklists/1234?api-version=2023-04-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: <enter_your_subscription_key_here>' \
+--header 'Content-Type: application/json' \
+--data '{
+  "description": "Test happy path"
+}'
+```
+
+**Response content**
+
+```json
+204
+```
+
+#### Python SDK  @meng ai @patrick
+
+##### Install the client library
+
+After installing Python, you can install the Content Safety client library with the following command:
+
+```json
+python -m pip install azure-ai-contentsafety
+```
+
+##### Create a new Python application
+
+Create a new Python script and open it in your preferred editor or IDE. 
+
+```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import *
+from azure.core.exceptions import HttpResponseError
+import time
+
+
+class ManageBlocklist(object):
+    def __init__(self):
+        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
+        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+
+        # Create an Content Safety client
+        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+
+    
+    def delete_blocklist(self, name):
+        try:
+            self.client.delete_text_blocklist(blocklist_name=name)
+            return True
+        except HttpResponseError as e:
+            print("Delete blocklist failed.")
+            print("Error code: {}".format(e.error.code))
+            print("Error message: {}".format(e.error.message))
+            return False
+        except Exception as e:
+            print(e)
+            return False
+
+
+if __name__ == "__main__":
+    sample = ManageBlocklist()
+
+    blocklist_name = "Test Blocklist"
+    blocklist_description = "Test blocklist management."
+
+
+    # delete blocklist
+    if sample.delete_blocklist(name=blocklist_name):
+        print("Blocklist {} deleted successfully.".format(blocklist_name))
+    print("Waiting for blocklist service update...")
+    time.sleep(30)
+
 ```
 
 
