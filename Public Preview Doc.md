@@ -621,6 +621,63 @@ print(response.text)
     }
 }
 ```
+  
+#### Python SDK  @meng ai @patrick
+
+##### Install the client library
+
+After installing Python, you can install the Content Safety client library with the following command:
+
+```json
+python -m pip install azure-ai-contentsafety
+```
+
+##### Create a new Python application
+
+Create a new Python script and open it in your preferred editor or IDE. Then add the following `import` statements to the top of the file.
+
+```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import AnalyzeTextOptions
+from azure.core.exceptions import HttpResponseError
+import time
+
+
+endpoint = "[Your endpoint]"
+key ="[Your subscription key]"
+
+# Create an Content Safety client
+client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
+
+def analyze_text_with_blocklists(name, text):
+    try:
+        response = client.analyze_text(
+            AnalyzeTextOptions(text=text, blocklist_names=[name], break_by_blocklists=False)
+        )
+    except HttpResponseError as e:
+        print("Analyze text failed.")
+        print("Error code: {}".format(e.error.code))
+        print("Error message: {}".format(e.error.message))
+        return None
+    except Exception as e:
+        print(e)
+        return None
+
+    return response.blocklists_match_results
+
+
+if __name__ == "__main__":
+    blocklist_name = "TestBlocklist"
+    input_text = "I h*te you and I want to k*ll you."
+
+    # analyze text
+    match_results = analyze_text_with_blocklists(name=blocklist_name, text=input_text)
+    for match_result in match_results:
+        print("Block item {} in {} was hit, text={}, offset={}, length={}."
+              .format(match_result.block_item_id, match_result.blocklist_name, match_result.block_item_text, match_result.offset, match_result.length))
+```
 
 ### Custom list operations
 
