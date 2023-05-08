@@ -143,40 +143,39 @@ Create a new Python script and open it in your preferred editor or IDE. Then add
 import os
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.core.credentials import AzureKeyCredential
-from azure.ai.contentsafety.models import *
+from azure.ai.contentsafety.models import AnalyzeTextOptions, TextCategory
 
 
-class AnalyzeText(object):
-    def analyze_text(self):
-        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
-        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
-        TEXT_DATA_PATH = os.path.join("sample_data", "text.txt")
+def analyze_text():
+    key = "[Your endpoint]"
+    endpoint = "[Your subscription key]"
 
-        # Create an Content Safety client
-        client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+    # Create an Content Safety client
+    client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
 
-        # Read sample data
-        with open(TEXT_DATA_PATH) as f:
-            text = f.readline()
+    # Build request
+    request = AnalyzeTextOptions(text="[Your input text]")
 
-        # Build request
-        request = AnalyzeTextOptions(text=text, categories=[TextCategory.HATE, TextCategory.SELF_HARM])
+    # Analyze text
+    try:
+        response = client.analyze_text(request)
+    except Exception as e:
+        print("Error code: {}".format(e.error.code))
+        print("Error message: {}".format(e.error.message))
+        return
 
-        # Analyze text
-        try:
-            response = client.analyze_text(request)
-        except Exception as e:
-            print("Error code: {}".format(e.error.code))
-            print("Error message: {}".format(e.error.message))
-            return
-
-        print(response.hate_result)
-        print(response.self_harm_result)
+    if response.hate_result is not None:
+        print("Hate severity: {}".format(response.hate_result.severity))
+    if response.self_harm_result is not None:
+        print("SelfHarm severity: {}".format(response.self_harm_result.severity))
+    if response.sexual_result is not None:
+        print("Sexual severity: {}".format(response.self_harm_result.severity))
+    if response.violence_result is not None:
+        print("Violence severity: {}".format(response.self_harm_result.severity))
 
 
 if __name__ == "__main__":
-    sample = AnalyzeText()
-    sample.analyze_text()
+    analyze_text()
 ```
 
 
@@ -184,6 +183,49 @@ if __name__ == "__main__":
 #### .Net SDK
 
 The following is a sample request with .Net.
+  
+```csharp
+string endpoint = "[Your endpoint]";
+string key = "[Your subscription key]";
+
+ContentSafetyClient client = new ContentSafetyClient(new Uri(endpoint), new AzureKeyCredential(key));
+
+var request = new AnalyzeTextOptions("[Your input text]");
+
+Response<AnalyzeTextResult> response;
+try
+{
+    response = client.AnalyzeText(request);
+}
+catch (RequestFailedException ex)
+{
+    Console.WriteLine(String.Format("Analyze text failed: {0}", ex.Message));
+    throw;
+}
+catch (Exception ex)
+{
+    Console.WriteLine(String.Format("Analyze text error: {0}", ex.Message));
+    throw;
+}
+
+if (response.Value.HateResult != null)
+{
+    Console.WriteLine(String.Format("Hate severity: {0}", response.Value.HateResult.Severity));
+}
+if (response.Value.SelfHarmResult != null)
+{
+    Console.WriteLine(String.Format("SelfHarm severity: {0}", response.Value.SelfHarmResult.Severity));
+}
+if (response.Value.SexualResult != null)
+{
+    Console.WriteLine(String.Format("Sexual severity: {0}", response.Value.SexualResult.Severity));
+}
+if (response.Value.ViolenceResult != null)
+{
+    Console.WriteLine(String.Format("Violence severity: {0}", response.Value.ViolenceResult.Severity));
+}
+#endregion
+```
 
 ### Interpret Text API response
 
