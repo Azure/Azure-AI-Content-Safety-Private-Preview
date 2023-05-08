@@ -358,55 +358,45 @@ Create a new Python script and open it in your preferred editor or IDE. Then add
 import os
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.core.credentials import AzureKeyCredential
-from azure.ai.contentsafety.models import *
+from azure.ai.contentsafety.models import TextBlocklist
 from azure.core.exceptions import HttpResponseError
-import time
 
+endpoint = "[Your endpoint]"
+key = "[Your key]"
+  
+# Create an Content Safety client
+client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
 
-class ManageBlocklist(object):
-    def __init__(self):
-        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
-        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
-
-        # Create an Content Safety client
-        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
-
-    def create_or_update_text_blocklist(self, name, description):
-        try:
-            return self.client.create_or_update_text_blocklist(
-                blocklist_name=name, resource=TextBlocklist(description=description)
-            )
-        except HttpResponseError as e:
-            print("Create or update text blocklist failed. ")
-            print("Error code: {}".format(e.error.code))
-            print("Error message: {}".format(e.error.message))
-            return None
-        except Exception as e:
-            print(e)
-            return None
+def create_or_update_text_blocklist(name, description):
+    try:
+        return client.create_or_update_text_blocklist(
+            blocklist_name=name, resource=TextBlocklist(description=description)
+        )
+    except HttpResponseError as e:
+        print("Create or update text blocklist failed. ")
+        print("Error code: {}".format(e.error.code))
+        print("Error message: {}".format(e.error.message))
+        return None
+    except Exception as e:
+        print(e)
+        return None
 
 
 if __name__ == "__main__":
-    sample = ManageBlocklist()
-
-    blocklist_name = "Test Blocklist"
+    blocklist_name = "TestBlocklist"
     blocklist_description = "Test blocklist management."
 
-
     # create blocklist
-    sample.create_or_update_text_blocklist(name=blocklist_name, description=blocklist_description)
-    result = sample.get_text_blocklist(blocklist_name)
+    result = create_or_update_text_blocklist(name=blocklist_name, description=blocklist_description)
     if result is not None:
         print("Blocklist created: {}".format(result))
-
-    block_item_text_1 = "k*ll"
-    block_item_text_2 = "h*te"
-    input_text = "I h*te you and I want to k*ll you."
 ```
 
-
-
-
+#### .Net SDK
+  
+```charp
+  
+```
 
 ### Add a blockitem
 
