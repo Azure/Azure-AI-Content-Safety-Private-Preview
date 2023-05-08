@@ -147,8 +147,8 @@ from azure.ai.contentsafety.models import AnalyzeTextOptions, TextCategory
 
 
 def analyze_text():
-    key = "[Your endpoint]"
-    endpoint = "[Your subscription key]"
+    endpoing = "[Your endpoint]"
+    key = "[Your subscription key]"
 
     # Create an Content Safety client
     client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
@@ -1189,36 +1189,44 @@ Create a new Python script and open it in your preferred editor or IDE. Then add
 import os
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.core.credentials import AzureKeyCredential
-from azure.ai.contentsafety.models import *
+from azure.ai.contentimport os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import AnalyzeImageOptions, ImageData
 
+def analyze_image():
+    endpoint = "Your endpoint"
+    key = "Your subscription key"
+    image_path = os.path.join("sample_data", "image.jpg")
 
-class AnalyzeImage(object):
-    def analyze_image(self):
-        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
-        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
-        IMAGE_DATA_PATH = os.path.join("sample_data", "image.jpg")
+    # Create an Content Safety client
+    client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
 
-        # Create an Content Safety client
-        client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+    # Build request
+    with open(image_path, "rb") as file:
+        my_file = file.read()
 
-        # Build request
-        with open(IMAGE_DATA_PATH, "rb") as file:
-            request = AnalyzeImageOptions(image=ImageData(content=file.read()))
+    # Analyze image
+    try:
+        response = client.analyze_image(AnalyzeImageOptions(image=ImageData(content=my_file)))
+    except Exception as e:
+        print("Error code: {}".format(e.error.code))
+        print("Error message: {}".format(e.error.message))
+        return
 
-        # Analyze image
-        try:
-            response = client.analyze_image(request)
-        except Exception as e:
-            print("Error code: {}".format(e.error.code))
-            print("Error message: {}".format(e.error.message))
-            return
+    if response.hate_result is not None:
+        print("Hate severity: {}".format(response.hate_result.severity))
+    if response.self_harm_result is not None:
+        print("SelfHarm severity: {}".format(response.self_harm_result.severity))
+    if response.sexual_result is not None:
+        print("Sexual severity: {}".format(response.sexual_result.severity))
+    if response.violence_result is not None:
+        print("Violence severity: {}".format(response.violence_result.severity))
 
-        print(response)
 
 
 if __name__ == "__main__":
-    sample = AnalyzeImage()
-    sample.analyze_image()
+    analyze_image()
 ```
 
 
@@ -1226,13 +1234,52 @@ if __name__ == "__main__":
 #### .Net SDK
 
 The following is a sample request with .Net. 
+  
+```csharp
+string endpoint = "[Your endpoint]";
+string key = "[Your subscription key]";
 
-```json
+ContentSafetyClient client = new ContentSafetyClient(new Uri(endpoint), new AzureKeyCredential(key));
 
-```
+string datapath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Samples", "sample_data", "image.jpg");
+byte[] b = File.ReadAllBytes(datapath);
+BinaryData binaryData = BinaryData.FromBytes(b);
+ImageData image = new ImageData() { Content = binaryData };
 
-```python
+var request = new AnalyzeImageOptions(image);
 
+Response<AnalyzeImageResult> response;
+try
+{
+    response = client.AnalyzeImage(request);
+}
+catch (RequestFailedException ex)
+{
+    Console.WriteLine(String.Format("Analyze image failed: {0}", ex.Message));
+    throw;
+}
+catch (Exception ex)
+{
+    Console.WriteLine(String.Format("Analyze image error: {0}", ex.Message));
+    throw;
+}
+
+if (response.Value.HateResult != null)
+{
+    Console.WriteLine(String.Format("Hate severity: {0}", response.Value.HateResult.Severity));
+}
+if (response.Value.SelfHarmResult != null)
+{
+    Console.WriteLine(String.Format("SelfHarm severity: {0}", response.Value.SelfHarmResult.Severity));
+}
+if (response.Value.SexualResult != null)
+{
+    Console.WriteLine(String.Format("Sexual severity: {0}", response.Value.SexualResult.Severity));
+}
+if (response.Value.ViolenceResult != null)
+{
+    Console.WriteLine(String.Format("Violence severity: {0}", response.Value.ViolenceResult.Severity));
+}
 ```
 
 ### Understand Image API response
