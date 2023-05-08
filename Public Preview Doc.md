@@ -1189,14 +1189,11 @@ Create a new Python script and open it in your preferred editor or IDE. Then add
 import os
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.core.credentials import AzureKeyCredential
-from azure.ai.contentimport os
-from azure.ai.contentsafety import ContentSafetyClient
-from azure.core.credentials import AzureKeyCredential
 from azure.ai.contentsafety.models import AnalyzeImageOptions, ImageData
 
 def analyze_image():
-    endpoint = "Your endpoint"
-    key = "Your subscription key"
+    endpoint = "[Your endpoint]"
+    key = "[Your subscription key]"
     image_path = os.path.join("sample_data", "image.jpg")
 
     # Create an Content Safety client
