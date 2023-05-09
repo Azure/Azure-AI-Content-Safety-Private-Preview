@@ -141,9 +141,9 @@ System configuration influences system accuracy. Azure Content Safety detects ha
 | **Term**                                              | **Definition**                                               |
 | ----------------------------------------------------- | ------------------------------------------------------------ |
 | Severity levels                                       | The higher the severity of  input content, the larger this value is. The values are: 0, 2, 4, or 6. |
-| Match Severity Levels (Only  Studio has this feature) | Match severity is a  configurable value that determines the match severity level required to be  considered a positive match. If the match severity level is set to 0, then  the system will accept any match severity levels and the false positive rate  will be high; if the match severity level is set to 6, then it will only  accept inputs with a 6 (100%) match severity level and the false negative rate  will be high. Studio has a default match severity level that you can change  to suit your application. |
+| Match Severity Levels (Only  Studio has this feature) | Match severity is a  configurable value that determines the match severity level required to be considered a positive match. If the match severity level is set to 0, then  the system will accept any match severity levels; if the match severity level is set to 6, then it will only  accept inputs with a 6 (100%) match severity level. Studio has a default match severity level that you can change to suit your application. |
 
-Adjust the match severity levels for your particular use case and validate your results by testing with your data. With your evaluation results, you can adjust the match severity levels for your specific use case (Only Azure Content Safety Studio has this feature). For example, games  for children typically have higher content safety requirements than games available for adults only. For children’s games, you might set the match severity level higher than the default match severity level to reduce false negatives. In contrast, for adults the match severity level could be lower than the default to reduce the false positives. Based on each evaluation result, you can iteratively adjust the match severity level until the trade-off between false positives and false negatives matches the needs in your use case.
+Adjust the match severity levels for your particular use case and validate your results by testing with your data. With your evaluation results, you can adjust the match severity levels for your specific use case (Only Azure Content Safety Studio has this feature). For example, games  for children typically have higher content safety requirements than games available for adults only. For children’s games, you might set the match severity level lower than the default match severity level to reduce false negatives. In contrast, for adults the match severity level could be higher than the default to reduce the false positives. Based on each evaluation result, you can iteratively adjust the match severity level until the trade-off between false positives and false negatives matches the needs in your use case.
 
 **Best practices to improve accuracy**
 
@@ -165,14 +165,7 @@ We recommend using Azure Content Safety to support people making accurate and ef
 
 For example, in gaming scenarios, legitimate content can be rejected due to having a false positive. In this case, a human reviewer can intervene and help the customer verify the results.
 
- 
-
- 
-
 ## Best practices for improving system performance 
-
-
-
 Do:
 
 ·    Monitor the system's performance regularly to ensure that the tradeoff is appropriate for your use case.
@@ -225,8 +218,6 @@ Before a large-scale deployment or rollout of any Azure Content Safety, system o
 
 ·    **Establish feedback channels for users and affected groups.**  AI-powered products and features require ongoing monitoring and improvement. Establish channels to collect questions and concerns from users as well as from people who are affected by the system. For example, build feedback features into the user experience. Invite feedback on the usefulness and accuracy of outputs, and give users a separate and clear path to report outputs that are problematic, offensive, biased, or otherwise inappropriate.
 
- 
-
 # Learn more about responsible AI
 
 [Microsoft AI principles](https://www.microsoft.com/en-us/ai/responsible-ai)
@@ -247,84 +238,8 @@ Give us feedback on this document <document author: link to an appropriate feedb
 
 © <year> Microsoft Corporation. All rights reserved. This document is provided "as-is" and for informational purposes only. Information and views expressed in this document, including URL and other Internet Web site references, may change without notice. You bear the risk of using it. Some examples are for illustration only and are fictitious. No real association is intended or inferred.
 
-Published: 04/04/2023
+Published: 05/05/2023
 
-Last updated: 04/04/2023
+Last updated: 05/05/2023
 
-
-
-
-# 2. Code of conduct for Azure Content Safety Service
-
-The following Code of Conduct defines the requirements that all Azure Content Safety implementations must adhere to in good faith. This code of conduct is in addition to the Acceptable Use Policy in the [Microsoft Online Services Terms](https://www.microsoft.com/licensing/product-licensing/products).
-
-
-
-## Responsible AI mitigation requirements
-
-Integrations with Azure Content Safety must:
-
-- Implement meaningful human oversight
-- Implement strong technical limits on inputs and outputs to reduce the likelihood of misuse beyond the application's intended purpose
-- Test applications thoroughly to find and mitigate undesirable behaviors
-- Establish feedback channels
-- Implement additional scenario-specific mitigations
-
-To learn more, see the [Azure Content Safety transparency note](https://learn.microsoft.com/en-us/legal/cognitive-services/Azure Content Safety/transparency-note?context=/azure/cognitive-services/Azure Content Safety/context/context).
-
-
-
-## Integrations with Azure Content Safety must not:
-
-- be used in any way that violates Microsoft’s [Acceptable Use Policy](https://www.microsoft.com/licensing/terms/product/ForOnlineServices/all), including but not limited to any use prohibited by law, regulation, government order, or decree, or any use that violates the rights of others;
-- be used in any way that is inconsistent with this code of conduct, including the Limited Access requirements, the Responsible AI mitigation requirements, and the Content requirements;
-- exceed the use case(s) you identified to Microsoft in connection with your request to use the service;
-- interact with individuals under the age of consent in any way that could result in exploitation or manipulation or is otherwise prohibited by law or regulation;
-- generate or interact with content prohibited in this Code of Conduct;
-- be presented alongside or monetize content prohibited in this Code of Conduct;
-- make decisions without appropriate human oversight if your application may have a consequential impact on any individual’s legal position, financial position, life opportunities, employment opportunities, human rights, or result in physical or psychological injury to an individual;
-- infer sensitive information about people without their explicit consent unless if used in a lawful manner by a law enforcement entity, court, or government official subject to judicial oversight in a jurisdiction that maintains a fair and independent judiciary; or
-- be used for chatbots that **(i)** are erotic, romantic, or used for companionship purposes, or which are otherwise prohibited by this Code of Conduct; **(ii)** are personas of specific people without their explicit consent; **(iii)** claim to have special wisdom/insight/knowledge, unless very clearly labeled as being for entertainment purposes only; or **(iv)** enable end users to create their own chatbots without oversight.
-
-
-
-## Report abuse
-
-If you suspect that Azure Content Safety is being used in a manner that is abusive or illegal, infringes on your rights or the rights of other people, or violates these policies, you can report it with this [email](acm-team@microsoft.com).
-
-
-
-## Report problematic content
-
-If Azure Content Safety outputs problematic content that you believe should have been filtered, report it with this [email](acm-team@microsoft.com).
-
-
-
-
-
-# 3. Data, privacy, and security for Azure Content Safety
-
-This article provides details regarding how data provided by you to the Azure Content Safety is processed, used, and stored. Azure Content Safety stores and processes data to provide the service and to monitor for uses that violate the applicable product terms. Please also see the [Microsoft Products and Services Data Protection Addendum](https://aka.ms/DPA), which governs data processing by the Azure Content Safety except as otherwise provided in the applicable [Product Terms](https://www.microsoft.com/licensing/terms/productoffering/MicrosoftAzure/MCA#ServiceSpecificTerms).
-
-Azure Content Safety was designed with compliance, privacy, and security in mind; however, the customer is responsible for its use and the implementation of this technology.
-
-
-
-## How is data retained and what Customer controls are available?
-
-The Azure Content Safety works to filter potentially harmful content. This system works by running the input through an ensemble of classification models . Once a customer's Azure Content Safety resource was created, the customer can submit texts and images to the model through the REST API, client libraries, or the Azure Content Safety Studio; the model generates outputs that are returned through the API.
-
-Apart from blockitems, no input texts or images are stored in the model during these process, and user inputs are not used to train, retrain or improve the models.
-
-- **Blocklist data**. The Blocklist API allows customers to upload their blockitems for the purpose of having a complimentary of the Azure Content Safety model. **This data is stored in Azure Storage, encrypted at rest by Microsoft Managed keys, within the same region as the resource and logically isolated with their Azure subscription and API Credentials**. Uploaded items can be deleted by the user via the DELETE API operation.
-
-To learn more about Microsoft's privacy and security commitments visit the [Microsoft Trust Center](https://www.microsoft.com/TrustCenter/CloudServices/Azure/default.aspx).
-
-### Is customer data processed by Azure Content Safety sent to Azure other service?
-
-No. Microsoft hosts the Azure Content Safety models within our Azure infrastructure, and all customer data sent to Azure Content Safety remains within the Azure Content Safety.
-
-### Is customer data used to train the Azure Content Safety models?
-
-No. We do not use customer data to train, retrain or improve the models in the Azure Content Safety.
 
