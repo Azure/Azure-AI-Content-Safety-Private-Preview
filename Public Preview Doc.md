@@ -845,7 +845,38 @@ python -m pip install azure-ai-contentsafety
 Create a new Python script and open it in your preferred editor or IDE. 
 
 ```python
+import os
+from azure.ai.contentsafety import ContentSafetyClient
+from azure.core.credentials import AzureKeyCredential
+from azure.ai.contentsafety.models import TextBlocklist
+from azure.core.exceptions import HttpResponseError
 
+
+key = os.environ["CONTENT_SAFETY_KEY"]
+endpoint = os.environ["CONTENT_SAFETY_ENDPOINT"]
+
+# Create an Content Safety client
+client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
+
+def get_text_blocklist(name):
+    try:
+        return client.get_text_blocklist(blocklist_name=name)
+    except HttpResponseError as e:
+        print("Get text blocklist failed.")
+        print("Error code: {}".format(e.error.code))
+        print("Error message: {}".format(e.error.message))
+        return None
+    except Exception as e:
+        print(e)
+        return None
+
+if __name__ == "__main__":
+    blocklist_name = "TestBlocklist"
+
+    # get blocklist
+    result = get_text_blocklist(blocklist_name)
+    if result is not None:
+        print("Get blocklist: {}".format(result))
 ```
 
 
