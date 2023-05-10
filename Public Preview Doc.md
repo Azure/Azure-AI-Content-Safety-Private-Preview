@@ -1040,51 +1040,37 @@ python -m pip install azure-ai-contentsafety
 import os
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.core.credentials import AzureKeyCredential
-from azure.ai.contentsafety.models import *
+from azure.ai.contentsafety.models import RemoveBlockItemsOptions
 from azure.core.exceptions import HttpResponseError
-import time
 
 
-class ManageBlocklist(object):
-    def __init__(self):
-        CONTENT_SAFETY_KEY = os.environ["CONTENT_SAFETY_KEY"]
-        CONTENT_SAFETY_ENDPOINT = os.environ["CONTENT_SAFETY_ENDPOINT"]
+key = os.environ["CONTENT_SAFETY_KEY"]
+endpoint = os.environ["CONTENT_SAFETY_ENDPOINT"]
 
-        # Create an Content Safety client
-        self.client = ContentSafetyClient(CONTENT_SAFETY_ENDPOINT, AzureKeyCredential(CONTENT_SAFETY_KEY))
+# Create an Content Safety client
+client = ContentSafetyClient(endpoint, AzureKeyCredential(key))
 
-   
-
-    def remove_block_items(self, name, items):
-        request = RemoveBlockItemsOptions(block_item_ids=[i.block_item_id for i in items])
-        try:
-            self.client.remove_block_items(blocklist_name=name, body=request)
-            return True
-        except HttpResponseError as e:
-            print("Remove block items failed.")
-            print("Error code: {}".format(e.error.code))
-            print("Error message: {}".format(e.error.message))
-            return False
-        except Exception as e:
-            print(e)
-            return False
-
-   
+def remove_block_items(name, ids):
+    request = RemoveBlockItemsOptions(block_item_ids=ids)
+    try:
+        client.remove_block_items(blocklist_name=name, body=request)
+        return True
+    except HttpResponseError as e:
+        print("Remove block items failed.")
+        print("Error code: {}".format(e.error.code))
+        print("Error message: {}".format(e.error.message))
+        return False
+    except Exception as e:
+        print(e)
+        return False
 
 if __name__ == "__main__":
-    sample = ManageBlocklist()
+    blocklist_name = "TestBlocklist"
+    remove_id = "b36ad614-8476-4e31-bd9c-2cf51802341d"
 
-    blocklist_name = "Test Blocklist"
-    blocklist_description = "Test blocklist management."
-
-    
     # remove one blocklist item
-    if sample.remove_block_items(name=blocklist_name, items=[result[0]]):
-        print("Block item removed: {}".format(result[0]))
-
-    result = sample.list_block_items(name=blocklist_name)
-    if result is not None:
-        print("Remaining block items: {}".format(result))
+    if remove_block_items(name=blocklist_name, ids=[remove_id]):
+        print("Block item removed: {}".format(remove_id))
 
    
 ```
