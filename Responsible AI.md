@@ -226,13 +226,6 @@ Before a large-scale deployment or rollout of any Azure Content Safety, system o
 
 [Microsoft Azure Learning courses on responsible AI](https://docs.microsoft.com/en-us/learn/paths/responsible-ai-business-principles/)
 
-# Learn more about Azure Content Safety
-
-<Insert links here to relevant resources for learning more about the product or feature including contracts (OST/trust center), marketing materials, and technical documentation.>
-
-# Contact us
-
-Give us feedback on this document <document author: link to an appropriate feedback channel such as an alias with several team or division members or a help email for the product or feature>
 
 # About this document
 
