@@ -12,6 +12,10 @@ Azure Content Safety is part of Azure Cognitive Services. Cognitive Services dat
 
 
 
+Important Notes
+
+For blocklist name, only MMK encryption is applied by default. Using CMK or not will not change this behavior. All the other data will use either MMK or CMK you selected.
+
 ## About encryption key management
 
 By default, your subscription uses Microsoft-managed encryption keys. There's also the option to manage your subscription with your own keys called customer-managed keys (CMK). CMK offers greater flexibility to create, rotate, disable, and revoke access controls. You can also audit the encryption keys used to protect your data.
@@ -124,28 +128,7 @@ Rotating the key doesn't trigger re-encryption of data in the resource. No furth
 
 ## Revoke a customer-managed key
 
-You can revoke a customer-managed encryption key by changing the access policy, by changing the permissions on the key vault, or by deleting the key.
-
-To change the access policy of the managed identity that your registry uses, run the [az-keyvault-delete-policy](https://learn.microsoft.com/en-us/cli/azure/keyvault#az-keyvault-delete-policy) command:
-
-Azure CLICopy
-
-```azurecli
-az keyvault delete-policy \
-  --resource-group <resource-group-name> \
-  --name <key-vault-name> \
-  --key_id <key-vault-key-id>
-```
-
-To delete the individual versions of a key, run the [az-keyvault-key-delete](https://learn.microsoft.com/en-us/cli/azure/keyvault/key#az-keyvault-key-delete) command. This operation requires the *keys/delete* permission.
-
-Azure CLICopy
-
-```azurecli
-az keyvault key delete  \
-  --name <key-vault-name> \
-  --object-id $identityPrincipalID \                     
-```
+To revoke access to customer-managed keys, use PowerShell or Azure CLI. For more information, see [Azure Key Vault PowerShell](https://learn.microsoft.com/en-us/powershell/module/az.keyvault//) or [Azure Key Vault CLI](https://learn.microsoft.com/en-us/cli/azure/keyvault). Revoking access effectively blocks access to all data in the Cognitive Services resource, because the encryption key is inaccessible by Cognitive Services.
 
 
 
@@ -158,11 +141,13 @@ When you disable customer-managed keys, your Cognitive Services resource is then
 
 When you previously enabled customer managed keys this also enabled a system assigned managed identity, a feature of Azure AD. Once the system assigned managed identity is enabled, this resource will be registered with Azure Active Directory. After being registered, the managed identity will be given access to the Key Vault selected during customer managed key setup. You can learn more about [Managed Identities](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
 
- Important
+Important Notes
 
 If you disable system assigned managed identities, access to the key vault will be removed and any data encrypted with the customer keys will no longer be accessible. Any features depended on this data will stop working.
 
- Important
+Important Notes
 
 Managed identities do not currently support cross-directory scenarios. When you configure customer-managed keys in the Azure portal, a managed identity is automatically assigned under the covers. If you subsequently move the subscription, resource group, or resource from one Azure AD directory to another, the managed identity associated with the resource is not transferred to the new tenant, so customer-managed keys may no longer work. For more information, see **Transferring a subscription between Azure AD directories** in [FAQs and known issues with managed identities for Azure resources](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/known-issues#transferring-a-subscription-between-azure-ad-directories).
+
+
 

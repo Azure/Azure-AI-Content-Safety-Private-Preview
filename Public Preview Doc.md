@@ -100,7 +100,7 @@ cURL --location '<Endpoint>contentsafety/text:analyze?api-version=2023-04-30-pre
 --data '{
   "text": "You are an idiot.",
   "categories": ["Hate","SelfHarm", "Sexual", "Violence"],
-  "blocklistNames": [],
+  "blocklistNames": ["array"],
   "breakByBlocklists": False
 }'
 ```
@@ -108,17 +108,17 @@ cURL --location '<Endpoint>contentsafety/text:analyze?api-version=2023-04-30-pre
 
 The below fields must be included in the url:
 
-| Name            | Description                                                  | Type   |
-| :-------------- | :----------------------------------------------------------- | ------ |
-| **API Version** | (Required) This is the API version to be checked. Current version is: api-version=2023-04-30-preview. Example: <Endpoint>/contentsafety/text:analyze?api-version=2023-04-30-preview | String |
+| Name            | Type     | Description                                                  | Type   |
+| :-------------- | -------- | :----------------------------------------------------------- | ------ |
+| **API Version** | Required | This is the API version to be checked. Current version is: api-version=2023-04-30-preview. Example: <Endpoint>/contentsafety/text:analyze?api-version=2023-04-30-preview | String |
 
 The parameter in the request body are defined in this table:
 | Name                  | Type     | Description                                                  | Type    |
 | :-------------------- | -------- | :----------------------------------------------------------- | ------- |
 | **text**              | Required | This is the raw text to be checked. Other non-ascii characters can be included. | String  |
 | **categories**        | Optional | This is assumed to be an array of category names. See the **Concepts** section for a list of available category names. If no categories are specified, all four categories are used. We will use multiple categories to get scores in a single request. | String  |
-| **blocklistNames**    | Required | Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~. You could attach multiple lists name here. | Array   |
-| **breakByBlocklists** | Required | When set to `true`, further analyses of harmful content will not be performed in cases where blocklists are hit. When set to `false`, all analyses of harmful content will be performed, whether or not blocklists are hit. | Boolean |
+| **blocklistNames**    | Optional | Text blocklist Name. Only support following characters: 0-9 A-Z a-z - . _ ~. You could attach multiple lists name here. | Array   |
+| **breakByBlocklists** | Optional | When set to `true`, further analyses of harmful content will not be performed in cases where blocklists are hit. When set to `false`, all analyses of harmful content will be performed, whether or not blocklists are hit. | Boolean |
 
 > **NOTE: Text size and granularity**
 >
@@ -410,7 +410,7 @@ if __name__ == "__main__":
 1. Use method **POST**.
 2. The relative path should be "/text/blocklists/{blocklistName}:addBlockItems?api-version=2023-04-30-preview".
 3. In the url path  parameter, enter the **blocklistName** that you want to add (in our example, **1234**). 
-4. In the description parameter, enter the description (in our example: this is a sample item ), the maximum length of dscritpion is 1024 characters. 
+4. In the description parameter, enter the description (in our example: this is a sample item ), the maximum length of descritpion is 1024 characters. 
 5. In the text parameter, enter the blockterm (in our example: idiot ), we support **array of blockItems** to add, the maximum length of blockitem is 128 characters. 
 6. Substitute `<Endpoint>` with your endpoint.
 7. Paste your subscription key into the `Ocp-Apim-Subscription-Key` field.
@@ -744,8 +744,6 @@ python -m pip install azure-ai-contentsafety
 ```
 
 ##### Create a new Python application
-
-
 
 ```python
 import os
