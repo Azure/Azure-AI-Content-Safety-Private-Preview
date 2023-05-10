@@ -10,8 +10,6 @@ Azure Content Safety automatically encrypts your data when it's persisted to the
 
 Azure Content Safety is part of Azure Cognitive Services. Cognitive Services data is encrypted and decrypted using [FIPS 140-2](https://en.wikipedia.org/wiki/FIPS_140-2) compliant [256-bit AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) encryption. Encryption and decryption are transparent, meaning encryption and access are managed for you. Your data is secure by default and you don't need to modify your code or applications to take advantage of encryption.
 
-
-
 Important Notes
 
 For blocklist name, only MMK encryption is applied by default. Using CMK or not will not change this behavior. All the other data will use either MMK or CMK you selected.
