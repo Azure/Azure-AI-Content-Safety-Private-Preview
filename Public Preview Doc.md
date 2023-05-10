@@ -165,11 +165,7 @@ The JSON fields in the output are defined in the following table:
 >
 > Currently, we only use levels 0, 2, 4, and 6. In the future, we may be able to extend the severity levels to 0, 1, 2, 3, 4, 5, 6, 7: seven levels with finer granularity.
 
-
-
-
-
-#### Python SDK  @meng ai @patrick
+#### Python SDK  
 
 ##### Install the client library
 
