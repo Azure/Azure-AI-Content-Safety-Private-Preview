@@ -30,11 +30,9 @@ This documentation site is structured into following sections.
 
 - ### Type of analysis
 
-There are different types of analysis available in our project. The following table describes **the currently available API**.
-
 | API             | Functionality                                                |
 | :-------------- | :----------------------------------------------------------- |
-| Multimodal Detection | Scans both text and image for hate speech. |
+| Multimodal Detection | Scans both text and image harmful content for hate speech. |
 
 - ### Language availability
 
@@ -98,10 +96,10 @@ curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-
 
 | Name           | Description                                                  | Type   |
 | :------------- | :----------------------------------------------------------- | ------ |
-| **Content**    | (Required) Encode your image to base64. You can use a website like codebeautify to do the encoding. Then save the encoded string to a temporary location. | String |
-| **Text**       | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. | String |
+| **Content**    | (Required) Encode your image to base64. You can use a website like codebeautify to do the encoding. Then save the encoded string to a temporary location.Image File Formats: bmp, jpeg, png, gif, tiff, webp, If your format is animated, we will extract the first frame to do the detection. Image Size: The file size for analyzing documents must be less than 4 MB. Image dimensions: must be between 50 x 50 pixels and 2048x 2048 pixels.| String |
+| **Text**       | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. Text length: 1000 unicode characters (256 tokens) per API call.  | String |
 | **enableOcr**  | (Required) We allow the user to set enable OCR=false when only image is provided, in this case, the model will process the image input and concatenate into the text filed, if the total characters exceed 1000 characters, we will truncate those characters >=1000.. | String |
-| **Categories** | (Optional) This is assumed to be multiple categories' name. See the **Concepts** part for a list of available categories names. If no category are specified, defaults are used, we will use multiple categories to get scores in a single request. | String |
+| **Categories** | (Optional) This is assumed to be the category name. See the **Concepts** part for more details. If no category are specified, defaults are used. | String |
 
 
 
@@ -125,20 +123,40 @@ curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-
 
 
  ##  📝 Other Sample Code 
+- #### Python
 
+Here is a sample request with Python. 
+
+```Python
+import http.client
+import json
+
+conn = http.client.HTTPSConnection("<Endpoint>")
+payload = "{\r\n  \"image\": {\r\n      \"content\": \r\n     },\r\n  \"categories\": [\"Hate\"],\r\n  \"enableOcr\": true,\r\n  \"text\": \"I want to kill you\"\r\n}"
+headers = {
+  'Ocp-Apim-Subscription-Key': '<your_subscription_key>',
+  'Content-Type': 'application/json'
+}
+conn.request("POST", "//contentsafety/imageWithText:analyze?api-version=2023-05-30-preview", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
 
 - #### C#
 
 Here is a sample request with C#. 
 
 ```c#
-var client = new RestClient("https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview");
-var request = new RestRequest(Method.POST);
-request.AddHeader("accept", "application/json");
-request.AddHeader("content-type", "application/json");
-request.AddHeader("Ocp-Apim-Subscription-Key", "Please type your key here");
-request.AddParameter("application/json", "{\"text\":\"You are an idiot.\"}", ParameterType.RequestBody);
-IRestResponse response = client.Execute(request);
+var client = new HttpClient();
+var request = new HttpRequestMessage(HttpMethod.Post, "<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-05-30-preview");
+request.Headers.Add("Ocp-Apim-Subscription-Key", "<your_subscription_key>");
+var content = new StringContent("{\r\n  \"image\": {\r\n      \"content\": \r\n     },\r\n  \"categories\": [\"Hate\"],\r\n  \"enableOcr\": true,\r\n  \"text\": \"I want to kill you\"\r\n}", null, "application/json");
+request.Content = content;
+var response = await client.SendAsync(request);
+response.EnsureSuccessStatusCode();
+Console.WriteLine(await response.Content.ReadAsStringAsync());
+
 ```
 
 - #### Java
@@ -146,18 +164,16 @@ IRestResponse response = client.Execute(request);
 Here is a sample request with Java. 
 
 ```java
-OkHttpClient client = new OkHttpClient();
-
-MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\"text\":\"You are an idiot.\"}");
-Request request = new Request.Builder()
-  .url("https://[Endpoint]contentmoderator/moderate/text/detect?api-version=2022-09-30-preview")
-  .post(body)
-  .addHeader("accept", "application/json")
-  .addHeader("content-type", "application/json")
-  .addHeader("Ocp-Apim-Subscription-Key", "Please type your key here")
+OkHttpClient client = new OkHttpClient().newBuilder()
   .build();
-
+MediaType mediaType = MediaType.parse("application/json");
+RequestBody body = RequestBody.create(mediaType, "{\r\n  \"image\": {\r\n      \"content\": \r\n     },\r\n  \"categories\": [\"Hate\"],\r\n  \"enableOcr\": true,\r\n  \"text\": \"I want to kill you\"\r\n}");
+Request request = new Request.Builder()
+  .url("<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-05-30-preview")
+  .method("POST", body)
+  .addHeader("Ocp-Apim-Subscription-Key", "<your_subscription_key>")
+  .addHeader("Content-Type", "application/json")
+  .build();
 Response response = client.newCall(request).execute();
 ```
 
@@ -165,7 +181,7 @@ Response response = client.newCall(request).execute();
 
 ##  📒 Key Reference 
 
-- [Content Safety Doc](https://aka.ms/acs-doc![image](https://github.com/Azure/Project-Carnegie-Private-Preview/assets/36343326/b2008fe1-171f-498a-a036-c471eb99fa06)
+- [Content Safety Doc](https://aka.ms/acs-doc)
 
 
 
