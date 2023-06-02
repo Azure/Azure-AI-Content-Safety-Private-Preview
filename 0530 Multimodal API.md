@@ -4,10 +4,6 @@
 
 The Multimodal Private Preview API detects certain material that contains both text and images, and helps make applications & services safer from harmful user-generated or AI-generated content.
 
-**The focus of the 05-30 Private Preview release is Multimodal capability.**
-
-
-
 ## ⚠️ Disclaimer
 
 The sample code could have offensive content, user discretion is advised.
@@ -44,7 +40,9 @@ Currently this API is only available in English. New languages will be supported
 
 ### Category
 
-- **Category:** **Hate Speech** - Hate speech is defined as any speech that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size.
+- **Category:** **Hate** - Hate harms refer to any content that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size. 
+
+  
 
 
 ## 💡 QuickStart - Multimodal Detection by using the API 
@@ -75,10 +73,39 @@ Before you can begin to test, you need to create an Azure AI Content Safety reso
 
 Now that you have a resource available in Azure for Content Safety and you have a subscription key for that resource, let's run some tests by using the Multimodal API.
 
+#### Prepare a sample image
+
+Choose a sample image to analyze, and download it to your device.
+
+We support JPEG, PNG, GIF, BMP, TIFF, or WEBP image formats. The maximum size for image submissions is 4 MB, and image dimensions must be between 50 x 50 pixels and 2,048 x 2,048 pixels. If your format is animated, we will extract the first frame to do the detection.
+
+You can input your image by one of two methods: **local filestream** or **blob storage URL**.
+
+- **Local filestream** (recommended): Encode your image to base64. You can use a website like [codebeautify](https://codebeautify.org/image-to-base64-converter) to do the encoding. Then save the encoded string to a temporary location.
+
+- **Blob storage URL**: Upload your image to an Azure Blob Storage account. Follow the [blob storage quickstart](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-portal) to learn how to do this. Then open Azure Storage Explorer and get the URL to your image. Save it to a temporary location.
+
+  Next, you need to give your Content Safety resource access to read from the Azure Storage resource. Enable system-assigned Managed identity for the Azure Content Safety instance and assign the role of **Storage Blob Data Contributor/Owner/Reader** to the identity:
+
+  1. Enable managed identity for the Azure Content Safety instance.
+
+     ![Screenshot of Azure portal enabling managed identity.](https://learn.microsoft.com/en-us/azure/cognitive-services/content-safety/media/role-assignment.png)
+
+  2. Assign the role of **Storage Blob Data Contributor/Owner/Reader** to the Managed identity. Any roles highlighted below should work.
+
+     ![Screenshot of the Add role assignment screen in Azure portal.](https://learn.microsoft.com/en-us/azure/cognitive-services/content-safety/media/add-role-assignment.png)
+
+     ![Screenshot of assigned roles in the Azure portal.](https://learn.microsoft.com/en-us/azure/cognitive-services/content-safety/media/assigned-roles.png)
+
+     ![Screenshot of the managed identity role.](https://learn.microsoft.com/en-us/azure/cognitive-services/content-safety/media/managed-identity-role.png)
+
+
+
 #### **Request Format Reference**
 
-1. Paste your subscription key into the **Ocp-Apim-Subscription-Key** box.
-2. Change the body of the request to whatever string of text you'd like to analyze.
+1. Substitute the `<endpoint>` with your resource endpoint URL.
+2. Replace `<your_subscription_key>` with your key.
+3. Populate the `"image"` field in the body with either a `"content"` field or a `"blobUrl"` field. For example: `{"image": {"content": "<base_64_string>"}` or `{"image": {"blobUrl": "<your_storage_url>"}`.
 
 ```
 curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-05-30-preview' \
@@ -87,6 +114,7 @@ curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-
 --data '{
   "image": {
       "content": "<image base 64 code>"
+      "blobUrl": "<bLObUrl>"
  },
   "categories": ["Hate"],
   "enableOcr": true,
@@ -94,12 +122,12 @@ curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-
 }'
 ```
 
-| Name           | Description                                                  | Type   |
-| :------------- | :----------------------------------------------------------- | ------ |
-| **Content**    | (Required) Encode your image to base64. You can use a website like codebeautify to do the encoding. Then save the encoded string to a temporary location.Image File Formats: bmp, jpeg, png, gif, tiff, webp, If your format is animated, we will extract the first frame to do the detection. Image Size: The file size for analyzing documents must be less than 4 MB. Image dimensions: must be between 50 x 50 pixels and 2048x 2048 pixels.| String |
-| **Text**       | (Required) This is assumed to be raw text to be checked. Other non-ascii characters can be included. Text length: 1000 unicode characters (256 tokens) per API call.  | String |
-| **enableOcr**  | (Required) We allow the user to set enable OCR=false when only image is provided, in this case, the model will process the image input and concatenate into the text filed, if the total characters exceed 1000 characters, we will truncate those characters >=1000.. | String |
-| **Categories** | (Optional) This is assumed to be the category name. See the **Concepts** part for more details. If no category are specified, defaults are used. | String |
+| Name                   | Description                                                  | Type    |
+| :--------------------- | :----------------------------------------------------------- | ------- |
+| **Content or BlobUrl** | (Optional) The content or blob url of image could be base64 encoding bytes or blob url. If both are given, the request will be refused. The maximum size of image is 2048 pixels * 2048 pixels, no larger than 4MB at the same time. The minimum size of image is 50 pixels * 50 pixels. | String  |
+| **Text**               | (Optional) The text attached to the image. We support at most 1000 characters (unicode code points) in one text request. | String  |
+| **enableOcr**          | (Required) When set to true, our service will perform OCR and analyze the detected text with input image at the same time. We will recognize at most 1000 characters (unicode code points) from input image. The others will be truncated. | Boolean |
+| **Categories**         | (Optional) The categories will be analyzed. Currently, only Hate is supported. | Enum    |
 
 
 
@@ -116,10 +144,10 @@ curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-
 ```
 
 
-| Name                    | Description                                              | Type    |
-| :---------------------- | :------------------------------------------------------- | ------- |
-| **Category**            | Each output class that the API predicts.                 | String  |
-| **Severity levels**     | The higher the severity of input content, the larger this value is. The values can be: 0,2,4,6.         | Boolean |
+| Name                | Description                                                  | Type    |
+| :------------------ | :----------------------------------------------------------- | ------- |
+| **Category**        | Each output class that the API predicts.                     | Enum    |
+| **Severity levels** | The higher the severity of input content, the larger this value is. The values can be: 0,2,4,6. | Integer |
 
 
  ##  📝 Other Sample Code 
