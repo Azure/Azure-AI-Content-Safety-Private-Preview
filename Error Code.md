@@ -1,4 +1,4 @@
-# Content Safety Error codes and response codes
+# Content Safety Error codes 
 
 The content APIs may return the following error codes:
 
@@ -10,3 +10,7 @@ The content APIs may return the following error codes:
 | InternalError       | Some unexpected situations in the server side have been triggered. | 1. You may want to retry a few times after a small period and see it the issue will happen again.  <br/>             2. Contact the Azure Support if this issue persists. |
 | ServerBusy          | The server side cannot process the request temporarily.      | 1. You may want to retry a few times after a small period and see it the issue will happen again.  <br/>2.Contact the Azure Support if this issue persists. |
 | TooManyRequests     | The current RPS has exceeded the quota for your current SKU. | 1. Check the pricing table to understand the RPS quota.   <br/>2.Contact the Azure Support if you need more QPS. |
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
