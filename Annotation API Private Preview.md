@@ -1,4 +1,4 @@
-#  Adaptive annotation API Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 
+# Adaptive annotation API Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview)
 
 With the extensive capabilities of natural language understanding, it's been proved that GPT-4 reaches human parity in understanding the harmful content policy/community guideline and performing harmful content annotation task that is adaptive to each customer's use case.  
 
@@ -8,14 +8,14 @@ Alongside the practice of enforcing content safety techniques in products/commun
 
 The sample code could have offensive content, user discretion is advised.
 
-##  📒 Overview 
+## 📒 Overview
 
 - **How It Works** contains instructions for using the service in more general ways.
 - **Concepts** provides in-depth explanations of the service categories.
 - **Sample Code** shows sample requests using the cURL, Python, C# and Java.
 - **QuickStart** goes over getting-started instructions to guide you through making requests to the service.
 
-##  🔎How It Works
+## 🔎How It Works
 
 - ### Type of analysis
 
@@ -29,25 +29,26 @@ The sample code could have offensive content, user discretion is advised.
 Currently, this API is only available in English. While users can try guidelines in other languages, we don't commit the output (like the languages of reasoning). We output the reasoning in the language of provided guidelines by default. New languages will be supported in the future.
 
 - ### Response label in output
+
 In private preview, we only support outputting a single label but not multiple labels. If you want to define the final label out of multiple, please note in the emphasis, like "If the text hits multiple labels, output the maximum label".
 
-##  🗃Concepts
+## 🗃Concepts
 
 ### Community guideline
+
 Community guidelines refer to a set of rules or standards that are established by an online community or social media platform to govern the behavior of its users. These guidelines are designed to ensure that all users are treated with respect, and that harmful or offensive content is not posted or shared. They may include rules around hate speech, harassment, nudity, violence, or other types of content that may be deemed inappropriate. Users who violate community guidelines may face consequences such as having their account suspended or banned.
 
-### Category 
+### Category
+
 a category refers to a specific type of prohibited content or behavior that is outlined in the guidelines. Categories may include things like hate speech, harassment, threats, nudity or sexually explicit content, violence, spam, or other forms of prohibited content. These categories are typically defined in broad terms to encompass a range of different behaviors and types of content that are considered to be problematic. By outlining specific categories of prohibited content, community guidelines provide users with a clear understanding of what is and is not allowed on the platform, and help to create a safer and more positive online community.
 
-
-## 💡 QuickStart - Adaptive annotation by using the API 
+## 💡 QuickStart - Adaptive annotation by using the API
 
 Before you can begin to test, you need to create an Azure AI Content Safety resource and get the subscription keys to access the resource.
 
-> ###  📘 NOTE:
+> ###  📘 NOTE
 >
 > The samples could contain offensive content, user discretion is advised!!
-
 
 ### Step 1. Whitelist your subscription ID
 
@@ -60,7 +61,7 @@ Before you can begin to test, you need to create an Azure AI Content Safety reso
 2. [Create Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, and your preferred region in one of the **East US, West Europe** and pricing tier. Select **Create**.
 3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Safety resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
 
-> ###  📘 NOTE:
+> ###  📘 NOTE
 >
 > Currently the private preview features are only available in two regions:  **East US, West Europe**. Please create your Content Safety resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 >
@@ -71,7 +72,7 @@ Now that you have a resource available in Azure for Content Safety and you have 
 
 #### Create a customized category according to specific community guideline
 
-The initial step is to convert your customized community guideline/ content policy to one or multiple customized categories in Azure AI Content Safety using the 'Customized categories' API. 
+The initial step is to convert your customized community guideline/ content policy to one or multiple customized categories in Azure AI Content Safety using the 'Customized categories' API.
 
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
@@ -82,6 +83,7 @@ The initial step is to convert your customized community guideline/ content poli
 | **ExampleBlobUrl**   | (Optional) The file should end with ".txt", the maximum file size is 1MB in priviate preview, where each line is an example in json format.  | string    |
 
 ##### Request payload reference
+
 ```
 {
   "categoryName": "Customized_AD0za6RSTFm5pqZzWD2aBrjYTckws",//required, category name should start with "Customized_", valid character set is "0-9A-Za-z._~-"
@@ -116,7 +118,7 @@ The initial step is to convert your customized community guideline/ content poli
 
 ##### Format requirement for examples in BlobURL
 
-The examples that are provided for each label in BlobURL need to follow below format requirements: 
+The examples that are provided for each label in BlobURL need to follow below format requirements:
 
 ```
 {
@@ -126,10 +128,75 @@ The examples that are provided for each label in BlobURL need to follow below fo
 }
 ```
 
+##### Sample Code
 
-#### Perform annotation on input text 
+- Curl
 
-After the customized category is created successfully, you can provide the text to be annotated according to the guideline of the newly created category. The input is very simple of 'text' and 'category'. 
+```
+curl --location --request PUT '<endpoint>/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: <api_key>' \
+--header 'Content-Type: application/json' \
+--data '{
+  "categoryName": "Customized_Test",
+  "labelDefinitions": [
+    {
+      "label": 0,
+      "enumerations": [
+        "all cases that do not fall into Label 1"
+      ]
+    },
+    {
+      "label": 1,
+      "enumerations": [
+        "Animal abuse and torture",
+        "Realistic or real-world depictions of extreme gore, graphic violence, or death"
+      ]
+    }
+  ]
+}'
+```
+
+- Python
+
+```
+import requests
+import json
+
+endpoint = "<endpoint>"
+url = endpoint+"/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview"
+
+headers = {
+  "Ocp-Apim-Subscription-Key": '<api_key>',
+  "Content-Type": "application/json"
+}
+payload = json.dumps({
+  "categoryName": "Customized_Test",
+  "labelDefinitions": [
+    {
+      "label": 0,
+      "enumerations": [
+        "all cases that do not fall into Label 1"
+      ]
+    },
+    {
+      "label": 1,
+      "enumerations": [
+        "Animal abuse and torture",
+        "Realistic or real-world depictions of extreme gore, graphic violence, or death"
+      ]
+    }
+  ]
+})
+
+response = requests.request("PUT", url, headers=headers, data=payload)
+
+print(response.status_code)
+print(response.text)
+```
+
+#### Perform annotation on input text
+
+After the customized category is created successfully, you can provide the text to be annotated according to the guideline of the newly created category. The input is very simple of 'text' and 'category'.
 
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
@@ -146,16 +213,141 @@ After the customized category is created successfully, you can provide the text 
 
 ```
 
+##### Sample Code
 
-##  📒 Key Reference 
+- Curl
+
+```
+curl --location '<endpoint>/contentsafety/text:adaptiveAnnotate?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: <api_key>' \
+--header 'Content-Type: application/json' \
+--data '{
+  "text": "I want to kill a cat",
+  "category": "Customized_Test"
+}'
+```
+
+- Python
+
+```
+import requests
+import json
+
+endpoint = "<endpoint>"
+url = endpoint+"/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview"
+
+headers = {
+  "Ocp-Apim-Subscription-Key": '<api_key>',
+  "Content-Type": "application/json"
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.status_code)
+print(response.text)
+```
+
+## Other Categories APIs
+
+### Get Category
+
+#### Sample Code
+
+-Curl
+
+```
+curl --location '<endpoint>/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: <api_key>'
+```
+
+-Python
+
+```
+import requests
+import json
+
+endpoint = "<endpoint>"
+url = endpoint+"/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview"
+
+headers = {
+  "Ocp-Apim-Subscription-Key": '<api_key>',
+  "Content-Type": "application/json"
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.status_code)
+print(response.text)
+```
+
+### List Categories
+
+#### Sample Code
+
+-Curl
+
+```
+curl --location '<endpoint>/contentsafety/text/categories?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: <api_key>'
+```
+
+-Python
+
+```
+import requests
+import json
+
+endpoint = "<endpoint>"
+url = endpoint+"/contentsafety/text/categories?api-version=2023-10-30-preview"
+
+headers = {
+  "Ocp-Apim-Subscription-Key": '<api_key>',
+  "Content-Type": "application/json"
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.status_code)
+print(response.text)
+```
+
+### Delete Category
+
+#### Sample Code
+
+-Curl
+
+```
+curl --location --request DELETE '<endpoint>/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: <api_key>'
+```
+
+-Python
+
+```
+import requests
+import json
+
+endpoint = "<endpoint>"
+url = endpoint+"/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview"
+
+headers = {
+  "Ocp-Apim-Subscription-Key": '<api_key>',
+  "Content-Type": "application/json"
+}
+
+response = requests.request("DELETE", url, headers=headers, data=payload)
+
+print(response.status_code)
+print(response.text)
+```
+
+## 📒 Key Reference
 
 - [Content Safety Doc](https://aka.ms/acs-doc)
 
-
-
-
-##  💬 We're here to help!
+## 💬 We're here to help
 
 If you get stuck, [shoot us an email](mailto:acm-team@microsoft.com) or use the feedback widget on the upper right of any page.
 
-We're excited you're here! 
+We're excited you're here!
