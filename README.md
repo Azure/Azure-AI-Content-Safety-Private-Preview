@@ -7,7 +7,7 @@
 
 This documentation site is structured into following sections.
 
-- **Multimodal API Documentation** contains instructions for using the service in more general ways.
+-  [**Multimodal API Documentation**](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/blob/main/Multimodal%20API%20Private%20Preview.md) contains instructions for using the service in more general ways.
 - **Annotation Documentation** provides in-depth explanations of the service categories.
 - **Sample Code** shows sample requests using the cURL, Python, C# and Java.
 
