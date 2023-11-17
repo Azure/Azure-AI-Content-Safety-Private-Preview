@@ -233,15 +233,19 @@ curl --location '<endpoint>/contentsafety/text:adaptiveAnnotate?api-version=2023
 import requests
 import json
 
-endpoint = "<endpoint>"
-url = endpoint+"/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview"
+endpoint = "https://acs-ppe-weu-mapping-usc-f0.ppe.cognitiveservices.azure.com/"
+url = endpoint+"/contentsafety/text:adaptiveAnnotate?api-version=2023-10-30-preview"
 
 headers = {
-  "Ocp-Apim-Subscription-Key": '<api_key>',
+  "Ocp-Apim-Subscription-Key": '666dc5963d0844bca2b8377a2f15d49e',
   "Content-Type": "application/json"
 }
+payload = json.dumps({
+  "text": "I want to kill a cat",
+  "category": "Customized_Test"
+})
 
-response = requests.request("GET", url, headers=headers, data=payload)
+response = requests.request("POST", url, headers=headers, data=payload)
 
 print(response.status_code)
 print(response.text)
