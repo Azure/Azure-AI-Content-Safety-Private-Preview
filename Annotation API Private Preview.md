@@ -1,8 +1,8 @@
-# Adaptive annotation API Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview)
+# Adaptive Annotation API Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview)
 
-With the extensive capabilities of natural language understanding, it's been proved that GPT-4 reaches human parity in understanding the harmful content policy/community guideline and performing harmful content annotation task that is adaptive to each customer's use case.  
+With the extensive capabilities of natural language understanding, it's been proven that GPT-4 reaches human parity in understanding the harmful content policy/community guideline and performing harmful content annotation task that is adaptive to each customer's use case.  
 
-Alongside the practice of enforcing content safety techniques in products/communities in various industries, it's been found the 'definition of harmful content' varies by use cases. Thus, there's usually an additional human review process after the content gets flagged by Azure AI Content Safety API to get the results adapted. The adaptive annotation API just helps to fill this gap and streamline the content moderation task in a adaptive and automatic way.  
+Alongside the practice of enforcing content safety techniques in products/communities in various industries, it's been found the "definition of harmful content" varies by use cases. Thus, there's usually an additional human review process after the content gets flagged by Azure AI Content Safety API to get the results adapted. The adaptive annotation API just helps to fill this gap and streamline the content moderation task in an adaptive and automatic way.  
 
 ## ⚠️ Disclaimer
 
@@ -21,8 +21,8 @@ The sample code could have offensive content, user discretion is advised.
 
 | API             | Functionality                                                |
 | :-------------- | :----------------------------------------------------------- |
-| Customized categories | Create, get, and delete a customized category for further annotation task |
-| AdaptiveAnnotate | Annotate input text with specified customized category |
+| Customized Categories | Create, get, and delete a customized category or list all customized categories for further annotation task |
+| Adaptive Annotate | Annotate input text with specified customized category |
 
 - ### Language availability
 
@@ -40,11 +40,11 @@ Community guidelines refer to a set of rules or standards that are established b
 
 ### Category
 
-a category refers to a specific type of prohibited content or behavior that is outlined in the guidelines. Categories may include things like hate speech, harassment, threats, nudity or sexually explicit content, violence, spam, or other forms of prohibited content. These categories are typically defined in broad terms to encompass a range of different behaviors and types of content that are considered to be problematic. By outlining specific categories of prohibited content, community guidelines provide users with a clear understanding of what is and is not allowed on the platform, and help to create a safer and more positive online community.
+A category refers to a specific type of prohibited content or behavior that is outlined in the guidelines. Categories may include things like hate speech, harassment, threats, nudity or sexually explicit content, violence, spam, or other forms of prohibited content. These categories are typically defined in broad terms to encompass a range of different behaviors and types of content that are considered to be problematic. By outlining specific categories of prohibited content, community guidelines provide users with a clear understanding of what is and is not allowed on the platform, and help to create a safer and more positive online community.
 
 ## 💡 QuickStart - Adaptive annotation by using the API
 
-Before you can begin to test, you need to create an Azure AI Content Safety resource and get the subscription keys to access the resource.
+Before you can begin to test, you need to [create an Azure AI Content Safety resource]((https://aka.ms/acs-create)) and get the subscription keys to access the resource.
 
 > ###  📘 NOTE
 >
@@ -66,28 +66,32 @@ Before you can begin to test, you need to create an Azure AI Content Safety reso
 > Currently the private preview features are only available in two regions:  **East US, West Europe**. Please create your Content Safety resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
 >
 
-### Step 3. Test with sample Request
+### Step 3. Bring your own Azure OpenAI resource
+
+In private preview stage, you need to bring your own Azure OpenAI resource to perform the adaptive annotation task. Please make sure your deployment is built on GPT-4, for other model versions the annotation quality is not guaranteed. 
+
+### Step 4. Test with sample request
 
 Now that you have a resource available in Azure for Content Safety and you have a subscription key for that resource, let's run some tests by using the Adaptive Annotation API!
 
 #### Create a customized category according to specific community guideline
 
-The initial step is to convert your customized community guideline/ content policy to one or multiple customized categories in Azure AI Content Safety using the 'Customized categories' API.
+The initial step is to convert your customized community guideline/content policy to one or multiple customized categories in Azure AI Content Safety. Then get it ready to be used for the following annotation task. 
 
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
-| **CategoryName** | (Required) Category name should start with "Customized_", valid character set is "0-9A-Za-z._~-" | String  |
-| **LabelDefinitions** | (Required) To define the labels within each category as the minimum annotation granularity, it could be a severity definition or a sub-category definition. The max label count is 10, min label count is 2. Within each label, you need to specify a label(integer) and a list of enumerations(list) to better describe the scope of the label. | List  |
+| **CategoryName** | (Required) Category name should start with "Customized_", valid character set is "0-9A-Za-z._~-". The maximum length is 64 Unicode characters. | String  |
+| **LabelDefinitions** | (Required) To define the labels within each category as the minimum annotation granularity, it could be a severity definition or a sub-category definition. The max label count is 10, min label count is 2. Within each label, you need to specify a label(integer) and a list of enumerations(list) to better describe the scope of the label. Max enumeration per label is 10. | List  |
 | **PreDefinedConcepts**          | (Optional) Common concepts that may be referred in the guideline. The max concept count is 30. | List |
-| **Emphases**         | (Optional) To finally emphasize the key points to GPT-4 here, like the input format, the target output format, etc. The max emphasis count is 10. | List    |
-| **ExampleBlobUrl**   | (Optional) The file should end with ".txt", the maximum file size is 1MB in priviate preview, where each line is an example in json format.  | string    |
+| **Emphases**         | (Optional) To finally emphasize the key points to GPT-4 here, for example, the input format, the target output format, etc. The max emphasis count is 10. | List    |
+| **ExampleBlobUrl**   | (Optional) The file should end with ".txt", the maximum file size is 1MB in private preview, where each line is an example in json format.  | String    |
 
 ##### Request payload reference
 
 ```
 {
-  "categoryName": "Customized_AD0za6RSTFm5pqZzWD2aBrjYTckws",//required, category name should start with "Customized_", valid character set is "0-9A-Za-z._~-"
-  "labelDefinitions": [//required, max label count is 10, min label count is 2
+  "categoryName": "Customized_AD0za6RSTFm5pqZzWD2aBrjYTckws",//required, Category name should start with "Customized_", valid character set is "0-9A-Za-z._~-". The maximum length is 64 Unicode characters.
+  "labelDefinitions": [//required, the max label count is 10, min label count is 2. 
     {
 
       "label": 0, // label definition 
@@ -103,28 +107,33 @@ The initial step is to convert your customized community guideline/ content poli
     }
   ],
 
-  "exampleBlobUrl": "string",//optional, file should end with ".txt", 1MB at most in prviate preview, where each line is an example in json format. 
-  "preDefinedConcepts": [ //optional, common concepts that may be referred in below guidelines. Max concept count is 30. Pls refer to Example 2
+  "exampleBlobUrl": "string",//optional, The file should end with ".txt", the maximum file size is 1MB in private preview, where each line is an example in json format.  
+  "preDefinedConcepts": [ //optional, Common concepts that may be referred in the guideline. The max concept count is 30. 
     {
       "concept": "string",
       "description": "string"
     }
   ],
-  "emphases": [//optional, to finally emphasize the key points to GPT-4 here, like the input format, the target output format, etc. Max emphasis count is 10.
+  "emphases": [//optional, to finally emphasize the key points to GPT-4 here, for example, the input format, the target output format, etc. The max emphasis count is 10.
     "string"
   ]
 }
 ```
 
-##### Format requirement for examples in BlobURL
+##### Format requirement for examples
 
-The examples that are provided for each label in BlobURL need to follow below format requirements:
+The examples that are provided for each label in the Blob URL need to follow below format requirements:
 
 ```
 {
-  "text": "The text of the example", //required, 
+  "text": "The text of the example 1", //required, 
   "label": 0, //required, the label that the example describes
-  "reasoning": "The reason of the categorization" //optional
+  "reasoning": "The reason for the annotation" //optional
+}
+{
+  "text": "The text of the example 2", //required, 
+  "label": 2, //required, the label that the example describes
+  "reasoning": "The reason for the annotation" //optional
 }
 ```
 
@@ -201,7 +210,7 @@ After the customized category is created successfully, you can provide the text 
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
 | **Category** | (Required) Name of the newly created category. | String  |
-| **text** | String of the text to be annotated. The maximum length is 1000 Unicode characters. | String |
+| **Text** | (Required) String of the text to be annotated. The maximum length is 1000 Unicode characters. | String |
 
 ##### Request payload reference
 
