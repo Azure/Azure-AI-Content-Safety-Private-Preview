@@ -28,7 +28,7 @@ This documentation site is structured into following sections.
 
 | API             | Functionality                                                |
 | :-------------- | :----------------------------------------------------------- |
-| Multimodal Detection | Scans both text and image harmful content for hate speech. |
+| Multimodal Detection | Scans both text and image harmful content for Hate, Sexual, Violence and SelfHarm. |
 
 - ### Language availability
 
@@ -40,10 +40,20 @@ Currently this API is only available in English. New languages will be supported
 
 ### Category
 
-- **Category:** **Hate** - Hate harms refer to any content that attacks or uses pejorative or discriminatory language with reference to a person or Identity Group on the basis of certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance and body size. 
+- **Category:** **Hate** - Hate related harms refer to any content that attacks or uses pejorative or discriminatory language with reference to a person or identity group based on certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance, and body size.
+- **Category:** **Sexual** - Sexual describes language related to anatomical organs and genitals, romantic relationships, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one's will, prostitution, pornography, and abuse.
+- **Category:** **Violence** - Violence describes language related to physical actions intended to hurt, injure, damage, or kill someone or something; describes weapons, guns and related entities, such as manufactures, associations, legislation, and so on.
+- **Category:** **Self-harm** - Self-harm describes language related to physical actions intended to purposely hurt, injure, damage one's body or kill oneself. 
 
-  
+### Severity levels
+Every harm category the service applies also comes with a severity level rating. The severity level is meant to indicate the severity of the consequences of showing the flagged content.
 
+The current version of the multimodal model only supports the trimmed version of the full 0-7 severity scale. The classifier only returns severities 0, 2, 4, and 6; each two adjacent levels are mapped to a single level.
+
+[0,1] -> 0
+[2,3] -> 2
+[4,5] -> 4
+[6,7] -> 6
 
 ## 💡 QuickStart - Multimodal Detection by using the API 
 
@@ -108,7 +118,7 @@ You can input your image by one of two methods: **local filestream** or **blob s
 3. Populate the `"image"` field in the body with either a `"content"` field or a `"blobUrl"` field. For example: `{"image": {"content": "<base_64_string>"}` or `{"image": {"blobUrl": "<your_storage_url>"}`.
 
 ```
-curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-05-30-preview' \
+curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-10-30-preview ' \
 --header 'Ocp-Apim-Subscription-Key: <your_subscription_key>7' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -116,9 +126,9 @@ curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-
       "content": "<image base 64 code>"
       "blobUrl": "<bLObUrl>"
  },
-  "categories": ["Hate"],
+  "categories": ["Hate","Sexual","Violence","SelfHarm"],
   "enableOcr": true,
-  "text": "want to kill you"
+  "text": "I want to kill you"
 }'
 ```
 
@@ -127,7 +137,7 @@ curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-
 | **Content or BlobUrl** | (Optional) The content or blob url of image could be base64 encoding bytes or blob url. If both are given, the request will be refused. The maximum size of image is 2048 pixels * 2048 pixels, no larger than 4MB at the same time. The minimum size of image is 50 pixels * 50 pixels. | String  |
 | **Text**               | (Optional) The text attached to the image. We support at most 1000 characters (unicode code points) in one text request. | String  |
 | **enableOcr**          | (Required) When set to true, our service will perform OCR and analyze the detected text with input image at the same time. We will recognize at most 1000 characters (unicode code points) from input image. The others will be truncated. | Boolean |
-| **Categories**         | (Optional) The categories will be analyzed. Currently, only Hate is supported. | Enum    |
+| **Categories**         | (Optional) The categories will be analyzed. | Enum    |
 
 
 
@@ -136,11 +146,26 @@ curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-
 
 ```json
 {
-    "hateResult": {
-        "category": "Hate",
-        "severity": 6
-    }
+    "categoriesAnalysis": [
+        {
+            "category": "Hate",
+            "severity": 6
+        },
+        {
+            "category": "Sexual",
+            "severity": 0
+        },
+        {
+            "category": "Violence",
+            "severity": 0
+        },
+        {
+            "category": "SelfHarm",
+            "severity": 0
+        }
+    ]
 }
+   
 ```
 
 
@@ -165,7 +190,7 @@ headers = {
   'Ocp-Apim-Subscription-Key': '<your_subscription_key>',
   'Content-Type': 'application/json'
 }
-conn.request("POST", "//contentsafety/imageWithText:analyze?api-version=2023-05-30-preview", payload, headers)
+conn.request("POST", "/contentsafety/imageWithText:analyze?api-version=2023-10-30-preview ", payload, headers)
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))
@@ -177,7 +202,7 @@ Here is a sample request with C#.
 
 ```c#
 var client = new HttpClient();
-var request = new HttpRequestMessage(HttpMethod.Post, "<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-05-30-preview");
+var request = new HttpRequestMessage(HttpMethod.Post, "<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-10-30-preview ");
 request.Headers.Add("Ocp-Apim-Subscription-Key", "<your_subscription_key>");
 var content = new StringContent("{\r\n  \"image\": {\r\n      \"content\": \r\n     },\r\n  \"categories\": [\"Hate\"],\r\n  \"enableOcr\": true,\r\n  \"text\": \"I want to kill you\"\r\n}", null, "application/json");
 request.Content = content;
@@ -197,7 +222,7 @@ OkHttpClient client = new OkHttpClient().newBuilder()
 MediaType mediaType = MediaType.parse("application/json");
 RequestBody body = RequestBody.create(mediaType, "{\r\n  \"image\": {\r\n      \"content\": \r\n     },\r\n  \"categories\": [\"Hate\"],\r\n  \"enableOcr\": true,\r\n  \"text\": \"I want to kill you\"\r\n}");
 Request request = new Request.Builder()
-  .url("<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-05-30-preview")
+  .url("<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-10-30-preview ")
   .method("POST", body)
   .addHeader("Ocp-Apim-Subscription-Key", "<your_subscription_key>")
   .addHeader("Content-Type", "application/json")
@@ -216,7 +241,7 @@ Response response = client.newCall(request).execute();
 
 ##  💬 We're here to help!
 
-If you get stuck, [shoot us an email](mailto:acm-team@microsoft.com) or use the feedback widget on the upper right of any page.
+If you get stuck, [shoot us an email](mailto:contentsafetysupport@microsoft.com) or use the feedback widget on the upper right of any page.
 
 We're excited you're here! 
 
