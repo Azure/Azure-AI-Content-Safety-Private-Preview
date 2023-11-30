@@ -174,6 +174,8 @@ curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-
 | **Category**        | Each output class that the API predicts.                     | Enum    |
 | **Severity levels** | The higher the severity of input content, the larger this value is. The values can be: 0,2,4,6. | Integer |
 
+## 💡 QuickStart - Multimodal Detection by using Studio
+You can also try out this cool feature by visiting [Azure AI Content Safety Studio](https://contentsafety.cognitive.azure.com/). Please note that only resources located in the EastUS region can try out the four categories version, while WestEurope and other regions are not yet supported.
 
  ##  📝 Other Sample Code 
 - #### Python
