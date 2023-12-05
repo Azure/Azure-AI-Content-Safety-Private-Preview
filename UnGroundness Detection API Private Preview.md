@@ -6,16 +6,21 @@ The ungroundedness detection API is designed to identify instances of ungrounded
 
 ##  🗃Concepts
 Groundedness Definition
-Groundedness in LLMs refers to the degree to which the model's outputs are based on given information or how accurately the outputs reflect reliable sources.  A grounded response is the one that sticks closely to given information and avoids speculation or fabrication.  In groundedness measures, source information is required and serves as the grounding source.    
+- Groundedness in LLMs refers to the degree to which the model's outputs are based on given information or how accurately the outputs reflect reliable sources.  A grounded response is the one that sticks closely to given information and avoids speculation or fabrication.  In groundedness measures, source information is required and serves as the grounding source.    
 
-Ungroundedness differs from hallucination in LLMs. Hallucination in LLMs refers to the generation of text that contains information that is fabricated, false, or misleading.  The definition of LLM hallucination varies among technical communities, but in general grounding source is optional rather than required for hallucination evaluation.
+- Ungroundedness differs from hallucination in LLMs. Hallucination in LLMs refers to the generation of text that contains information that is fabricated, false, or misleading.  The definition of LLM hallucination varies among technical communities, but in general grounding source is optional rather than required for hallucination evaluation.
 
-Some LLM outputs could be non-hallucinated but ungrounded.  An example could be:
+- Some LLM outputs could be non-hallucinated but ungrounded.  An example could be:
 An online shopping platform ShopSphere had been implementing 30 days return policy for 3 years.  Recently ShopSphere introduced premium membership with $50 per year membership fee.  If a customer is a premium member, the customer has up to 180 days to return merchandise.
 
-If ShopSphere provides the most recent return policy and membership information, optimal LLM outputs would provide customized answers about the return policy based on the membership status (non-premium members for 30 days, versus premium member for 180 days).  These answers are both non-hallucinated and grounded. However, if the answer is simply 30 days for all members, the answer is ungrounded, but not necessarily hallucinated.
+- If ShopSphere provides the most recent return policy and membership information, optimal LLM outputs would provide customized answers about the return policy based on the membership status (non-premium members for 30 days, versus premium member for 180 days).  These answers are both non-hallucinated and grounded. However, if the answer is simply 30 days for all members, the answer is ungrounded, but not necessarily hallucinated.
 
-
+##  🗃Key Features:
+- Customizable Domains: Allows users to specify the domain (like medical, scientific, etc.) for more tailored detection based on the field’s specific needs.
+- Task Specification: Supports different tasks like Question and Answer (QnA) or Summarization, with adjustable settings according to the task type.
+- Source Referencing: Utilizes an array of grounding sources (up to 10K characters) to compare the AI-generated text against established facts or data.
+- Confidence Scoring: Provides a confidence score indicating the likelihood of ungrounded content.
+- Detailed Reporting: Offers detailed insights into detected ungrounded segments, including the percentage of ungrounded content and specific instances of hallucinations.
 
 ## ⚠️ Disclaimer
 
@@ -27,7 +32,7 @@ The sample code could have offensive content, user discretion is advised.
 This documentation site is structured into following sections.
 
 - **How It works** contains instructions for using the service in more general ways.
-- **Scenerios** provides in-depth explanations of the senerios.
+- **Scenarios** provides in-depth explanations of the senerios.
 - **Sample Code** shows sample requests using the cURL, Python, C# and Java.
 - **QuickStart** goes over getting-started instructions to guide you through making requests to the service.
 
@@ -47,7 +52,7 @@ Currently this API supports only English languages.
 
 
 
-##  🗃Scenario
+##  🗃Scenarios
 
 The current ungroundedness detection and mitigation function supports both text-based summarization and questioning & answering (QA) tasks to ensure that the generated summaries or answers are accurate and reliable.  Here are some examples:
 
@@ -120,9 +125,9 @@ curl --location '<Endpoint>contentsafety/text:detectUngroundedness?api-version=2
 | :--------------------- | :----------------------------------------------------------- | ------- |
 | **domain** | (Optional)  Medical, Generic, default is Generic. | Enum  |
 | **task**               | (Optional) Type of task: QnA, Summarization, default value: Summarization. | Enum |
-| **query**               | (Optional) This parameter will only be used when the task type is QnA, required when task type is QnA. | String  |
-| **text**          | (Required)The specific text that need to be checked.1K characters maximum. |  String  |
-| **groundingSources**         | (Required) Sources to ground the AI content.. | String array    |
+| **query**               | (Optional) This parameter will only be used when the task type is QnA, required when task type is QnA.Character Limit: Restrictions on the amount of query that can be analyzed in a single request is 1K characters to ensure efficient processing. | String  |
+| **text**          | (Required)The specific text that need to be checked.1K characters maximum.Character Limit: Restrictions on the amount of text that can be analyzed in a single request is 1K characters to ensure efficient processing.|  String  |
+| **groundingSources**         | (Required) Sources to ground the AI content.Character Limit: Restrictions on the amount of grounding sources that can be analyzed in a single request is 10K charcaters to ensure efficient processing. | String array    |
 | **gptResources**         | (Optional) Details about the GPT resources used. See below table. | String   |
 
 
