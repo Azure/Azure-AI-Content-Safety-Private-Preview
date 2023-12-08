@@ -1,5 +1,3 @@
-
-
 #  Multimodal API Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 
 
 The Multimodal Private Preview API detects certain material that contains both text and images, and helps make applications & services safer from harmful user-generated or AI-generated content.
