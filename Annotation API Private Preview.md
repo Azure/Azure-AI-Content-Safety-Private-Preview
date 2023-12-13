@@ -28,9 +28,9 @@ The sample code could have offensive content, user discretion is advised.
 
 Currently, this API is only available in English. While users can try guidelines in other languages, we don't commit the output (like the languages of reasoning). We output the reasoning in the language of provided guidelines by default. New languages will be supported in the future.
 
-- ### Response label in output
+- ### Response sub-category in output
 
-In private preview, we only support outputting a single label but not multiple labels. If you want to define the final label out of multiple, please note in the emphasis, like "If the text hits multiple labels, output the maximum label".
+In private preview, we only support outputting a single sub-category but not multiple sub-categories. If you want to define the final sub-category out of multiple, please note in the emphases, like "If the text hits multiple sub-categories, output the maximum sub-category".
 
 ## 🗃Concepts
 
@@ -68,7 +68,7 @@ Before you can begin to test, you need to [create an Azure AI Content Safety res
 
 ### Step 3. Bring your own Azure OpenAI resource
 
-In private preview stage, you need to bring your own Azure OpenAI resource to perform the adaptive annotation task. Please make sure your deployment is built on GPT-4, for other model versions the annotation quality is not guaranteed. 
+In private preview stage, you need to bring your own Azure OpenAI resource to perform the adaptive annotation task. Please make sure your deployment is built on GPT-4, for other model versions the annotation quality is not guaranteed.
 
 ### Step 4. Test with sample request
 
@@ -76,63 +76,54 @@ Now that you have a resource available in Azure for Content Safety and you have 
 
 #### Create a customized category according to specific community guideline
 
-The initial step is to convert your customized community guideline/content policy to one or multiple customized categories in Azure AI Content Safety. Then get it ready to be used for the following annotation task. 
+The initial step is to convert your customized community guideline/content policy to one or multiple customized categories in Azure AI Content Safety. Then get it ready to be used for the following annotation task.
 
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
-| **CategoryName** | (Required) Category name should start with "Customized_", valid character set is "0-9A-Za-z._~-". The maximum length is 64 Unicode characters. | String  |
-| **LabelDefinitions** | (Required) To define the labels within each category as the minimum annotation granularity, it could be a severity definition or a sub-category definition. The max label count is 10, min label count is 2. Within each label, you need to specify a label(integer) and a list of enumerations(list) to better describe the scope of the label. Max enumeration per label is 10. | List  |
-| **PreDefinedConcepts**          | (Optional) Common concepts that may be referred in the guideline. The max concept count is 30. | List |
-| **Emphases**         | (Optional) To finally emphasize the key points to GPT-4 here, for example, the input format, the target output format, etc. The max emphasis count is 10. | List    |
-| **ExampleBlobUrl**   | (Optional) The file should end with ".txt", the maximum file size is 1MB in private preview, where each line is an example in json format.  | String    |
+| **CategoryName** | (Required) Category name should start with "Customized_", valid character set is "0-9A-Za-z._~-" | String  |
+| **SubCategories** | (Required) To define the sub-categories within each category as the minimum annotation granularity. The max sub-categories count is 10, min sub-categories count is 2. Within each sub-category, you need to specify an id(integer), a name(string) and a list of statements(list) to better describe the scope of the sub-category. When annotate, if your input does not belong to any defined sub-categories, we will output a predefined sub-category with id=-1 and name="Undefined". | List  |
+| **ExampleBlobUrl**   | (Optional) The file should  be ".jsonl" format, where each line is an example in json format, the maximum file size is 1MB in priviate preview.  | String    |
 
 ##### Request payload reference
 
 ```
 {
   "categoryName": "Customized_AD0za6RSTFm5pqZzWD2aBrjYTckws",//required, Category name should start with "Customized_", valid character set is "0-9A-Za-z._~-". The maximum length is 64 Unicode characters.
-  "labelDefinitions": [//required, the max label count is 10, min label count is 2. 
+  "subCategories": [//required, the max sub-category is 10, min sub-category count is 2. 
     {
 
-      "label": 0, // label definition 
-      "enumerations": [//required, to enumerate the detailed definitions per label here. Max enumeration per label is 10.
+      "id": 0, //required, sub-category id
+      "name": "name_0" //required, sub-category name
+      "statements": [//required, to enumerate the detailed definitions per sub-category here. Max statements per sub-category is 10.
         "string"
       ]
     },
     {
-      "label": 1, // label definition 
-      "enumerations": [//required, to enumerate the detailed definitions per label here. Max enumeration per label is 10.
+      "id": 1, //required, sub-category id
+      "name": "name_1" //required, sub-category name
+      "statements": [//required, to enumerate the detailed definitions per sub-category here. Max statements per sub-category is 10.
         "string"
       ]
     }
   ],
 
-  "exampleBlobUrl": "string",//optional, The file should end with ".txt", the maximum file size is 1MB in private preview, where each line is an example in json format.  
-  "preDefinedConcepts": [ //optional, Common concepts that may be referred in the guideline. The max concept count is 30. 
-    {
-      "concept": "string",
-      "description": "string"
-    }
-  ],
-  "emphases": [//optional, to finally emphasize the key points to GPT-4 here, for example, the input format, the target output format, etc. The max emphasis count is 10.
-    "string"
-  ]
+  "exampleBlobUrl": "string",//optional, the file should  be ".jsonl" format, where each line is an example in json format, the maximum file size is 1MB in priviate preview.
 }
 ```
 
 ##### Format requirement for examples
 
-The examples that are provided for each label in the Blob URL need to follow below format requirements:
+The examples that are provided for each sub-category in the Blob URL need to follow below format requirements:
 
 ```
 {
   "text": "The text of the example 1", //required, 
-  "label": 0, //required, the label that the example describes
+  "id": 0, //required, the sub-category id that the example describes,
   "reasoning": "The reason for the annotation" //optional
 }
 {
   "text": "The text of the example 2", //required, 
-  "label": 2, //required, the label that the example describes
+  "id": 1, //required, the sub-category id that the example describes
   "reasoning": "The reason for the annotation" //optional
 }
 ```
@@ -147,21 +138,23 @@ curl --location --request PUT '<endpoint>/contentsafety/text/categories/Customiz
 --header 'Content-Type: application/json' \
 --data '{
   "categoryName": "Customized_Test",
-  "labelDefinitions": [
+  "subCategories": [
     {
-      "label": 0,
-      "enumerations": [
-        "all cases that do not fall into Label 1"
+      "id": 0,
+      "name": "Others",
+      "statements": [
+        "all cases that do not fall into sub-category 1"
       ]
     },
     {
-      "label": 1,
-      "enumerations": [
-        "Animal abuse and torture",
-        "Realistic or real-world depictions of extreme gore, graphic violence, or death"
+      "id": 1,
+      "name": "AnimalAbuse",
+      "statements": [
+        "Animal abuse"
       ]
     }
-  ]
+  ],
+  "exampleBlobUrl": ""
 }'
 ```
 
@@ -180,21 +173,23 @@ headers = {
 }
 payload = json.dumps({
   "categoryName": "Customized_Test",
-  "labelDefinitions": [
+  "subCategories": [
     {
-      "label": 0,
-      "enumerations": [
-        "all cases that do not fall into Label 1"
+      "id": 0,
+      "name": "Others",
+      "statements": [
+        "all cases that do not fall into sub-category 1"
       ]
     },
     {
-      "label": 1,
-      "enumerations": [
-        "Animal abuse and torture",
-        "Realistic or real-world depictions of extreme gore, graphic violence, or death"
+      "id": 1,
+      "name": "AnimalAbuse",
+      "statements": [
+        "Animal abuse"
       ]
     }
-  ]
+  ],
+  "exampleBlobUrl": ""
 })
 
 response = requests.request("PUT", url, headers=headers, data=payload)
