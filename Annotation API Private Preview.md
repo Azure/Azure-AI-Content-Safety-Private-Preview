@@ -73,13 +73,13 @@ In private preview stage, you need to bring your own Azure OpenAI resource to pe
 #### Grant your Azure Content Safety resource access to your Azure OpenAI resource
 
 1. Go to your Azure OpenAI resource and open 'Access control'. Click 'Add role assignment'.
-[Role assignment](images/role-assignment.png)
+![Role assignment](images/role-assignment.png)
 
 2. Search for role 'Cognitive Services User', click, and select 'Next'. 
-[Congnitive Services User](images/cognitive-services-user.png)
+![Congnitive Services User](images/cognitive-services-user.png)
 
 3. Choose 'Managed Identity' for 'assign access to' option, and choose the Azure Content Safety resource that you've created in 'Members'.
-[Select identity](images/select-identity.png)
+![Select identity](images/select-identity.png)
 
 4. Finally select 'Review + assign'. After it is completed, your Azure Content Safety resource has been assigned permission to use your Azure OpenAI resource for annotation. 
 
@@ -94,7 +94,7 @@ Go to your Azure OpenAI resource and open 'Model deployments'. Select 'Manage De
 #### Modify content filtering setting to enable 'annotation' mode
 
 The Adaptive Annotation API needs to leverage the extended language understanding capability of GPT-4 for content annotation task, which may contain harmful content. To complete the task and not get the input/output filtered, the content filtering setting in your GPT-4 deployment needs to be updated to 'annotation' mode by unchecking the boxes at each harmful category. 
-[Modify content filtering](images/mopdify-content-filtering.png)
+![Modify content filtering](images/modify-content-filtering.png)
 
 
 [**Note**] After completing the above steps, please send following information to contentsafetysupport@microsoft.com: 
