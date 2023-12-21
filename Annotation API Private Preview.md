@@ -70,6 +70,39 @@ Before you can begin to test, you need to [create an Azure AI Content Safety res
 
 In private preview stage, you need to bring your own Azure OpenAI resource to perform the adaptive annotation task. Please make sure your deployment is built on GPT-4, for other model versions the annotation quality is not guaranteed.
 
+#### Grant your Azure Content Safety resource access to your Azure OpenAI resource
+
+1. Go to your Azure OpenAI resource and open 'Access control'. Click 'Add role assignment'.
+[Role assignment](images/role-assignment.png)
+
+2. Search for role 'Cognitive Services User', click, and select 'Next'. 
+[Congnitive Services User](images/cognitive-services-user.png)
+
+3. Choose 'Managed Identity' for 'assign access to' option, and choose the Azure Content Safety resource that you've created in 'Members'.
+[Select identity](images/select-identity.png)
+
+4. Finally select 'Review + assign'. After it is completed, your Azure Content Safety resource has been assigned permission to use your Azure OpenAI resource for annotation. 
+
+#### Get your Azure OpenAI resource endpoint
+
+Go to your Azure OpenAI resource and open 'Keys and endpoint' to copy the endpoint. 
+
+#### Get your GPT-4 deployment name
+
+Go to your Azure OpenAI resource and open 'Model deployments'. Select 'Manage Deployments', get the deployment name of GPT-4 that you'd like to use for annotation task. 
+
+#### Modify content filtering setting to enable 'annotation' mode
+
+The Adaptive Annotation API needs to leverage the extended language understanding capability of GPT-4 for content annotation task, which may contain harmful content. To complete the task and not get the input/output filtered, the content filtering setting in your GPT-4 deployment needs to be updated to 'annotation' mode by unchecking the boxes at each harmful category. 
+[Modify content filtering](images/mopdify-content-filtering.png)
+
+
+[**Note**] After completing the above steps, please send following information to contentsafetysupport@microsoft.com: 
+- Subscription ID
+- Azure AI Content Safety resource ID
+- Azure OpenAI resource endpoint
+- GPT-4 deployment name
+
 ### Step 4. Test with sample request
 
 Now that you have a resource available in Azure for Content Safety and you have a subscription key for that resource, let's run some tests by using the Adaptive Annotation API!
