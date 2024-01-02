@@ -75,12 +75,12 @@ Before you can begin to test, you need to create an Azure AI Content Safety reso
 ### Step 2. Create an Azure Content Safety resource
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
-2. [Create Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US** and pricing tier. Select **Create**.
+2. [Create Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, **East US** region and pricing tier. Select **Create**.
 3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Safety resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
 
 > ###  📘 NOTE:
 >
-> Currently the private preview features are only available in one region:  **East US**. Please create your Content Safety resource in this region. Feel free to let us know your future production regions so we can plan accordingly.
+> Currently this private preview feature is only available in one region:  **East US**. Please create your Content Safety resource in this region. Feel free to let us know your future production regions so we can plan accordingly.
 
 ### Step 3. Test with sample Request
 
