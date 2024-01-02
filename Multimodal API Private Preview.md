@@ -27,12 +27,17 @@ This documentation site is structured into following sections.
 | API             | Functionality                                                |
 | :-------------- | :----------------------------------------------------------- |
 | Multimodal Detection | Scans both text and image harmful content for Hate, Sexual, Violence and SelfHarm. |
+- ### Region availability
+
+Currently this API only available in **East US** region, if you have more regions requirements, please contact us.
 
 - ### Language availability
 
 Currently this API supports more than 100+ languages, for more language deatils, please refer to [Language support for Azure AI Content Safety](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/language-support)
 
+- ### Pricing
 
+Currently this API did not charge any fees.
 
 ##  🗃Concepts
 
@@ -70,12 +75,12 @@ Before you can begin to test, you need to create an Azure AI Content Safety reso
 ### Step 2. Create an Azure Content Safety resource
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
-2. [Create Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US, West Europe** and pricing tier. Select **Create**.
+2. [Create Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, your preferred region in one of the **East US** and pricing tier. Select **Create**.
 3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Safety resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
 
 > ###  📘 NOTE:
 >
-> Currently the private preview features are only available in two regions:  **East US, West Europe**. Please create your Content Safety resource in these regions. Feel free to let us know your future production regions so we can plan accordingly.
+> Currently the private preview features are only available in one region:  **East US**. Please create your Content Safety resource in this region. Feel free to let us know your future production regions so we can plan accordingly.
 
 ### Step 3. Test with sample Request
 
