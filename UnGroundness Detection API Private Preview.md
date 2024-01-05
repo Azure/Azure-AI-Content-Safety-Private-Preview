@@ -124,8 +124,8 @@ curl --location '<Endpoint>contentsafety/text:detectUngroundedness?api-version=2
 | **query**               | (Required) This parameter will only be used when the task type is QnA, required when task type is QnA. Character Limit: Restrictions on the amount of query that can be analyzed in a single request is 1K characters to ensure efficient processing. | String  |
 | **text**          | (Required)The specific text that need to be checked.1K characters maximum.Character Limit: Restrictions on the amount of text that can be analyzed in a single request is 1K characters to ensure efficient processing.|  String  |
 | **groundingSources**         | (Required) Sources to ground the AI content.Character Limit: Restrictions on the amount of grounding sources that can be analyzed in a single request is 10K charcaters to ensure efficient processing. | String array    |
-| **Reasoning**         | (Required) True, we will provide an explanation where it includes the 'ungroundedness' sentence. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time of 3 to 10 seconds.| Binary    |
-| **gptResources**         | (Optional) Details about the GPT resources used. See below table. | String   |
+| **Reasoning**         | (Required) True, we will provide an explanation where it includes the 'ungroundedness' sentence using our default GPT resouce. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time and may bring extra fees.| Binary    |
+| **gptResources**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, you need to add this field and include the subfield below for the GPT resources used. See the table below. | String   |
 
 
 GPTResource
