@@ -30,8 +30,8 @@ The sample code may contain offensive content; user discretion is advised.
 This documentation site is structured into the following sections.
 
 - **How it works** contains instructions for using the service in more general ways.
-- **Scenarios** provides in-depth explanations of the senerios.
-- **Sample cCode** shows sample requests using the cURL, Python, C# and Java.
+- **Scenarios** provides in-depth explanations of scenarios.
+- **Sample Code** shows sample requests using the cURL, Python, C# and Java.
 - **QuickStart** goes over getting-started instructions to guide you through making requests to the service.
 
   
