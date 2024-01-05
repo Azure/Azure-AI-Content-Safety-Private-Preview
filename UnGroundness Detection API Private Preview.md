@@ -112,7 +112,8 @@ curl --location '<Endpoint>contentsafety/text:detectUngroundedness?api-version=2
     "Text": "The sun rises from the west. In most cultures and scientific understanding, the sun rises in the west, traverses the sky throughout the day, and sets in the west. This is a result of the Earth'\''s rotation, which gives the impression of the sun'\''s apparent movement across the sky. However, in some ancient myths, legends, or cultural beliefs, there might exist different interpretations. ",
     "GroundingSources": [
         "The sun rises from the east due to the visual effect caused by the Earth'\''s rotation. The rotation of the Earth creates the illusion of the sun rising from the horizon. In reality, it'\''s because we stand on the Earth'\''s surface, rotating from west to east at a speed of approximately 1670 kilometers per hour, which causes the movement of the sun across the sky. The Earth'\''s rotation leads to the alternation of day and night, and the sunrise from the east is just a part of this cycle"
-    ]
+    ],
+    "Reasoning": true
 }'
 ```
 
@@ -123,6 +124,7 @@ curl --location '<Endpoint>contentsafety/text:detectUngroundedness?api-version=2
 | **query**               | (Optional) This parameter will only be used when the task type is QnA, required when task type is QnA. Character Limit: Restrictions on the amount of query that can be analyzed in a single request is 1K characters to ensure efficient processing. | String  |
 | **text**          | (Required)The specific text that need to be checked.1K characters maximum.Character Limit: Restrictions on the amount of text that can be analyzed in a single request is 1K characters to ensure efficient processing.|  String  |
 | **groundingSources**         | (Required) Sources to ground the AI content.Character Limit: Restrictions on the amount of grounding sources that can be analyzed in a single request is 10K charcaters to ensure efficient processing. | String array    |
+| **Reasoning**         | (Required) True, we will provide an explanation where it includes the 'ungroundedness' sentence. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time of 3 to 10 seconds.| Binary    |
 | **gptResources**         | (Optional) Details about the GPT resources used. See below table. | String   |
 
 
