@@ -96,7 +96,7 @@ Now that you have a resource available in Azure for Content Safety and you have 
 
 Choose a sample text to analyze.
 
-The maximum size for Text input is 1000 characters, and **GroundingSources** length should not exceed 10K characters.
+The maximum size for Text input is 1000 characters, and GroundingSources length should not exceed 10K characters.
 
 #### Call the REST API
 
@@ -119,9 +119,9 @@ curl --location '<Endpoint>contentsafety/text:detectUngroundedness?api-version=2
 
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
-| **domain** | (Optional)  Medical, Generic, default is Generic. | Enum  |
-| **task**               | (Optional) Type of task: QnA, Summarization, default value: Summarization. | Enum |
-| **query**               | (Optional) This parameter will only be used when the task type is QnA, required when task type is QnA. Character Limit: Restrictions on the amount of query that can be analyzed in a single request is 1K characters to ensure efficient processing. | String  |
+| **domain** | (Required)  Medical, Generic, default is Generic. | Enum  |
+| **task**               | (Required) Type of task: QnA, Summarization, default value: Summarization. | Enum |
+| **query**               | (Required) This parameter will only be used when the task type is QnA, required when task type is QnA. Character Limit: Restrictions on the amount of query that can be analyzed in a single request is 1K characters to ensure efficient processing. | String  |
 | **text**          | (Required)The specific text that need to be checked.1K characters maximum.Character Limit: Restrictions on the amount of text that can be analyzed in a single request is 1K characters to ensure efficient processing.|  String  |
 | **groundingSources**         | (Required) Sources to ground the AI content.Character Limit: Restrictions on the amount of grounding sources that can be analyzed in a single request is 10K charcaters to ensure efficient processing. | String array    |
 | **Reasoning**         | (Required) True, we will provide an explanation where it includes the 'ungroundedness' sentence. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time of 3 to 10 seconds.| Binary    |
@@ -159,17 +159,17 @@ GPTResource
 
 | Name                | Description                                                  | Type    |
 | :------------------ | :----------------------------------------------------------- | ------- |
-| **ungrounded**        | (Required) The model assesses whether this text belongs to hallucination.  | Boolean    |
-| **confidenceScore** | (Required) The meaning of the 'score' is the likelihood that the ungrounded prediction is correct.	 | Float	 |
-| **ungroundedPercentage** | (Required) The percentage of the text considered ungrounded or hallucinated. | Float	 |
-| **ungroundedDetails** | (Optional) Provides detailed occurrences of hallucinations within the content. | String |
+| **ungrounded**        | The model assesses whether this text belongs to hallucination.  | Boolean    |
+| **confidenceScore** | The meaning of the 'score' is the likelihood that the ungrounded prediction is correct.	 | Float	 |
+| **ungroundedPercentage** | The percentage of the text considered ungrounded or hallucinated. | Float	 |
+| **ungroundedDetails** | Provides detailed occurrences of hallucinations within the content. | String |
 
 
 UngroundedDetails
 | Name                | Description                                                  | Type    |
 | :------------------ | :----------------------------------------------------------- | ------- |
-| **Text**        | (Optional) The specific text that is ungrounded.  | String   |
-| **Reason** | (Optional) The reason for the hallucination, depending on the GPT resources used. | String  |
+| **Text**        |  The specific text that is ungrounded.  | String   |
+| **Reason** |  The reason for the hallucination, depending on the GPT resources used. | String  |
 
 
 ##  📝 Other Sample Code 
@@ -190,9 +190,6 @@ payload = json.dumps({
   "GroundingSources": [
     "The sun rises from the east due to the visual effect caused by the Earth's rotation. The rotation of the Earth creates the illusion of the sun rising from the horizon. In reality, it's because we stand on the Earth's surface, rotating from west to east at a speed of approximately 1670 kilometers per hour, which causes the movement of the sun across the sky. The Earth's rotation leads to the alternation of day and night, and the sunrise from the east is just a part of this cycle"
   ],
-  "RuntimeOptions": {
-    "DetectMode": "test"
-  }
 })
 headers = {
   'Ocp-Apim-Subscription-Key': '<your_subscription_key>',
