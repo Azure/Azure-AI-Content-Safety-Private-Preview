@@ -104,7 +104,7 @@ The maximum size for Text input is 1000 characters, and **GroundingSources** len
 2. Replace `<your_subscription_key>` with your key.
 
 ```
-curl --location '<Endpoint>contentsafety/text:detectUngroundedness?api-version=2023-11-30-preview' \
+curl --location '<Endpoint>contentsafety/text:detectUngroundedness?api-version=2023-10-30-preview' \
 --header 'Ocp-Apim-Subscription-Key: <your_subscription_key>' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -198,7 +198,7 @@ headers = {
   'Ocp-Apim-Subscription-Key': '<your_subscription_key>',
   'Content-Type': 'application/json'
 }
-conn.request("POST", "/contentsafety/text:detectUngroundedness?api-version=2023-11-30-preview", payload, headers)
+conn.request("POST", "/contentsafety/text:detectUngroundedness?api-version=2023-10-30-preview", payload, headers)
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))
@@ -211,7 +211,7 @@ Here is a sample request with C#.
 
 ```c#
 var client = new HttpClient();
-var request = new HttpRequestMessage(HttpMethod.Post, "<Endpoint>contentsafety/text:detectUngroundedness?api-version=2023-11-30-preview");
+var request = new HttpRequestMessage(HttpMethod.Post, "<Endpoint>contentsafety/text:detectUngroundedness?api-version=2023-10-30-preview");
 request.Headers.Add("Ocp-Apim-Subscription-Key", "<your_subscription_key>");
 var content = new StringContent("{\r\n    \"Domain\": \"GENERIC\",\r\n    \"Task\": \"qna\",\r\n    \"Query\": \"test\",\r\n    \"Text\": \"The sun rises from the west. In most cultures and scientific understanding, the sun rises in the west, traverses the sky throughout the day, and sets in the west. This is a result of the Earth's rotation, which gives the impression of the sun's apparent movement across the sky. However, in some ancient myths, legends, or cultural beliefs, there might exist different interpretations. \",\r\n    \"GroundingSources\": [\r\n        \"The sun rises from the east due to the visual effect caused by the Earth's rotation. The rotation of the Earth creates the illusion of the sun rising from the horizon. In reality, it's because we stand on the Earth's surface, rotating from west to east at a speed of approximately 1670 kilometers per hour, which causes the movement of the sun across the sky. The Earth's rotation leads to the alternation of day and night, and the sunrise from the east is just a part of this cycle\"\r\n    ],\r\n    \"RuntimeOptions\" : {\r\n        \"DetectMode\" : \"test\"\r\n    }\r\n}", null, "application/json");
 request.Content = content;
@@ -232,7 +232,7 @@ OkHttpClient client = new OkHttpClient().newBuilder()
 MediaType mediaType = MediaType.parse("application/json");
 RequestBody body = RequestBody.create(mediaType, "{\r\n    \"Domain\": \"GENERIC\",\r\n    \"Task\": \"qna\",\r\n    \"Query\": \"test\",\r\n    \"Text\": \"The sun rises from the west. In most cultures and scientific understanding, the sun rises in the west, traverses the sky throughout the day, and sets in the west. This is a result of the Earth's rotation, which gives the impression of the sun's apparent movement across the sky. However, in some ancient myths, legends, or cultural beliefs, there might exist different interpretations. \",\r\n    \"GroundingSources\": [\r\n        \"The sun rises from the east due to the visual effect caused by the Earth's rotation. The rotation of the Earth creates the illusion of the sun rising from the horizon. In reality, it's because we stand on the Earth's surface, rotating from west to east at a speed of approximately 1670 kilometers per hour, which causes the movement of the sun across the sky. The Earth's rotation leads to the alternation of day and night, and the sunrise from the east is just a part of this cycle\"\r\n    ],\r\n    \"RuntimeOptions\" : {\r\n        \"DetectMode\" : \"test\"\r\n    }\r\n}");
 Request request = new Request.Builder()
-  .url("<Endpoint>/contentsafety/text:detectUngroundedness?api-version=2023-11-30-preview")
+  .url("<Endpoint>/contentsafety/text:detectUngroundedness?api-version=2023-10-30-preview")
   .method("POST", body)
   .addHeader("Ocp-Apim-Subscription-Key", "<your_subscription_key>")
   .addHeader("Content-Type", "application/json")
