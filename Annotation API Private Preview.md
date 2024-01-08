@@ -89,15 +89,15 @@ Go to your Azure OpenAI resource and open 'Keys and endpoint' to copy the endpoi
 
 #### Get your GPT-4 deployment name
 
-Go to your Azure OpenAI resource and open 'Model deployments'. Select 'Manage Deployments', get the deployment name of GPT-4 that you'd like to use for annotation task. 
+Go to your Azure OpenAI resource and open 'Model deployments'. Select 'Manage Deployments', and get the deployment name of GPT-4 that you'd like to use for annotation task. 
 
 #### Modify content filtering setting to enable 'annotation' mode
 
-The Adaptive Annotation API needs to leverage the extended language understanding capability of GPT-4 for content annotation task, which may contain harmful content. To complete the task and not get the input/output filtered, the content filtering setting in your GPT-4 deployment needs to be updated to 'annotation' mode by unchecking the boxes at each harmful category. 
+The Adaptive Annotation API needs to leverage the extended language understanding capability of GPT-4 for content annotation task, which may contain harmful content. To complete the task and not get the input/output filtered, the content filtering configuration in your GPT-4 deployment needs to be updated to 'annotation' mode. You may need to apply for modifying content filtering by filling [this form](https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUMlBQNkZMR0lFRldORTdVQzQ0TEI5Q1ExOSQlQCN0PWcu). After the application is approved, you can update the content filtering configuration in your GPT-4 deployment to 'annotation' mode by unchecking the boxes at each harmful category. 
 ![Modify content filtering](images/modify-content-filtering.png)
 
 
-[**Note**] After completing the above steps, please send following information to contentsafetysupport@microsoft.com: 
+[**Note**] After completing the above steps, please send the following information to contentsafetysupport@microsoft.com: 
 - Subscription ID
 - Azure AI Content Safety resource ID
 - Azure OpenAI resource endpoint
