@@ -11,7 +11,7 @@ The ungroundedness detection API identifies instances of ungrounded information 
 - **Ungroundedness** differs from hallucination in LLMs. Hallucination in LLMs refers to the generation of text that contains information that is fabricated, false, or misleading. The definition of LLM hallucination varies among technical communities, but in general grounding source is optional rather than required for hallucination evaluation.
 
 - Some LLM outputs could be non-hallucinated but ungrounded. An example could be:
-An online shopping platform ShopSphere had been implementing a 30-day return policy for 3 years. Recently ShopSphere introduced premium membership with $50 per year membership fee. If a customer is a premium member, the customer has up to 180 days to return merchandise. If ShopSphere provides the most recent return policy and membership information, optimal LLM outputs would provide customized answers about the return policy based on the membership status (non-premium members for 30 days, versus premium member for 180 days). These answers are both non-hallucinated and grounded. However, if the answer is simply 30 days for all members, the answer is ungrounded, but not necessarily hallucinated.
+An online shopping platform ShopSphere had been implementing a 30-day return policy for 3 years. Recently ShopSphere introduced premium membership with $50 per year membership fee. If a customer is a premium member, the customer has up to 180 days to return merchandise. If ShopSphere provides the most recent return policy and membership information, optimal LLM outputs would provide customized answers about the return policy based on the membership status (non-premium members for 30 days, versus premium members for 180 days). These answers are both non-hallucinated and grounded. However, if the answer is simply 30 days for all members, the answer is ungrounded, but not necessarily hallucinated.
 
 ##  🗃Key Features:
 - Customizable Domains: Allows users to specify the domain (like medical, scientific, etc.) for more tailored detection based on the field’s specific needs.
@@ -22,7 +22,7 @@ An online shopping platform ShopSphere had been implementing a 30-day return pol
 
 ## ⚠️ Disclaimer
 
-The sample code may contain offensive content; user discretion is advised.
+Please note that the sample code may contain content that some users might find inappropriate. Exercise discretion when reviewing it.
 
 
 ##  📒 Overview 
@@ -51,7 +51,7 @@ Currently this API supports only English languages.
 
 ##  🗃Scenarios
 
-The current ungroundedness detection and mitigation function supports both text-based Summarization and Questioning & Answering (QA) tasks to ensure that the generated summaries or answers are accurate and reliable.  Here are some examples:
+The current ungroundedness detection supports both text-based Summarization and Questioning & Answering (QnA) tasks to ensure that the generated summaries or answers are accurate and reliable.  Here are some examples:
 
 **Summarization Tasks**:  
 - News summarization: In the context of news articles, the function can be used to verify that the summary does not include fabricated or misleading information, ensuring that readers receive accurate and trustworthy information.<br>
@@ -65,12 +65,9 @@ The current ungroundedness detection and mitigation function supports both text-
 - Financial and investment queries: For financial and investment-related questions, the function can validate the answers given by AI systems, helping users make informed financial decisions based on accurate information.
 
 ## 💡 QuickStart - Ungroundedness Detection using the API 
-
-Before you can begin to test, you need to create an Azure AI Content Safety resource and get the subscription keys to access the resource.
-
 > ###  📘 NOTE:
 >
-> The samples could contain offensive content, user discretion advised!!
+> Please note that the sample code may contain content that some users might find inappropriate. Exercise discretion when reviewing it.
 
 
 ### Step 1. Whitelist your subscription ID
@@ -121,18 +118,35 @@ curl --location '<Endpoint>contentsafety/text:detectUngroundedness?api-version=2
 | :--------------------- | :----------------------------------------------------------- | ------- |
 | **domain** | (Required)  Medical, Generic, default is Generic. | Enum  |
 | **task**               | (Required) Type of task: QnA, Summarization, default value: Summarization. | Enum |
-| **query**               | (Required) This parameter will only be used when the task type is QnA, required when task type is QnA. Character Limit: Restrictions on the amount of query that can be analyzed in a single request is 1K characters to ensure efficient processing. | String  |
-| **text**          | (Required)The specific text that need to be checked.1K characters maximum.Character Limit: Restrictions on the amount of text that can be analyzed in a single request is 1K characters to ensure efficient processing.|  String  |
+| **query**               | (Required) This parameter will only be used when the task type is QnA, required when the task type is QnA. Character Limit: Restrictions on the amount of query that can be analyzed in a single request are 1K characters to ensure efficient processing. | String  |
+| **text**          | (Required)The specific text that needs to be checked.1K characters maximum.Character Limit: Restrictions on the amount of text that can be analyzed in a single request is 1K characters to ensure efficient processing.|  String  |
 | **groundingSources**         | (Required) Sources to ground the AI content.Character Limit: Restrictions on the amount of grounding sources that can be analyzed in a single request is 10K charcaters to ensure efficient processing. | String array    |
-| **Reasoning**         | (Required) True, we will provide an explanation where it includes the 'ungroundedness' sentence using our default GPT resouce. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time and may bring extra fees.| Binary    |
-| **gptResources**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, you need to add this field and include the subfield below for the GPT resources used. See the table below. | String   |
-
+| **Reasoning**         | (Required) True, we will provide an explanation where it includes the 'ungroundedness' sentence using our default GPT resources. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time and may bring extra fees.| Boolean   |
+| **gptResources**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, you need to add this field manually and include the subfield below for the GPT resources used. Currently, our default GPT resources did not charge fees, but we will have the pricing from public preview. | String   |
+```json
+{
+    "Domain": "GENERIC",
+    "Task": "QNA",
+    "Query": "How much does she currently get paid per hour at the bank?",
+    "Text": "12/hour.",
+    "GroundingSources": [
+        "I'm 21 years old and I need to make a decision about the next two years of my life. Within a week. I currently work for a bank that requires strict sales goals to meet. IF they aren't met three times (three months) you're canned. They pay me 10/hour and it's not unheard of to get a raise in 6ish months. The issue is, **I'm not a salesperson**. That's not my personality. I'm amazing at customer service. I have the most positive customer service \"reports\" done about me in the short time I've worked here. A coworker asked \"do you ask for people to fill these out? You have a ton\". That being said, I have a job opportunity at Chase Bank as a part time teller. What makes this decision so hard is that at my current job, I get 40 hours and Chase could only offer me 20 hours/week. Drive time to my current job is also 21 miles **one way** while Chase is literally 1.8 miles from my house, allowing me to go home for lunch. I do have an apartment and an awesome roommate that I know wont be late on his portion of rent, so paying bills with 20 hours a week isn't the issue. It's the spending money and being broke all the time.\n\nI previously worked at Wal-Mart and took home just about 400 dollars every other week. So I know i can survive on this income. I just don't know whether I should go for Chase as I could definitely see myself having a career there. I'm a math major likely going to become an actuary, so Chase could provide excellent opportunities for me **eventually**.",
+        "This is another test"
+    ],
+    "Reasoning": true,
+    "GptResource": {
+        "AzureOpenAIEndpoint": "Please type your endpoint here",
+        "DeploymentName": "hallucination-test-gpt4"
+    }
+}
+```
 
 GPTResource
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
-| **azureOpenAIEndpoint** | (Required)  Endpoint for Azure's OpenAI service.  | String |
-| **deploymentName** | (Required) Name of the specific deployment. | String|
+| **azureOpenAIEndpoint** | Endpoint for Azure's OpenAI service.  | String |
+| **deploymentName** | Name of the specific deployment. | String|
+
 
 
 
@@ -160,15 +174,15 @@ GPTResource
 | Name                | Description                                                  | Type    |
 | :------------------ | :----------------------------------------------------------- | ------- |
 | **ungrounded**        | The model assesses whether this text belongs to hallucination.  | Boolean    |
-| **confidenceScore** | The meaning of the 'score' is the likelihood that the ungrounded prediction is correct.	 | Float	 |
-| **ungroundedPercentage** | The percentage of the text considered ungrounded or hallucinated. | Float	 |
+| **confidenceScore** | The meaning of the 'score' is the likelihood. The score will range from 0 to 1.	 | Float	 |
+| **ungroundedPercentage** | The percentage of the text considered ungrounded or hallucinated. The percentage will range from 0 to 1.| Float	 |
 | **ungroundedDetails** | Provides detailed occurrences of hallucinations within the content. | String |
 
 
 UngroundedDetails
 | Name                | Description                                                  | Type    |
 | :------------------ | :----------------------------------------------------------- | ------- |
-| **Text**        |  The specific text that is ungrounded.  | String   |
+| **Text**   |  The specific text that is ungrounded.  | String   |
 | **Reason** |  The reason for the hallucination, depending on the GPT resources used. | String  |
 
 
@@ -183,11 +197,11 @@ import json
 
 conn = http.client.HTTPSConnection("<Endpoint>")
 payload = json.dumps({
-  "Domain": "GENERIC",
-  "Task": "qna",
-  "Query": "test",
-  "Text": "The sun rises from the west. In most cultures and scientific understanding, the sun rises in the west, traverses the sky throughout the day, and sets in the west. This is a result of the Earth's rotation, which gives the impression of the sun's apparent movement across the sky. However, in some ancient myths, legends, or cultural beliefs, there might exist different interpretations. ",
-  "GroundingSources": [
+  "domain": "GENERIC",
+  "task": "qna",
+  "query": "test",
+  "text": "The sun rises from the west. In most cultures and scientific understanding, the sun rises in the west, traverses the sky throughout the day, and sets in the west. This is a result of the Earth's rotation, which gives the impression of the sun's apparent movement across the sky. However, in some ancient myths, legends, or cultural beliefs, there might exist different interpretations. ",
+  "groundingSources": [
     "The sun rises from the east due to the visual effect caused by the Earth's rotation. The rotation of the Earth creates the illusion of the sun rising from the horizon. In reality, it's because we stand on the Earth's surface, rotating from west to east at a speed of approximately 1670 kilometers per hour, which causes the movement of the sun across the sky. The Earth's rotation leads to the alternation of day and night, and the sunrise from the east is just a part of this cycle"
   ],
 })
