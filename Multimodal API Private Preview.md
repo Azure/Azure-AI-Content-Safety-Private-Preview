@@ -80,7 +80,7 @@ Before you can begin to test, you need to create an Azure AI Content Safety reso
 
 > ###  📘 NOTE:
 >
-> Currently this private preview feature is only available in one region:  **East US**. Please create your Content Safety resource in this region. Feel free to let us know your future production regions so we can plan accordingly.
+> Currently this private preview feature is only available in two regions:  **East US** and **West Europe**. Please create your Content Safety resource in this region. Feel free to let us know your future production regions so we can plan accordingly.
 
 ### Step 3. Test with sample Request
 
