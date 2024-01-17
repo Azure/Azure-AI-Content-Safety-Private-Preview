@@ -28,7 +28,7 @@ This documentation site is structured into the following sections.
 
 ### Region availability
 
-Currently this API only available in the **East US** region, if you have more regions requirements, please contact us.
+Currently this API only available in the **East US** and **West Europe** , if you have more regions requirements, please contact us.
 
 ### Language availability
 
