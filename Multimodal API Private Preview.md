@@ -1,47 +1,46 @@
 #  Multimodal API Private Preview Documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 
 
-The Multimodal Private Preview API detects certain material that contains both text and images, and helps make applications & services safer from harmful user-generated or AI-generated content.
+The Multimodal Private Preview API analyzes materials containing both image content and text content to help make applications and services safer from harmful user-generated or AI-generated content.
 
 ## ⚠️ Disclaimer
 
-The sample code could have offensive content, user discretion is advised.
+The sample code might contain offensive content, user discretion is advised.
 
 
 ##  📒 Overview 
 
-This documentation site is structured into following sections.
+This documentation site is structured into the following sections.
 
-- **How It works** contains instructions for using the service in more general ways.
-
+- **How it works** contains instructions for using the service in more general ways.
 - **Concepts** provides in-depth explanations of the service categories.
-- **Sample Code** shows sample requests using the cURL, Python, C# and Java.
-
+- **Sample code** shows sample requests using cURL, Python, C# and Java.
 - **QuickStart** goes over getting-started instructions to guide you through making requests to the service.
 
   
 
-##  🔎How It works
+## 🔎How it works
 
-- ### Type of analysis
+### Type of analysis
 
 | API             | Functionality                                                |
 | :-------------- | :----------------------------------------------------------- |
-| Multimodal Detection | Scans both text and image harmful content for Hate, Sexual, Violence and SelfHarm. |
-- ### Region availability
+| Multimodal Detection | Scans both text and image content for Hate, Sexual, Violence and SelfHarm. |
 
-Currently this API only available in **East US** region, if you have more regions requirements, please contact us.
+### Region availability
 
-- ### Language availability
+Currently this API only available in the **East US** region, if you have more regions requirements, please contact us.
 
-Currently this API supports more than 100+ languages, for more language deatils, please refer to [Language support for Azure AI Content Safety](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/language-support)
+### Language availability
 
-- ### Pricing
+Currently this API supports more than 100 languages, for more language deatils, please refer to [Language support for Azure AI Content Safety](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/language-support)
 
-Currently this API did not charge any fees.
+### Pricing
 
-##  🗃Concepts
+Currently this API does not charge any fees.
 
-### Category
+## 🗃Concepts
+
+### Categories
 
 - **Hate** - Hate related harms refer to any content that attacks or uses pejorative or discriminatory language with reference to a person or identity group based on certain differentiating attributes of these groups including but not limited to race, ethnicity, nationality, gender identity and expression, sexual orientation, religion, immigration status, ability status, personal appearance, and body size.
 - **Sexual** - Sexual describes language related to anatomical organs and genitals, romantic relationships, acts portrayed in erotic or affectionate terms, pregnancy, physical sexual acts, including those portrayed as an assault or a forced sexual violent act against one's will, prostitution, pornography, and abuse.
@@ -60,23 +59,23 @@ The current version of the multimodal model only supports the trimmed version of
 
 ## 💡 QuickStart - Multimodal Detection by using the API 
 
-Before you can begin to test, you need to create an Azure AI Content Safety resource and get the subscription keys to access the resource.
+Before you can begin to test, you need to create an Azure AI Content Safety resource and get the subscription key and endpoint URL to access the resource.
 
 > ###  📘 NOTE:
 >
 > The samples could contain offensive content, user discretion advised!!
 
 
-### Step 1. Whitelist your subscription ID
+### Step 1. Get approval
 
-1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
-2. The whitelist will take up to 48 hours to approve. Once you receive notification from Microsoft, you can go to next step.
+1. Submit this form by entering your subscription ID to get approval to use this feature: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
+2. The whitelist will take up to 48 hours to approve. Once you receive notification from Microsoft, you can go to the next step.
 
 ### Step 2. Create an Azure Content Safety resource
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
 2. [Create Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select the **whitelisted subscription**, resource group, **East US** region and pricing tier. Select **Create**.
-3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Safety resource, you'll need a subscription key; In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
+3. **The resource will take a few minutes to deploy.** After it does, go to the new resource. To access your Content Safety resource, you'll need a subscription key. In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint for later use.
 
 > ###  📘 NOTE:
 >
@@ -114,7 +113,7 @@ You can input your image by one of two methods: **local filestream** or **blob s
 
 
 
-#### **Request Format Reference**
+#### Create the API request
 
 1. Substitute the `<endpoint>` with your resource endpoint URL.
 2. Replace `<your_subscription_key>` with your key.
@@ -145,7 +144,9 @@ curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-
 
 
 
-#### **Response Format Reference**
+#### Get the API response
+
+The API will return JSON content in the following format:
 
 ```json
 {
@@ -177,11 +178,11 @@ curl --location '<Endpoint>contentsafety/imageWithText:analyze?api-version=2023-
 | **Category**        | Each output class that the API predicts.                     | Enum    |
 | **Severity levels** | The higher the severity of input content, the larger this value is. The values can be: 0,2,4,6. | Integer |
 
-## 💡 QuickStart - Multimodal Detection by using Studio
-You can also try out this cool feature by visiting [Azure AI Content Safety Studio](https://contentsafety.cognitive.azure.com/). Please note that only resources located in the EastUS region can try out the four categories version, while WestEurope and other regions are not yet supported.
+## 💡 QuickStart - Multimodal Detection using Content Safety Studio
+You can also try out this cool feature by visiting [Azure AI Content Safety Studio](https://contentsafety.cognitive.azure.com/). Please note that only resources located in the **EastUS** region can try out the four categories version, while WestEurope and other regions are not yet supported.
 
- ##  📝 Other Sample Code 
-- #### Python
+##  📝 Other Sample Code 
+### Python
 
 Here is a sample request with Python. 
 
@@ -201,7 +202,7 @@ data = res.read()
 print(data.decode("utf-8"))
 ```
 
-- #### C#
+#### C#
 
 Here is a sample request with C#. 
 
@@ -217,7 +218,7 @@ Console.WriteLine(await response.Content.ReadAsStringAsync());
 
 ```
 
-- #### Java
+#### Java
 
 Here is a sample request with Java. 
 
@@ -234,7 +235,6 @@ Request request = new Request.Builder()
   .build();
 Response response = client.newCall(request).execute();
 ```
-
 
 
 ##  📒 Key Reference 
