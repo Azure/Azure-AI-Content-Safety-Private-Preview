@@ -68,8 +68,7 @@ Now that you have a resource available in Azure for Content Safety and you have 
 Currently, the Hallucination (Ungroundedness) API supports the English language. While our API does not restrict the submission of non-English content, we cannot guarantee the same level of quality and accuracy in the analysis of such content. The API is optimized for English, and using languages other than English may result in suboptimal performance. We recommend users to primarily submit content in English to ensure the most reliable and accurate results from the API.
 
 **Text length limitations**
-Please note that the combined maximum character limit for the text and grounding sources is 55,000 characters. However, for each API call, we will truncate each input source to a maximum of 7,500 characters for processing. This means that if your total input (text + grounding sources) exceeds 7,500 characters per API call, it will be automatically shortened to fit within this limit per API call.
-Example: if your combined text and grounding sources equal 55,000 characters, the API will handle this in a series of calls. Specifically, it will take ⌈55,000/7,500⌉=8 calls to process the entire content, as we round up to ensure all content is analyzed.
+Please note that the maximum character limit for the grounding sources is 55,000 characters, and for the text, it is 7,500 characters for each API call. If your input (either text or grounding sources) exceeds these character limitations per API call, you will encounter an error.
 
 #### Call the REST API.
 
@@ -102,9 +101,9 @@ Our Hallucination Detection API provides the option to include reasoning in the 
 | **domain** | (Optional)  Medical, Generic, default value: Generic. | Enum  |
 | **task**               | (Optional) Type of task: QnA, Summarization, default value: Summarization. | Enum |
 | **query**               | (Optional) This parameter will only be used when the task type is QnA, required when the task type is QnA. Character Limit: Restrictions on the amount of query that can be analyzed in a single request are 1K characters to ensure efficient processing. | String  |
-| **text**          | (Required)The specific text that needs to be checked.1K characters maximum.Character Limit: Restrictions on the amount of text that can be analyzed in a single request is 1K characters to ensure efficient processing.|  String  |
-| **groundingSources**         | (Required) Leverages a vast array of grounding sources to validate AI-generated text.Character  | String array    |
-| **Reasoning**         | (Optional) True, we will provide an explanation where it includes the 'ungroundedness' sentence using our default GPT resources. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time and may bring extra fees.| Boolean   |
+| **text**          | (Required)The specific text that needs to be checked.1K characters maximum.Character Limit: Restrictions on the amount of text that can be analyzed in a single request is 7.5K characters to ensure efficient processing.|  String  |
+| **groundingSources**         | (Required) Leverages a vast array of grounding sources to validate AI-generated text.Limit: Restrictions on the total amount of grounding sources that can be analyzed in a single request are 55K characters. | String array    |
+| **Reasoning**         | (Optional) The default value is False. True, we will provide an explanation where it includes the 'ungroundedness' sentence using our default GPT resources. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time and may bring extra fees.| Boolean   |
 | **gptResources**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, you need to add this field manually and include the subfield below for the GPT resources used. Currently, our default GPT resources did not charge fees, but we will have the pricing from public preview. | String   |
 
 
