@@ -9,7 +9,7 @@ The ungroundedness detection API identifies instances of ungrounded information 
 - Task Specification: Supports different tasks like QnA (Questioning & Answering) or Summarization, with adjustable settings according to the task type.
 - Source Referencing: Leverages a vast array of grounding sources to validate AI-generated text.
 - Confidence Scoring: Assesses the likelihood of ungrounded content with a numerical score.
-- Reasoning: Offers detailed insights into detected ungrounded segments, including the percentage of ungrounded content and specific instances of hallucinations.
+- Reasoning: Offers detailed insights into detected ungrounded segments, including the percentage of ungrounded content and specific instances of ungroundedness,
 
 ##  📒 Overview 
 
@@ -24,12 +24,12 @@ This documentation site is structured into the following sections.
 
 ##  🗃Concepts
 
-- **Groundedness** in LLMs refers to the degree to which the model's outputs are based on given information or how accurately the outputs reflect reliable sources.  A grounded response is the one that sticks closely to given information and avoids speculation or fabrication. In groundedness measures, source information is required and serves as the grounding source.    
+- **Groundedness and Ungroundedness in LLMs** This refers to the extent to which the model’s outputs are based on provided information or reflect reliable sources accurately. A grounded response adheres closely to the given information, avoiding speculation or fabrication. In groundedness measures, source information is crucial and serves as the grounding source. 
 
-- **Ungroundedness** differs from hallucination in LLMs. Hallucination in LLMs refers to the generation of text that contains information that is fabricated, false, or misleading. The definition of LLM hallucination varies among technical communities, but in general grounding source is optional rather than required for hallucination evaluation.
+- **Hallucination in LLMs** Hallucination involves generating text that contains fabricated, false, or misleading information. Hallucination in LLMs is a broader concept that generally includes ungroundedness but goes a step further. It refers to the generation of text that is not just ungrounded, but also fabricated, false, or misleading. Hallucination encompasses a wider range of inaccuracies, including completely made-up information that may not have any basis in the provided data or known facts.
 
-- Some LLM outputs could be non-hallucinated but ungrounded. An example could be:
-An online shopping platform ShopSphere had been implementing a 30-day return policy for 3 years. Recently ShopSphere introduced premium membership with $50 per year membership fee. If a customer is a premium member, the customer has up to 180 days to return merchandise. If ShopSphere provides the most recent return policy and membership information, optimal LLM outputs would provide customized answers about the return policy based on the membership status (non-premium members for 30 days, versus premium members for 180 days). These answers are both non-hallucinated and grounded. However, if the answer is simply 30 days for all members, the answer is ungrounded, but not necessarily hallucinated.
+- **Ungroundedness as a Subset of Hallucination** While all hallucinated content is ungrounded, not all ungrounded content is a hallucination. Hallucination is a broader term that includes any kind of fabricated or false information, whereas ungroundedness specifically refers to deviations from provided information or known facts.
+
 
 
 ##  🗃Tasks
@@ -41,7 +41,7 @@ The current Hallucination(Ungroundedness) Detection API supports both text-based
 - Academic paper summarization: When generating summaries of academic papers or research articles, the function can help ensure that the summarized content accurately represents the key findings and contributions without introducing false claims.<br>
 - Legal document summarization: In legal environments, where summarizing lengthy legal documents is common, the function can confirm that the summary does not contain any erroneous statements or omissions that could lead to legal disputes.<br>
 
-**QnA (Questioning & Answering ) Tasks**:
+**QnA (Questioning & Answering) Tasks**:
 - Customer support chatbots: In customer support, the function can be used to validate the answers provided by AI chatbots, ensuring that customers receive accurate and trustworthy information when they ask questions about products or services.
 - Legal queries: For legal QnA systems, the function helps verify the accuracy of legal answers and advice provided by AI systems to lawyers and clients, reducing the risk of legal complications.
 - Educational QnA: In educational settings, the function can be applied to QnA tasks to confirm that answers to academic questions or test prep queries are factually accurate, supporting the learning process.
@@ -139,7 +139,7 @@ GPTResource
 
 | Name                | Description                                                  | Type    |
 | :------------------ | :----------------------------------------------------------- | ------- |
-| **ungrounded**        | The model assesses whether this text belongs to hallucination.  | Boolean    |
+| **ungrounded**        | Indicates whether the text exhibits ungroundedness.  | Boolean    |
 | **confidenceScore** | Assesses the likelihood of ungrounded content with a numerical score.The score will range from 0 to 1.	 | Float	 |
 | **ungroundedPercentage** | Specifies the proportion of the text identified as ungrounded, expressed as a decimal between 0 and 1, where 0 indicates no ungrounded content and 1 indicates entirely ungrounded content.| Float	 |
 | **ungroundedDetails** | Provides insights into ungrounded content with specific examples and percentages.| String |
