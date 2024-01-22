@@ -9,7 +9,7 @@ The Ungroundedness (Hallucination) Detection API detects ungroundedness generate
 - **Task Specification**: Supports different tasks such as QnA (Questioning & Answering) and Summarization, with adjustable settings according to the task types.
 - **Speed vs Interpretability**:
   > - Non-Reasoning mode: Offers fast detection capability, easy to embed into online applications.
-  > - Reasoning mode: Offers detailed explanation of detected ungrounded segments for easy mitigation.
+  > - Reasoning mode: Offers detailed explanation for detected ungrounded segments easy for understanding and mitigation.
 
 ##  📒 Overview 
 
