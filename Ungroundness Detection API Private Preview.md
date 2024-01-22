@@ -30,20 +30,20 @@ This documentation site is structured into the following sections.
 
 - **Ungroundedness as a Subset of Hallucination**: While all hallucinated content is ungrounded, not all ungrounded content is a hallucination. Hallucination is a broader term that includes any kind of fabricated or false information, whereas ungroundedness specifically refers to deviations from provided information or known facts.
 
-
+- **Retrieval Augmented Generation (RAG)**: A technique in natural language processing that combines the power of pre-trained language models with information retrieval methods to generate more informed and contextually relevant responses. It enhances the language model's ability to provide answers by retrieving related documents or data from a large corpus, which then informs the generation process.In the context of RAG, grounding sources would be the external documents or data retrieved based on the input query. These sources are then used to inform and guide the generation of the response by the AI model.
 
 ##  🗃Tasks
 
-The current Hallucination (Ungroundedness) Detection API supports both text-based Summarization and Questioning & Answering (QnA) tasks to ensure that the generated summaries or answers are accurate and reliable.  Here are some examples:
+The current Ungroundedness (Hallucination) Detection API supports both text-based Summarization and Questioning & Answering (QnA) tasks to ensure that the generated summaries or answers are accurate and reliable.  Here are some examples:
 
 **Summarization Tasks**:  
-- News summarization: In the context of news articles, the function can be used to verify that the summary does not include fabricated or misleading information, ensuring that readers receive accurate and trustworthy information.<br>
+- Medical summarization: In the context of medical news articles, the function can be utilized to ensure that the summary does not contain fabricated or misleading information, guaranteeing that readers obtain accurate and reliable medical information.
 - Academic paper summarization: When generating summaries of academic papers or research articles, the function can help ensure that the summarized content accurately represents the key findings and contributions without introducing false claims.<br>
 - Legal document summarization: In legal environments, where summarizing lengthy legal documents is common, the function can confirm that the summary does not contain any erroneous statements or omissions that could lead to legal disputes.<br>
 
 **QnA (Questioning & Answering) Tasks**:
 - Customer support chatbots: In customer support, the function can be used to validate the answers provided by AI chatbots, ensuring that customers receive accurate and trustworthy information when they ask questions about products or services.
-- Legal queries: For legal QnA systems, the function helps verify the accuracy of legal answers and advice provided by AI systems to lawyers and clients, reducing the risk of legal complications.
+- Medical QnA: For medical QnA, the function assists in verifying the accuracy of medical answers and advice provided by AI systems to healthcare professionals and patients, reducing the risk of medical errors.
 - Educational QnA: In educational settings, the function can be applied to QnA tasks to confirm that answers to academic questions or test prep queries are factually accurate, supporting the learning process.
 - Financial and investment queries: For financial and investment-related questions, the function can validate the answers given by AI systems, helping users make informed financial decisions based on accurate information.
 
@@ -104,7 +104,22 @@ Our Hallucination Detection API provides the option to include reasoning in the 
 | **text**          | (Required)The specific text that needs to be checked. Limit: Restrictions on the amount of text that can be analyzed in a single request are 7.5K characters to ensure efficient processing.|  String  |
 | **groundingSources**         | (Required) Leverages a vast array of grounding sources to validate AI-generated text.Limit: Restrictions on the total amount of grounding sources that can be analyzed in a single request are 55K characters. | String array    |
 | **Reasoning**         | (Optional) The default value is False. True, we will provide an explanation where it includes the 'ungroundedness' sentence using our default GPT resources. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time and may bring extra fees.| Boolean   |
-| **gptResources**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, you need to add this field manually and include the subfield below for the GPT resources used. Currently, our default GPT resources did not charge fees, but we will have the pricing from public preview. | String   |
+| **gptResources**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, you need to add this field manually and include the subfield below for the GPT resources used. Currently, our default GPT resources did not charge fees, but we will have the pricing from public preview.  | String   |
+
+
+In order to use your own GPT resources, you need to give your Content Safety resource access to Azure OpenAI resource. Enable system-assigned Managed identity for the Azure AI Content Safety instance and assign the role of Azure OpenAI Contributor/User to the identity:
+
+1. Enable managed identity for the Azure AI Content Safety instance.
+   
+    <img width="434" alt="image" src="https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/71fb578f-8ef1-4417-9cfd-685144fa9afa">
+
+2. Assign the role of Azure OpenAI Contributor/User to the Managed identity. Any roles highlighted below should work.
+     ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/0bdab704-2825-4a78-b9b4-56e72aa19718)
+
+     ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/5df9be34-0929-4dfa-8e5a-edfd653d0e02)
+
+
+   <img width="434" alt="image" src="https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/d4c0a214-f716-45f4-9f2a-6ac16da59b2a">
 
 
 GPTResource
@@ -112,7 +127,6 @@ GPTResource
 | :--------------------- | :----------------------------------------------------------- | ------- |
 | **azureOpenAIEndpoint** | Endpoint for Azure's OpenAI service.  | String |
 | **deploymentName** | Name of the specific deployment. | String|
-
 
 
 
@@ -225,7 +239,7 @@ Response response = client.newCall(request).execute();
 
 ##  💬 We're here to help!
 
-If you get stuck, [shoot us an email](mailto:contentsafetysupport@microsoft.com) or use the feedback widget on the upper right of any page.
+If you get stuck, [shoot us an email](mailto:rai_hdms@microsoft.com) or use the feedback widget on the upper right of any page.
 
 We're excited you're here! 
 
