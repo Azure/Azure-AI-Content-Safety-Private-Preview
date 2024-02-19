@@ -89,7 +89,7 @@ Our Hallucination Detection API provides the option to include reasoning in the 
     ],
     "Reasoning": true,
     "GptResource": {
-        "AzureOpenAIEndpoint": "https://xxx.openai.azure.com/",
+        "AzureOpenAIEndpoint": "[YOUR_GPT_RESOURCE].openai.azure.com",
         "DeploymentName": "hallucination-test-gpt4"
     }
 }
@@ -104,7 +104,7 @@ Our Hallucination Detection API provides the option to include reasoning in the 
 | **text**          | (Required)The specific text that needs to be checked. Limit: Restrictions on the amount of text that can be analyzed in a single request are 7.5K characters to ensure efficient processing.|  String  |
 | **groundingSources**         | (Required) Leverages a vast array of grounding sources to validate AI-generated text.Limit: Restrictions on the total amount of grounding sources that can be analyzed in a single request are 55K characters. | String array    |
 | **Reasoning**         | (Optional) The default value is False. True, we will provide an explanation where it includes the 'ungroundedness' sentence using our default GPT resources. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time and may bring extra fees.| Boolean   |
-| **gptResources**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, you need to add this field manually and include the subfield below for the GPT resources used. Currently, our default GPT resources did not charge fees, but we will have the pricing from public preview.  | String   |
+| **gptResources**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, you need to add this field manually and include the subfield below for the GPT resources used. Currently, **our default GPT resources did not charge fees, but we will have the pricing from public preview. If you did not want to use your own GPT resources, remove this field from the input.** | String   |
 
 
 In order to use your own GPT resources, you need to give your Content Safety resource access to Azure OpenAI resource. Enable system-assigned Managed identity for the Azure AI Content Safety instance and assign the role of Azure OpenAI Contributor/User to the identity:
