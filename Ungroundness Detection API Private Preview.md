@@ -72,7 +72,7 @@ Please note that the maximum character limit for the grounding sources is 55K ch
 
 #### Call the REST API.
 
-1. Substitute the `<endpoint>` with your resource endpoint URL.
+1. Substitute the `<endpoint>` with your resource endpoint URL (skip the “https://” in the URL).
 2. Replace `<your_subscription_key>` with your key.
 
 
