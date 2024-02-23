@@ -89,8 +89,8 @@ Our Hallucination Detection API provides the option to include reasoning in the 
     ],
     "Reasoning": true,
     "GptResource": {
-        "AzureOpenAIEndpoint": "[YOUR_GPT_RESOURCE].openai.azure.com",
-        "DeploymentName": "hallucination-test-gpt4"
+        "AzureOpenAIEndpoint": "<Your_GPT_Endpoint>",
+        "DeploymentName": "<Your_GPT_Deployment>"
     }
 }
 ```
@@ -182,8 +182,8 @@ payload = json.dumps({
   ],
   "Reasoning": True,
   "GptResource": {
-    "AzureOpenAIEndpoint": "https://xxx.openai.azure.com/",
-    "DeploymentName": "hallucination-test-gpt4"
+    "AzureOpenAIEndpoint": "<Your_GPT_Endpoint>",
+    "DeploymentName": "<Your_GPT_Deployment>"
   }
 })
 headers = {
