@@ -253,7 +253,7 @@ curl --location 'https://<endpoint>/contentsafety/image/incidents/image-incident
 import requests
 import json
 
-url = "https:/<endpoint>/contentsafety/image/incidents/image-incident-name:addIncidentSamples?api-version=2023-10-30-preview"
+url = "https://<endpoint>/contentsafety/image/incidents/image-incident-name:addIncidentSamples?api-version=2023-10-30-preview"
 
 payload = json.dumps({
   "incidentSamples": [
@@ -647,6 +647,6 @@ print(response.text)
 
 ## 💬 We're here to help
 
-If you get stuck, [shoot us an email](mailto:acm-team@microsoft.com) or use the feedback widget on the upper right of any page.
+If you get stuck, [shoot us an email](mailto:contentsafetysupport@microsoft.com) or use the feedback widget on the upper right of any page.
 
 We're excited you're here!
