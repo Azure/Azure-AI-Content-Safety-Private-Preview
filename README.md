@@ -13,5 +13,5 @@ This documentation site is structured into the following sections.
 
 ##  💬 We're here to help!
 
-If you get stuck, [shoot us an email](mailto:acm-team@microsoft.com) or use the feedback widget on the upper right of any page.
+If you get stuck, [shoot us an email](mailto:contentsafetysupport@microsoft.com) or use the feedback widget on the upper right of any page.
 We're excited you're here! 
