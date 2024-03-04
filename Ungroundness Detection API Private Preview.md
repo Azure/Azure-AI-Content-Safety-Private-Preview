@@ -70,6 +70,15 @@ Currently, the Hallucination (Ungroundedness) API supports the English language.
 **Text length limitations**
 Please note that the maximum character limit for the grounding sources is 55K characters, and for the text, it is 7.5K characters for each API call. If your input (either text or grounding sources) exceeds these character limitations per API call, you will encounter an error.
 
+**RPS limitations**
+
+| Pricing Tier | Requests per 10 second (RPS) |
+| :----------- | :--------------------------- |
+| F0           | 10                           |
+| S0           | 10                           |
+
+If you need a higher RPS, please [contact us](mailto:contentsafetysupport@microsoft.com) to request.
+
 #### Call the REST API.
 
 1. Substitute the `<endpoint>` with your resource endpoint URL (skip the “https://” in the URL).
@@ -242,5 +251,4 @@ Response response = client.newCall(request).execute();
 If you get stuck, [shoot us an email](mailto:rai_hdms@microsoft.com) or use the feedback widget on the upper right of any page.
 
 We're excited you're here! 
-
 

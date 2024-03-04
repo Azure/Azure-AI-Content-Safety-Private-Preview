@@ -77,14 +77,14 @@ Now that you have a Content Safety resource available and you have a subscriptio
 
 **Text length limitations** Please note that the maximum character limit for the Prompt Shields is 10K characters, and for the user prompts, it is 10K characters for each API call, for the documents, 10K also. If your input (either user prompts or documents) exceeds these character limitations per API call, you will encounter an error.
 
-**Query rates**
+**RPS limitations**
 
 | Pricing Tier | Requests per 10 seconds (RPS) |
 | :----------- | :---------------------------- |
 | F0           | 1000                          |
 | S0           | 1000                          |
 
-If you need a higher qps, please [contact us](mailto:contentsafetysupport@microsoft.com) to request.
+If you need a higher RPS, please [contact us](mailto:contentsafetysupport@microsoft.com) to request.
 
 The following section walks through a sample request with cURL. Paste the command below into a text editor, and make the following changes.
 
