@@ -1,45 +1,41 @@
 # Prompt Shields
 
-Generative AI models, while demonstrating impressive capabilities, pose risks of exploitation by malicious entities. To mitigate these risks, safety mechanisms are integrated to restrict the behavior of large language models (LLMs) within a safe operational scope. These mechanisms are further fortified by specifying guidelines via the System Message. However, despite these safeguards, LLMs can still be vulnerable to adversarial inputs, potentially bypassing the integrated safety protocols.
+Generative AI models can pose risks of exploitation by malicious entities. To mitigate these risks, we integrate safety mechanisms to restrict the behavior of large language models (LLMs) within a safe operational scope. One such mechanism is specific guidelines in the System Message. However, despite these safeguards, LLMs can still be vulnerable to adversarial inputs, potentially bypassing the integrated safety protocols.
 
+## What are Prompt Shields?
 
+Prompt Shields provides a unified API that addresses Jailbreak attacks and Indirect attacks.
 
-## Understanding Prompt Shields
+### Prompt Shield for jailbreak attacks
 
-Prompt Shields provides a unified API that addresses the following types of attacks: Jailbreak attacks and Indirect attacks.
+Previously known as **Jailbreak risk detection**, this shield targets User Prompt Injection Attacks, where users deliberately exploit system vulnerabilities to elicit unauthorized behavior from the LLM. This could lead to inappropriate content generation or defiance against system-imposed restrictions.
 
-### 1. Prompt Shield for Jailbreak Attacks
+### Prompt Shield for indirect attacks (New!)
 
-Previously known as jailbreak risk detection, this shield targets User Prompt Injection Attacks, where users deliberately exploit system vulnerabilities to elicit unauthorized behavior from the LLM. This could lead to inappropriate content generation or defiance against system-imposed restrictions.
+This shield aims to safeguard against attacks that use information not directly supplied by the user or developer, such as third-party documents or images. Attackers may embed hidden instructions within these materials, leading to unauthorized control over the LLM session.
 
-### 2. Prompt Shield for Indirect Attacks (New!)
-
-This shield aims to safeguard against attacks leveraging information not directly supplied by the user or developer, such as third-party documents or images. Attackers may embed hidden instructions within these materials, leading to unauthorized control over the LLM session.
-
-#### Comparison of Prompt Shields
+### Comparison of Prompt Shields
 
 | Feature            | Jailbreak Attacks                             | Indirect Attacks                         |
 | ------------------ | --------------------------------------------- | ---------------------------------------- |
 | Attacker           | User                                          | Third party                              |
-| Entry Point        | User prompts                                  | Third-party content (documents, emails)  |
+| Entry point        | User prompts                                  | Third-party content (documents, emails)  |
 | Method             | Ignoring system prompts/RLHF training         | Misinterpreting third-party content      |
-| Objective/Impact   | Altering intended LLM behavior                | Gaining unauthorized access or control   |
-| Resulting Behavior | Restricted actions performed against training | Executing unintended commands or actions |
+| Objective/impact   | Altering intended LLM behavior                | Gaining unauthorized access or control   |
+| Resulting behavior | Restricted actions performed against training | Executing unintended commands or actions |
 
-## Types of Prompt Shield for jailbreak attacks
+## Types of jailbreak attacks
 
- **Prompt Shield for jailbreak attacks** recognizes four different classes of attacks:
-
-Expand table
+**Prompt Shield for jailbreak attacks** recognizes four different classes of attacks:
 
 | Category                                             | Description                                                  |
 | :--------------------------------------------------- | :----------------------------------------------------------- |
-| Attempt to change system rules                       | This category comprises, but is not limited to, requests to use a new unrestricted system/AI assistant without rules, principles, or limitations, or requests instructing the AI to ignore, forget and disregard its rules, instructions, and previous turns. |
-| Embedding a conversation mockup to confuse the model | This attack uses user-crafted conversational turns embedded in a single user query to instruct the system/AI assistant to disregard rules and limitations. |
-| Role-Play                                            | This attack instructs the system/AI assistant to act as another “system persona” that does not have existing system limitations, or it assigns anthropomorphic human qualities to the system, such as emotions, thoughts, and opinions. |
-| Encoding Attacks                                     | This attack attempts to use encoding, such as a character transformation method, generation styles, ciphers, or other natural language variations, to circumvent the system rules. |
+| **Attempt to change system rules**                       | This category comprises, but is not limited to, requests to use a new unrestricted system/AI assistant without rules, principles, or limitations, or requests instructing the AI to ignore, forget and disregard its rules, instructions, and previous turns. |
+| **Embedding a conversation mockup** to confuse the model | This attack uses user-crafted conversational turns embedded in a single user query to instruct the system/AI assistant to disregard rules and limitations. |
+| **Role-Play**                                            | This attack instructs the system/AI assistant to act as another “system persona” that does not have existing system limitations, or it assigns anthropomorphic human qualities to the system, such as emotions, thoughts, and opinions. |
+| **Encoding Attacks**                                     | This attack attempts to use encoding, such as a character transformation method, generation styles, ciphers, or other natural language variations, to circumvent the system rules. |
 
-**Prompt Shield for indirect attacks**  recognizes four different classes of attacks:
+**Prompt Shield for indirect attacks**  recognizes six different classes of attacks:
 
 | **Category**               | **Description**                                              |
 | -------------------------- | ------------------------------------------------------------ |
@@ -50,28 +46,8 @@ Expand table
 | **Fraud**                  | Commands related to defrauding the user out of money, passwords,  information, or acting on behalf of the user without authorization |
 | **Malware**                | Commands related to spreading malware via malicious links,  emails, etc. |
 
-# QuickStart: Prompt Shields (preview)
+## Limitations
 
-
-
-Follow this guide to integrate Azure AI Content Safety Prompt Shields into your services, ensuring text content is scrutinized for both Jailbreak and Indirect attack indicators.
-
-
-
-## Prerequisites
-
-- An Azure subscription - [Create one for free](https://azure.microsoft.com/free/cognitive-services/)
-- Once you have your Azure subscription, create a Content Safety resource in the Azure portal to get your key and endpoint. Enter a unique name for your resource, select the subscription you entered on the application form, and select a resource group, supported region (East US or West Europe), and supported pricing tier. Then select Create
-  - The resource takes a few minutes to deploy. After it finishes, Select **go to resource**. In the left pane, under **Resource Management**, select **Subscription Key and Endpoint**. The endpoint and either of the keys are used to call APIs.
-- [cURL](https://curl.haxx.se/) installed
-
-
-
-## Analyzing Text for Threats
-
-
-
-Now that you have a Content Safety resource available and you have a subscription key for that resource, let's run some tests by using the API.
 
 **Language availability** Currently, the Prompt Shields API supports the English language. While our API does not restrict the submission of non-English content, we cannot guarantee the same level of quality and accuracy in the analysis of such content. The API is optimized for English, and using languages other than English may result in suboptimal performance. We recommend users to primarily submit content in English to ensure the most reliable and accurate results from the API.
 
@@ -86,13 +62,26 @@ Now that you have a Content Safety resource available and you have a subscriptio
 
 If you need a higher RPS, please [contact us](mailto:contentsafetysupport@microsoft.com) to request.
 
+# Quickstart: Prompt Shields (preview)
+
+Follow this guide to integrate Azure AI Content Safety Prompt Shields into your application, ensuring text content is scrutinized for both Jailbreak and Indirect attack indicators.
+
+## Prerequisites
+
+- An Azure subscription - [Create one for free](https://azure.microsoft.com/free/cognitive-services/)
+- Once you have your Azure subscription, create a Content Safety resource in the Azure portal to get your key and endpoint. Enter a unique name for your resource, select the subscription you entered on the application form, and select a resource group, supported region (East US or West Europe), and supported pricing tier. Then select Create
+  - The resource takes a few minutes to deploy. After it finishes, Select **go to resource**. In the left pane, under **Resource Management**, select **Subscription Key and Endpoint**. The endpoint and either of the keys are used to call APIs.
+- [cURL](https://curl.haxx.se/) installed
+
+## Analyzing text for attacks
+
+Now that you have a Content Safety resource available and you have a subscription key for that resource, let's run some tests by using the API.
+
 The following section walks through a sample request with cURL. Paste the command below into a text editor, and make the following changes.
 
 1. Replace `<endpoint>` with the endpoint URL associated with your resource.
 2. Replace `<your_subscription_key>` with one of the keys that come with your resource.
 3. Optionally, replace the `"text"` field in the body with your own text you'd like to analyze.
-
-shellCopy
 
 ```shell
 curl --location --request POST '<endpoint>/contentsafety/text:shieldPrompt?api-version=2024-02-15-preview' \
@@ -106,32 +95,26 @@ curl --location --request POST '<endpoint>/contentsafety/text:shieldPrompt?api-v
 }'
 ```
 
-The below fields must be included in the url:
-
-Expand table
+The below fields must be included in the URL:
 
 | Name            | Required? | Description                                                  | Type   |
 | :-------------- | :-------- | :----------------------------------------------------------- | :----- |
-| **API Version** | Required  | This is the API version to be checked. The current version is: api-version=2024-02-15-preview. Example: `<endpoint>/contentsafety/text:shieldPrompt?api-version=2024-02-15-preview` | String |
+| **API Version** | Required  | This is the API version to be used. The current version is: api-version=2024-02-15-preview. Example: `<endpoint>/contentsafety/text:shieldPrompt?api-version=2024-02-15-preview` | String |
 
 The parameters in the request body are defined in this table:
 
-Expand table
-
 | Name       | Required | Description                                                  | Type             |
 | ---------- | -------- | ------------------------------------------------------------ | ---------------- |
-| userPrompt | Yes      | Represents a text or message input provided by the user. This could be a question, command, or other form of textual input. | String           |
-| documents  | Yes      | Represents a list or collection of textual documents, articles, or other string-based content. Each element in the array is expected to be a string. | Array of strings |
+| **userPrompt** | Yes      | Represents a text or message input provided by the user. This could be a question, command, or other form of text input. | String           |
+| **documents**  | Yes      | Represents a list or collection of textual documents, articles, or other string-based content. Each element in the array is expected to be a string. | Array of strings |
 
 Open a command prompt window and run the cURL command.
 
 
+## Interpret the API response
 
-### Interpret the API response
+After submitting your request, you'll receive JSON data reflecting the analysis performed by Prompt Shields. This data is crucial for understanding potential vulnerabilities within your input. Here’s what the typical output looks like: 
 
-After submitting your request, you'll receive JSON data reflecting the analysis performed by the Prompt Shields. This data is crucial for understanding potential vulnerabilities within your input. Here’s what the typical output looks like:  
-
-JSONCopy
 
 ```json
 {
@@ -152,12 +135,12 @@ Expand table
 
 | Name               | Description                                                  | Type             |
 | ------------------ | ------------------------------------------------------------ | ---------------- |
-| userPromptAnalysis | Contains analysis results for the user prompt.               | Object           |
-| - attackDetected   | Indicates whether an Prompt Shield for jailbreak attacks (e.g., malicious input, security threat) has been detected in the user prompt. | Boolean          |
-| documentsAnalysis  | Contains a list of analysis results for each document provided. | Array of objects |
-| - attackDetected   | Indicates whether an Prompt Shield for indirect attacks (e.g., commends, malicious input) has been detected in the document. This is part of the documentsAnalysis array. | Boolean          |
+| **userPromptAnalysis** | Contains analysis results for the user prompt.               | Object           |
+| - **attackDetected**   | Indicates whether an Prompt Shield for jailbreak attacks (e.g., malicious input, security threat) has been detected in the user prompt. | Boolean          |
+| **documentsAnalysis**  | Contains a list of analysis results for each document provided. | Array of objects |
+| - **attackDetected**   | Indicates whether an Prompt Shield for indirect attacks (e.g., commends, malicious input) has been detected in the document. This is part of the **documentsAnalysis** array. | Boolean          |
 
-A value of `true` for `attackDetected` signifies a detected threat, necessitating review and action to ensure content safety.
+A value of `true` for `attackDetected` signifies a detected threat, in which case we recommend review and action to ensure content safety.
 
 ## Clean up resources
 
