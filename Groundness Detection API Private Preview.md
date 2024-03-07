@@ -1,6 +1,6 @@
 
 
-#  **Groundedness detection** API private preview documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 
+#  Groundedness detection API private preview documentation  ![informational](https://shields.io/badge/-PrivatePreview-PrivatePreview) 
 
 The Groundedness detection API detects whether the text responses of large language models (LLMs) are grounded in the source materials provided by the users. Ungroundedness refers to instances where the LLMs produce information that is non-factual or inaccurate from what was present in the source materials.
 
@@ -45,8 +45,8 @@ The Groundedness detection supports text-based Summarization and QnA tasks to en
 - Educational QnA: In educational settings, the function can be applied to QnA tasks to confirm that answers to academic questions or test prep queries are factually accurate, supporting the learning process.
 - Financial and investment queries: For financial and investment-related questions, the function can validate the answers given by AI systems, helping users make informed financial decisions based on accurate information.
 
-
 ## Limitations
+
 **Language availability**
 Currently, the Groundedness detection API supports the English language. While our API does not restrict the submission of non-English content, we cannot guarantee the same level of quality and accuracy in the analysis of other language content. We recommend that users submit content primarily in English to ensure the most reliable and accurate results from the API.
 
@@ -74,19 +74,14 @@ If you need a higher RPS, please [contact us](mailto:contentsafetysupport@micros
 2. [Create Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select your whitelisted subscription, resource group, region and pricing tier. Currently the private preview Groundedness detection API is available in three regions: **East US2, West US, Sweden Central**. Please create your Content Safety resource in one of these regions.
 3. The resource will take a few minutes to deploy. After it does, go to the new resource. In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint to a temporary location for later use.
 
-
 ### Test with a sample request
 
 Now that you have a resource available in Azure for Content Safety and you have a subscription key for that resource, run some tests with the Groundedness detection API.
 
-
-#### Call the REST API.
-
-1. Substitute the `<endpoint>` with your resource endpoint URL (skip the “https://” in the URL).
+1. Substitute the `<endpoint>` with your resource endpoint URL (skip the `https://` in the URL).
 2. Replace `<your_subscription_key>` with your key.
 
 
-Our Groundedness Detection API provides the option to include reasoning in the API response. If you opt for reasoning, you must either utilize your own GPT resources or use our provided default GPT resources. In this case, the response will include an additional reasoning value. This value details specific instances and explanations for any detected ungroundedness. If you choose not to receive reasoning, the API will classify the submitted content as true or false and provide a confidence score.
 ```json
 {
     "Domain": "GENERIC",
@@ -108,29 +103,13 @@ Our Groundedness Detection API provides the option to include reasoning in the A
 
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
-| **domain** | (Optional)  Medical, Generic, default value: Generic. | Enum  |
-| **task**               | (Optional) Type of task: QnA, Summarization, default value: Summarization. | Enum |
-| **query**               | (Optional) This parameter will only be used when the task type is QnA, required when the task type is QnA. Character Limit: Restrictions on the amount of query that can be analyzed in a single request are 7.5K characters. | String  |
-| **text**          | (Required)The specific text that needs to be checked. Limit: Restrictions on the amount of text that can be analyzed in a single request are 7.5K characters to ensure efficient processing.|  String  |
-| **groundingSources**         | (Required) Leverages a vast array of grounding sources to validate AI-generated text.Limit: Restrictions on the total amount of grounding sources that can be analyzed in a single request are 55K characters. | String array    |
+| **Domain** | (Optional)  Medical, Generic, default value: Generic. | Enum  |
+| **Task**               | (Optional) Type of task: QnA, Summarization, default value: Summarization. | Enum |
+| **Query**               | (Optional) This parameter will only be used when the task type is QnA, required when the task type is QnA. Character Limit: Restrictions on the amount of query that can be analyzed in a single request are 7.5K characters. | String  |
+| **Text**          | (Required)The specific text that needs to be checked. Limit: Restrictions on the amount of text that can be analyzed in a single request are 7.5K characters to ensure efficient processing.|  String  |
+| **GroundingSources**         | (Required) Leverages a vast array of grounding sources to validate AI-generated text.Limit: Restrictions on the total amount of grounding sources that can be analyzed in a single request are 55K characters. | String array    |
 | **Reasoning**         | (Optional) The default value is False. True, we will provide an explanation where it includes the 'ungroundedness' sentence using our default GPT resources. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time and may bring extra fees.| Boolean   |
-| **gptResources**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, you need to add this field manually and include the subfield below for the GPT resources used. Currently, **our default GPT resources did not charge fees, but we will have the pricing from public preview. If you did not want to use your own GPT resources, remove this field from the input.** | String   |
-
-
-In order to use your own GPT resources, you need to give your Content Safety resource access to Azure OpenAI resource. Enable system-assigned Managed identity for the Azure AI Content Safety instance and assign the role of Azure OpenAI Contributor/User to the identity:
-
-1. Enable managed identity for the Azure AI Content Safety instance.
-   
-    <img width="434" alt="image" src="https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/71fb578f-8ef1-4417-9cfd-685144fa9afa">
-
-2. Assign the role of Azure OpenAI Contributor/User to the Managed identity. Any roles highlighted below should work.
-     ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/0bdab704-2825-4a78-b9b4-56e72aa19718)
-
-     ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/5df9be34-0929-4dfa-8e5a-edfd653d0e02)
-
-
-   <img width="434" alt="image" src="https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/d4c0a214-f716-45f4-9f2a-6ac16da59b2a">
-
+| **GptResource**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, you need to add this field manually and include the subfield below for the GPT resources used. Currently, **our default GPT resource does not charge fees, but we will have the pricing from public preview. If you do not want to use your own GPT resources, remove this field from the input.** | String   |
 
 GPTResource
 | Name                   | Description                                                  | Type    |
@@ -139,8 +118,24 @@ GPTResource
 | **deploymentName** | Name of the specific deployment. | String|
 
 
+The Groundedness detection API provides the option to include _reasoning_ in the API response. If you opt for reasoning, you must either utilize your own GPT resources or use our provided default GPT resources. In this case, the response will include an additional reasoning value. This value details specific instances and explanations for any detected ungroundedness. If you choose not to receive reasoning, the API will classify the submitted content as `true` or `false` and provide a confidence score.
 
-#### Response Format Reference
+In order to use your own GPT resources, you need to give your Content Safety resource access to the Azure OpenAI resource. Enable system-assigned Managed identity for the Azure AI Content Safety instance and assign the role of Azure OpenAI Contributor/User to the identity:
+
+1. Enable managed identity for the Azure AI Content Safety instance.
+   
+    <img width="434" alt="image" src="https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/71fb578f-8ef1-4417-9cfd-685144fa9afa">
+
+1. Assign the role of Azure OpenAI Contributor/User to the Managed identity. Any roles highlighted below should work.
+     ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/0bdab704-2825-4a78-b9b4-56e72aa19718)
+
+     ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/5df9be34-0929-4dfa-8e5a-edfd653d0e02)
+
+
+   <img width="434" alt="image" src="https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/d4c0a214-f716-45f4-9f2a-6ac16da59b2a">
+
+
+### Output
 
 ```json
 {
@@ -174,9 +169,9 @@ UngroundedDetails
 
 
 ##  📝 Sample Code 
-#### Python
+### Python
 
-Python Sample Request:
+Python sample request:
 
 ```Python
 import http.client
@@ -207,11 +202,11 @@ print(data.decode("utf-8"))
 
 ```
 
-#### C#
+### C#
 
-C# Sample Request:
+C# sample request:
 
-```c#
+```csharp
 var client = new HttpClient();
 var request = new HttpRequestMessage(HttpMethod.Post, "<Endpoint>contentsafety/text:detectUngroundedness?api-version=2023-10-30-preview");
 request.Headers.Add("Ocp-Apim-Subscription-Key", "<your_subscription_key>");
@@ -220,13 +215,11 @@ request.Content = content;
 var response = await client.SendAsync(request);
 response.EnsureSuccessStatusCode();
 Console.WriteLine(await response.Content.ReadAsStringAsync());
-
-
 ```
 
-#### Java
+### Java
 
-Java Sample Request:. 
+Java sample request:. 
 
 ```java
 OkHttpClient client = new OkHttpClient().newBuilder()
@@ -242,12 +235,12 @@ Request request = new Request.Builder()
 Response response = client.newCall(request).execute();
 ```
 
-##  📒 Key Reference 
+## Key reference 
 
 - [Content Safety Doc](https://aka.ms/acs-doc)
 
 
-##  💬 We're here to help!
+## We're here to help!
 
 If you get stuck, [shoot us an email](mailto:rai_hdms@microsoft.com) or use the feedback widget on the upper right of any page.
 
