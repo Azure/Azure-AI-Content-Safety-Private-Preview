@@ -6,7 +6,7 @@ The Groundedness detection API detects whether the text responses of large langu
 
 
 ##  Key Features
-- **Domain Selection**: This feature offers a selection of specific predefined domains, such as `medical`, `generic`, and so-on. Users can choose from these established domains to ensure more tailored detection that aligns with the specific needs of their field.
+- **Domain Selection**: This feature offers the option of predefined domains: either `medical` or `generic`. Users can choose an established domain to ensure more tailored detection that aligns with the specific needs of their field.
 - **Task Specification**: This feature lets you select the task you're doing, such as QnA (questioning & answering) and Summarization, with adjustable settings according to the task types.
 - **Speed vs Interpretability**: There are two modes that trade off speed with performance.
    - Non-Reasoning mode: Offers fast detection capability, easy to embed into online applications.
@@ -79,7 +79,7 @@ If you need a higher RPS, please [contact us](mailto:contentsafetysupport@micros
 Now that you have a resource available in Azure for Content Safety and you have a subscription key for that resource, run some tests with the Groundedness detection API.
 
 1. Substitute the `<endpoint>` with your resource endpoint URL (skip the `https://` in the URL).
-2. Replace `<your_subscription_key>` with your key.
+1. Replace `<your_subscription_key>` with your key.
 
 
 ```json
@@ -103,19 +103,19 @@ Now that you have a resource available in Azure for Content Safety and you have 
 
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
-| **Domain** | (Optional)  Medical, Generic, default value: Generic. | Enum  |
-| **Task**               | (Optional) Type of task: QnA, Summarization, default value: Summarization. | Enum |
-| **Query**               | (Optional) This parameter will only be used when the task type is QnA, required when the task type is QnA. Character Limit: Restrictions on the amount of query that can be analyzed in a single request are 7.5K characters. | String  |
-| **Text**          | (Required)The specific text that needs to be checked. Limit: Restrictions on the amount of text that can be analyzed in a single request are 7.5K characters to ensure efficient processing.|  String  |
-| **GroundingSources**         | (Required) Leverages a vast array of grounding sources to validate AI-generated text.Limit: Restrictions on the total amount of grounding sources that can be analyzed in a single request are 55K characters. | String array    |
-| **Reasoning**         | (Optional) The default value is False. True, we will provide an explanation where it includes the 'ungroundedness' sentence using our default GPT resources. False, we will not offer the explanation. Be careful, triggering reasoning will lead to increased processing time and may bring extra fees.| Boolean   |
-| **GptResource**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, you need to add this field manually and include the subfield below for the GPT resources used. Currently, **our default GPT resource does not charge fees, but we will have the pricing from public preview. If you do not want to use your own GPT resources, remove this field from the input.** | String   |
+| **Domain** | (Optional) `MEDICAL` or `GENERIC`. Default value: `GENERIC`. | Enum  |
+| **Task**               | (Optional) Type of task: `QnA`, `Summarization`. Default value: `Summarization`. | Enum |
+| **Query**               | (Optional) This parameter is only used when the task type is QnA in which case it's required. Character limit: 7,500. | String  |
+| **Text**          | (Required) The text that needs to be checked. Character limit: 7,500. |  String  |
+| **GroundingSources**         | (Required) Uses an array of grounding sources to validate AI-generated text. Restrictions on the total amount of grounding sources that can be analyzed in a single request are 55K characters. | String array    |
+| **Reasoning**         | (Optional) Specifies whether to use the reasoning feature. The default value is `False`. If `True`, the service uses our default GPT resources to provided an explanation and included the "ungrounded" sentence. Be careful: using reasoning will increase the processing time and may incur extra fees.| Boolean   |
+| **GptResource**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, add this field manually and include the subfield below for the GPT resources used. Currently, **our default GPT resource does not charge fees, but this will change in public preview. If you do not want to use your own GPT resources, remove this field from the input.** | String   |
 
 GPTResource
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
-| **azureOpenAIEndpoint** | Endpoint for Azure's OpenAI service.  | String |
-| **deploymentName** | Name of the specific deployment. | String|
+| **azureOpenAIEndpoint** | Endpoint URL for Azure's OpenAI service.  | String |
+| **deploymentName** | Name of the specific deployment to use. | String|
 
 
 The Groundedness detection API provides the option to include _reasoning_ in the API response. If you opt for reasoning, you must either utilize your own GPT resources or use our provided default GPT resources. In this case, the response will include an additional reasoning value. This value details specific instances and explanations for any detected ungroundedness. If you choose not to receive reasoning, the API will classify the submitted content as `true` or `false` and provide a confidence score.
@@ -156,8 +156,8 @@ In order to use your own GPT resources, you need to give your Content Safety res
 | Name                | Description                                                  | Type    |
 | :------------------ | :----------------------------------------------------------- | ------- |
 | **ungrounded**        | Indicates whether the text exhibits ungroundedness.  | Boolean    |
-| **confidenceScore** | Assesses the likelihood of ungrounded content with a numerical score.The score will range from 0 to 1.	 | Float	 |
-| **ungroundedPercentage** | Specifies the proportion of the text identified as ungrounded, expressed as a decimal between 0 and 1, where 0 indicates no ungrounded content and 1 indicates entirely ungrounded content.| Float	 |
+| **confidenceScore** | The confidence value of the _ungrounded_ designation. The score will range from 0 to 1.	 | Float	 |
+| **ungroundedPercentage** | Specifies the proportion of the text identified as ungrounded, expressed as a number between 0 and 1, where 0 indicates no ungrounded content and 1 indicates entirely ungrounded content.| Float	 |
 | **ungroundedDetails** | Provides insights into ungrounded content with specific examples and percentages.| String |
 
 
@@ -165,7 +165,7 @@ UngroundedDetails
 | Name                | Description                                                  | Type    |
 | :------------------ | :----------------------------------------------------------- | ------- |
 | **Text**   |  The specific text that is ungrounded.  | String   |
-| **Reason** |  Offers explanations for detected ungroundedness, enhancing understanding. | String  |
+| **Reason** |  Offers explanations for detected ungroundedness. | String  |
 
 
 ##  📝 Sample Code 
