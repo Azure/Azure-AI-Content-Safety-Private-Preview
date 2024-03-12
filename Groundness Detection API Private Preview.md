@@ -126,7 +126,7 @@ In order to use your own GPT resources, you need to give your Content Safety res
    
     <img width="434" alt="image" src="https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/71fb578f-8ef1-4417-9cfd-685144fa9afa">
 
-1. Assign the role of Azure OpenAI Contributor/User to the Managed identity. Any roles highlighted below should work.
+1. Navigate to your Azure OpenAI resource.  From there, assign the role of Azure OpenAI Contributor/User to the Content Safety Managed identity. Any roles highlighted below should work.
      ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/0bdab704-2825-4a78-b9b4-56e72aa19718)
 
      ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/5df9be34-0929-4dfa-8e5a-edfd653d0e02)
