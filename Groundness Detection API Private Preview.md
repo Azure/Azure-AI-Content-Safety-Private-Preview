@@ -53,6 +53,15 @@ Currently, the Groundedness detection API supports the English language. While o
 **Text length limitations**
 Please note that the maximum character limit for the grounding sources is 55K characters, and for the text and query, it is 7.5K characters for each API call. If your input (either text or grounding sources) exceeds these character limitations per API call, you will encounter an error.
 
+**Regions**
+Region/location
+To use this API, you must create your Azure AI Content Safety resource in the supported regions. Currently, it is available in the following Azure regions:
+East US 2
+France Central
+UK South
+West US
+Sweden Central
+
 **RPS limitations**
 
 | Pricing Tier | Requests per 10 second (RPS) |
@@ -71,7 +80,7 @@ If you need a higher RPS, please [contact us](mailto:contentsafetysupport@micros
 ### Create an Azure Content Safety resource
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
-2. [Create Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select your whitelisted subscription, resource group, region and pricing tier. Currently the private preview Groundedness detection API is available in three regions: **East US2, West US, Sweden Central**. Please create your Content Safety resource in one of these regions.
+2. [Create Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select your whitelisted subscription, resource group, region and pricing tier. Currently the private preview Groundedness detection API is available in three regions: **East US2, West US, Sweden Central, France Central, UK South**. Please create your Content Safety resource in one of these regions.
 3. The resource will take a few minutes to deploy. After it does, go to the new resource. In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint to a temporary location for later use.
 
 ### Test with a sample request
