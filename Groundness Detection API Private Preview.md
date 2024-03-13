@@ -51,7 +51,7 @@ The Groundedness detection supports text-based Summarization and QnA tasks to en
 Currently, the Groundedness detection API supports the English language. While our API does not restrict the submission of non-English content, we cannot guarantee the same level of quality and accuracy in the analysis of other language content. We recommend that users submit content primarily in English to ensure the most reliable and accurate results from the API.
 
 **Text length limitations**
-Please note that the maximum character limit for the grounding sources is 55K characters, and for the text, it is 7.5K characters for each API call. If your input (either text or grounding sources) exceeds these character limitations per API call, you will encounter an error.
+Please note that the maximum character limit for the grounding sources is 55K characters, and for the text and query, it is 7.5K characters for each API call. If your input (either text or grounding sources) exceeds these character limitations per API call, you will encounter an error.
 
 **RPS limitations**
 
@@ -78,7 +78,7 @@ If you need a higher RPS, please [contact us](mailto:contentsafetysupport@micros
 
 Now that you have a resource available in Azure for Content Safety and you have a subscription key for that resource, run some tests with the Groundedness detection API.
 
-1. Substitute the `<endpoint>` with your resource endpoint URL (skip the `https://` in the URL).
+1. Substitute the `<endpoint>` with your resource endpoint URL (skip the `https://` in the URL), such as <endpoint>/contentsafety/text:detectGroundedness?api-version=2024-02-15-preview.
 1. Replace `<your_subscription_key>` with your key.
 
 
@@ -93,9 +93,10 @@ Now that you have a resource available in Azure for Content Safety and you have 
        
     ],
     "Reasoning": true,
-    "GptResource": {
-        "AzureOpenAIEndpoint": "<Your_GPT_Endpoint>",
-        "DeploymentName": "<Your_GPT_Deployment>"
+    "llmResource": {
+        "resourceType": "AzureOpenAI",
+        "azureOpenAIEndpoint": "<Your_GPT_Endpoint>",
+        "azureOpenAIDeploymentName": "<Your_GPT_Deployment>"
     }
 }
 ```
@@ -106,16 +107,13 @@ Now that you have a resource available in Azure for Content Safety and you have 
 | **Domain** | (Optional) `MEDICAL` or `GENERIC`. Default value: `GENERIC`. | Enum  |
 | **Task**               | (Optional) Type of task: `QnA`, `Summarization`. Default value: `Summarization`. | Enum |
 | **Query**               | (Optional) This parameter is only used when the task type is QnA in which case it's required. Character limit: 7,500. | String  |
-| **Text**          | (Required) The text that needs to be checked. Character limit: 7,500. |  String  |
+| **Text**          | (Required) The text that needs to be checked. Character limit: 7500. |  String  |
 | **GroundingSources**         | (Required) Uses an array of grounding sources to validate AI-generated text. Restrictions on the total amount of grounding sources that can be analyzed in a single request are 55K characters. | String array    |
 | **Reasoning**         | (Optional) Specifies whether to use the reasoning feature. The default value is `False`. If `True`, the service uses our default GPT resources to provided an explanation and included the "ungrounded" sentence. Be careful: using reasoning will increase the processing time and may incur extra fees.| Boolean   |
-| **GptResource**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, add this field manually and include the subfield below for the GPT resources used. Currently, **our default GPT resource does not charge fees, but this will change in public preview. If you do not want to use your own GPT resources, remove this field from the input.** | String   |
-
-GPTResource
-| Name                   | Description                                                  | Type    |
-| :--------------------- | :----------------------------------------------------------- | ------- |
-| **azureOpenAIEndpoint** | Endpoint URL for Azure's OpenAI service.  | String |
-| **deploymentName** | Name of the specific deployment to use. | String|
+| **llmResource**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, add this field manually and include the subfield below for the GPT resources used. Currently, **our default GPT resource does not charge fees, but this will change in public preview. If you do not want to use your own GPT resources, remove this field from the input.** | String   |
+| - `resourceType `| Specifies the type of resource being used, in this case, Azure OpenAI. | String |
+| - `azureOpenAIEndpoint `| Endpoint URL for Azure's OpenAI service.  | String |
+| - `azureOpenAIDeploymentName` | Name of the specific deployment to use. | String|
 
 
 The Groundedness detection API provides the option to include _reasoning_ in the API response. If you opt for reasoning, you must either utilize your own GPT resources or use our provided default GPT resources. In this case, the response will include an additional reasoning value. This value details specific instances and explanations for any detected ungroundedness. If you choose not to receive reasoning, the API will classify the submitted content as `true` or `false` and provide a confidence score.
@@ -143,13 +141,22 @@ In order to use your own GPT resources, you need to give your Content Safety res
     "confidenceScore": 1,
     "ungroundedPercentage": 1,
     "ungroundedDetails": [
-        {
-            "text": "12/hour.",
-            "reason": "\"They pay me 10/hour\". The hypothesis is not factually aligned with the premise. "
-        }
-    ]
+     {
+        "text": "string",
+        "offset": {
+        "utf8": 0,
+        "utf16": 0,
+        "codePoint": 0
+      },
+        "length": {
+        "utf8": 0,
+        "utf16": 0,
+        "codePoint": 0
+      },
+      "reason": "string"
+    }
+  ]
 }
-
 ```
 
 
@@ -159,14 +166,16 @@ In order to use your own GPT resources, you need to give your Content Safety res
 | **confidenceScore** | The confidence value of the _ungrounded_ designation. The score will range from 0 to 1.	 | Float	 |
 | **ungroundedPercentage** | Specifies the proportion of the text identified as ungrounded, expressed as a number between 0 and 1, where 0 indicates no ungrounded content and 1 indicates entirely ungrounded content.| Float	 |
 | **ungroundedDetails** | Provides insights into ungrounded content with specific examples and percentages.| String |
-
-
-UngroundedDetails
-| Name                | Description                                                  | Type    |
-| :------------------ | :----------------------------------------------------------- | ------- |
-| **Text**   |  The specific text that is ungrounded.  | String   |
-| **Reason** |  Offers explanations for detected ungroundedness. | String  |
-
+| -**`Text`**   |  The specific text that is ungrounded.  | String   |
+| -**`offset`**   |  An object describing the position of the ungrounded text in various encoding.  | String   |
+| - `offset > utf8`       | The offset position of the ungrounded text in UTF-8 encoding.             | number                                                                                |
+| - `offset > utf16`      | The offset position of the ungrounded text in UTF-16 encoding.              | number                                                                              |
+| - `offset > codePoint`  | The offset position of the ungrounded text in terms of Unicode code points.               |number                                                                   |
+| -**`length`**   |  An object describing the length of the ungrounded text in various encoding. (utf8, utf16, codePoint), similar to the offset. | String   |
+| - `offset > utf8`       | The length of the ungrounded text in UTF-8 encoding.             | number                                                                                |
+| - `offset > utf16`      | The length of the ungrounded text in UTF-16 encoding.              | number                                                                              |
+| - `offset > codePoint`  | The length of the ungrounded text in terms of Unicode code points.               |number                                                                   |
+| -**`Reason`** |  Offers explanations for detected ungroundedness. | String  |
 
 ##  📝 Sample Code 
 ### Python
@@ -195,7 +204,7 @@ headers = {
   'Ocp-Apim-Subscription-Key': '<your_subscription_key>',
   'Content-Type': 'application/json'
 }
-conn.request("POST", "/contentsafety/text:detectUngroundedness?api-version=2023-10-30-preview", payload, headers)
+conn.request("POST", "/contentsafety/text:detectUngroundedness?api-version=2024-02-15-preview", payload, headers)
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))
@@ -208,7 +217,7 @@ C# sample request:
 
 ```csharp
 var client = new HttpClient();
-var request = new HttpRequestMessage(HttpMethod.Post, "<Endpoint>contentsafety/text:detectUngroundedness?api-version=2023-10-30-preview");
+var request = new HttpRequestMessage(HttpMethod.Post, "<Endpoint>contentsafety/text:detectUngroundedness?api-version=2024-02-15-preview");
 request.Headers.Add("Ocp-Apim-Subscription-Key", "<your_subscription_key>");
 var content = new StringContent("{\r\n    \"Domain\": \"GENERIC\",\r\n    \"Task\": \"qna\",\r\n    \"Query\": \"test\",\r\n    \"Text\": \"The sun rises from the west. In most cultures and scientific understanding, the sun rises in the west, traverses the sky throughout the day, and sets in the west. This is a result of the Earth's rotation, which gives the impression of the sun's apparent movement across the sky. However, in some ancient myths, legends, or cultural beliefs, there might exist different interpretations. \",\r\n    \"GroundingSources\": [\r\n        \"The sun rises from the east due to the visual effect caused by the Earth's rotation. The rotation of the Earth creates the illusion of the sun rising from the horizon. In reality, it's because we stand on the Earth's surface, rotating from west to east at a speed of approximately 1670 kilometers per hour, which causes the movement of the sun across the sky. The Earth's rotation leads to the alternation of day and night, and the sunrise from the east is just a part of this cycle\"\r\n    ],\r\n    \"RuntimeOptions\" : {\r\n        \"DetectMode\" : \"test\"\r\n    }\r\n}", null, "application/json");
 request.Content = content;
@@ -227,7 +236,7 @@ OkHttpClient client = new OkHttpClient().newBuilder()
 MediaType mediaType = MediaType.parse("application/json");
 RequestBody body = RequestBody.create(mediaType, "{\r\n    \"Domain\": \"GENERIC\",\r\n    \"Task\": \"qna\",\r\n    \"Query\": \"test\",\r\n    \"Text\": \"The sun rises from the west. In most cultures and scientific understanding, the sun rises in the west, traverses the sky throughout the day, and sets in the west. This is a result of the Earth's rotation, which gives the impression of the sun's apparent movement across the sky. However, in some ancient myths, legends, or cultural beliefs, there might exist different interpretations. \",\r\n    \"GroundingSources\": [\r\n        \"The sun rises from the east due to the visual effect caused by the Earth's rotation. The rotation of the Earth creates the illusion of the sun rising from the horizon. In reality, it's because we stand on the Earth's surface, rotating from west to east at a speed of approximately 1670 kilometers per hour, which causes the movement of the sun across the sky. The Earth's rotation leads to the alternation of day and night, and the sunrise from the east is just a part of this cycle\"\r\n    ],\r\n    \"RuntimeOptions\" : {\r\n        \"DetectMode\" : \"test\"\r\n    }\r\n}");
 Request request = new Request.Builder()
-  .url("<Endpoint>/contentsafety/text:detectUngroundedness?api-version=2023-10-30-preview")
+  .url("<Endpoint>/contentsafety/text:detectUngroundedness?api-version=2024-02-15-preview")
   .method("POST", body)
   .addHeader("Ocp-Apim-Subscription-Key", "<your_subscription_key>")
   .addHeader("Content-Type", "application/json")
