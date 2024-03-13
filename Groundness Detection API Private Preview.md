@@ -110,7 +110,7 @@ Now that you have a resource available in Azure for Content Safety and you have 
 | :--------------------- | :----------------------------------------------------------- | ------- |
 | **Domain** | (Optional) `MEDICAL` or `GENERIC`. Default value: `GENERIC`. | Enum  |
 | **Task**               | (Optional) Type of task: `QnA`, `Summarization`. Default value: `Summarization`. | Enum |
-| **Query**               | (Optional) This parameter is only used when the task type is QnA in which case it's required. Character limit: 7,500. | String  |
+| - **`qna > query`**              | (Optional) This parameter is only used when the task type is QnA in which case it's required. Character limit: 7,500. | String  |
 | **Text**          | (Required) The text that needs to be checked. Character limit: 7500. |  String  |
 | **GroundingSources**         | (Required) Uses an array of grounding sources to validate AI-generated text. Restrictions on the total amount of grounding sources that can be analyzed in a single request are 55K characters. | String array    |
 | **Reasoning**         | (Optional) Specifies whether to use the reasoning feature. The default value is `False`. If `True`, the service uses our default GPT resources to provided an explanation and included the "ungrounded" sentence. Be careful: using reasoning will increase the processing time and may incur extra fees.| Boolean   |
@@ -122,19 +122,29 @@ Now that you have a resource available in Azure for Content Safety and you have 
 
 The Groundedness detection API provides the option to include _reasoning_ in the API response. If you opt for reasoning, you must either utilize your own GPT resources or use our provided default GPT resources. In this case, the response will include an additional reasoning value. This value details specific instances and explanations for any detected ungroundedness. If you choose not to receive reasoning, the API will classify the submitted content as `true` or `false` and provide a confidence score.
 
-In order to use your own GPT resources, you need to give your Content Safety resource access to the Azure OpenAI resource. Enable system-assigned Managed identity for the Azure AI Content Safety instance and assign the role of Azure OpenAI Contributor/User to the identity:
+To allow your Content Safety resource to access Azure OpenAI resources using a managed identity, you'd typically follow these steps.
 
-1. Enable managed identity for the Azure AI Content Safety instance.
+ 1. Enable Managed Identity for Azure OpenAI Instance.
+
+Navigate to your Azure OpenAI instance in the Azure portal.
+Find the "Identity" section under the "Settings" category.
+Enable the system-assigned managed identity. This action grants your Azure OpenAI instance an identity that can be recognized and used within Azure for accessing other resources. Assign the role of Azure OpenAI Contributor/User to the Managed identity. 
    
-    <img width="434" alt="image" src="https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/71fb578f-8ef1-4417-9cfd-685144fa9afa">
+ 2. Assign Role to Managed Identity.
 
-1. Assign the role of Azure OpenAI Contributor/User to the Managed identity. Any roles highlighted below should work.
-     ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/0bdab704-2825-4a78-b9b4-56e72aa19718)
+Go to the Azure resource you want the Azure OpenAI instance to access, which in this case, is your Content Safety resource.
+Access the "Access control (IAM)" section of your Content Safety resource. Click on "Add role assignment" to start the process of assigning a role to the managed identity. Choose a role that grants the necessary permissions for the tasks you want to perform. Based on your needs, this could be "Azure OpenAI Contributor" or "Azure OpenAI User". The specific roles and permissions might vary based on what you're looking to achieve with Azure OpenAI.
+  ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/0bdab704-2825-4a78-b9b4-56e72aa19718)
 
+
+In the "Select" field, search for the name of your Azure OpenAI instance or select it from the list of available options. This action assigns the selected role to the managed identity associated with your Azure OpenAI instance, allowing it to interact with the Content Safety resource.
      ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/5df9be34-0929-4dfa-8e5a-edfd653d0e02)
-
-
-   <img width="434" alt="image" src="https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/d4c0a214-f716-45f4-9f2a-6ac16da59b2a">
+   
+  3. Verify Permissions:
+After assigning the role, it's a good idea to verify that the managed identity has the correct permissions. You might do this by testing a specific operation that requires the newly granted permissions.
+If you encounter any issues, double-check the role assignments and ensure that the correct managed identity was selected during the role assignment process.
+Remember, managing access and permissions in Azure requires careful consideration to ensure security and compliance with your organization's policies. Always review and minimize permissions to adhere to the principle of least privilege.
+  
 
 
 ### Output
