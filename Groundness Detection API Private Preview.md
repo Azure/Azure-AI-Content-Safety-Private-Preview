@@ -54,13 +54,12 @@ Currently, the Groundedness detection API supports the English language. While o
 Please note that the maximum character limit for the grounding sources is 55K characters, and for the text and query, it is 7.5K characters for each API call. If your input (either text or grounding sources) exceeds these character limitations per API call, you will encounter an error.
 
 **Regions**
-Region/location
 To use this API, you must create your Azure AI Content Safety resource in the supported regions. Currently, it is available in the following Azure regions:
-East US 2
-France Central
-UK South
-West US
-Sweden Central
+- East US 2
+- France Central
+- UK South
+- West US
+- Sweden Central
 
 **RPS limitations**
 
@@ -72,10 +71,6 @@ Sweden Central
 If you need a higher RPS, please [contact us](mailto:contentsafetysupport@microsoft.com) to request.
 
 ## Quickstart 
-### Whitelist your subscription ID
-
-1. Submit this form by filling your subscription ID to whitelist this feature to you: [Microsoft Forms](https://forms.office.com/r/38GYZwLC0u).
-2. The whitelist will take up to 48 hours to approve. Once you receive confirmation from Microsoft, you can go to the next step.
 
 ### Create an Azure Content Safety resource
 
