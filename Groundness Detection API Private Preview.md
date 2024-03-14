@@ -56,8 +56,7 @@ Please note that the maximum character limit for the grounding sources is 55K ch
 **Regions**
 To use this API, you must create your Azure AI Content Safety resource in the supported regions. Currently, it is available in the following Azure regions:
 - East US 2
-- France Central
-- UK South
+- East US (only for non-reasoning)
 - West US
 - Sweden Central
 
@@ -75,7 +74,7 @@ If you need a higher RPS, please [contact us](mailto:contentsafetysupport@micros
 ### Create an Azure Content Safety resource
 
 1. Sign in to the [Azure Portal](https://portal.azure.com/).
-2. [Create Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select your whitelisted subscription, resource group, region and pricing tier. Currently the private preview Groundedness detection API is available in three regions: **East US2, West US, Sweden Central, France Central, UK South**. Please create your Content Safety resource in one of these regions.
+2. [Create Content Safety Resource](https://aka.ms/acs-create). Enter a unique name for your resource, select your whitelisted subscription, resource group, region and pricing tier. Currently the private preview Groundedness detection API is available in three regions: **East US2, West US, Sweden Central**. Please create your Content Safety resource in one of these regions.
 3. The resource will take a few minutes to deploy. After it does, go to the new resource. In the left pane, under **Resource Management**, select **API Keys and Endpoints**. Copy one of the subscription key values and endpoint to a temporary location for later use.
 
 ### Test with a sample request
@@ -90,7 +89,9 @@ Now that you have a resource available in Azure for Content Safety and you have 
 {
     "Domain": "GENERIC",
     "Task": "QNA",
-    "Query": "How much does she currently get paid per hour at the bank?",
+    "qna": {
+            "query": "How much does she currently get paid per hour at the bank?"
+           },
     "Text": "12/hour.",
     "GroundingSources": [
         "I'm 21 years old and I need to make a decision about the next two years of my life. Within a week. I currently work for a bank that requires strict sales goals to meet. IF they aren't met three times (three months) you're canned. They pay me 10/hour and it's not unheard of to get a raise in 6ish months. The issue is, **I'm not a salesperson**. That's not my personality. I'm amazing at customer service. I have the most positive customer service \"reports\" done about me in the short time I've worked here. A coworker asked \"do you ask for people to fill these out? You have a ton\". That being said, I have a job opportunity at Chase Bank as a part time teller. What makes this decision so hard is that at my current job, I get 40 hours and Chase could only offer me 20 hours/week. Drive time to my current job is also 21 miles **one way** while Chase is literally 1.8 miles from my house, allowing me to go home for lunch. I do have an apartment and an awesome roommate that I know wont be late on his portion of rent, so paying bills with 20 hours a week isn't the issue. It's the spending money and being broke all the time.\n\nI previously worked at Wal-Mart and took home just about 400 dollars every other week. So I know i can survive on this income. I just don't know whether I should go for Chase as I could definitely see myself having a career there. I'm a math major likely going to become an actuary, so Chase could provide excellent opportunities for me **eventually**.",
@@ -110,42 +111,34 @@ Now that you have a resource available in Azure for Content Safety and you have 
 | :--------------------- | :----------------------------------------------------------- | ------- |
 | **Domain** | (Optional) `MEDICAL` or `GENERIC`. Default value: `GENERIC`. | Enum  |
 | **Task**               | (Optional) Type of task: `QnA`, `Summarization`. Default value: `Summarization`. | Enum |
-| - **`qna > query`**              | (Optional) This parameter is only used when the task type is QnA in which case it's required. Character limit: 7,500. | String  |
+| - **`qna`**              | (Optional) This parameter is only used when the task type is QnA.  | String  |
+| - **`qna > query`**              | (Optional) This is used to submit a question or a query in a Questions and Answers task. Character limit: 7,500. | String  |
 | **Text**          | (Required) The text that needs to be checked. Character limit: 7500. |  String  |
 | **GroundingSources**         | (Required) Uses an array of grounding sources to validate AI-generated text. Restrictions on the total amount of grounding sources that can be analyzed in a single request are 55K characters. | String array    |
-| **Reasoning**         | (Optional) Specifies whether to use the reasoning feature. The default value is `False`. If `True`, the service uses our default GPT resources to provided an explanation and included the "ungrounded" sentence. Be careful: using reasoning will increase the processing time and may incur extra fees.| Boolean   |
-| **llmResource**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, add this field manually and include the subfield below for the GPT resources used. Currently, **our default GPT resource does not charge fees, but this will change in public preview. If you do not want to use your own GPT resources, remove this field from the input.** | String   |
-| - `resourceType `| Specifies the type of resource being used, in this case, Azure OpenAI. | String |
+| **Reasoning**         | (Optional) Specifies whether to use the reasoning feature. The default value is `False`. If `True`, the service uses our default GPT resources to provided an explanation and included the "ungrounded" sentence. Be careful: using reasoning will increase the processing time and incur extra fees.| Boolean   |
+| **llmResource**         | (Optional) If you want to use your own GPT resources instead of our default GPT resources, add this field manually and include the subfield below for the GPT resources used. If you do not want to use your own GPT resources, remove this field from the input. | String   |
+| - `resourceType `| Specifies the type of resource being used, for this version, only allows: `AzureOpenAI`. | Enum|
 | - `azureOpenAIEndpoint `| Endpoint URL for Azure's OpenAI service.  | String |
 | - `azureOpenAIDeploymentName` | Name of the specific deployment to use. | String|
 
-
+### Managed identity
 The Groundedness detection API provides the option to include _reasoning_ in the API response. If you opt for reasoning, you must either utilize your own GPT resources or use our provided default GPT resources. In this case, the response will include an additional reasoning value. This value details specific instances and explanations for any detected ungroundedness. If you choose not to receive reasoning, the API will classify the submitted content as `true` or `false` and provide a confidence score.
 
 To allow your Content Safety resource to access Azure OpenAI resources using a managed identity, you'd typically follow these steps.
 
- 1. Enable Managed Identity for Azure OpenAI Instance.
+ 1. Enable Managed Identity for Azure AI Content Safety.
 
-Navigate to your Azure OpenAI instance in the Azure portal.
-Find the "Identity" section under the "Settings" category.
-Enable the system-assigned managed identity. This action grants your Azure OpenAI instance an identity that can be recognized and used within Azure for accessing other resources. Assign the role of Azure OpenAI Contributor/User to the Managed identity. 
-   
+Navigate to your Azure AI Content Safety instance in the Azure portal. Find the "Identity" section under the "Settings" category. Enable the system-assigned managed identity. This action grants your Azure AI Content Safety instance an identity that can be recognized and used within Azure for accessing other resources. 
+
+  ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/dfa6677f-1c13-4a80-9c1b-f0b2c19b849f)
+
  2. Assign Role to Managed Identity.
 
-Go to the Azure resource you want the Azure OpenAI instance to access, which in this case, is your Content Safety resource.
-Access the "Access control (IAM)" section of your Content Safety resource. Click on "Add role assignment" to start the process of assigning a role to the managed identity. Choose a role that grants the necessary permissions for the tasks you want to perform. Based on your needs, this could be "Azure OpenAI Contributor" or "Azure OpenAI User". The specific roles and permissions might vary based on what you're looking to achieve with Azure OpenAI.
+Navigate to your Azure AI Content Safety instance, click on "Add role assignment" to start the process of assigning a role to the Azure AI Content Safety managed identity. Choose a role that grants the necessary permissions for the tasks you want to perform. Based on your needs, this could be "Contributor" or "User". The specific roles and permissions might vary based on what you're looking to achieve.
   ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/0bdab704-2825-4a78-b9b4-56e72aa19718)
 
-
-In the "Select" field, search for the name of your Azure OpenAI instance or select it from the list of available options. This action assigns the selected role to the managed identity associated with your Azure OpenAI instance, allowing it to interact with the Content Safety resource.
-     ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/5df9be34-0929-4dfa-8e5a-edfd653d0e02)
+  ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/5df9be34-0929-4dfa-8e5a-edfd653d0e02)
    
-  3. Verify Permissions:
-After assigning the role, it's a good idea to verify that the managed identity has the correct permissions. You might do this by testing a specific operation that requires the newly granted permissions.
-If you encounter any issues, double-check the role assignments and ensure that the correct managed identity was selected during the role assignment process.
-Remember, managing access and permissions in Azure requires careful consideration to ensure security and compliance with your organization's policies. Always review and minimize permissions to adhere to the principle of least privilege.
-  
-
 
 ### Output
 
@@ -186,9 +179,9 @@ Remember, managing access and permissions in Azure requires careful consideratio
 | - `offset > utf16`      | The offset position of the ungrounded text in UTF-16 encoding.              | number                                                                              |
 | - `offset > codePoint`  | The offset position of the ungrounded text in terms of Unicode code points.               |number                                                                   |
 | -**`length`**   |  An object describing the length of the ungrounded text in various encoding. (utf8, utf16, codePoint), similar to the offset. | String   |
-| - `offset > utf8`       | The length of the ungrounded text in UTF-8 encoding.             | number                                                                                |
-| - `offset > utf16`      | The length of the ungrounded text in UTF-16 encoding.              | number                                                                              |
-| - `offset > codePoint`  | The length of the ungrounded text in terms of Unicode code points.               |number                                                                   |
+| - `length > utf8`       | The length of the ungrounded text in UTF-8 encoding.             | number                                                                                |
+| - `length > utf16`      | The length of the ungrounded text in UTF-16 encoding.              | number                                                                              |
+| - `length > codePoint`  | The length of the ungrounded text in terms of Unicode code points.               |number                                                                   |
 | -**`Reason`** |  Offers explanations for detected ungroundedness. | String  |
 
 ##  📝 Sample Code 
@@ -197,32 +190,31 @@ Remember, managing access and permissions in Azure requires careful consideratio
 Python sample request:
 
 ```Python
+
 import http.client
 import json
 
-conn = http.client.HTTPSConnection("<Endpoint>")
+conn = http.client.HTTPSConnection("<Endpoint>/contentsafety/text:detectGroundedness?api-version=2024-02-15-preview")
 payload = json.dumps({
-  "Domain": "MEDICAL",
-  "Task": "SUMMARIZATION",
-  "Text": "The patient has recently lost weight.",
-  "GroundingSources": [
-    "Doctor: Good morning, how can I assist you today? Patient: Good morning, Doctor. I've been feeling quite unwell lately. I have a constant headache and I feel tired all the time. Doctor: I'm sorry to hear that. When did you start experiencing these symptoms? Patient: About two weeks ago. Doctor: Have you noticed any other symptoms? Like fever, weight loss, or changes in appetite? Patient: I have lost a few pounds recently. But I thought it was due to stress at work. Doctor: It's important to consider all factors. Stress can indeed cause such symptoms but let's rule out other possible causes. I recommend we do some blood tests to get a clearer picture. Patient: That sounds like a good idea, Doctor. I just want to know what's wrong so I can start feeling better. Doctor: I understand your concern. Once we have the test results, we'll discuss the next steps. It could be something minor that's easily treatable, so try not to worry too much in the meantime. Patient: Thank you. Doctor: You're welcome."
+  "domain": "Generic",
+  "task": "QnA",
+  "qna": {
+    "query": "How much does she currently get paid per hour at the bank?"
+  },
+  "text": "12/hour",
+  "groundingSources": [
+    "I'm 21 years old and I need to make a decision about the next two years of my life. Within a week. I currently work for a bank that requires strict sales goals to meet. IF they aren't met three times (three months) you're canned. They pay me 10/hour and it's not unheard of to get a raise in 6ish months. The issue is, **I'm not a salesperson**. That's not my personality. I'm amazing at customer service, I have the most positive customer service \"reports\" done about me in the short time I've worked here. A coworker asked \"do you ask for people to fill these out? you have a ton\". That being said, I have a job opportunity at Chase Bank as a part time teller. What makes this decision so hard is that at my current job, I get 40 hours and Chase could only offer me 20 hours/week. Drive time to my current job is also 21 miles **one way** while Chase is literally 1.8 miles from my house, allowing me to go home for lunch. I do have an apartment and an awesome roommate that I know wont be late on his portion of rent, so paying bills with 20hours a week isn't the issue. It's the spending money and being broke all the time.\n\nI previously worked at Wal-Mart and took home just about 400 dollars every other week. So I know i can survive on this income. I just don't know whether I should go for Chase as I could definitely see myself having a career there. I'm a math major likely going to become an actuary, so Chase could provide excellent opportunities for me **eventually**."
   ],
-  "Reasoning": True,
-  "GptResource": {
-    "AzureOpenAIEndpoint": "<Your_GPT_Endpoint>",
-    "DeploymentName": "<Your_GPT_Deployment>"
-  }
+  "reasoning": False
 })
 headers = {
   'Ocp-Apim-Subscription-Key': '<your_subscription_key>',
   'Content-Type': 'application/json'
 }
-conn.request("POST", "/contentsafety/text:detectUngroundedness?api-version=2024-02-15-preview", payload, headers)
+conn.request("POST", "/contentsafety/text:detectGroundedness?api-version=2024-02-15-preview", payload, headers)
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))
-
 ```
 
 ### C#
@@ -231,13 +223,14 @@ C# sample request:
 
 ```csharp
 var client = new HttpClient();
-var request = new HttpRequestMessage(HttpMethod.Post, "<Endpoint>contentsafety/text:detectUngroundedness?api-version=2024-02-15-preview");
+var request = new HttpRequestMessage(HttpMethod.Post, "<Endpoint>/contentsafety/text:detectGroundedness?api-version=2024-02-15-preview");
 request.Headers.Add("Ocp-Apim-Subscription-Key", "<your_subscription_key>");
-var content = new StringContent("{\r\n    \"Domain\": \"GENERIC\",\r\n    \"Task\": \"qna\",\r\n    \"Query\": \"test\",\r\n    \"Text\": \"The sun rises from the west. In most cultures and scientific understanding, the sun rises in the west, traverses the sky throughout the day, and sets in the west. This is a result of the Earth's rotation, which gives the impression of the sun's apparent movement across the sky. However, in some ancient myths, legends, or cultural beliefs, there might exist different interpretations. \",\r\n    \"GroundingSources\": [\r\n        \"The sun rises from the east due to the visual effect caused by the Earth's rotation. The rotation of the Earth creates the illusion of the sun rising from the horizon. In reality, it's because we stand on the Earth's surface, rotating from west to east at a speed of approximately 1670 kilometers per hour, which causes the movement of the sun across the sky. The Earth's rotation leads to the alternation of day and night, and the sunrise from the east is just a part of this cycle\"\r\n    ],\r\n    \"RuntimeOptions\" : {\r\n        \"DetectMode\" : \"test\"\r\n    }\r\n}", null, "application/json");
+var content = new StringContent("{\r\n    \"domain\": \"Generic\",\r\n    \"task\": \"QnA\",\r\n    \"qna\": {\r\n        \"query\": \"How much does she currently get paid per hour at the bank?\"\r\n    },\r\n    \"text\": \"12/hour\",\r\n    \"groundingSources\": [\"I'm 21 years old and I need to make a decision about the next two years of my life. Within a week. I currently work for a bank that requires strict sales goals to meet. IF they aren't met three times (three months) you're canned. They pay me 10/hour and it's not unheard of to get a raise in 6ish months. The issue is, **I'm not a salesperson**. That's not my personality. I'm amazing at customer service, I have the most positive customer service \\\"reports\\\" done about me in the short time I've worked here. A coworker asked \\\"do you ask for people to fill these out? you have a ton\\\". That being said, I have a job opportunity at Chase Bank as a part time teller. What makes this decision so hard is that at my current job, I get 40 hours and Chase could only offer me 20 hours/week. Drive time to my current job is also 21 miles **one way** while Chase is literally 1.8 miles from my house, allowing me to go home for lunch. I do have an apartment and an awesome roommate that I know wont be late on his portion of rent, so paying bills with 20hours a week isn't the issue. It's the spending money and being broke all the time.\\n\\nI previously worked at Wal-Mart and took home just about 400 dollars every other week. So I know i can survive on this income. I just don't know whether I should go for Chase as I could definitely see myself having a career there. I'm a math major likely going to become an actuary, so Chase could provide excellent opportunities for me **eventually**.\"],\r\n    \"reasoning\":false\r\n    }", null, "application/json");
 request.Content = content;
 var response = await client.SendAsync(request);
 response.EnsureSuccessStatusCode();
 Console.WriteLine(await response.Content.ReadAsStringAsync());
+
 ```
 
 ### Java
@@ -248,9 +241,9 @@ Java sample request:.
 OkHttpClient client = new OkHttpClient().newBuilder()
   .build();
 MediaType mediaType = MediaType.parse("application/json");
-RequestBody body = RequestBody.create(mediaType, "{\r\n    \"Domain\": \"GENERIC\",\r\n    \"Task\": \"qna\",\r\n    \"Query\": \"test\",\r\n    \"Text\": \"The sun rises from the west. In most cultures and scientific understanding, the sun rises in the west, traverses the sky throughout the day, and sets in the west. This is a result of the Earth's rotation, which gives the impression of the sun's apparent movement across the sky. However, in some ancient myths, legends, or cultural beliefs, there might exist different interpretations. \",\r\n    \"GroundingSources\": [\r\n        \"The sun rises from the east due to the visual effect caused by the Earth's rotation. The rotation of the Earth creates the illusion of the sun rising from the horizon. In reality, it's because we stand on the Earth's surface, rotating from west to east at a speed of approximately 1670 kilometers per hour, which causes the movement of the sun across the sky. The Earth's rotation leads to the alternation of day and night, and the sunrise from the east is just a part of this cycle\"\r\n    ],\r\n    \"RuntimeOptions\" : {\r\n        \"DetectMode\" : \"test\"\r\n    }\r\n}");
+RequestBody body = RequestBody.create(mediaType, "{\r\n    \"domain\": \"Generic\",\r\n    \"task\": \"QnA\",\r\n    \"qna\": {\r\n        \"query\": \"How much does she currently get paid per hour at the bank?\"\r\n    },\r\n    \"text\": \"12/hour\",\r\n    \"groundingSources\": [\"I'm 21 years old and I need to make a decision about the next two years of my life. Within a week. I currently work for a bank that requires strict sales goals to meet. IF they aren't met three times (three months) you're canned. They pay me 10/hour and it's not unheard of to get a raise in 6ish months. The issue is, **I'm not a salesperson**. That's not my personality. I'm amazing at customer service, I have the most positive customer service \\\"reports\\\" done about me in the short time I've worked here. A coworker asked \\\"do you ask for people to fill these out? you have a ton\\\". That being said, I have a job opportunity at Chase Bank as a part time teller. What makes this decision so hard is that at my current job, I get 40 hours and Chase could only offer me 20 hours/week. Drive time to my current job is also 21 miles **one way** while Chase is literally 1.8 miles from my house, allowing me to go home for lunch. I do have an apartment and an awesome roommate that I know wont be late on his portion of rent, so paying bills with 20hours a week isn't the issue. It's the spending money and being broke all the time.\\n\\nI previously worked at Wal-Mart and took home just about 400 dollars every other week. So I know i can survive on this income. I just don't know whether I should go for Chase as I could definitely see myself having a career there. I'm a math major likely going to become an actuary, so Chase could provide excellent opportunities for me **eventually**.\"],\r\n    \"reasoning\":false\r\n    }");
 Request request = new Request.Builder()
-  .url("<Endpoint>/contentsafety/text:detectUngroundedness?api-version=2024-02-15-preview")
+  .url("<Endpoint>/contentsafety/text:detectGroundedness?api-version=2024-02-15-preview")
   .method("POST", body)
   .addHeader("Ocp-Apim-Subscription-Key", "<your_subscription_key>")
   .addHeader("Content-Type", "application/json")
