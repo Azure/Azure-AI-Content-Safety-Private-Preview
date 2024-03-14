@@ -84,11 +84,11 @@ Now that you have a resource available in Azure for Content Safety and you have 
 1. Substitute the `<endpoint>` with your resource endpoint URL (skip the `https://` in the URL), such as <endpoint>/contentsafety/text:detectGroundedness?api-version=2024-02-15-preview.
 1. Replace `<your_subscription_key>` with your key.
 
-
+#### Test with QnA Task
 ```json
 {
     "Domain": "GENERIC",
-    "Task": "QNA",
+    "Task": "QnA",
     "qna": {
             "query": "How much does she currently get paid per hour at the bank?"
            },
@@ -105,7 +105,24 @@ Now that you have a resource available in Azure for Content Safety and you have 
     }
 }
 ```
-
+#### Test with Summarization Task
+```json
+{
+    "Domain": "Medical",
+    "Task": "Summarization",
+    "Text": "Ms Johnson has been in the hospital after experiencing a stroke.",
+    "GroundingSources": [
+        "Our patient, Ms. Johnson, presented with persistent fatigue, unexplained weight loss, and frequent night sweats. After a series of tests, she was diagnosed with Hodgkin’s lymphoma, a type of cancer that affects the lymphatic system. The diagnosis was confirmed through a lymph node biopsy revealing the presence of Reed-Sternberg cells, a characteristic of this disease. She was further staged using PET-CT scans. Her treatment plan includes chemotherapy and possibly radiation therapy, depending on her response to treatment. The medical team remains optimistic about her prognosis given the high cure rate of Hodgkin’s lymphoma.",
+       
+    ],
+    "Reasoning": true,
+    "llmResource": {
+        "resourceType": "AzureOpenAI",
+        "azureOpenAIEndpoint": "<Your_GPT_Endpoint>",
+        "azureOpenAIDeploymentName": "<Your_GPT_Deployment>"
+    }
+}
+```
 
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
