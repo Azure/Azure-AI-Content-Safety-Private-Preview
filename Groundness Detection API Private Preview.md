@@ -82,7 +82,13 @@ If you need a higher RPS, please [contact us](mailto:contentsafetysupport@micros
 Now that you have a resource available in Azure for Content Safety and you have a subscription key for that resource, run some tests with the Groundedness detection API.
 
 1. Substitute the `<endpoint>` with your resource endpoint URL (skip the `https://` in the URL), such as <endpoint>/contentsafety/text:detectGroundedness?api-version=2024-02-15-preview.
-1. Replace `<your_subscription_key>` with your key.
+2. Replace `<your_subscription_key>` with your key.
+   
+The below fields must be included in the URL:
+
+| Name            | Required? | Description                                                  | Type   |
+| :-------------- | :-------- | :----------------------------------------------------------- | :----- |
+| **API Version** | Required  | This is the API version to be used. The current version is: api-version=2024-02-15-preview. Example: `<endpoint>/contentsafety/text:shieldPrompt?api-version=2024-02-15-preview` | String |
 
 #### Test with QnA Task
 ```json
