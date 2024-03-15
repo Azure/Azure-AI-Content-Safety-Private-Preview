@@ -134,8 +134,8 @@ The below fields must be included in the URL:
 | :--------------------- | :----------------------------------------------------------- | ------- |
 | **Domain** | (Optional) `MEDICAL` or `GENERIC`. Default value: `GENERIC`. | Enum  |
 | **Task**               | (Optional) Type of task: `QnA`, `Summarization`. Default value: `Summarization`. | Enum |
-| - **`qna`**              | (Optional) This parameter is only used when the task type is QnA.  | String  |
-| - **`qna > query`**              | (Optional) This is used to submit a question or a query in a Questions and Answers task. Character limit: 7,500. | String  |
+| **qna**              | (Optional) This parameter is only used when the task type is QnA.  | String  |
+| - `query`              | (Optional) This is used to submit a question or a query in a Questions and Answers task. Character limit: 7,500. | String  |
 | **Text**          | (Required) The text that needs to be checked. Character limit: 7500. |  String  |
 | **GroundingSources**         | (Required) Uses an array of grounding sources to validate AI-generated text. Restrictions on the total amount of grounding sources that can be analyzed in a single request are 55K characters. | String array    |
 | **Reasoning**         | (Optional) Specifies whether to use the reasoning feature. The default value is `False`. If `True`, the service uses our default GPT resources to provided an explanation and included the "ungrounded" sentence. Be careful: using reasoning will increase the processing time and incur extra fees.| Boolean   |
@@ -157,7 +157,7 @@ Navigate to your Azure AI Content Safety instance in the Azure portal. Find the 
 
  2. Assign Role to Managed Identity.
 
-Navigate to your Azure AI Content Safety instance, click on "Add role assignment" to start the process of assigning a role to the Azure AI Content Safety managed identity. Choose a role that grants the necessary permissions for the tasks you want to perform. Based on your needs, this could be "Contributor" or "User". The specific roles and permissions might vary based on what you're looking to achieve.
+Navigate to your Azure OpenAI instance, click on "Add role assignment" to start the process of assigning a Azure OpenAI role to the Azure AI Content Safety managed identity. Choose a role that grants the necessary permissions for the tasks you want to perform. Based on your needs, this could be "Contributor" or "User". The specific roles and permissions might vary based on what you're looking to achieve.
   ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/0bdab704-2825-4a78-b9b4-56e72aa19718)
 
   ![image](https://github.com/Azure/Azure-AI-Content-Safety-Private-Preview/assets/36343326/5df9be34-0929-4dfa-8e5a-edfd653d0e02)
