@@ -12,11 +12,11 @@ Previously known as **Jailbreak risk detection**, this shield targets User Promp
 
 ### Prompt Shields for Documents
 
-This shield aims to safeguard against attacks that use information not directly supplied by the user or developer, such as third-party documents or images. Attackers may embed hidden instructions within these materials, leading to unauthorized control over the LLM session.
+This shield aims to safeguard against attacks that use information not directly supplied by the user or developer, such as third-party documents. Attackers may embed hidden instructions within these materials, leading to unauthorized control over the LLM session.
 
 ### Comparison of Prompt Shields
 
-| Feature            | User Prompt Attacks                            | Documents Attacks                         |
+|                    | User Prompt Attacks                            | Documents Attacks                         |
 | ------------------ | --------------------------------------------- | ---------------------------------------- |
 | Attacker           | User                                          | Third party                              |
 | Entry point        | User prompts                                  | Third-party content (documents, emails)  |
