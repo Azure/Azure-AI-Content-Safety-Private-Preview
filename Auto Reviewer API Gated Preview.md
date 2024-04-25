@@ -2,8 +2,8 @@
 
 With the extensive capabilities of natural language understanding, it's been proven that LLM reaches human parity in understanding the harmful content policy/community guideline and performing harmful content review task that is adaptive to each customer's use case.  
 
-Alongside the practice of enforcing content safety techniques in products/communities in various industries, it's been found the "definition of harmful content" varies by use cases. However, the categories of Azure AI Content Safety is defined without knowing the customers' specific community guidelines/use cases. Thus, it's been a common practice to perform an additional human review process after the content gets flagged by Azure AI Content Safety API according to each customer's community guideline/ use case. Eventually to make the final judgement of getting the content blocked or not. By introducing the review process, it can ensure the results to be adapted to each customer's use case, but purely relying on human reviewers is not scalable and also introduces significant delay. 
-The Auto Reviewer API just helps to augment human review process to make it more scalable and more efficient, but also keeps on-parallel accuracy with human beings. 
+Alongside the practice of enforcing content safety techniques in products/communities in various industries, it's been found the "definition of harmful content" varies by use cases. However, the categories of Azure AI Content Safety is defined without knowing the customers' specific community guidelines/use cases. Thus, it's been a common practice to perform an additional human review process after the content gets flagged by Azure AI Content Safety API according to each customer's community guideline/ use case. Eventually to make the final judgement of getting the content blocked or not. By introducing the review process, it can ensure the results to be adapted to each customer's use case, but purely relying on human reviewers is not scalable and also introduces significant delay.
+The Auto Reviewer API just helps to augment human review process to make it more scalable and more efficient, but also keeps on-parallel accuracy with human beings.
 
 ## ⚠️ Disclaimer
 
@@ -21,15 +21,15 @@ The sample code could have offensive content, user discretion is advised.
 - ### Step 1: Create an auto reviewer
 
 After the content is flagged by 'Analyze' API of Azure AI Content Safety on a certain harmful category, if customers would like to get a more granular label aligning with their specifc community guidelines/ use cases, the very first step is to create an auto reviewer. Customers need to provide two key materials to train an auto reviewer, which is very similar to train a human reviewer:
-- **Guideline definition**: A detailed description of the review task, which can include multiple labels under a certain category. For example, there can be multiple sub-labels under "Violence", like "Terrorism", "Weapons", "Bullying"..., you need to provide a description for each of the label provided. **Note** that there will always be a "Others" label to classify cases which do not fall in any defined labels.
-- **Samples**: Samples play a critical role to train LLM to better understand the label definition in real cases. Provide a balanced dataset with both positive and negative(optional) examples, which should try best to be representative. Get the samples stored in a Blob Storage, and input the URL. 
 
-When you get the materials ready, call the "PUT" auto reviewers API to create an auto reviewer, it will take a couple of minutes to create. Use the “GET” auto reviewers API to get the creation status. 
+- **Guideline definition**: A detailed description of the review task, which can include multiple labels under a certain category. For example, there can be multiple sub-labels under "Violence", like "Terrorism", "Weapons", "Bullying"..., you need to provide a description for each of the label provided. **Note** that there will always be a "Others" label to classify cases which do not fall in any defined labels.
+- **Samples**: Samples play a critical role to train LLM to better understand the label definition in real cases. Provide a balanced dataset with both positive and negative(optional) examples, which should try best to be representative. Get the samples stored in a Blob Storage, and input the URL.
+
+When you get the materials ready, call the "PUT" auto reviewers API to create an auto reviewer, it will take a couple of minutes to create. Use the “GET” auto reviewers API to get the creation status.
 
 - ### Step 2: Review labeled content using created reviewers
 
-Call the "AutoReview" API, specify the "AutoReviewerName" and "AutoReviewerVersion" to be used and the content to be reviewed to perform the automated review. Eventually, you will be able to get a more granular label to help make the final blocking/non-blocking decision and align with specific community guidelines/use cases. 
-
+Call the "AutoReview" API, specify the "AutoReviewerName" and "AutoReviewerVersion" to be used and the content to be reviewed to perform the automated review. Eventually, you will be able to get a more granular label to help make the final blocking/non-blocking decision and align with specific community guidelines/use cases.
 
 - ### Language availability
 
@@ -84,29 +84,29 @@ In gated preview stage, you need to bring your own Azure OpenAI resource to perf
 1. Go to your Azure OpenAI resource and open 'Access control'. Click 'Add role assignment'.
 ![Role assignment](images/role-assignment.png)
 
-2. Search for role 'Cognitive Services User', click, and select 'Next'. 
+2. Search for role 'Cognitive Services User', click, and select 'Next'.
 ![Congnitive Services User](images/cognitive-services-user.png)
 
 3. Choose 'Managed Identity' for 'assign access to' option, and choose the Azure Content Safety resource that you've created in 'Members'.
 ![Select identity](images/select-identity.png)
 
-4. Finally select 'Review + assign'. After it is completed, your Azure Content Safety resource has been assigned permission to use your Azure OpenAI resource for review task. 
+4. Finally select 'Review + assign'. After it is completed, your Azure Content Safety resource has been assigned permission to use your Azure OpenAI resource for review task.
 
 **Get your Azure OpenAI resource endpoint**
 
-Go to your Azure OpenAI resource and open 'Keys and endpoint' to copy the endpoint. 
+Go to your Azure OpenAI resource and open 'Keys and endpoint' to copy the endpoint.
 
 **Get your GPT-4 deployment name**
 
-Go to your Azure OpenAI resource and open 'Model deployments'. Select 'Manage Deployments', and get the deployment name of GPT-4 that you'd like to use for review task. 
+Go to your Azure OpenAI resource and open 'Model deployments'. Select 'Manage Deployments', and get the deployment name of GPT-4 that you'd like to use for review task.
 
 **Modify content filtering setting to enable 'annotation' mode**
 
-The Auto Reviewer API needs to leverage the extended language understanding capability of GPT-4 for content annotation task, which may contain harmful content. To complete the task and not get the input/output filtered, the content filtering configuration in your GPT-4 deployment needs to be updated to 'annotation' mode. You may need to apply for modifying content filtering by filling [this form](https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUMlBQNkZMR0lFRldORTdVQzQ0TEI5Q1ExOSQlQCN0PWcu). After the application is approved, you can update the content filtering configuration in your GPT-4 deployment to 'annotation' mode by unchecking the boxes at each harmful category. 
+The Auto Reviewer API needs to leverage the extended language understanding capability of GPT-4 for content annotation task, which may contain harmful content. To complete the task and not get the input/output filtered, the content filtering configuration in your GPT-4 deployment needs to be updated to 'annotation' mode. You may need to apply for modifying content filtering by filling [this form](https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR7en2Ais5pxKtso_Pz4b1_xUMlBQNkZMR0lFRldORTdVQzQ0TEI5Q1ExOSQlQCN0PWcu). After the application is approved, you can update the content filtering configuration in your GPT-4 deployment to 'annotation' mode by unchecking the boxes at each harmful category.
 ![Modify content filtering](images/modify-content-filtering.png)
 
+[**Note**] After completing the above steps, please send the following information to <contentsafetysupport@microsoft.com>:
 
-[**Note**] After completing the above steps, please send the following information to contentsafetysupport@microsoft.com: 
 - Subscription ID
 - Azure AI Content Safety resource ID
 - Azure OpenAI resource endpoint
@@ -170,28 +170,23 @@ The examples that are provided for each label in the Blob URL need to follow bel
 - Curl
 
 ```
-curl --location --request PUT '<endpoint>/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview' \
+curl --location --request PUT 'https://<endpoint>/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview' \
 --header 'Ocp-Apim-Subscription-Key: <api_key>' \
 --header 'Content-Type: application/json' \
 --data '{
-  "categoryName": "Customized_Test",
-  "subCategories": [
+  "autoReviewerName": "AnimalAbuse",
+  "labels": [
     {
-      "id": 0,
-      "name": "Others",
-      "statements": [
-        "all cases that do not fall into sub-category 1"
-      ]
+      "labelName": "Other",
+      "description": "all cases that do not fall into sub-category 1"
     },
     {
-      "id": 1,
-      "name": "AnimalAbuse",
-      "statements": [
-        "Animal abuse"
-      ]
+      "labelName": "AnimalAbuse",
+      "description": "Animal abuse, or animal cruelty is the crime of inflicting physical pain, suffering or death on an animal, usually a tame one, beyond necessity for normal discipline. It can include neglect that is so monstrous (withholding food and water) that the animal has suffered, died or been put in imminent danger of death."
     }
   ],
-  "exampleBlobUrl": ""
+  "exampleBlobUrl": "",
+  "blobDelimiter": ""
 }'
 ```
 
@@ -202,31 +197,26 @@ import requests
 import json
 
 endpoint = "<endpoint>"
-url = endpoint+"/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview"
+url = endpoint+"/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview"
 
 headers = {
   "Ocp-Apim-Subscription-Key": '<api_key>',
   "Content-Type": "application/json"
 }
 payload = json.dumps({
-  "categoryName": "Customized_Test",
-  "subCategories": [
+  "autoReviewerName": "AnimalAbuse",
+  "labels": [
     {
-      "id": 0,
-      "name": "Others",
-      "statements": [
-        "all cases that do not fall into sub-category 1"
-      ]
+      "labelName": "Other",
+      "description": "all cases that do not fall into sub-category 1"
     },
     {
-      "id": 1,
-      "name": "AnimalAbuse",
-      "statements": [
-        "Animal abuse"
-      ]
+      "labelName": "AnimalAbuse",
+      "description": "Animal abuse, or animal cruelty is the crime of inflicting physical pain, suffering or death on an animal, usually a tame one, beyond necessity for normal discipline. It can include neglect that is so monstrous (withholding food and water) that the animal has suffered, died or been put in imminent danger of death."
     }
   ],
-  "exampleBlobUrl": ""
+  "exampleBlobUrl": "",
+  "blobDelimiter": ""
 })
 
 response = requests.request("PUT", url, headers=headers, data=payload)
@@ -261,12 +251,13 @@ After the auto reviewer is created successfully, you can provide the labeled tex
 - Curl
 
 ```
-curl --location '<endpoint>/contentsafety/text:adaptiveAnnotate?api-version=2023-10-30-preview' \
+curl --location 'https://<endpoint>/contentsafety/text:autoReview?api-version=2024-02-15-preview' \
 --header 'Ocp-Apim-Subscription-Key: <api_key>' \
 --header 'Content-Type: application/json' \
 --data '{
   "text": "I want to kill a cat",
-  "category": "Customized_Test"
+  "autoReviewerName": "AnimalAbuse",
+  "autoReviewerVersion": 1
 }'
 ```
 
@@ -277,7 +268,7 @@ import requests
 import json
 
 endpoint = "<endpoint>"
-url = endpoint+"/contentsafety/text:adaptiveAnnotate?api-version=2023-10-30-preview"
+url = endpoint+"/contentsafety/text:autoReview?api-version=2024-02-15-preview"
 
 headers = {
   "Ocp-Apim-Subscription-Key": '<api_key>',
@@ -285,7 +276,8 @@ headers = {
 }
 payload = json.dumps({
   "text": "I want to kill a cat",
-  "category": "Customized_Test"
+  "autoReviewerName": "AnimalAbuse",
+  "autoReviewerVersion": 1
 })
 
 response = requests.request("POST", url, headers=headers, data=payload)
@@ -296,14 +288,14 @@ print(response.text)
 
 ## Other Auto Reviewer APIs
 
-### Get a specific Auto Reviewer
+### Get operation status of creating Auto Reviewer version
 
 **Sample Code**
 
 -Curl
 
 ```
-curl --location '<endpoint>/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview' \
+curl --location 'https://<endpoint>/contentsafety/text/autoReviewers/operations/<operation-id>?api-version=2024-02-15-preview' \
 --header 'Ocp-Apim-Subscription-Key: <api_key>'
 ```
 
@@ -314,7 +306,38 @@ import requests
 import json
 
 endpoint = "<endpoint>"
-url = endpoint+"/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview"
+url = endpoint+"/contentsafety/text/autoReviewers/operations/<operation-id>?api-version=2024-02-15-preview"
+
+headers = {
+  "Ocp-Apim-Subscription-Key": '<api_key>',
+  "Content-Type": "application/json"
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.status_code)
+print(response.text)
+```
+
+### Get a specific Auto Reviewer version
+
+**Sample Code**
+
+-Curl
+
+```
+curl --location 'https://<endpoint>/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview&version=1' \
+--header 'Ocp-Apim-Subscription-Key: <api_key>'
+```
+
+-Python
+
+```
+import requests
+import json
+
+endpoint = "https://<endpoint>"
+url = endpoint+"/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview&version=1"
 
 headers = {
   "Ocp-Apim-Subscription-Key": '<api_key>',
@@ -334,7 +357,7 @@ print(response.text)
 -Curl
 
 ```
-curl --location '<endpoint>/contentsafety/text/categories?api-version=2023-10-30-preview' \
+curl --location 'https://<endpoint>/contentsafety/text/autoReviewers?api-version=2024-02-15-preview' \
 --header 'Ocp-Apim-Subscription-Key: <api_key>'
 ```
 
@@ -344,8 +367,8 @@ curl --location '<endpoint>/contentsafety/text/categories?api-version=2023-10-30
 import requests
 import json
 
-endpoint = "<endpoint>"
-url = endpoint+"/contentsafety/text/categories?api-version=2023-10-30-preview"
+endpoint = "https://<endpoint>"
+url = endpoint+"/contentsafety/text/autoReviewers?api-version=2024-02-15-preview"
 
 headers = {
   "Ocp-Apim-Subscription-Key": '<api_key>',
@@ -358,14 +381,14 @@ print(response.status_code)
 print(response.text)
 ```
 
-### Delete a specific Auto Reviewer 
+### Delete a specific Auto Reviewer version
 
 **Sample Code**
 
 -Curl
 
 ```
-curl --location --request DELETE '<endpoint>/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview' \
+curl --location --request DELETE 'https://<endpoint>/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview&version=2' \
 --header 'Ocp-Apim-Subscription-Key: <api_key>'
 ```
 
@@ -375,8 +398,8 @@ curl --location --request DELETE '<endpoint>/contentsafety/text/categories/Custo
 import requests
 import json
 
-endpoint = "<endpoint>"
-url = endpoint+"/contentsafety/text/categories/Customized_Test?api-version=2023-10-30-preview"
+endpoint = "https://<endpoint>"
+url = endpoint+"/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview&version=1"
 
 headers = {
   "Ocp-Apim-Subscription-Key": '<api_key>',
