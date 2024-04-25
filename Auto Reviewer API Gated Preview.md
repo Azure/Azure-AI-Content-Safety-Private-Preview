@@ -155,12 +155,12 @@ The examples that are provided for each label in the Blob URL need to follow bel
 ```
 {
   "text": "The text of the example 1", //required, 
-  "id": 0, //required, the label id that the example describes,
+  "labelName": 0, //required, the label id that the example describes,
   "reasoning": "The reason for the review result" //optional
 }
 {
   "text": "The text of the example 2", //required, 
-  "id": 1, //required, the label id that the example describes
+  "labelName": 1, //required, the label id that the example describes
   "reasoning": "The reason for the review result" //optional
 }
 ```
