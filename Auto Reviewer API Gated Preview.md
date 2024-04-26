@@ -113,7 +113,7 @@ The Auto Reviewer API needs to leverage the extended language understanding capa
 - Azure OpenAI resource endpoint
 - GPT-4 deployment name
 
-#### 4. ** Grant "Storage Blob Data Contributor/Owner" permission to your Azure Content Safety resource**
+#### 4. **Grant "Storage Blob Data Contributor/Owner" permission to your Azure Content Safety resource**
 The Auto Reviewer API needs to create a copy of your example blob file as snapshot first, then fetch your example blob for later review stage. For this, go to
 *Access Control* in your Azure Storage Account, select *+Add Role Assignment* and Assign the role of **Storage Blob Data Contributor/Owner** to the Azure Content Safety resource.
 
