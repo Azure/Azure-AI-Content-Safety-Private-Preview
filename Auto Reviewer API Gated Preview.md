@@ -274,6 +274,8 @@ After the auto reviewer is created successfully, you can provide the labeled tex
 | **AutoReviewerName** | (Required) Name of the newly created auto reviewer. | String  |
 | **Text** | (Required) String of the text to be reviewed. The maximum length is 1000 Unicode characters. | String |
 |**AutoReviewerVersion**| The version of the auto reviewer. If not assigned we will use the latest version. | String |
+| **AoaiEndpoint** | The Azure OpenAI endpoint used for review task | String |
+| **AoaiDeployment** | The deployment name of GPT-4 that you'd like to use for review task | String |
 
 **Request payload reference**
 
