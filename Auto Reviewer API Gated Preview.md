@@ -114,6 +114,7 @@ The Auto Reviewer API needs to leverage the extended language understanding capa
 - GPT-4 deployment name
 
 #### 4. **Grant "Storage Blob Data Contributor/Owner" permission to your Azure Content Safety resource**
+
 The Auto Reviewer API needs to create a copy of your example blob file as snapshot first, then fetch your example blob for later review stage. For this, go to
 *Access Control* in your Azure Storage Account, select *+Add Role Assignment* and Assign the role of **Storage Blob Data Contributor/Owner** to the Azure Content Safety resource.
 
@@ -125,8 +126,8 @@ Now that you have a resource available in Azure for Content Safety and you have 
 
 The initial step is to convert your customized community guideline/content policy to one or multiple auto reviewers in Azure AI Content Safety. Then get it ready to be used for the following review task.
 
-There's the **version** of the auto reviewer to be responded in the response body. Use it to get auto reviewer status, perform review task or delete. 
-The create API is an async API, "operation-id" and "operation-location" will be returned in the response header, use them to get the operation status in the next step. 
+There's the **version** of the auto reviewer to be responded in the response body. Use it to get auto reviewer status, perform review task or delete.
+The create API is an async API, "operation-id" and "operation-location" will be returned in the response header, use them to get the operation status in the next step.
 
 | Name                   | Description                                                  | Type    |
 | :--------------------- | :----------------------------------------------------------- | ------- |
@@ -151,8 +152,7 @@ The create API is an async API, "operation-id" and "operation-location" will be 
     },
   ],
   "exampleBlobUrl": "string",//optional, the file should  be ".jsonl" format, where each line is an example in json format, the maximum file size is 1MB in gated preview.
-  "blobDelimiter": "string",
-  "status": "NotStarted"
+  "blobDelimiter": "string" //optional
 }
 ```
 
@@ -173,13 +173,12 @@ The examples that are provided for each label in the Blob URL need to follow bel
 }
 ```
 
-
 **Sample Code**
 
 - Curl
 
 ```
-curl --location --request PUT 'https://<endpoint>/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview' \
+curl --location --request PUT '<endpoint>/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview' \
 --header 'Ocp-Apim-Subscription-Key: <api_key>' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -241,7 +240,7 @@ print(response.text)
 -Curl
 
 ```
-curl --location 'https://<endpoint>/contentsafety/text/autoReviewers/operations/<operation-id>?api-version=2024-02-15-preview' \
+curl --location '<endpoint>/contentsafety/text/autoReviewers/operations/<operation-id>?api-version=2024-02-15-preview' \
 --header 'Ocp-Apim-Subscription-Key: <api_key>'
 ```
 
@@ -283,7 +282,9 @@ After the auto reviewer is created successfully, you can provide the labeled tex
 {
   "text": "string",
   "autoReviewerName": "string",
-  "autoReviewerVersion": 0
+  "autoReviewerVersion": 0,
+  "aoaiEndpoint": "<aoai_endpoint>",
+  "aoaiDeployment": "<aoai_deployment_name>"
 }
 
 ```
@@ -293,13 +294,15 @@ After the auto reviewer is created successfully, you can provide the labeled tex
 - Curl
 
 ```
-curl --location 'https://<endpoint>/contentsafety/text:autoReview?api-version=2024-02-15-preview' \
+curl --location '<endpoint>/contentsafety/text:autoReview?api-version=2024-02-15-preview' \
 --header 'Ocp-Apim-Subscription-Key: <api_key>' \
 --header 'Content-Type: application/json' \
 --data '{
   "text": "I want to kill a cat",
   "autoReviewerName": "AnimalAbuse",
-  "autoReviewerVersion": 1
+  "autoReviewerVersion": 1,
+  "aoaiEndpoint": "<aoai_endpoint>",
+  "aoaiDeployment": "<aoai_deployment_name>"
 }'
 ```
 
@@ -319,7 +322,9 @@ headers = {
 payload = json.dumps({
   "text": "I want to kill a cat",
   "autoReviewerName": "AnimalAbuse",
-  "autoReviewerVersion": 1
+  "autoReviewerVersion": 1,
+  "aoaiEndpoint": "<aoai_endpoint>",
+  "aoaiDeployment": "<aoai_deployment_name>"
 })
 
 response = requests.request("POST", url, headers=headers, data=payload)
@@ -337,7 +342,7 @@ print(response.text)
 -Curl
 
 ```
-curl --location 'https://<endpoint>/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview&version=1' \
+curl --location '<endpoint>/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview&version=1' \
 --header 'Ocp-Apim-Subscription-Key: <api_key>'
 ```
 
@@ -347,7 +352,7 @@ curl --location 'https://<endpoint>/contentsafety/text/autoReviewers/AnimalAbuse
 import requests
 import json
 
-endpoint = "https://<endpoint>"
+endpoint = "<endpoint>"
 url = endpoint+"/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview&version=1"
 
 headers = {
@@ -368,7 +373,7 @@ print(response.text)
 -Curl
 
 ```
-curl --location 'https://<endpoint>/contentsafety/text/autoReviewers?api-version=2024-02-15-preview' \
+curl --location '<endpoint>/contentsafety/text/autoReviewers?api-version=2024-02-15-preview' \
 --header 'Ocp-Apim-Subscription-Key: <api_key>'
 ```
 
@@ -378,7 +383,7 @@ curl --location 'https://<endpoint>/contentsafety/text/autoReviewers?api-version
 import requests
 import json
 
-endpoint = "https://<endpoint>"
+endpoint = "<endpoint>"
 url = endpoint+"/contentsafety/text/autoReviewers?api-version=2024-02-15-preview"
 
 headers = {
@@ -399,7 +404,7 @@ print(response.text)
 -Curl
 
 ```
-curl --location --request DELETE 'https://<endpoint>/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview&version=2' \
+curl --location --request DELETE '<endpoint>/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview&version=2' \
 --header 'Ocp-Apim-Subscription-Key: <api_key>'
 ```
 
@@ -409,7 +414,7 @@ curl --location --request DELETE 'https://<endpoint>/contentsafety/text/autoRevi
 import requests
 import json
 
-endpoint = "https://<endpoint>"
+endpoint = "<endpoint>"
 url = endpoint+"/contentsafety/text/autoReviewers/AnimalAbuse?api-version=2024-02-15-preview&version=1"
 
 headers = {
