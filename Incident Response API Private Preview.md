@@ -49,8 +49,8 @@ For image, we are developing a light-weight image object tracking model and embe
 #### 1. Create an incident
 
 ```shell
-curl --location --request PATCH 'https://<endpoint>/contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>' \
+curl --location --request PATCH '{endpoint}contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}' \
 --header 'Content-Type: application/json' \
 --data '{
   "incidentName": "text-incident-name",
@@ -62,14 +62,14 @@ curl --location --request PATCH 'https://<endpoint>/contentsafety/text/incidents
 import requests
 import json
 
-url = "https://<endpoint>/contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview"
 
 payload = json.dumps({
   "incidentName": "text-incident-name",
   "description": "string"
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>',
+  'Ocp-Apim-Subscription-Key': '{api_key}',
   'Content-Type': 'application/json'
 }
 
@@ -81,8 +81,8 @@ print(response.text)
 #### 2. Add samples to the incident
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/text/incidents/text-incident-name:addIncidentSamples?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>' \
+curl --location '{endpoint}contentsafety/text/incidents/text-incident-name:addIncidentSamples?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}' \
 --header 'Content-Type: application/json' \
 --data-raw '{
   "incidentSamples": [
@@ -105,7 +105,7 @@ curl --location 'https://<endpoint>/contentsafety/text/incidents/text-incident-n
 import requests
 import json
 
-url = "https://<endpoint>/contentsafety/text/incidents/text-incident-name:addIncidentSamples?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/text/incidents/text-incident-name:addIncidentSamples?api-version=2023-10-30-preview"
 
 payload = json.dumps({
   "incidentSamples": [
@@ -145,7 +145,7 @@ payload = json.dumps({
   ]
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>',
+  'Ocp-Apim-Subscription-Key': '{api_key}',
   'Content-Type': 'application/json'
 }
 
@@ -157,8 +157,8 @@ print(response.text)
 #### 3. Analyze text with incident response
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/text:analyze?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>' \
+curl --location '{endpoint}contentsafety/text:analyze?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}' \
 --header 'Content-Type: application/json' \
 --data '{
   "text":  "COCKSUCKER BEFORE YOU PISS AROUND ON MY WORK",
@@ -175,7 +175,7 @@ curl --location 'https://<endpoint>/contentsafety/text:analyze?api-version=2023-
 import requests
 import json
 
-url = "https://<endpoint>/contentsafety/text:analyze?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/text:analyze?api-version=2023-10-30-preview"
 
 payload = json.dumps({
   "text": "COCKSUCKER BEFORE YOU PISS AROUND ON MY WORK",
@@ -187,7 +187,7 @@ payload = json.dumps({
   }
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>',
+  'Ocp-Apim-Subscription-Key': '{api_key}',
   'Content-Type': 'application/json'
 }
 
@@ -201,8 +201,8 @@ print(response.text)
 #### 1. Create an incident
 
 ```shell
-curl --location --request PATCH 'https://<endpoint>/contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>' \
+curl --location --request PATCH '{endpoint}contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}' \
 --header 'Content-Type: application/json' \
 --data '{
   "incidentName": "image-incident-name",
@@ -214,14 +214,14 @@ curl --location --request PATCH 'https://<endpoint>/contentsafety/image/incident
 import requests
 import json
 
-url = "https://<endpoint>/contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview"
 
 payload = json.dumps({
   "incidentName": "image-incident-name",
   "description": "string"
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>',
+  'Ocp-Apim-Subscription-Key': '{api_key}',
   'Content-Type': 'application/json'
 }
 
@@ -234,8 +234,8 @@ print(response.text)
 #### 2. Add samples to the incident
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/image/incidents/image-incident-name:addIncidentSamples?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>' \
+curl --location '{endpoint}contentsafety/image/incidents/image-incident-name:addIncidentSamples?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}' \
 --header 'Content-Type: application/json' \
 --data '{
   "incidentSamples": [
@@ -253,7 +253,7 @@ curl --location 'https://<endpoint>/contentsafety/image/incidents/image-incident
 import requests
 import json
 
-url = "https://<endpoint>/contentsafety/image/incidents/image-incident-name:addIncidentSamples?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/image/incidents/image-incident-name:addIncidentSamples?api-version=2023-10-30-preview"
 
 payload = json.dumps({
   "incidentSamples": [
@@ -266,7 +266,7 @@ payload = json.dumps({
   ]
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>',
+  'Ocp-Apim-Subscription-Key': '{api_key}',
   'Content-Type': 'application/json'
 }
 
@@ -279,8 +279,8 @@ print(response.text)
 #### 3. Analyze image with incident response
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/image:analyze?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>' \
+curl --location '{endpoint}contentsafety/image:analyze?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}' \
 --header 'Content-Type: application/json' \
 --data '{
     "image":
@@ -306,7 +306,7 @@ curl --location 'https://<endpoint>/contentsafety/image:analyze?api-version=2023
 import requests
 import json
 
-url = "https://<endpoint>/contentsafety/image:analyze?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/image:analyze?api-version=2023-10-30-preview"
 
 payload = json.dumps({
   "image": {
@@ -325,7 +325,7 @@ payload = json.dumps({
   }
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>',
+  'Ocp-Apim-Subscription-Key': '{api_key}',
   'Content-Type': 'application/json'
 }
 
@@ -354,18 +354,18 @@ print(response.text)
 #### Get the incidents list
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/text/incidents?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>'
+curl --location '{endpoint}contentsafety/text/incidents?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}'
 ```
 
 ```python
 import requests
 
-url = "https://<endpoint>/contentsafety/text/incidents?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/text/incidents?api-version=2023-10-30-preview"
 
 payload = {}
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>'
+  'Ocp-Apim-Subscription-Key': '{api_key}'
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
@@ -376,18 +376,18 @@ print(response.text)
 #### Get the incident details
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>'
+curl --location '{endpoint}contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}'
 ```
 
 ```python
 import requests
 
-url = "https://<endpoint>/contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview"
 
 payload = {}
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>'
+  'Ocp-Apim-Subscription-Key': '{api_key}'
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
@@ -398,18 +398,18 @@ print(response.text)
 #### Delete the incident
 
 ```shell
-curl --location --request DELETE 'https://<endpoint>/contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>'
+curl --location --request DELETE '{endpoint}contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}'
 ```
 
 ```python
 import requests
 
-url = "https://<endpoint>/contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/text/incidents/text-incident-name?api-version=2023-10-30-preview"
 
 payload = {}
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>'
+  'Ocp-Apim-Subscription-Key': '{api_key}'
 }
 
 response = requests.request("DELETE", url, headers=headers, data=payload)
@@ -420,18 +420,18 @@ print(response.text)
 #### Get the incident sample list
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/text/incidents/text-incident-name/incidentSamples?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>'
+curl --location '{endpoint}contentsafety/text/incidents/text-incident-name/incidentSamples?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}'
 ```
 
 ```python
 import requests
 
-url = "https://<endpoint>/contentsafety/text/incidents/text-incident-name/incidentSamples?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/text/incidents/text-incident-name/incidentSamples?api-version=2023-10-30-preview"
 
 payload = {}
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>'
+  'Ocp-Apim-Subscription-Key': '{api_key}'
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
@@ -442,18 +442,18 @@ print(response.text)
 #### Get the incident sample details
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/text/incidents/text-incident-name/incidentSamples/00e63d3f-54a6-4495-8191-6020923ca789?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>'
+curl --location '{endpoint}contentsafety/text/incidents/text-incident-name/incidentSamples/00e63d3f-54a6-4495-8191-6020923ca789?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}'
 ```
 
 ```python
 import requests
 
-url = "https://<endpoint>/contentsafety/text/incidents/text-incident-name/incidentSamples/00e63d3f-54a6-4495-8191-6020923ca789?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/text/incidents/text-incident-name/incidentSamples/00e63d3f-54a6-4495-8191-6020923ca789?api-version=2023-10-30-preview"
 
 payload = {}
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>'
+  'Ocp-Apim-Subscription-Key': '{api_key}'
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
@@ -464,8 +464,8 @@ print(response.text)
 #### Delete the incident sample
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/text/incidents/text-incident-name:removeIncidentSamples?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>' \
+curl --location '{endpoint}contentsafety/text/incidents/text-incident-name:removeIncidentSamples?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}' \
 --header 'Content-Type: application/json' \
 --data '{
   "incidentSampleIds": [
@@ -478,7 +478,7 @@ curl --location 'https://<endpoint>/contentsafety/text/incidents/text-incident-n
 import requests
 import json
 
-url = "https://<endpoint>/contentsafety/text/incidents/text-incident-name:removeIncidentSamples?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/text/incidents/text-incident-name:removeIncidentSamples?api-version=2023-10-30-preview"
 
 payload = json.dumps({
   "incidentSampleIds": [
@@ -486,7 +486,7 @@ payload = json.dumps({
   ]
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>',
+  'Ocp-Apim-Subscription-Key': '{api_key}',
   'Content-Type': 'application/json'
 }
 
@@ -500,18 +500,18 @@ print(response.text)
 #### Get the incidents list
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/image/incidents?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>'
+curl --location '{endpoint}contentsafety/image/incidents?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}'
 ```
 
 ```python
 import requests
 
-url = "https://<endpoint>/contentsafety/image/incidents?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/image/incidents?api-version=2023-10-30-preview"
 
 payload = {}
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>'
+  'Ocp-Apim-Subscription-Key': '{api_key}'
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
@@ -522,18 +522,18 @@ print(response.text)
 #### Get the incident details
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>'
+curl --location '{endpoint}contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}'
 ```
 
 ```python
 import requests
 
-url = "https://<endpoint>/contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview"
 
 payload = {}
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>'
+  'Ocp-Apim-Subscription-Key': '{api_key}'
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
@@ -544,18 +544,18 @@ print(response.text)
 #### Delete the incident
 
 ```shell
-curl --location --request DELETE 'https://<endpoint>/contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>'
+curl --location --request DELETE '{endpoint}contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}'
 ```
 
 ```python
 import requests
 
-url = "https://<endpoint>/contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/image/incidents/image-incident-name?api-version=2023-10-30-preview"
 
 payload = {}
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>'
+  'Ocp-Apim-Subscription-Key': '{api_key}'
 }
 
 response = requests.request("DELETE", url, headers=headers, data=payload)
@@ -566,18 +566,18 @@ print(response.text)
 #### Get the incident sample list
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/image/incidents/image-incident-name/incidentSamples?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>'
+curl --location '{endpoint}contentsafety/image/incidents/image-incident-name/incidentSamples?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}'
 ```
 
 ```python
 import requests
 
-url = "https://<endpoint>/contentsafety/image/incidents/image-incident-name/incidentSamples?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/image/incidents/image-incident-name/incidentSamples?api-version=2023-10-30-preview"
 
 payload = {}
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>'
+  'Ocp-Apim-Subscription-Key': '{api_key}'
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
@@ -588,18 +588,18 @@ print(response.text)
 #### Get the incident sample details
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/image/incidents/image-incident-name/incidentSamples/00e63d3f-54a6-4495-8191-6020923ca789?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>'
+curl --location '{endpoint}contentsafety/image/incidents/image-incident-name/incidentSamples/00e63d3f-54a6-4495-8191-6020923ca789?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}'
 ```
 
 ```python
 import requests
 
-url = "https://<endpoint>/contentsafety/image/incidents/image-incident-name/incidentSamples/00e63d3f-54a6-4495-8191-6020923ca789?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/image/incidents/image-incident-name/incidentSamples/00e63d3f-54a6-4495-8191-6020923ca789?api-version=2023-10-30-preview"
 
 payload = {}
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>'
+  'Ocp-Apim-Subscription-Key': '{api_key}'
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
@@ -610,8 +610,8 @@ print(response.text)
 #### Delete the incident sample
 
 ```shell
-curl --location 'https://<endpoint>/contentsafety/image/incidents/image-incident-name:removeIncidentSamples?api-version=2023-10-30-preview' \
---header 'Ocp-Apim-Subscription-Key: <api_key>' \
+curl --location '{endpoint}contentsafety/image/incidents/image-incident-name:removeIncidentSamples?api-version=2023-10-30-preview' \
+--header 'Ocp-Apim-Subscription-Key: {api_key}' \
 --header 'Content-Type: application/json' \
 --data '{
   "incidentSampleIds": [
@@ -624,7 +624,7 @@ curl --location 'https://<endpoint>/contentsafety/image/incidents/image-incident
 import requests
 import json
 
-url = "https://<endpoint>/contentsafety/image/incidents/image-incident-name:removeIncidentSamples?api-version=2023-10-30-preview"
+url = "{endpoint}contentsafety/image/incidents/image-incident-name:removeIncidentSamples?api-version=2023-10-30-preview"
 
 payload = json.dumps({
   "incidentSampleIds": [
@@ -632,7 +632,7 @@ payload = json.dumps({
   ]
 })
 headers = {
-  'Ocp-Apim-Subscription-Key': '<api_key>',
+  'Ocp-Apim-Subscription-Key': '{api_key}',
   'Content-Type': 'application/json'
 }
 
